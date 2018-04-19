@@ -221,13 +221,21 @@ if(isset($_POST['login'])){
                         <div class="col-xs-3">
                         </div>
                         <div class="col-xs-6">
-                            <button class="btn btn-block bg-cyan waves-effect" type="submit">LOGIN</button>
-                        
+                            <button class="btn btn-block bg-cyan waves-effect" type="submit" name="login">LOGIN</button>
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
+            <?php 
+              if (isset($_GET['alert'])) {
+                if ($_GET['alert'] == 'error') {
+                echo "<div class='alert bg-red'><strong>Login Gagal !</strong> Username dan atau Password Salah.<br>Password yang diinput harus sama persis (Case Sensitive)</div> ";
+                }
+              }
+             ?>          
     </div>
+                               
 
     <!-- Jquery Core Js -->
     <script src="assets/js/jquery.min.js"></script>
