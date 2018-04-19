@@ -221,7 +221,7 @@ if(isset($_POST['login'])){
                         <div class="col-xs-3">
                         </div>
                         <div class="col-xs-6">
-                            <button class="btn btn-block bg-blue waves-effect" type="submit">LOGIN</button>
+                            <button class="btn btn-block bg-cyan waves-effect" type="submit">LOGIN</button>
                         
                     </div>
                 </form>
