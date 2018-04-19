@@ -184,6 +184,9 @@ if(isset($_POST['login'])){
     <!-- Animation Css -->
     <link href="assets/css/animate.css" rel="stylesheet" />
 
+    <!-- Materialize Css -->
+    <link href="assets/css/materialize.css" rel="stylesheet" />
+
     <!-- Custom Css -->
     <link href="assets/css/style.css" rel="stylesheet">
 </head>
@@ -196,7 +199,7 @@ if(isset($_POST['login'])){
         </div>
         <div class="card">
             <div class="body">
-                <form id="sign_in" method="POST">
+                <form id="sign_in" action="login.php" method="POST">
                     <div class="msg">Login untuk memulai sesi</div>
                     <div class="input-group">
                         <span class="input-group-addon">
