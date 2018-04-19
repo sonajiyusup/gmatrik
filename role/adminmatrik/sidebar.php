@@ -22,8 +22,12 @@
             <div class="menu">
                 <ul class="list">
                     <li class="header">HOME</li>
-                    <li class="active">
-                        <a href="index.html">
+                    <li <?php 
+                          if ($_SERVER['REQUEST_URI'] == '/gmatrik/index.php') {
+                             echo "class='active'";
+                          }
+                        ?>
+                    ><a href="index.php">
                             <i class="material-icons">home</i>
                             <span>Dashboard</span>
                         </a>
@@ -105,28 +109,46 @@
                         </ul>
                     </li>
                     <li class="header">PENGGUNA</li>
-                    <li>
+                    <li<?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'mahasiswa') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            >
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">account_box</i>
                             <span>Mahasiswa</span>
                         </a>
                         <ul class="ml-menu">
-                            <li>
-                                <a href="pages/charts/morris.html">Data Mahasiswa</a>
+                            <li><a href="?page=mahasiswa">Data Mahasiswa</a>
                             </li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
+                    <li <?php 
+                          if (isset($_GET['page'])) {
+                            if ($_GET['page'] == 'pembina') {
+                              echo "class='active'";
+                            }
+                          }
+                        ?>
+                    ><a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">supervisor_account</i>
-                            <span>Pembina Mahasiswa</span>
+                            <span>Pembina</span>
                         </a>
                         <ul class="ml-menu">
-                            <li>
-                                <a href="pages/charts/morris.html">Data Pembina</a>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'pembina') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            ><a href="?page=pembina">Data Pembina</a>
                             </li>
                             <li>
-                                <a href="pages/charts/flot.html">Mahasiswa Binaan</a>
+                                <a href="?page=mbinaan">Mahasiswa Binaan</a>
                             </li>
                         </ul>
                     </li>
