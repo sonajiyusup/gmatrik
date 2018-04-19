@@ -143,4 +143,60 @@
                 </div>
             </div>
             <!-- #Footer -->
-        </aside>
+</aside>
+
+<section class="content">
+
+    <?php  
+        if (isset($_GET['page'])) {
+            if ($_GET['page'] == 'mahasiswa') {
+                include 'mahasiswa.php';
+            } else if ($_GET['page'] == 'pembina') {
+                include 'pembina/pembina.php';
+            } else if ($_GET['page'] == 'pembinadetails') {
+            include 'detailpembina.php';
+            } else if ($_GET['page'] == 'editpembina') {
+              include 'edit_pembina.php';
+            } else if ($_GET['page'] == 'profil') {
+              include 'profil.php';
+            } else if ($_GET['page'] == 'editprofil') {
+              include 'edit_profil.php';
+            } else if ($_GET['page'] == 'mahasiswadetails') {
+              include 'detailmahasiswa.php';
+            } else if ($_GET['page'] == 'editmahasiswa') {
+              include 'edit_mahasiswa.php';
+            } else if ($_GET['page'] == 'bypembina') {
+              include 'bypembina.php';
+            } else if ($_GET['page'] == 'bypembinadetail') {
+              include 'bypembinadetail.php';
+            } else if ($_GET['page'] == 'tambahbinaan') {
+              include 'tambahbinaan.php';
+            } else if ($_GET['page'] == 'shalat') {
+              include 'shalat.php';
+            } else if ($_GET['page'] == 'pbentuk') {
+              include 'pelanggaran/pbentuk.php';
+            } else if ($_GET['page'] == 'paksi') {
+              include 'pelanggaran/paksi.php';
+            } else if ($_GET['page'] == 'psanksi') {
+              include 'pelanggaran/psanksi.php';
+            } else if ($_GET['page'] == 'planjut') {
+              include 'pelanggaran/planjut.php';
+            } else if ($_GET['page'] == 'pikhtisar') {
+            include 'pelanggaran/pikhtisar.php';
+          } else if ($_GET['page'] == 'pmaindetail') {
+            include 'pelanggaran/pikhtisar_detail.php';
+          } else if ($_GET['page'] == 'pbentukdetail') {
+            include 'pelanggaran/pbentuk_detail.php';
+          } else if ($_GET['page'] == 'paksidetail') {
+            include 'pelanggaran/paksi_detail.php';
+          } else if ($_GET['page'] == 'psanksidetail') {
+            include 'pelanggaran/psanksi_detail.php';
+          } else if ($_GET['page'] == 'planjutdetail') {
+            include 'pelanggaran/planjut_detail.php';
+          } 
+        } else{
+            include 'dashboard.php';
+        }
+
+    ?>
+</section>
