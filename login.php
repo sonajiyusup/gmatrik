@@ -194,7 +194,7 @@ if(isset($_POST['login'])){
 <body class="login-page">
     <div class="login-box">
         <div class="logo">
-            <a href="javascript:void(0);"><img src="assets/img/icon30.png">&nbsp;Graph<b>Matrik</b></a>
+            <a href="javascript:void(0);"><img src="assets/img/icon30.png">&nbsp;<b>Graph</b>Matrik</a>
             <small>Sistem Informasi Monitoring Matrikulasi Mahasiswa STEI Tazkia</small>
         </div>
         <div class="card">

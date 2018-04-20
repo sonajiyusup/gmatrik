@@ -12,7 +12,7 @@
                         <ul class="dropdown-menu pull-right">
                             <li><a href="javascript:void(0);" style="color:#3C8DBC;"><i class="material-icons">person</i>Profil</a></li>
                             <li role="seperator" class="divider"></li>
-                            <li><a href="logout.php" style='color:#DD4B39;'><i class="material-icons">input</i>Logout</a></li>
+                            <li><a href="logout.php" style='color:#DD4B39;'><i class="material-icons">power_settings_new</i>Logout</a></li>
                         </ul>
                     </div>
                 </div>

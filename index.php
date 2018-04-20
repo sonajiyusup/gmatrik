@@ -265,6 +265,7 @@
 
     <!-- Demo Js -->
     <script src="assets/js/demo.js"></script>
+    <script src="assets/js/modals.js"></script>
 
     <!-- page script -->
     <script>
