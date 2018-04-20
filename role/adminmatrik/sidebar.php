@@ -128,7 +128,7 @@
                     </li>
                     <li <?php 
                           if (isset($_GET['page'])) {
-                            if ($_GET['page'] == 'pembina') {
+                            if ($_GET['page'] == 'pembina' || $_GET['page'] == 'pembinadetails') {
                               echo "class='active'";
                             }
                           }
@@ -140,7 +140,7 @@
                         <ul class="ml-menu">
                             <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'pembina') {
+                                    if ($_GET['page'] == 'pembina' || $_GET['page'] == 'pembinadetails') {
                                       echo "class='active'";
                                     }
                                   }
