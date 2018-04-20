@@ -87,8 +87,8 @@
                             <h4 class="modal-title" id="smallModalLabel">Hapus Akun Pembina ?</h4>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger btn-ok waves-effect">HAPUS</button>
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">BATAL</button>
+                            <a type="button" class="btn btn-danger btn-ok waves-effect">HAPUS</a>
+                            <button class="btn btn-link waves-effect" data-dismiss="modal">BATAL</button>
                         </div>
                     </div>
                 </div>

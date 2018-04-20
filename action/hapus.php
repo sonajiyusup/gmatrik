@@ -7,23 +7,23 @@ include '../functions.php';
 		$idUser = $_GET['iduser'];
 
 	    hapusPembina($idPembina, $idUser);
-	    header('location:/simon/index.php?page=pembina'); 
+	    header('location:/gmatrik/index.php?page=pembina'); 
 	} else
 	if (isset($_GET['idmahasiswa'])) {
 		$idMahasiswa = $_GET['idmahasiswa'];
 		$idUser = $_GET['iduser'];
 
 	    hapusMahasiswa($idMahasiswa, $idUser);
-	    header('location:/simon/index.php?page=mahasiswa'); 
+	    header('location:/gmatrik/index.php?page=mahasiswa'); 
 	} else
 	if(isset($_GET['idpage'])){
-		header('location:/simon/index.php'); 
+		header('location:/gmatrik/index.php'); 
 	} else
 	if(isset($_GET['idmahasiswabinaan'])){
 		$idMahasiswa = $_GET['idmahasiswabinaan'];
 		$idPembina = $_GET['uidpembina']; //nama variabel 'GET' JANGAN SAMA dengan 'GET' lainnya
 
 	    hapusMhsBinaan($idMahasiswa);
-	    header('location:/simon/index.php?page=pembinadetails&id='.$idPembina); 
+	    header('location:/gmatrik/index.php?page=pembinadetails&id='.$idPembina); 
 	}
  ?>
