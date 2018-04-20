@@ -29,6 +29,12 @@
     <!-- Animation Css -->
     <link href="assets/css/animate.css" rel="stylesheet" />
 
+    <!-- Bootstrap Material Datetime Picker Css -->
+    <link href="assets/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
+
+    <!-- Bootstrap Select Css -->
+    <link href="assets/css/bootstrap-select.css" rel="stylesheet" />
+
     <!-- JQuery DataTable Css -->
     <link href="assets/css/dataTables.bootstrap.css" rel="stylesheet">
 
@@ -245,6 +251,15 @@
     <!-- Waves Effect Plugin Js -->
     <script src="assets/js/waves.js"></script>
 
+    <!-- Autosize Plugin Js -->
+    <script src="assets/js/autosize.js"></script>
+
+    <!-- Moment Plugin Js -->
+    <script src="assets/js/moment.js"></script>
+
+    <!-- Bootstrap Material Datetime Picker Plugin Js -->
+    <script src="assets/js/bootstrap-material-datetimepicker.js"></script>
+
     <!-- Jquery DataTable Plugin Js -->
     <script src="assets/js/jquery.dataTables.js"></script>
     <script src="assets/js/dataTables.bootstrap.js"></script>
@@ -262,6 +277,7 @@
     <!-- Custom Js -->
     <script src="assets/js/admin.js"></script>
     <script src="assets/js/jquery-datatable.js"></script>
+    <script src="assets/js/basic-form-elements.js"></script>
 
     <!-- Demo Js -->
     <script src="assets/js/demo.js"></script>

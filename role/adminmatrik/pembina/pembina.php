@@ -4,14 +4,14 @@
 
 <div class="container-fluid">
 	<div class="block-header">
-		<h2>PEMBINA MAHASISWA</h2>            
+		<h2>DATA PEMBINA MAHASISWA</h2>            
 	</div>
 
 	<div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <h2>DATA PEMBINA</h2>
+                          <button class="btn btn-primary waves-effect" data-toggle="modal" data-target="#tambahPembina" style="width: 14.66666666666667%;"><i class="material-icons">add_box</i><span>TAMBAH</span></button>
                         </div>
                         <div class="body ">
                         	<div class="table-responsive">
@@ -37,7 +37,7 @@
 						                   ?>
 						                <tr>
 						                  <td><b><?php echo $no ?></b></td>  
-						                  <td><?php echo "<a href='index.php?page=pembinadetails&id=".$row['id_user']."'>".$row['nama']."</a>" ?></td>
+						                  <td><?php echo "<a href='index.php?page=pembinadetails&id=".$row['id_user']."' style='text-decoration:none'>".$row['nama']."</a>" ?></td>
 						                  <td><?php echo $row['jml_binaan'] ?></td>
 						                  <td><?php if($row['j_kelamin'] == 'Ikhwan' || $row['j_kelamin'] == 'Laki-laki'){echo '<span class="label bg-green">Ikhwan</span>';} else if($row['j_kelamin'] == 'Akhwat' || $row['j_kelamin'] == 'Perempuan'){echo '<span class="label bg-yellow">Akhwat</span>';} ?></td>
 						                  <td><?php echo $row['telp'] ?></td>
@@ -45,7 +45,7 @@
 						                  ?></td>
 						                 	<td>
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-info dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="material-icons" style="font-size: 14px">settings</i>&nbsp;<span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu">
@@ -93,3 +93,125 @@
                     </div>
                 </div>
             </div>
+
+            <div class="modal fade" id="tambahPembina" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                	<form class="form-horizontal" method="POST">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="defaultModalLabel">Tambah Akun Pembina</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row clearfix">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">assignment_ind</i>
+                                        </span>
+                                        <div class="form-line">
+                                            <input type="text" name="nama" class="form-control date" placeholder="Nama" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">person_outline</i>
+                                        </span>
+                                        <select class="form-control show-tick" name="gender" required>
+	                                        <option value="">-- Ikhwan/Akhwat --</option>
+	                                        <option value="Ikhwan">Ikhwan</option>
+	                                        <option value="Akhwat">Akhwat</option>
+                                    		</select>                                            
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                  <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">today</i>
+                                        </span>
+                                        <div class="form-line">
+                                            <input type="text" class="datepicker form-control" name="tgl_lahir" placeholder="Tanggal Lahir" >
+                                        </div>
+                                  </div>
+                                </div>
+                                <div class="col-sm-12">
+                                  <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">school</i>
+                                        </span>
+                                        <select class="form-control show-tick" name="gelar" >
+	                                        <option value="">-- Pilih Gelar --</option>
+	                                        <option value="S.Ei">S.Ei</option>
+	                                        <option value="M.Ei">M.Ei</option>
+                                    		</select>                                            
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                  <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">location_city</i>
+                                        </span>
+                                        <div class="form-line">
+                                            <input type="text" name="asalkota" class="form-control date" placeholder="Kota Asal" >
+                                        </div>
+                                  </div>
+                                </div>
+                                <div class="col-sm-12">
+                                  <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">email</i>
+                                        </span>
+                                        <div class="form-line">
+                                            <input type="email" name="email" class="form-control date" placeholder="Email" required>
+                                        </div>
+                                  </div>
+                                </div>
+                                <div class="col-sm-12">
+                                  <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">phone_iphone</i>
+                                        </span>
+                                        <div class="form-line">
+                                            <input type="text" name="telp" class="form-control date" placeholder="No Telp." required>
+                                        </div>
+                                  </div>
+                                </div>
+                                <div class="col-sm-12">
+                                  <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">person</i>
+                                        </span>
+                                        <div class="form-line">
+                                            <input type="text" name="username" class="form-control date" placeholder="Username" required>
+                                        </div>
+                                  </div>
+                                </div>
+                                <div class="col-sm-12">
+                                  <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">lock</i>
+                                        </span>
+                                        <div class="form-line">
+                                            <input type="text" name="password" class="form-control date" placeholder="Password" required>
+                                        </div>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" name="tambahPembina" class="btn btn-primary waves-effect" style="width: 16.66666666666667%;">SUBMIT</button>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">BATAL</button>
+                        </div>
+                    </div>
+                  </form>
+                </div>
+</div>
+
+    <?php 
+      if (isset($_POST['tambahPembina'])) {
+        tambahPembina($_POST['nama'], $_POST['gender'], date("Y-m-d", strtotime($_POST['tgl_lahir'])), $_POST['gelar'], $_POST['asalkota'], $_POST['email'], $_POST['telp'], $_POST['username'], $_POST['password']);
+        
+        echo "<script>document.location='?page=pembina'</script>";
+      }
+    ?> 

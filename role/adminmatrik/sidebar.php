@@ -172,11 +172,11 @@
     <?php  
         if (isset($_GET['page'])) {
             if ($_GET['page'] == 'mahasiswa') {
-                include 'mahasiswa.php';
+              include 'mahasiswa.php';
             } else if ($_GET['page'] == 'pembina') {
-                include 'pembina/pembina.php';
+              include 'pembina/pembina.php';
             } else if ($_GET['page'] == 'pembinadetails') {
-            include 'detailpembina.php';
+              include 'pembina/pembina_detail.php';
             } else if ($_GET['page'] == 'editpembina') {
               include 'edit_pembina.php';
             } else if ($_GET['page'] == 'profil') {
