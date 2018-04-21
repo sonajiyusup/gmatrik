@@ -51,7 +51,14 @@
                                 <tr>
                                   <th>Ikhwan/Akhwat</th>
                                   <td>:</td>
-                                  <td><?php echo $row['j_kelamin']; ?></td>
+                                  <td><?php 
+                                            if ($row['j_kelamin'] == "Ikhwan" || $row['j_kelamin'] == "Laki-laki") {
+                                              echo "Ikhwan";
+                                            } else
+                                            if($row['j_kelamin'] == "Akhwat" || $row['j_kelamin'] == "Perempuan"){
+                                              echo "Akhwat";
+                                            }
+                                          ?></td>
                                 </tr>
                                 <tr>
                                   <th>Tanggal Lahir</th>

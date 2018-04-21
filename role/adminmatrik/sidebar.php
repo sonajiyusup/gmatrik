@@ -109,7 +109,7 @@
                         </ul>
                     </li>
                     <li class="header">PENGGUNA</li>
-                    <li<?php 
+                    <li <?php 
                                   if (isset($_GET['page'])) {
                                     if ($_GET['page'] == 'mahasiswa') {
                                       echo "class='active'";
@@ -152,6 +152,30 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="header">PROFIL</li>
+                    <li <?php 
+                          if (isset($_GET['page'])) {
+                            if ($_GET['page'] == 'profil' || $_GET['page'] == 'editprofil') {
+                              echo "class='active'";
+                            }
+                          }
+                        ?>
+                    ><a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">supervisor_account</i>
+                            <span>Profil</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'profil' || $_GET['page'] == 'editprofil') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            ><a href="?page=profil">Profil Saya</a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <!-- #Menu -->
@@ -182,7 +206,7 @@
             } else if ($_GET['page'] == 'profil') {
               include 'profil.php';
             } else if ($_GET['page'] == 'editprofil') {
-              include 'edit_profil.php';
+              include 'profil_edit.php';
             } else if ($_GET['page'] == 'mahasiswadetails') {
               include 'detailmahasiswa.php';
             } else if ($_GET['page'] == 'editmahasiswa') {
