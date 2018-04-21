@@ -13,14 +13,13 @@
 
 <div class="container-fluid">
   <div class="block-header">
-    <h2><a href="?page=pembina" class="btn btn-default waves-effect" style="width: 4%;"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;DATA PEMBINA MAHASISWA</h2>            
+    <h2><a href="?page=pembina" class="btn btn-link waves-effect"><i class="material-icons" style='font-size: 24px'>arrow_back</i></a>&nbsp;&nbsp;&nbsp;DATA PEMBINA MAHASISWA</h2>            
   </div>
 
   <div class="row clearfix">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-
                             <h2>
                                 PROFIL
                             </h2>
@@ -99,7 +98,7 @@
                     <div class="card">
                         <div class="header">
                             <h2>
-                                MAHASISWA BINAAN
+                                MAHASISWA BINAAN &nbsp;<button class="btn btn-sm btn-link waves-effect " data-toggle="modal" data-target="#tambahPembina" style="width: 17%;"><i class="material-icons">playlist_add</i></button>
                             </h2>
                         </div>
                         <div class="body">
