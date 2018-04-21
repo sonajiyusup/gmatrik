@@ -1,8 +1,8 @@
 <?php 
 
   include 'functions.php';
-      $dataAdminMatrik = adminMatrikDetails($_SESSION['id_user']);
-      foreach($dataAdminMatrik as $row){ 
+      $dataMahasiswa = mahasiswaDetails($_SESSION['id_user']);
+      foreach($dataMahasiswa as $row){ 
  ?>
 
 <div class="container-fluid">
@@ -17,14 +17,28 @@
                         </div>
                         <div class="body table-responsive">
                             <table id="tableProfil" class="table table-condensed">
-                            <col width="250">
+                            <col width="280">
                             <col width="20">
                             <col width="500">
                                 <tr> 
                                   <td colspan="3"> 
                                     <div class="image" align="center">
                                       <a href="#ModalUploadAva" title="Klik untuk Ganti Foto Profil" data-toggle='modal'>
-                                        <img src=<?php echo "assets/img/user/".$row['avatar']; ?> width="100" height="100" alt="User" />
+                                        <img src=<?php
+                                          if ($row['avatar'] == NULL) {
+                                            if ($row['j_kelamin'] == 'Akhwat' || $row['j_kelamin'] == 'Perempuan'){
+                                              echo 'assets/img/user/default-female.jpg';
+                                            } else
+                                            if ($row['j_kelamin'] == 'Ikhwan' || $row['j_kelamin'] == 'Laki-laki'){
+                                              echo 'assets/img/user/default-male.png';
+                                            } else
+                                            if ($row['j_kelamin'] == NULL){
+                                              echo 'assets/img/user/default.png';
+                                            }
+                                          } else if($row['avatar'] != NULL){
+                                            echo 'assets/img/user/'.$row['avatar'];
+                                          }               
+                                        ?> width="100" height="100" alt="User" />
                                       </a>
                                       <br>
                                       <h4 align="center"><?php echo $row['nama']; ?></h4>
@@ -32,9 +46,9 @@
                                   </td>
                                 </tr>
                                 <tr>
-                                  <th>ID Admin Matrikulasi</th>
+                                  <th>Nomor Induk Mahasiswa</th>
                                   <td>:</td>
-                                  <td><?php echo $row['id_adminmatrik']; ?></td>
+                                  <td><?php echo $row['nim']; ?></td>
                                 </tr>
                                 <tr>
                                   <th>Username</th>
@@ -44,29 +58,22 @@
                                 <tr>
                                   <th>Email</th>
                                   <td>:</td>
-                                  <td><?php echo $row['email']; ?></td>
+                                  <td><?php if($row['email'] == NULL){echo 'Belum diatur';}else{echo $row['email'];} ?></td>
                                 </tr>
                                 <tr>
                                   <th>No Telp</th>
                                   <td>:</td>
-                                  <td><?php echo $row['telp']; ?></td>
+                                  <td><?php if($row['telp'] == NULL){echo 'Belum diatur';}else{echo $row['telp'];} ?></td>
                                 </tr>
                                 <tr>
                                   <th>Ikhwan/Akhwat</th>
                                   <td>:</td>
-                                  <td><?php 
-                                            if ($row['j_kelamin'] == "Ikhwan" || $row['j_kelamin'] == "Laki-laki") {
-                                              echo "Ikhwan";
-                                            } else
-                                            if($row['j_kelamin'] == "Akhwat" || $row['j_kelamin'] == "Perempuan"){
-                                              echo "Akhwat";
-                                            }
-                                          ?></td>
+                                  <td><?php if($row['j_kelamin'] == NULL){echo 'Belum diatur';}else{echo $row['j_kelamin'];} ?></td>
                                 </tr>
                                 <tr>
                                   <th>Tanggal Lahir</th>
                                   <td>:</td>
-                                  <td><?php echo date('d F Y', strtotime($row['tgl_lahir'])); ?></td>
+                                  <td><?php if($row['tgl_lahir'] == NULL){echo 'Belum diatur';}else{echo date('d F Y', strtotime($row['tgl_lahir']));} ?></td>
                                 </tr>
                               </table>                          
                               
