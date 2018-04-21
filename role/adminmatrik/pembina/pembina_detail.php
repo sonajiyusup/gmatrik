@@ -18,7 +18,7 @@
                     <div class="card">
                         <div class="header">
                             <h2>
-                                <a href="?page=pembina" class="btn btn-sm btn-link waves-effect " style="width: 10%;" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;DATA PEMBINA
+                                <a href="?page=pembina" class="btn btn-sm btn-link waves-effect" style="width: 10%;" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;DATA PEMBINA
                             </h2>
                         </div>
                         <div class="body table-responsive">
@@ -95,7 +95,8 @@
                     <div class="card">
                         <div class="header">
                             <h2>
-                                MAHASISWA BINAAN &nbsp;<button class="btn btn-sm btn-link waves-effect " data-toggle="modal" data-target="#tambahPembina" style="width: 17%;" title="Tambah Mahasiswa Binaan"><i class="material-icons">playlist_add</i></button>
+                                MAHASISWA BINAAN &nbsp;
+                                <a href="?page=tambahbinaan&id=<?php echo $idPembina; ?>" class="btn btn-sm btn-link waves-effect" style="width: 17%;" title="Tambah Mahasiswa Binaan"><i class="material-icons">playlist_add</i></a>
                             </h2>
                         </div>
                         <div class="body">

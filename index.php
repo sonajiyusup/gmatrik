@@ -32,6 +32,12 @@
     <!-- Bootstrap Material Datetime Picker Css -->
     <link href="assets/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
 
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="assets/css/iCheck/all.css">
+
+    <!-- Wait Me Css -->
+    <link href="assets/css/waitMe.css" rel="stylesheet" />
+
     <!-- Bootstrap Select Css -->
     <link href="assets/css/bootstrap-select.css" rel="stylesheet" />
 
@@ -237,6 +243,9 @@
     <!-- Slimscroll Plugin Js -->
     <script src="assets/js/jquery.slimscroll.js"></script>
 
+    <!-- iCheck 1.0.1 -->
+    <script src="assets/js/icheck.min.js"></script>
+
     <!-- Waves Effect Plugin Js -->
     <script src="assets/js/waves.js"></script>
 
@@ -305,6 +314,14 @@
             });
         });    
       </script>
+
+<script type="text/javascript">
+    //Flat red color scheme for iCheck
+    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+      checkboxClass: 'icheckbox_flat-blue',
+      radioClass   : 'iradio_flat-green'
+    })  
+</script>      
       
   </body>
 </html>

@@ -128,7 +128,7 @@
                     </li>
                     <li <?php 
                           if (isset($_GET['page'])) {
-                            if ($_GET['page'] == 'pembina' || $_GET['page'] == 'pembinadetails' || $_GET['page'] == 'editpembina') {
+                            if ($_GET['page'] == 'pembina' || $_GET['page'] == 'pembinadetails' || $_GET['page'] == 'editpembina' || $_GET['page'] == 'tambahbinaan') {
                               echo "class='active'";
                             }
                           }
@@ -140,7 +140,7 @@
                         <ul class="ml-menu">
                             <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'pembina' || $_GET['page'] == 'pembinadetails' || $_GET['page'] == 'editpembina') {
+                                    if ($_GET['page'] == 'pembina' || $_GET['page'] == 'pembinadetails' || $_GET['page'] == 'editpembina' || $_GET['page'] == 'tambahbinaan') {
                                       echo "class='active'";
                                     }
                                   }
@@ -192,7 +192,7 @@
             } else if ($_GET['page'] == 'bypembinadetail') {
               include 'bypembinadetail.php';
             } else if ($_GET['page'] == 'tambahbinaan') {
-              include 'tambahbinaan.php';
+              include 'pembina/pembina_tambahbinaan.php';
             } else if ($_GET['page'] == 'shalat') {
               include 'shalat.php';
             } else if ($_GET['page'] == 'pbentuk') {
