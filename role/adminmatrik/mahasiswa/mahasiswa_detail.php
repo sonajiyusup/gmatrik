@@ -97,51 +97,21 @@
                 </div>
                              
   </div>
-</div>
-             <div class="modal fade" id="ModalGantiPass" tabindex="-1" role="dialog">
-                <div class="modal-dialog modal-sm">
-                  <form class="form-horizontal" method="POST">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title" id="smallModalLabel">GANTI PASSWORD</h4>
-                        </div>
-                        <div class="modal-body">
-                            <label>Password Baru : </label>
-                            <div class="form-line">
-                              <input type="password" name="pass" class="form-control" id="pwinput2" placeholder="Masukan Password Baru" pattern=".{0}|.{8,}" title="8 Karakter Minimal" required><br>
-                            </div>
-                            <label>Konfirmasi Password : </label>
-                            <div class="form-line">
-                              <input type="password" name="passConf" class="form-control" id="pwinput3" placeholder="Masukan Ulang Password Baru" pattern=".{0}|.{8,}" title="8 Karakter Minimal" required>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary btn-ok waves-effect" name="gantiPass">SIMPAN</button>
-                            <button class="btn btn-link waves-effect" data-dismiss="modal">BATAL</button>
-                        </div>
-                    </div>
-                  </form>
-                </div>
-            </div>  
+</div> 
 
-            <div class="modal fade" id="ModalUploadAva" tabindex="-1" role="dialog">
+            <div class="modal fade" id="ModalHapusMahasiswa" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-sm">
-                  <form action="upload.php" method="post" enctype="multipart/form-data">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="smallModalLabel">UPLOAD FOTO PROFIL</h4>
-                        </div>
-                        <div class="modal-body">
-                          <input type="file" name="file" required>
+                            <h4 class="modal-title" id="smallModalLabel">HAPUS MAHASISWA</h4>
                         </div>
                         <div class="modal-footer">
-                            <input type="submit" class="btn btn-primary btn-ok waves-effect" name="upload" value="UPLOAD">
+                            <a class="btn btn-danger btn-ok waves-effect" name="upload">HAPUS</a>
                             <button class="btn btn-link waves-effect" data-dismiss="modal">BATAL</button>
                         </div>
                     </div>
-                  </form>
                 </div>
-            </div> 
+            </div>             
 
 <?php 
   if (isset($_POST['gantiPass'])) {
