@@ -321,7 +321,24 @@
       checkboxClass: 'icheckbox_flat-blue',
       radioClass   : 'iradio_flat-green'
     })  
-</script>      
+</script>  
+
+<!-- Fungsi Validasi Password Confirm -->
+<script type="text/javascript">
+var pwinput2 = document.getElementById("pwinput2")
+  , pwinput3 = document.getElementById("pwinput3");
+
+function validatePassword(){
+  if(pwinput2.value != pwinput3.value) {
+    pwinput3.setCustomValidity("Password Tidak Sama !");
+  } else {
+    pwinput3.setCustomValidity('');
+  }
+}
+
+pwinput2.onchange = validatePassword;
+pwinput3.onkeyup = validatePassword;
+</script>   
       
   </body>
 </html>

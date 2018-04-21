@@ -5,9 +5,7 @@
       foreach($dataAdminMatrik as $row){ 
  ?>
 
-
 <div class="container-fluid">
-
   <div class="row clearfix">
                 <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                     <div class="card">
@@ -63,7 +61,7 @@
                               </table>                          
                               
                               <a href="index.php?page=editprofil" class="btn btn-primary btn-block waves-effect"><i class="material-icons" style='font-size: 16px'>mode_edit</i><span>EDIT DATA PROFIL</span></a>
-                              <?php echo "<a class='btn btn-warning btn-block waves-effect' href='#ModalGantiPass' data-toggle='modal' data-href='action/hapus.php?&iduser=".$row['id_user']."'><i class='material-icons' style='font-size: 16px'>delete</i><span>GANTI PASSWORD</span></a>"; ?>
+                              <?php echo "<a class='btn btn-warning btn-block waves-effect' href='#ModalGantiPass' data-toggle='modal' ><i class='material-icons' style='font-size: 16px'>delete</i><span>GANTI PASSWORD</span></a>"; ?>
                         </div>
                         <?php } ?>
                     </div>
@@ -71,19 +69,36 @@
                              
   </div>
 </div>
-
-
-            <!-- Small Size -->
-            <div class="modal fade" id="ModalHapusPembina" tabindex="-1" role="dialog">
-                <div class="modal-dialog modal-sm" role="document">
+             <div class="modal fade" id="ModalGantiPass" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-sm">
+                  <form class="form-horizontal" method="POST">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="smallModalLabel">Hapus Akun Pembina ?</h4>
+                            <h4 class="modal-title" id="smallModalLabel">GANTI PASSWORD</h4>
+                        </div>
+                        <div class="modal-body">
+                            <label>Password Baru : </label>
+                            <div class="form-line">
+                              <input type="password" name="pass" class="form-control" id="pwinput2" placeholder="Masukan Password Baru" pattern=".{0}|.{8,}" title="8 Karakter Minimal" required><br>
+                            </div>
+                            <label>Konfirmasi Password : </label>
+                            <div class="form-line">
+                              <input type="password" name="passConf" class="form-control" id="pwinput3" placeholder="Masukan Ulang Password Baru" pattern=".{0}|.{8,}" title="8 Karakter Minimal" required>
+                            </div>
                         </div>
                         <div class="modal-footer">
-                            <a type="button" class="btn btn-danger btn-ok waves-effect">HAPUS</a>
+                            <button type="submit" class="btn btn-primary btn-ok waves-effect" name="gantiPass">SIMPAN</button>
                             <button class="btn btn-link waves-effect" data-dismiss="modal">BATAL</button>
                         </div>
                     </div>
+                  </form>
                 </div>
-            </div>         
+            </div>  
+
+<?php 
+  if (isset($_POST['gantiPass'])) {
+    gantiUserPassword($_SESSION['id_user'], $_POST['pass']);
+    echo "<script>document.location='?page=profil&alert=passchanged'</script>";
+  }
+
+ ?>            
