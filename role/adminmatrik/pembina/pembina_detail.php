@@ -87,12 +87,12 @@
                                   <td>:</td>
                                   <td><a href="index.php?page=bypembinadetail&idPembina=<?php echo $row['id_pembina']; ?>"><?php echo $row['jml_binaan']; ?></a></td>
                                 </tr>
-                                <?php } ?>
                               </table>                          
                               
                               <button class="btn btn-primary btn-block waves-effect"><i class="material-icons" style='font-size: 16px'>mode_edit</i><span>EDIT DATA PROFIL</span></button>
-                              <button class="btn btn-danger btn-outline btn-block waves-effect"><i class="material-icons" style='font-size: 16px'>delete</i><span>HAPUS PEMBINA</span></button>
+                              <?php echo "<a class='btn btn-danger btn-block waves-effect' href='#ModalHapusPembina' data-toggle='modal' data-href='action/hapus.php?idpembina=".$row['id_pembina']."&iduser=".$row['id_user']."'><i class='material-icons' style='font-size: 16px'>delete</i><span>HAPUS PEMBINA</span></a>"; ?>
                         </div>
+                        <?php } ?>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -153,3 +153,19 @@
                 <!-- #END# Color Variations -->                
   </div>
 </div>
+
+
+            <!-- Small Size -->
+            <div class="modal fade" id="ModalHapusPembina" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="smallModalLabel">Hapus Akun Pembina ?</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <a type="button" class="btn btn-danger btn-ok waves-effect">HAPUS</a>
+                            <button class="btn btn-link waves-effect" data-dismiss="modal">BATAL</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
