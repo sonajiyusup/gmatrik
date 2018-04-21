@@ -41,16 +41,16 @@
 						                  <td><?php if ($row['last_login'] == '0000-00-00 00:00:00'){ echo 'Belum Pernah';}else{ echo date("d-m-Y H:i", strtotime($row['last_login'])) ;}
 						                  ?></td>
 						                 	<td>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons" style="font-size: 14px">settings</i>&nbsp;<span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a title='Edit' style="color:#3C8DBC;" href="?page=editpembina&id=<?php echo $row['id_user']; ?>" class='dropdown-item'><i class='material-icons' style='font-size: 20px'>mode_edit</i></a></li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><?php echo "<a title='Hapus' style='color:#DD4B39;' href='#ModalHapusPembina' class='dropdown-item' data-toggle='modal' data-href='action/hapus.php?idpembina=".$row['id_pembina']."&iduser=".$row['id_user']."' aria-hidden='true'><i class='material-icons' style='font-size: 20px'>delete</i></a>"; ?></li>
-                                    </ul>
-                                </div>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="material-icons" style="font-size: 14px">settings</i>&nbsp;<span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a title='Edit' style="color:#3C8DBC;" href="?page=editpembina&id=<?php echo $row['id_user']; ?>" class='dropdown-item'><i class='material-icons' style='font-size: 20px'>mode_edit</i></a></li>
+                                                        <li role="separator" class="divider"></li>
+                                                        <li><?php echo "<a title='Hapus' style='color:#DD4B39;' href='#ModalHapusPembina' class='dropdown-item' data-toggle='modal' data-href='action/hapus.php?idpembina=".$row['id_pembina']."&iduser=".$row['id_user']."' aria-hidden='true'><i class='material-icons' style='font-size: 20px'>delete</i></a>"; ?></li>
+                                                    </ul>
+                                                </div>
 						                  </td>
 						                </tr>
 						                  <?php 
@@ -109,7 +109,7 @@
 	                                        <option value="">-- Ikhwan/Akhwat --</option>
 	                                        <option value="Ikhwan">Ikhwan</option>
 	                                        <option value="Akhwat">Akhwat</option>
-                                    		</select>                                            
+                                    	</select>                                            
                                     </div>
                                 </div>
                                 <div class="col-sm-12">

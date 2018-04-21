@@ -111,7 +111,7 @@
                     <li class="header">PENGGUNA</li>
                     <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'mahasiswa') {
+                                    if ($_GET['page'] == 'mahasiswa' || $_GET['page'] == 'mahasiswadetails') {
                                       echo "class='active'";
                                     }
                                   }
@@ -122,7 +122,14 @@
                             <span>Mahasiswa</span>
                         </a>
                         <ul class="ml-menu">
-                            <li><a href="?page=mahasiswa">Data Mahasiswa</a>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'mahasiswa' || $_GET['page'] == 'mahasiswadetails') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            ><a href="?page=mahasiswa">Data Mahasiswa</a>
                             </li>
                         </ul>
                     </li>
@@ -196,7 +203,7 @@
     <?php  
         if (isset($_GET['page'])) {
             if ($_GET['page'] == 'mahasiswa') {
-              include 'mahasiswa.php';
+              include 'mahasiswa/mahasiswa.php';
             } else if ($_GET['page'] == 'pembina') {
               include 'pembina/pembina.php';
             } else if ($_GET['page'] == 'pembinadetails') {
@@ -208,7 +215,7 @@
             } else if ($_GET['page'] == 'editprofil') {
               include 'profil_edit.php';
             } else if ($_GET['page'] == 'mahasiswadetails') {
-              include 'detailmahasiswa.php';
+              include 'mahasiswa/detailmahasiswa.php';
             } else if ($_GET['page'] == 'editmahasiswa') {
               include 'edit_mahasiswa.php';
             } else if ($_GET['page'] == 'bypembina') {

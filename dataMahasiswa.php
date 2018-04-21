@@ -32,11 +32,11 @@
 				'dt'        => 5,
 				'formatter' => function( $d, $row ) {
 					if($d == 'Ikhwan' || $d == 'Laki-laki'){
-						$gender = '<span class="label bg-green">Ikhwan</span>';
+						$gender = '<span class="label bg-light-blue">Ikhwan</span>';
 					} else if($d == 'Akhwat' || $d == 'Perempuan'){
-						$gender = '<span class="label bg-yellow">Akhwat</span>';
+						$gender = '<span class="label bg-pink">Akhwat</span>';
 					} else if($d == NULL){
-						$gender = '<span class="label bg-gray">Belum diset</span>';
+						$gender = '<span class="label bg-grey">Belum diset</span>';
 					}
 					return $gender;
 				}
@@ -58,22 +58,19 @@
 				'db'		=> 'id_user',
 				'dt'        => 7,
 				'formatter' => function( $d, $row ) {
-					if(strlen($row[2]) == 10){
-						$password = "<li><a style='color:#3C8DBC;' href='#ModalResetPassword' class='dropdown-item' data-toggle='modal'><i class='fa fa-unlock-alt'></i>&nbsp;&nbsp;Reset Password</a></li>";
-					}
-					return '<div class="dropdown">
-                      <button class="btn btn-default btn-sm dropdown-toggle " type="button" data-toggle="dropdown">
-                        <i class="fa fa-cog fa-lg"></i>&nbsp;&nbsp;<span class="caret"></span>
-                      </button>
-                      <ul class="dropdown-menu">
-                        <li><a style="color:#3C8DBC;" href="index.php?page=editmahasiswa&id='.$row[0].'" class="dropdown-item"><i class="fa fa-edit"></i>Edit</a></li>
-                        '.$password.'
-                        <li><a style="color:#DD4B39;" href="#ModalHapusMahasiswa" class="dropdown-item" data-toggle="modal" data-href="action/hapus.php?idmahasiswa='.$row[1].'&iduser='.$row[0].'" aria-hidden="true"><i class="fa fa-remove"></i>Hapus</a></li>
-                      </ul>
-                    </div>';
+					return '<div class="btn-group">
+										<button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<i class="material-icons" style="font-size: 14px">settings</i>&nbsp;<span class="caret"></span>
+										</button>
+										<ul class="dropdown-menu">
+											<li><a title="Edit" style="color:#3C8DBC;" href="index.php?page=editmahasiswa&id='.$row[0].'" class="dropdown-item"><i class="material-icons" style="font-size: 20px">mode_edit</i></a></li>
+											<li><a title="Hapus" style="color:#DD4B39;"" href="#ModalHapusMahasiswa" class="dropdown-item" data-toggle="modal" data-href="action/hapus.php?idmahasiswa='.$row[1].'&iduser='.$row[0].'" aria-hidden="true"><i class="material-icons" style="font-size: 20px">delete</i></a>
+											</li>
+										</ul>
+									</div>';
 				}
 			)
-		);
+		);		
 		
 		// SQL server connection information
 		$sql_details = array(
