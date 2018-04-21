@@ -16,7 +16,7 @@
 				'db'        => 'nim',
 				'dt'        => 3,
 				'formatter' => function( $d, $row ) {
-					return "<span class='badge'>".$d."</span>";
+					return "<span class='label bg-deep-orange'>".$d."</span>";
 				}
 			),
 			//$row[0] pada formatter, merujuk pada id_user yg diinit pada dt 0 sebelumnya
