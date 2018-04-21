@@ -10,8 +10,7 @@ $(function () {
     });
 
     $('.datepicker').bootstrapMaterialDatePicker({
-        format: 'dddd DD MMMM YYYY',
-        startDate: '-30d',
+        format: 'YYYY-MM-DD',
         clearButton: true,
         weekStart: 1,
         time: false

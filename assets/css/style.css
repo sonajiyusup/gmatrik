@@ -1,5 +1,8 @@
 ﻿/* Navbar ====================================== */
 @import url(materialize.css);
+.a {
+  text-decoration: none;
+}
 .navbar {
   font-family: "Roboto", sans-serif;
   -webkit-border-radius: 0;
@@ -1822,13 +1825,13 @@
   font-style: italic; }
 
 .font-underline {
-  text-decoration: underline; }
+  text-decoration: none; }
 
 .font-line-through {
-  text-decoration: line-through; }
+  text-decoration: none; }
 
 .font-overline {
-  text-decoration: overline; }
+  text-decoration: none; }
 
 .block-header {
   margin-bottom: 15px; }

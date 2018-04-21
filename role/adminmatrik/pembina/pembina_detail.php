@@ -88,7 +88,7 @@
                                 </tr>
                               </table>                          
                               
-                              <button class="btn btn-primary btn-block waves-effect"><i class="material-icons" style='font-size: 16px'>mode_edit</i><span>EDIT DATA PROFIL</span></button>
+                              <a href="?page=editpembina&id=<?php echo $id; ?>" class="btn btn-primary btn-block waves-effect"><i class="material-icons" style='font-size: 16px'>mode_edit</i><span>EDIT DATA PROFIL</span></a>
                               <?php echo "<a class='btn btn-danger btn-block waves-effect' href='#ModalHapusPembina' data-toggle='modal' data-href='action/hapus.php?idpembina=".$row['id_pembina']."&iduser=".$row['id_user']."'><i class='material-icons' style='font-size: 16px'>delete</i><span>HAPUS PEMBINA</span></a>"; ?>
                         </div>
                         <?php } ?>
@@ -125,7 +125,7 @@
                             <tr>
                               <td><?php echo $no ?></td>
                               <td><?php echo "<span class='badge bg-green'>".$row['nim']."</span>" ?></td>
-                              <td><a href="index.php?page=mahasiswadetails&id=<?php echo $row['uid_mahasiswa']; ?>"><?php echo $row['nama_mahasiswa']?></a></td>
+                              <td><a href="index.php?page=mahasiswadetails&id=<?php echo $row['uid_mahasiswa']; ?>" style='text-decoration:none'><?php echo $row['nama_mahasiswa']?></a></td>
                               <td>
                                 
 

@@ -128,7 +128,7 @@
                     </li>
                     <li <?php 
                           if (isset($_GET['page'])) {
-                            if ($_GET['page'] == 'pembina' || $_GET['page'] == 'pembinadetails') {
+                            if ($_GET['page'] == 'pembina' || $_GET['page'] == 'pembinadetails' || $_GET['page'] == 'editpembina') {
                               echo "class='active'";
                             }
                           }
@@ -140,7 +140,7 @@
                         <ul class="ml-menu">
                             <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'pembina' || $_GET['page'] == 'pembinadetails') {
+                                    if ($_GET['page'] == 'pembina' || $_GET['page'] == 'pembinadetails' || $_GET['page'] == 'editpembina') {
                                       echo "class='active'";
                                     }
                                   }
@@ -178,7 +178,7 @@
             } else if ($_GET['page'] == 'pembinadetails') {
               include 'pembina/pembina_detail.php';
             } else if ($_GET['page'] == 'editpembina') {
-              include 'edit_pembina.php';
+              include 'pembina/pembina_edit.php';
             } else if ($_GET['page'] == 'profil') {
               include 'profil.php';
             } else if ($_GET['page'] == 'editprofil') {
