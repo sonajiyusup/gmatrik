@@ -12,16 +12,13 @@
 
 
 <div class="container-fluid">
-  <div class="block-header">
-    <h2><a href="?page=pembina" class="btn btn-link waves-effect"><i class="material-icons" style='font-size: 24px'>arrow_back</i></a>&nbsp;&nbsp;&nbsp;DATA PEMBINA MAHASISWA</h2>            
-  </div>
 
   <div class="row clearfix">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
                             <h2>
-                                PROFIL
+                                <a href="?page=pembina" class="btn btn-sm btn-link waves-effect " style="width: 10%;" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;PROFIL PEMBINA
                             </h2>
                         </div>
                         <div class="body table-responsive">
@@ -98,7 +95,7 @@
                     <div class="card">
                         <div class="header">
                             <h2>
-                                MAHASISWA BINAAN &nbsp;<button class="btn btn-sm btn-link waves-effect " data-toggle="modal" data-target="#tambahPembina" style="width: 17%;"><i class="material-icons">playlist_add</i></button>
+                                MAHASISWA BINAAN &nbsp;<button class="btn btn-sm btn-link waves-effect " data-toggle="modal" data-target="#tambahPembina" style="width: 17%;" title="Tambah Mahasiswa Binaan"><i class="material-icons">playlist_add</i></button>
                             </h2>
                         </div>
                         <div class="body">
@@ -134,7 +131,7 @@
                                         <i class="material-icons" style="font-size: 14px">settings</i>&nbsp;<span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu">
-                                      <li><?php echo "<a style='color:#DD4B39;' href='#ModalHapusBinaan' class='dropdown-item' data-toggle='modal' data-href='action/hapus.php?idmahasiswabinaan=".$row['id_mahasiswa']."&uidpembina=".$row['uid_pembina']."' aria-hidden='true'><i class='material-icons' style='font-size: 20px'>close</i></a>"; ?></li>
+                                      <li><?php echo "<a style='color:#DD4B39;' href='#ModalHapusBinaan' class='dropdown-item' data-toggle='modal' data-href='action/hapus.php?idmahasiswabinaan=".$row['id_mahasiswa']."&uidpembina=".$row['uid_pembina']."' aria-hidden='true'><i class='material-icons' style='font-size: 20px'>delete</i></a>"; ?></li>
                                     </ul>
                                 </div>
                               </td>

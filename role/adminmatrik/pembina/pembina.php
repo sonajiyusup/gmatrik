@@ -2,16 +2,13 @@
   include 'functions.php';
  ?>
 
-<div class="container-fluid">
-	<div class="block-header">
-		<h2>DATA PEMBINA MAHASISWA</h2>            
-	</div>
-
 	<div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                          <button class="btn btn-primary waves-effect" data-toggle="modal" data-target="#tambahPembina" style="width: 14.66666666666667%;"><i class="material-icons">add_box</i><span>TAMBAH</span></button>
+                          <h2>DAFTAR PEMBINA MAHASISWA 
+                            <button class="btn btn-sm btn-link waves-effect " data-toggle="modal" data-target="#tambahPembina" style="width: 10%;" title="Tambah Data Pembina"><i class="material-icons">playlist_add</i></button>
+                          </h2>
                         </div>
                         <div class="body ">
                         	<div class="table-responsive">
@@ -99,7 +96,7 @@
                 	<form class="form-horizontal" method="POST">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="defaultModalLabel">Tambah Akun Pembina</h4>
+                            <h4 class="modal-title" id="defaultModalLabel">Tambah Data Pembina</h4>
                         </div>
                         <div class="modal-body">
                             <div class="row clearfix">
