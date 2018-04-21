@@ -6,19 +6,11 @@
   $pembina = pembinaDetails($id);
   foreach($pembina as $row){
 ?>
-
-
-<div class="container-fluid">
-  <div class="block-header">
-    <a href="?page=pembinadetails&id=<?php echo $id; ?>" class="btn btn-link waves-effect btn-sm"><i class="material-icons" style='font-size: 24px'>arrow_back</i></a>           
-  </div>
-
-  <div class="row clearfix">
+<div class="row clearfix">
                 <div class="col-md-6">
                     <div class="card">
                         <div class="header">
-                            <h2>
-                                PROFIL
+                            <h2><a href="?page=pembinadetails&id=<?php echo $id; ?>" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;EDIT DATA PROFIL
                             </h2>
                         </div>
                         <div class="body">

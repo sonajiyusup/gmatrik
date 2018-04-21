@@ -29,7 +29,18 @@
                                 <tr> 
                                   <td colspan="3"> 
                                     <div class="image" align="center">
-                                      <img src=<?php echo "assets/img/user/".$_SESSION['ava']; ?> width="48" height="48" alt="User" />
+                                      <img src=<?php 
+                                        if ($row['avatar'] == NULL) {
+                                          if ($row['j_kelamin'] == 'Akhwat' || $row['j_kelamin'] == 'Perempuan'){
+                                            echo 'assets/img/user/default-female.jpg';
+                                          } else
+                                          if ($row['j_kelamin'] == 'Ikhwan' || $row['j_kelamin'] == 'Laki-laki'){
+                                            echo 'assets/img/user/default-male.png';
+                                          }
+                                        } else{
+                                          echo $row['avatar'];
+                                        }
+                                          ?> width="48" height="48" alt="User" />
                                     </div>
                                   </td>
                                 </tr>
