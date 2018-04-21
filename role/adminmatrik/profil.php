@@ -23,7 +23,10 @@
                                 <tr> 
                                   <td colspan="3"> 
                                     <div class="image" align="center">
-                                      <img src=<?php echo "assets/img/user/".$row['avatar']; ?> width="48" height="48" alt="User" /><br>
+                                      <a href="#ModalUploadAva" title="Klik untuk Ganti Foto Profil" data-toggle='modal'>
+                                        <img src=<?php echo "assets/img/user/".$row['avatar']; ?> width="78" height="78" alt="User" />
+                                      </a>
+                                      <br>
                                       <h5 align="center"><?php echo $row['nama']; ?></h5>
                                     </div>
                                   </td>
@@ -101,6 +104,25 @@
                   </form>
                 </div>
             </div>  
+
+            <div class="modal fade" id="ModalUploadAva" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-sm">
+                  <form action="upload.php" method="post" enctype="multipart/form-data">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="smallModalLabel">UPLOAD FOTO PROFIL</h4>
+                        </div>
+                        <div class="modal-body">
+                          <input type="file" name="file" required>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="submit" class="btn btn-primary btn-ok waves-effect" name="upload" value="UPLOAD">
+                            <button class="btn btn-link waves-effect" data-dismiss="modal">BATAL</button>
+                        </div>
+                    </div>
+                  </form>
+                </div>
+            </div> 
 
 <?php 
   if (isset($_POST['gantiPass'])) {

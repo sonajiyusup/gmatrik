@@ -13,7 +13,7 @@
 					move_uploaded_file($file_tmp, 'assets/img/user/'.$nama);
 					$query = mysql_query("UPDATE adminmatrik SET avatar = '$nama' WHERE id_adminmatrik = ".$_SESSION['id_AM']);
 					if($query){
-						echo "<script>document.location='/simon/index.php?page=profil'</script>";
+						echo "<script>document.location='index.php?page=profil'</script>";
 					}else{
 						echo 'GAGAL MENGUPLOAD GAMBAR';
 					}
@@ -38,7 +38,7 @@
 					move_uploaded_file($file_tmp, 'assets/img/user/'.$nama);
 					$query = mysql_query("UPDATE pembina SET avatar = '$nama' WHERE id_pembina = ".$_SESSION['id_pembina']);
 					if($query){
-						echo "<script>document.location='/simon/index.php?page=profil&alert=avaupdated'</script>";
+						echo "<script>document.location='index.php?page=profil&alert=avaupdated'</script>";
 					}else{
 						echo 'GAGAL MENGUPLOAD GAMBAR';
 					}
@@ -63,7 +63,7 @@
 					move_uploaded_file($file_tmp, 'assets/img/user/'.$nama);
 					$query = mysql_query("UPDATE mahasiswa SET avatar = '$nama' WHERE id_mahasiswa = ".$_SESSION['id_mahasiswa']);
 					if($query){
-						echo "<script>document.location='/simon/index.php?page=profil&alert=avaupdated'</script>";
+						echo "<script>document.location='index.php?page=profil&alert=avaupdated'</script>";
 					}else{
 						echo 'GAGAL MENGUPLOAD GAMBAR';
 					}
