@@ -12,7 +12,7 @@
             </div>
             <!-- Widgets -->
             <div class="row clearfix">
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="info-box-2 bg-blue">
                         <div class="icon">
                             <a href="?page=mahasiswa"><i class="material-icons">account_box</i></a>
@@ -23,7 +23,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="info-box-2 bg-green">
                         <div class="icon">
                             <a href="?page=pembina"><i class="material-icons">supervisor_account</i></a>
@@ -34,7 +34,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="info-box-2 bg-red">
                         <div class="icon">
                             <a href="?page=pikhtisar"><i class="material-icons">gavel</i></a>
