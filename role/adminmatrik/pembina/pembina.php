@@ -13,10 +13,10 @@
                         <div class="body ">
                         	<div class="table-responsive">
 									<!-- Table Daftar Pembina -->
-						              <table id="tableUsers" class="table table-hover table-condensed js-basic-example dataTable ">
+						              <table id="tablePembina" class="table table-hover table-condensed">
 						                <thead>
 						                  <tr>
-						                    <th>#</th>
+						                    <th></th>
 						                    <th>Nama Pembina</th>
 						                    <th>Jumlah Binaan</th>
 						                    <th>Ikhwan/Akhwat</th>
@@ -36,7 +36,7 @@
 						                  <td><b><?php echo $no ?></b></td>  
 						                  <td><?php echo "<a href='index.php?page=pembinadetails&id=".$row['id_user']."' style='text-decoration:none'>".$row['nama']."</a>" ?></td>
 						                  <td><?php echo $row['jml_binaan'] ?></td>
-						                  <td><?php if($row['j_kelamin'] == 'Ikhwan' || $row['j_kelamin'] == 'Laki-laki'){echo '<span class="label bg-green">Ikhwan</span>';} else if($row['j_kelamin'] == 'Akhwat' || $row['j_kelamin'] == 'Perempuan'){echo '<span class="label bg-yellow">Akhwat</span>';} ?></td>
+						                  <td><?php if($row['j_kelamin'] == 'Ikhwan' || $row['j_kelamin'] == 'Laki-laki'){echo '<span class="label bg-light-blue">Ikhwan</span>';} else if($row['j_kelamin'] == 'Akhwat' || $row['j_kelamin'] == 'Perempuan'){echo '<span class="label bg-pink">Akhwat</span>';} ?></td>
 						                  <td><?php echo $row['telp'] ?></td>
 						                  <td><?php if ($row['last_login'] == '0000-00-00 00:00:00'){ echo 'Belum Pernah';}else{ echo date("d-m-Y H:i", strtotime($row['last_login'])) ;}
 						                  ?></td>
@@ -202,3 +202,14 @@
         echo "<script>document.location='?page=pembina'</script>";
       }
     ?> 
+
+    <script>
+    $(document).ready(function() {
+      var t = $('#tablePembina').DataTable( {
+            "columnDefs": [
+              { "searchable": false, "orderable": false, "targets": [0,6]}
+            ]
+        } );
+
+    } );
+    </script>    

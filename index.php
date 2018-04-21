@@ -42,7 +42,7 @@
     <link href="assets/css/bootstrap-select.css" rel="stylesheet" />
 
     <!-- JQuery DataTable Css -->
-    <link href="assets/css/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="assets/css/dataTables.bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom Css -->
     <link href="assets/css/style.css" rel="stylesheet">
