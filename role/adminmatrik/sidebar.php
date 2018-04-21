@@ -10,7 +10,7 @@
                     <div class="btn-group user-helper-dropdown">
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
-                            <li><a href="javascript:void(0);" style="color:#3C8DBC;"><i class="material-icons">person</i>Profil</a></li>
+                            <li><a href="?page=profil" style="color:#3C8DBC;"><i class="material-icons">person</i>Profil</a></li>
                             <li role="seperator" class="divider"></li>
                             <li><a href="logout.php" style='color:#DD4B39;'><i class="material-icons">power_settings_new</i>Logout</a></li>
                         </ul>
