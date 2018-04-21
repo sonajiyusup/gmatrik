@@ -31,8 +31,8 @@
                             <col width="20">
                             <col width="750">
                                 <tr> 
-                                  <td> 
-                                    <div class="image">
+                                  <td colspan="3"> 
+                                    <div class="image" align="center">
                                       <img src=<?php echo "assets/img/user/".$_SESSION['ava']; ?> width="48" height="48" alt="User" />
                                     </div>
                                   </td>
@@ -50,7 +50,7 @@
                                 <tr>
                                   <th>Username</th>
                                   <td>:</td>
-                                  <td><?php echo $row['username']; ?></td>
+                                  <td><code><?php echo $row['username']; ?></code></td>
                                 </tr>
                                 <tr>
                                   <th>Login Terakhir</th>
@@ -89,6 +89,9 @@
                                 </tr>
                                 <?php } ?>
                               </table>                          
+                              
+                              <button class="btn btn-primary btn-block waves-effect"><i class="material-icons" style='font-size: 16px'>mode_edit</i><span>EDIT DATA PROFIL</span></button>
+                              <button class="btn btn-danger btn-outline btn-block waves-effect"><i class="material-icons" style='font-size: 16px'>delete</i><span>HAPUS PEMBINA</span></button>
                         </div>
                     </div>
                 </div>
