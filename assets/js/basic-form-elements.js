@@ -10,7 +10,7 @@ $(function () {
     });
 
     $('.datepicker').bootstrapMaterialDatePicker({
-        format: 'YYYY-MM-DD',
+        format: 'DD MMMM YYYY',
         clearButton: true,
         weekStart: 1,
         time: false
