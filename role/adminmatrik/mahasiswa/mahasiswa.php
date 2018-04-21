@@ -6,8 +6,8 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                          <h2>DAFTAR MAHASISWA 
-                            <button class="btn btn-sm btn-link waves-effect " data-toggle="modal" data-target="#importMhsModal" style="width: 10%;" title="Import Database Mahasiswa"><i class="material-icons">get_app</i></button>
+                          <h2>DAFTAR MAHASISWA &nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-sm btn-default waves-effect " data-toggle="modal" data-target="#importMhsModal" title="Import Database Mahasiswa"><i class="material-icons">get_app</i><span>IMPORT DATA</span></button>
                           </h2>
                         </div>
                         <div class="body ">
@@ -55,7 +55,7 @@
                   <form action="upload.php" method="post" enctype="multipart/form-data">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h4 class="modal-title" id="smallModalLabel">IMPORT DATABASE MAHASISWA</h4>
+                        <h4 class="modal-title" id="smallModalLabel">IMPORT DATA MAHASISWA DARI DATABASE</h4>
                         </div>
                         <div class="modal-body">
 	                        <div class="row">
