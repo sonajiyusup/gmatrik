@@ -77,7 +77,7 @@
                                 <tr>
                                   <th>Tanggal Lahir</th>
                                   <td>:</td>
-                                  <td><?php echo date('d F Y', strtotime($row['tgl_lahir'])); ?></td>
+                                  <td><?php if($row['tgl_lahir'] == NULL){echo 'Belum diatur';}else{echo date('d F Y', strtotime($row['tgl_lahir']));} ?></td>
                                 </tr>
                                 <tr>
                                   <th>Password Default</th>
@@ -86,9 +86,11 @@
                                 </tr>
                               </table>                          
                               
-                              <a href="index.php?page=editprofil" class="btn btn-primary btn-block waves-effect"><i class="material-icons" style='font-size: 16px'>mode_edit</i><span>&nbsp;EDIT DATA PROFIL</span></a>
+                              <a href="index.php?page=editmahasiswa&id=<?php echo $row['id_user']; ?>" class="btn btn-primary btn-block waves-effect"><i class="material-icons" style='font-size: 16px'>mode_edit</i><span>&nbsp;EDIT DATA PROFIL</span></a>
                               
                               <?php if($row['password_default'] == 0){ echo "<a class='btn btn-warning btn-block waves-effect' href='#ModalResetPassword' data-toggle='modal' ><i class='material-icons' style='font-size: 16px'>lock_open</i><span>&nbsp;GANTI PASSWORD</span></a>";} ?>
+
+                              <?php echo "<a class='btn btn-danger btn-block waves-effect' href='#ModalHapusMahasiswa' data-toggle='modal' data-href='action/hapus.php?idmahasiswa=".$row['id_mahasiswa']."&iduser=".$row['id_user']."'><i class='material-icons' style='font-size: 16px'>delete</i><span>&nbsp;HAPUS MAHASISWA</span></a>"; ?>
                         </div>
                         <?php } ?>
                     </div>

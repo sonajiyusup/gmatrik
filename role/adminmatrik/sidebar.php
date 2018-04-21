@@ -111,7 +111,7 @@
                     <li class="header">PENGGUNA</li>
                     <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'mahasiswa' || $_GET['page'] == 'mahasiswadetails') {
+                                    if ($_GET['page'] == 'mahasiswa' || $_GET['page'] == 'mahasiswadetails' || $_GET['page'] == 'editmahasiswa') {
                                       echo "class='active'";
                                     }
                                   }
@@ -124,7 +124,7 @@
                         <ul class="ml-menu">
                             <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'mahasiswa' || $_GET['page'] == 'mahasiswadetails') {
+                                    if ($_GET['page'] == 'mahasiswa' || $_GET['page'] == 'mahasiswadetails' || $_GET['page'] == 'editmahasiswa') {
                                       echo "class='active'";
                                     }
                                   }
@@ -217,7 +217,7 @@
             } else if ($_GET['page'] == 'mahasiswadetails') {
               include 'mahasiswa/mahasiswa_detail.php';
             } else if ($_GET['page'] == 'editmahasiswa') {
-              include 'edit_mahasiswa.php';
+              include 'mahasiswa/mahasiswa_edit.php';
             } else if ($_GET['page'] == 'bypembina') {
               include 'bypembina.php';
             } else if ($_GET['page'] == 'bypembinadetail') {
