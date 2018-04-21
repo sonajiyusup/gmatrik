@@ -49,6 +49,56 @@
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="assets/css/all-themes.css" rel="stylesheet" />
+
+    <!-- Jquery Core Js -->
+    <script src="assets/js/jquery.min.js"></script>
+
+    <!-- Bootstrap Core Js -->
+    <script src="assets/js/bootstrap.js"></script>
+
+    <!-- Select Plugin Js -->
+    <script src="assets/js/bootstrap-select.js"></script>
+
+    <!-- Slimscroll Plugin Js -->
+    <script src="assets/js/jquery.slimscroll.js"></script>
+
+    <!-- iCheck 1.0.1 -->
+    <script src="assets/js/icheck.min.js"></script>
+
+    <!-- Waves Effect Plugin Js -->
+    <script src="assets/js/waves.js"></script>
+
+    <!-- Autosize Plugin Js -->
+    <script src="assets/js/autosize.js"></script>
+
+    <!-- Moment Plugin Js -->
+    <script src="assets/js/moment.js"></script>
+
+    <!-- Bootstrap Material Datetime Picker Plugin Js -->
+    <script src="assets/js/bootstrap-material-datetimepicker.js"></script>
+
+    <!-- Jquery DataTable Plugin Js -->
+    <script src="assets/js/jquery.dataTables.js"></script>
+    <script src="assets/js/dataTables.bootstrap.js"></script>
+    <script src="assets/js/dataTables.buttons.min.js"></script>
+    <script src="assets/js/buttons.flash.min.js"></script>
+    <script src="assets/js/jszip.min.js"></script>
+    <script src="assets/js/pdfmake.min.js"></script>
+    <script src="assets/js/vfs_fonts.js"></script>
+    <script src="assets/js/buttons.html5.min.js"></script>
+    <script src="assets/js/buttons.print.min.js"></script>
+
+    <!-- Jquery CountTo Plugin Js -->
+    <script src="assets/js/jquery.countTo.js"></script>
+
+    <!-- Custom Js -->
+    <script src="assets/js/admin.js"></script>
+    <script src="assets/js/jquery-datatable.js"></script>
+    <script src="assets/js/basic-form-elements.js"></script>
+
+    <!-- Demo Js -->
+    <script src="assets/js/demo.js"></script>
+    <script src="assets/js/modals.js"></script>    
 </head>
 
 <body class="theme-blue">
@@ -231,56 +281,6 @@
         <!-- #END# Right Sidebar -->
     </section>
 
-    <!-- Jquery Core Js -->
-    <script src="assets/js/jquery.min.js"></script>
-
-    <!-- Bootstrap Core Js -->
-    <script src="assets/js/bootstrap.js"></script>
-
-    <!-- Select Plugin Js -->
-    <script src="assets/js/bootstrap-select.js"></script>
-
-    <!-- Slimscroll Plugin Js -->
-    <script src="assets/js/jquery.slimscroll.js"></script>
-
-    <!-- iCheck 1.0.1 -->
-    <script src="assets/js/icheck.min.js"></script>
-
-    <!-- Waves Effect Plugin Js -->
-    <script src="assets/js/waves.js"></script>
-
-    <!-- Autosize Plugin Js -->
-    <script src="assets/js/autosize.js"></script>
-
-    <!-- Moment Plugin Js -->
-    <script src="assets/js/moment.js"></script>
-
-    <!-- Bootstrap Material Datetime Picker Plugin Js -->
-    <script src="assets/js/bootstrap-material-datetimepicker.js"></script>
-
-    <!-- Jquery DataTable Plugin Js -->
-    <script src="assets/js/jquery.dataTables.js"></script>
-    <script src="assets/js/dataTables.bootstrap.js"></script>
-    <script src="assets/js/dataTables.buttons.min.js"></script>
-    <script src="assets/js/buttons.flash.min.js"></script>
-    <script src="assets/js/jszip.min.js"></script>
-    <script src="assets/js/pdfmake.min.js"></script>
-    <script src="assets/js/vfs_fonts.js"></script>
-    <script src="assets/js/buttons.html5.min.js"></script>
-    <script src="assets/js/buttons.print.min.js"></script>
-
-    <!-- Jquery CountTo Plugin Js -->
-    <script src="assets/js/jquery.countTo.js"></script>
-
-    <!-- Custom Js -->
-    <script src="assets/js/admin.js"></script>
-    <script src="assets/js/jquery-datatable.js"></script>
-    <script src="assets/js/basic-form-elements.js"></script>
-
-    <!-- Demo Js -->
-    <script src="assets/js/demo.js"></script>
-    <script src="assets/js/modals.js"></script>
-
     <!-- page script -->
     <script>
       /*$(document).ready(function() {
@@ -314,6 +314,12 @@
             });
         });    
       </script>
+
+<script>
+  $(document).ready(function() {
+    $('#tableDaftarBinaan').DataTable()
+  });
+</script>      
 
 <script type="text/javascript">
     //Flat red color scheme for iCheck
