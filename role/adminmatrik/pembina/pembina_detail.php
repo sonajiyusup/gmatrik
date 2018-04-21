@@ -18,7 +18,7 @@
                     <div class="card">
                         <div class="header">
                             <h2>
-                                <a href="?page=pembina" class="btn btn-sm btn-link waves-effect " style="width: 10%;" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;PROFIL PEMBINA
+                                <a href="?page=pembina" class="btn btn-sm btn-link waves-effect " style="width: 10%;" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;DATA PEMBINA
                             </h2>
                         </div>
                         <div class="body table-responsive">
