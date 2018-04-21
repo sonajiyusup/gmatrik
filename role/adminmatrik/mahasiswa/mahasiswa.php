@@ -7,7 +7,7 @@
                     <div class="card">
                         <div class="header">
                           <h2>DAFTAR MAHASISWA 
-                            <button class="btn btn-sm btn-link waves-effect " data-toggle="modal" data-target="#importMhsModal" style="width: 10%;" title="Import Database Mahasiswa"><i class="material-icons">playlist_add</i></button>
+                            <button class="btn btn-sm btn-link waves-effect " data-toggle="modal" data-target="#importMhsModal" style="width: 10%;" title="Import Database Mahasiswa"><i class="material-icons">get_app</i></button>
                           </h2>
                         </div>
                         <div class="body ">
@@ -23,7 +23,7 @@
 						                    <th>Nama</th>
 						                    <th>Ikhwan/Akhwat</th>
 						                    <th>Terakhir Login</th>
-						                    <th>Action</th>
+						                    <th>Aksi</th>
 						                  </tr>
 						                </thead>
 						              </table>

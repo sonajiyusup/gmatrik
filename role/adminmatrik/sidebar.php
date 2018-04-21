@@ -28,7 +28,7 @@
                           }
                         ?>
                     ><a href="index.php">
-                            <i class="material-icons">home</i>
+                            <i class="material-icons">dashboard</i>
                             <span>Dashboard</span>
                         </a>
                     </li>
