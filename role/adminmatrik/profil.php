@@ -24,7 +24,7 @@
                                   <td colspan="3"> 
                                     <div class="image" align="center">
                                       <a href="#ModalUploadAva" title="Klik untuk Ganti Foto Profil" data-toggle='modal'>
-                                        <img src=<?php echo "assets/img/user/".$row['avatar']; ?> width="78" height="78" alt="User" />
+                                        <img src=<?php echo "assets/img/user/".$row['avatar']; ?> width="100" height="100" alt="User" />
                                       </a>
                                       <br>
                                       <h5 align="center"><?php echo $row['nama']; ?></h5>

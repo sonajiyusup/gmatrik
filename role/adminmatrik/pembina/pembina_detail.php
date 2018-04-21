@@ -40,7 +40,7 @@
                                         } else{
                                           echo $row['avatar'];
                                         }
-                                          ?> width="48" height="48" alt="User" />
+                                          ?> width="100" height="100" alt="User" />
                                     </div>
                                   </td>
                                 </tr>
