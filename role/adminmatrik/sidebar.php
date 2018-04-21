@@ -215,7 +215,7 @@
             } else if ($_GET['page'] == 'editprofil') {
               include 'profil_edit.php';
             } else if ($_GET['page'] == 'mahasiswadetails') {
-              include 'mahasiswa/detailmahasiswa.php';
+              include 'mahasiswa/mahasiswa_detail.php';
             } else if ($_GET['page'] == 'editmahasiswa') {
               include 'edit_mahasiswa.php';
             } else if ($_GET['page'] == 'bypembina') {

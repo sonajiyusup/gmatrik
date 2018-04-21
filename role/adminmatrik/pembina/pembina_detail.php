@@ -115,10 +115,10 @@
                           <table id="tableDaftarBinaan" class="table table-bordered table-hover table-condensed">
                             <thead>
                               <tr>
-                                <th>NO</th>
+                                <th>#</th>
                                 <th>NIM</th>
                                 <th>Nama Mahasiswa Binaan</th>
-                                <th></th>
+                                <th>Aksi</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -192,3 +192,14 @@
                     </div>
                 </div>
             </div>            
+
+    <script>
+    $(document).ready(function() {
+      var t = $('#tableDaftarBinaan').DataTable( {
+            "columnDefs": [
+              { "searchable": false, "orderable": false, "targets": [0,3]}
+            ]
+        } );
+
+    } );
+    </script>   
