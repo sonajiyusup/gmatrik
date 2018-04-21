@@ -134,7 +134,7 @@
                                         <i class="material-icons" style="font-size: 14px">settings</i>&nbsp;<span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li><?php echo "<a style='color:#DD4B39;' href='#ModalHapusPembina' class='dropdown-item' data-toggle='modal' data-href='action/hapus.php?idmahasiswabinaan=".$row['id_mahasiswa']."&uidpembina=".$row['uid_pembina']."' aria-hidden='true'><i class='material-icons' style='font-size: 20px'>close</i></a>"; ?></li>
+                                      <li><?php echo "<a style='color:#DD4B39;' href='#ModalHapusBinaan' class='dropdown-item' data-toggle='modal' data-href='action/hapus.php?idmahasiswabinaan=".$row['id_mahasiswa']."&uidpembina=".$row['uid_pembina']."' aria-hidden='true'><i class='material-icons' style='font-size: 20px'>close</i></a>"; ?></li>
                                     </ul>
                                 </div>
                               </td>
@@ -168,3 +168,18 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Small Size -->
+            <div class="modal fade" id="ModalHapusBinaan" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="smallModalLabel">Hapus Mahasiswa Binaan ?</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <a type="button" class="btn btn-danger btn-ok waves-effect">HAPUS</a>
+                            <button class="btn btn-link waves-effect" data-dismiss="modal">BATAL</button>
+                        </div>
+                    </div>
+                </div>
+            </div>            
