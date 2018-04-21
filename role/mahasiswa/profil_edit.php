@@ -1,8 +1,8 @@
 <?php 
 
   include 'functions.php';
-      $dataAdminMatrik = adminMatrikDetails($_SESSION['id_user']);
-      foreach($dataAdminMatrik as $row){ 
+      $dataMahasiswa = mahasiswaDetails($_SESSION['id_user']);
+      foreach($dataMahasiswa as $row){ 
  ?>
 
 <div class="row clearfix">
@@ -19,7 +19,15 @@
                                             <i class="material-icons">assignment_ind</i>
                                         </span>
                                         <div class="form-line">
-                                            <input type="text" name="nama" class="form-control date" placeholder="Nama" value="<?php echo $row['nama']; ?>" >
+                                            <input type="text" name="nim" class="form-control date" placeholder="Nama" value="<?php echo $row['nim']; ?>" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">assignment_ind</i>
+                                        </span>
+                                        <div class="form-line">
+                                            <input type="text" name="nama" class="form-control date" placeholder="Nama" value="<?php echo $row['nama']; ?>" required>
                                         </div>
                                     </div>
                                     <div class="input-group">
@@ -50,14 +58,14 @@
                                               echo "<option>Ikhwan</option>";
                                             }
                                           ?>
-                                        </select>                                            
+                                        </select required>                                            
                                     </div>
                                   <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="material-icons">today</i>
                                         </span>
                                         <div class="form-line">
-                                            <input type="text" class="datepicker form-control" name="tgl_lahir" placeholder="Tanggal Lahir" value="<?php echo $row['tgl_lahir']; ?>">
+                                            <input type="text" class="datepicker form-control" name="tgl_lahir" placeholder="Tanggal Lahir" value="<?php echo $row['tgl_lahir']; ?>" required>
                                         </div>
                                   </div>
                                   <div class="input-group">
@@ -65,7 +73,7 @@
                                             <i class="material-icons">email</i>
                                         </span>
                                         <div class="form-line">
-                                            <input type="email" name="email" class="form-control date" placeholder="Email" value="<?php echo $row['email']; ?>">
+                                            <input type="email" name="email" class="form-control date" placeholder="Email" value="<?php echo $row['email']; ?>" required>
                                         </div>
                                   </div>
                                   <div class="input-group">
@@ -73,7 +81,7 @@
                                             <i class="material-icons">phone_iphone</i>
                                         </span>
                                         <div class="form-line">
-                                            <input type="text" name="telp" class="form-control date" placeholder="No Telp." value="<?php echo $row['telp']; ?>">
+                                            <input type="text" name="telp" class="form-control date" placeholder="No Telp." value="<?php echo $row['telp']; ?>" required>
                                         </div>
                                   </div>
                                   <button type="submit" class="btn btn-primary btn-block waves-effect" name="editProfilSaya"><span>SIMPAN</span></button>
@@ -86,8 +94,8 @@
 
 <?php
     if (isset($_POST['editProfilSaya'])) {
-      editAdminMatrikDetails($row['id_adminmatrik'], $_POST['nama'], $_POST['telp'], $_POST['email'], $_POST['gender'], date("Y-m-d", strtotime($_POST['tgl_lahir'])));
-      echo "<script>document.location='?page=profil'</script>";
+        editMahasiswa($_SESSION['id_user'], $_POST['nama'], $_POST['gender'], date("Y-m-d", strtotime($_POST['tgl_lahir'])), $_POST['asalkota'], $_POST['email'], $_POST['telp']);
+      echo "<script>document.location='index.php?page=profil&alert=profileupdated'</script>";
     }
   } 
 ?>

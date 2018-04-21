@@ -17,9 +17,9 @@
                         </div>
                         <div class="body table-responsive">
                             <table id="tableProfil" class="table table-condensed">
-                            <col width="280">
+                            <col width="350">
                             <col width="20">
-                            <col width="500">
+                            <col width="350">
                                 <tr> 
                                   <td colspan="3"> 
                                     <div class="image" align="center">
