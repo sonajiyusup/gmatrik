@@ -9,7 +9,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                          <h2><a href="?page=pbentuk" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;AKSI PELANGGARAN
+                          <h2><a href="?page=paksi" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;AKSI PELANGGARAN
                             <small>Detil Berdasarkan Aksi Pelanggaran : <b><?php foreach($naP as $namaPaksi){ echo $namaPaksi; }?></b></small>
                           </h2>
                         </div>
