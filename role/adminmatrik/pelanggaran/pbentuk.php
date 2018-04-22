@@ -72,15 +72,14 @@
                 </div>
             </div>
 
-    <script>
-
     <?php 
       if (isset($_POST['tambahPbentuk'])) {
         tambahPbentuk($_POST['nama_bentuk']);
         echo "<script>document.location='index.php?page=pbentuk'</script>";
       }
-    ?> 
+    ?>             
 
+    <script>
     $(document).ready(function() {
       var t = $('#tablePbentuk').DataTable( {
             "columnDefs": [
