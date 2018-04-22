@@ -123,7 +123,7 @@
         $isyaTo = $_POST['isyaTo'];
 
         updateTimeSetup($from, $to, $shubuhFrom, $shubuhTo, $dzuhurFrom, $dzuhurTo, $asharFrom, $asharTo, $maghribFrom, $maghribTo, $isyaFrom, $isyaTo);
-        importShalat($_POST['angkatan'], $datefrom, $dateto);
+        importShalat('17', $datefrom, $dateto);
 
         echo "<script>document.location='?page=shalat'</script>";
       }
@@ -131,3 +131,154 @@
 
     </section>
     <!-- /.content -->
+
+<!-- Daterange picker import data presensi shalat mahasiswa -->
+<script type="text/javascript">
+var startDate;
+var endDate;
+
+$(document).ready(function() {
+    $('#reportrange').daterangepicker(
+       {
+          startDate: moment().subtract('days', 6),
+          endDate: moment(),
+          //minDate: '01/01/2012',
+          //maxDate: '12/31/2014',
+          dateLimit: { days: 60 },
+          showDropdowns: true,
+          showWeekNumbers: true,
+          timePicker: false,
+          timePickerIncrement: 1,
+          timePicker12Hour: true,
+          ranges: {
+             'Hari ini': [moment(), moment()],
+             'Kemarin': [moment().subtract('days', 1), moment().subtract('days', 1)],
+             '7 Hari Terakhir': [moment().subtract('days', 6), moment()],
+             '30 Hari Terakhir': [moment().subtract('days', 29), moment()],
+             'Bulan Ini': [moment().startOf('month'), moment().endOf('month')]
+             //'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+          },
+          opens: 'left',
+          buttonClasses: ['btn btn-primary'],
+          applyClass: 'btn-small btn-primary',
+          cancelClass: 'btn-small',
+          format: 'DD/MM/YYYY',
+          separator: ' to ',
+          locale: {
+              applyLabel: 'Submit',
+              fromLabel: 'Dari',
+              toLabel: 'Sampai',
+              customRangeLabel: 'Custom Range',
+              daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
+              monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+              firstDay: 1
+          }
+       },
+       function(start, end) {
+        console.log("Callback has been called!");
+        $('#reportrange span').html(start.format('D MMMM YYYY') + ' - ' + end.format('D MMMM YYYY'));
+        startDate = start;
+         endDate = end;    
+
+       }
+    );
+    //Set the initial state of the picker label
+    $('#reportrange span').html(moment().subtract('days', 29).format('D MMMM YYYY') + ' - ' + moment().format('D MMMM YYYY'));
+
+    $('#saveBtn').click(function(){
+        console.log(startDate.format('D MMMM YYYY') + ' - ' + endDate.format('D MMMM YYYY'));
+    });
+
+ });
+</script>    
+
+<script type="text/javascript">
+$(document).ready(function()
+    {
+      $('#shubuh_dari').bootstrapMaterialDatePicker
+      ({
+        date: false,
+        shortTime: false,
+        format: 'HH:mm',
+        clearButton: true
+      });
+
+      $('#shubuh_sampai').bootstrapMaterialDatePicker
+      ({
+        date: false,
+        shortTime: false,
+        format: 'HH:mm',
+        clearButton: true
+      });
+
+
+      $('#dzuhur_dari').bootstrapMaterialDatePicker
+      ({
+        date: false,
+        shortTime: false,
+        format: 'HH:mm',
+        clearButton: true
+      });
+
+      $('#dzuhur_sampai').bootstrapMaterialDatePicker
+      ({
+        date: false,
+        shortTime: false,
+        format: 'HH:mm',
+        clearButton: true
+      });
+
+
+      $('#ashar_dari').bootstrapMaterialDatePicker
+      ({
+        date: false,
+        shortTime: false,
+        format: 'HH:mm',
+        clearButton: true
+      });
+
+      $('#ashar_sampai').bootstrapMaterialDatePicker
+      ({
+        date: false,
+        shortTime: false,
+        format: 'HH:mm',
+        clearButton: true
+      });
+
+
+      $('#maghrib_dari').bootstrapMaterialDatePicker
+      ({
+        date: false,
+        shortTime: false,
+        format: 'HH:mm',
+        clearButton: true
+      });
+
+      $('#maghrib_sampai').bootstrapMaterialDatePicker
+      ({
+        date: false,
+        shortTime: false,
+        format: 'HH:mm',
+        clearButton: true
+      });
+
+
+      $('#isya_dari').bootstrapMaterialDatePicker
+      ({
+        date: false,
+        shortTime: false,
+        format: 'HH:mm',
+        clearButton: true
+      });
+
+      $('#isya_sampai').bootstrapMaterialDatePicker
+      ({
+        date: false,
+        shortTime: false,
+        format: 'HH:mm',
+        clearButton: true
+      });
+
+      $.material.init()
+    });
+</script>
