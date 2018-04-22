@@ -48,7 +48,39 @@
                 </div>
 </div>
 
+            <div class="modal fade" id="tambahPbentuk" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                	<form method="POST">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="smallModalLabel">Tambah Data Master Bentuk Pelanggaran Mahasiswa</h4>
+                        </div>
+                        <div class="modal-body">     
+                        	<div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" id="pbentuk" name="nama_bentuk" required>
+                                            <label class="form-label">Nama Bentuk Pelanggaran</label>
+                                        </div>
+													</div> 
+                    		</div>  
+                        <div class="modal-footer">
+                            <button type="submit" name="tambahPbentuk" class="btn btn-primary btn-ok waves-effect">SUBMIT</button>
+                            <button class="btn btn-link waves-effect" data-dismiss="modal">BATAL</button>
+                        </div>
+                    </div>
+                  </form>
+                </div>
+            </div>
+
     <script>
+
+    <?php 
+      if (isset($_POST['tambahPbentuk'])) {
+        tambahPbentuk($_POST['nama_bentuk']);
+        echo "<script>document.location='index.php?page=pbentuk'</script>";
+      }
+    ?> 
+
     $(document).ready(function() {
       var t = $('#tablePbentuk').DataTable( {
             "columnDefs": [
