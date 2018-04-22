@@ -101,13 +101,12 @@
                     <li <?php 
                           if (isset($_GET['page'])) {
                               if ($_GET['page'] == 'pikhtisar' || $_GET['page'] == 'pbentuk' || $_GET['page'] == 'paksi' || $_GET['page'] == 'psanksi' || $_GET['page'] == 'planjut' || $_GET['page'] == 'pmaindetail'  || $_GET['page'] == 'pbentukdetail'  || $_GET['page'] == 'paksidetail' || $_GET['page'] == 'psanksidetail' || $_GET['page'] == 'planjutdetail') {
-                                echo ' active';
+                                echo "class='active'";
                               } else{
                                 echo '';
                               }
                             }
-                          ?>
-                            ><a href="javascript:void(0);" class="menu-toggle">
+                          ?>><a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">gavel</i>
                             <span>Pelanggaran</span>
                         </a>
