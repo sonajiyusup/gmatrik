@@ -8,6 +8,7 @@
                         <div class="header">
                           <h2>BENTUK PELANGGARAN
                             <button class="btn btn-sm btn-link waves-effect " data-toggle="modal" data-target="#tambahPbentuk" style="width: 10%;" title="Tambah Master Bentuk Pelanggaran"><i class="material-icons">playlist_add</i></button>
+                            <small>Data Pelanggaran Berdasarkan Bentuk</small>
                           </h2>
                         </div>
                         <div class="body ">

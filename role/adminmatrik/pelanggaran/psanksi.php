@@ -6,7 +6,9 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                          <h2>SANKSI</h2>
+                          <h2>SANKSI
+                          <small>Data Pelanggaran Berdasarkan Sanksi</small>
+                          </h2>
                         </div>
                         <div class="body ">
                         	<div class="table-responsive">
