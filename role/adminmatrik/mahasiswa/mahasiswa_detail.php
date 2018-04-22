@@ -19,7 +19,7 @@
                             <table id="tableProfil" class="table table-condensed">
                             <col width="350">
                             <col width="20">
-                            <col width="500">
+                            <col width="350">
                                 <tr> 
                                   <td colspan="3"> 
                                     <div class="image" align="center">
@@ -39,7 +39,7 @@
                                           }               
                                         ?> width="100" height="100" alt="User" />
                                       <br>
-                                      <h5 align="center"><?php echo $row['nama']; ?></h5>
+                                      <h4 align="center"><?php echo $row['nama']; ?></h4>
                                     </div>
                                   </td>
                                 </tr>
@@ -56,7 +56,7 @@
                                 <tr>
                                   <th>Pembina</th>
                                   <td>:</td>
-                                  <td><?php if($row['nama_pembina'] == NULL){echo 'Belum Diset';} else{ echo "<a href=index.php?page=pembinadetails&id=".$row['uid_pembina'].">".$row['nama_pembina']."</a>";} ?></td>
+                                  <td><?php if($row['nama_pembina'] == NULL){echo 'Belum Diset';} else{ echo "<a href=index.php?page=pembinadetails&id=".$row['uid_pembina'].">".$row['nama_pembina'].".".$row['gelar']."</a>";} ?></td>
                                 </tr>
                                 <tr>
                                 <tr>
@@ -82,13 +82,13 @@
                                 <tr>
                                   <th>Password Default</th>
                                   <td>:</td>
-                                  <td><?php if(strlen($row['password_default']) == 1){ echo "<code>".$row['password']."</code>";} else{echo "<span class='badge bg-green'>Sudah Diubah</span>" ;} ?></td>
+                                  <td><?php if($row['password_default'] == 1){ echo "<code>".$row['password']."</code>";} else{echo "<span class='badge bg-green'>Sudah Diubah</span>" ;} ?></td>
                                 </tr>
                               </table>                          
                               
                               <a href="index.php?page=editmahasiswa&id=<?php echo $row['id_user']; ?>" class="btn btn-primary btn-block waves-effect"><i class="material-icons" style='font-size: 16px'>mode_edit</i><span>&nbsp;EDIT DATA PROFIL</span></a>
                               
-                              <?php if($row['password_default'] == 0){ echo "<a class='btn btn-warning btn-block waves-effect' href='#ModalResetPassword' data-toggle='modal' ><i class='material-icons' style='font-size: 16px'>lock_open</i><span>&nbsp;GANTI PASSWORD</span></a>";} ?>
+                              <?php if($row['password_default'] == 0){ echo "<a class='btn btn-warning btn-block waves-effect' href='#ModalResetPassword' data-toggle='modal' ><i class='material-icons' style='font-size: 16px'>lock_open</i><span>&nbsp;RESET PASSWORD</span></a>";} ?>
 
                               <?php echo "<a class='btn btn-danger btn-block waves-effect' href='#ModalHapusMahasiswa' data-toggle='modal' data-href='action/hapus.php?idmahasiswa=".$row['id_mahasiswa']."&iduser=".$row['id_user']."'><i class='material-icons' style='font-size: 16px'>delete</i><span>&nbsp;HAPUS MAHASISWA</span></a>"; ?>
                         </div>
@@ -103,7 +103,7 @@
                 <div class="modal-dialog modal-sm">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="smallModalLabel">HAPUS MAHASISWA</h4>
+                            <h4 class="modal-title" id="smallModalLabel">HAPUS MAHASISWA ?</h4>
                         </div>
                         <div class="modal-footer">
                             <a class="btn btn-danger btn-ok waves-effect" name="upload">HAPUS</a>
@@ -111,12 +111,27 @@
                         </div>
                     </div>
                 </div>
-            </div>             
+            </div>            
+
+            <div class="modal fade" id="ModalResetPassword" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-sm">
+                  <form method="POST">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="smallModalLabel">RESET PASSWORD MAHASISWA ?</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-warning btn-ok waves-effect" name="resetPass">RESET</button>
+                            <button class="btn btn-link waves-effect" data-dismiss="modal">BATAL</button>
+                        </div>
+                    </div>
+                  </form>
+                </div>
+            </div>               
 
 <?php 
-  if (isset($_POST['gantiPass'])) {
-    gantiUserPassword($_SESSION['id_user'], $_POST['pass']);
-    echo "<script>document.location='?page=profil&alert=passchanged'</script>";
+  if (isset($_POST['resetPass'])) {
+    resetPassword($id);
+    echo "<script type='text/javascript'>window.location.href='index.php?page=mahasiswadetails&id=".$id."';</script>";
   }
-
- ?>            
+ ?>

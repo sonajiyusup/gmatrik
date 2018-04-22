@@ -87,14 +87,19 @@
                             <h4 class="modal-title" id="smallModalLabel">GANTI PASSWORD</h4>
                         </div>
                         <div class="modal-body">
-                            <label>Password Baru : </label>
-                            <div class="form-line">
-                              <input type="password" name="pass" class="form-control" id="pwinput2" placeholder="Masukan Password Baru" pattern=".{0}|.{8,}" title="8 Karakter Minimal" required><br>
-                            </div>
-                            <label>Konfirmasi Password : </label>
-                            <div class="form-line">
-                              <input type="password" name="passConf" class="form-control" id="pwinput3" placeholder="Masukan Ulang Password Baru" pattern=".{0}|.{8,}" title="8 Karakter Minimal" required>
-                            </div>
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input type="password" class="form-control" name="pass" id="pwinput2" pattern=".{0}|.{8,}" title="8 Karakter Minimal" required>
+                                            <label class="form-label">Password Baru : </label>
+                                        </div>
+                                    </div>
+                               <br><br>
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input type="password" class="form-control" name="passConf" id="pwinput3" pattern=".{0}|.{8,}" title="8 Karakter Minimal" required>
+                                            <label class="form-label">Konfirmasi Password : </label>
+                                        </div>
+                                    </div>
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary btn-ok waves-effect" name="gantiPass">SIMPAN</button>
@@ -103,7 +108,7 @@
                     </div>
                   </form>
                 </div>
-            </div>  
+            </div> 
 
             <div class="modal fade" id="ModalUploadAva" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-sm">

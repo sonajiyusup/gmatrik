@@ -281,6 +281,20 @@
         <!-- #END# Right Sidebar -->
     </section>
 
+            <div class="modal fade" id="ModalLogout" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="smallModalLabel">ANDA YAKIN ?</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="logout.php" class="btn btn-danger btn-ok waves-effect">LOGOUT</a>
+                            <button class="btn btn-link waves-effect" data-dismiss="modal">BATAL</button>
+                        </div>
+                    </div>
+                </div>
+            </div>       
+
     <!-- page script -->
     <script>
       /*$(document).ready(function() {
