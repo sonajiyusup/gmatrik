@@ -98,26 +98,64 @@
                         </ul>
                     </li>
                     <li class="header">KOMISI DISIPLIN</li>
-                    <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
+                    <li <?php 
+                          if (isset($_GET['page'])) {
+                              if ($_GET['page'] == 'pikhtisar' || $_GET['page'] == 'pbentuk' || $_GET['page'] == 'paksi' || $_GET['page'] == 'psanksi' || $_GET['page'] == 'planjut' || $_GET['page'] == 'pmaindetail'  || $_GET['page'] == 'pbentukdetail'  || $_GET['page'] == 'paksidetail' || $_GET['page'] == 'psanksidetail' || $_GET['page'] == 'planjutdetail') {
+                                echo ' active';
+                              } else{
+                                echo '';
+                              }
+                            }
+                          ?>
+                            ><a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">gavel</i>
                             <span>Pelanggaran</span>
                         </a>
                         <ul class="ml-menu">
-                            <li>
-                                <a href="pages/medias/image-gallery.html">Ikhtisar</a>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'pikhtisar' || $_GET['page'] == 'pmaindetail') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            ><a href="?page=pikhtisar">Ikhtisar</a>
                             </li>
-                            <li>
-                                <a href="pages/medias/carousel.html">Bentuk Pelanggaran</a>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'pbentuk' || $_GET['page'] == 'pbentukdetail') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            ><a href="?page=pbentuk">Bentuk Pelanggaran</a>
                             </li>
-                            <li>
-                                <a href="pages/medias/carousel.html">Aksi Pelanggaran</a>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'paksi' || $_GET['page'] == 'paksidetail') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            ><a href="?page=paksi">Aksi Pelanggaran</a>
                             </li>
-                            <li>
-                                <a href="pages/medias/carousel.html">Sanksi</a>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'psanksi' || $_GET['page'] == 'psanksidetail') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            ><a href="?page=psanksi">Sanksi</a>
                             </li>
-                            <li>
-                                <a href="pages/medias/carousel.html">Tindak Lanjut</a>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'planjut' || $_GET['page'] == 'planjutdetail') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            ><a href="?page=planjut">Tindak Lanjut</a>
                             </li>
                         </ul>
                     </li>
