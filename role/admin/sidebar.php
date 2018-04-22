@@ -142,51 +142,17 @@
 
     <?php  
         if (isset($_GET['page'])) {
-            if ($_GET['page'] == 'mahasiswa') {
-              include 'mahasiswa/mahasiswa.php';
-            } else if ($_GET['page'] == 'pembina') {
+            if ($_GET['page'] == 'users') {
+              include 'pengguna/users.php';
+            } else if ($_GET['page'] == 'pimpinan') {
               include 'pembina/pembina.php';
-            } else if ($_GET['page'] == 'pembinadetails') {
+            } else if ($_GET['page'] == 'adminmatrik') {
               include 'pembina/pembina_detail.php';
-            } else if ($_GET['page'] == 'editpembina') {
+            } else if ($_GET['page'] == 'pembina') {
               include 'pembina/pembina_edit.php';
-            } else if ($_GET['page'] == 'profil') {
+            } else if ($_GET['page'] == 'mahasiswa') {
               include 'profil.php';
-            } else if ($_GET['page'] == 'editprofil') {
-              include 'profil_edit.php';
-            } else if ($_GET['page'] == 'mahasiswadetails') {
-              include 'mahasiswa/mahasiswa_detail.php';
-            } else if ($_GET['page'] == 'editmahasiswa') {
-              include 'mahasiswa/mahasiswa_edit.php';
-            } else if ($_GET['page'] == 'bypembina') {
-              include 'bypembina.php';
-            } else if ($_GET['page'] == 'bypembinadetail') {
-              include 'bypembinadetail.php';
-            } else if ($_GET['page'] == 'tambahbinaan') {
-              include 'pembina/pembina_tambahbinaan.php';
-            } else if ($_GET['page'] == 'shalat') {
-              include 'shalat/shalat.php';
-            } else if ($_GET['page'] == 'pbentuk') {
-              include 'pelanggaran/pbentuk.php';
-            } else if ($_GET['page'] == 'paksi') {
-              include 'pelanggaran/paksi.php';
-            } else if ($_GET['page'] == 'psanksi') {
-              include 'pelanggaran/psanksi.php';
-            } else if ($_GET['page'] == 'planjut') {
-              include 'pelanggaran/planjut.php';
-            } else if ($_GET['page'] == 'pikhtisar') {
-            include 'pelanggaran/pikhtisar.php';
-          } else if ($_GET['page'] == 'pmaindetail') {
-            include 'pelanggaran/pikhtisar_detail.php';
-          } else if ($_GET['page'] == 'pbentukdetail') {
-            include 'pelanggaran/pbentuk_detail.php';
-          } else if ($_GET['page'] == 'paksidetail') {
-            include 'pelanggaran/paksi_detail.php';
-          } else if ($_GET['page'] == 'psanksidetail') {
-            include 'pelanggaran/psanksi_detail.php';
-          } else if ($_GET['page'] == 'planjutdetail') {
-            include 'pelanggaran/planjut_detail.php';
-          } 
+            }
         } else{
             include 'dashboard.php';
         }

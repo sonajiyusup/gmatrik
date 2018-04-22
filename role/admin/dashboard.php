@@ -14,7 +14,7 @@
             </div>
             <!-- Widgets -->
             <div class="row clearfix">
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="info-box-2 bg-blue">
                         <div class="icon">
                             <a href="?page=users"><i class="material-icons">account_box</i></a>
@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="info-box-2 bg-red">
+                    <div class="info-box-2 bg-cyan">
                         <div class="icon">
                             <a href="?page=pembina"><i class="material-icons">gavel</i></a>
                         </div>
@@ -48,7 +48,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="info-box-2 bg-red">
+                    <div class="info-box-2 bg-orange">
                         <div class="icon">
                             <a href="?page=mahasiswa"><i class="material-icons">gavel</i></a>
                         </div>
