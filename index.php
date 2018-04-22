@@ -32,8 +32,14 @@
     <!-- Bootstrap Material Datetime Picker Css -->
     <link href="assets/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
 
+    <!-- Date Picker -->
+    <link rel="stylesheet" href="assets/css/bootstrap-datepicker.min.css">
+
     <!-- iCheck for checkboxes and radio inputs -->
     <link rel="stylesheet" href="assets/css/iCheck/all.css">
+
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="assets/css/daterangepicker.css">
 
     <!-- Wait Me Css -->
     <link href="assets/css/waitMe.css" rel="stylesheet" />
@@ -73,6 +79,10 @@
 
     <!-- Moment Plugin Js -->
     <script src="assets/js/moment.js"></script>
+    <script src="assets/js/daterangepicker.js"></script>
+
+    <!-- datepicker -->
+    <script src="assets/js/bootstrap-datepicker.min.js"></script>
 
     <!-- Bootstrap Material Datetime Picker Plugin Js -->
     <script src="assets/js/bootstrap-material-datetimepicker.js"></script>
@@ -356,9 +366,160 @@ function validatePassword(){
   }
 }
 
-pwinput2.onchange = validatePassword;
-pwinput3.onkeyup = validatePassword;
+    pwinput2.onchange = validatePassword;
+    pwinput3.onkeyup = validatePassword;
 </script>   
+
+<!-- Daterange picker import data presensi shalat mahasiswa -->
+<script type="text/javascript">
+var startDate;
+var endDate;
+
+$(document).ready(function() {
+    $('#reportrange').daterangepicker(
+       {
+          startDate: moment().subtract('days', 6),
+          endDate: moment(),
+          //minDate: '01/01/2012',
+          //maxDate: '12/31/2014',
+          dateLimit: { days: 60 },
+          showDropdowns: true,
+          showWeekNumbers: true,
+          timePicker: false,
+          timePickerIncrement: 1,
+          timePicker12Hour: true,
+          ranges: {
+             'Hari ini': [moment(), moment()],
+             'Kemarin': [moment().subtract('days', 1), moment().subtract('days', 1)],
+             '7 Hari Terakhir': [moment().subtract('days', 6), moment()],
+             '30 Hari Terakhir': [moment().subtract('days', 29), moment()],
+             'Bulan Ini': [moment().startOf('month'), moment().endOf('month')]
+             //'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+          },
+          opens: 'left',
+          buttonClasses: ['btn btn-primary'],
+          applyClass: 'btn-small btn-primary',
+          cancelClass: 'btn-small',
+          format: 'DD/MM/YYYY',
+          separator: ' to ',
+          locale: {
+              applyLabel: 'Submit',
+              fromLabel: 'Dari',
+              toLabel: 'Sampai',
+              customRangeLabel: 'Custom Range',
+              daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
+              monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+              firstDay: 1
+          }
+       },
+       function(start, end) {
+        console.log("Callback has been called!");
+        $('#reportrange span').html(start.format('D MMMM YYYY') + ' - ' + end.format('D MMMM YYYY'));
+        startDate = start;
+         endDate = end;    
+
+       }
+    );
+    //Set the initial state of the picker label
+    $('#reportrange span').html(moment().subtract('days', 29).format('D MMMM YYYY') + ' - ' + moment().format('D MMMM YYYY'));
+
+    $('#saveBtn').click(function(){
+        console.log(startDate.format('D MMMM YYYY') + ' - ' + endDate.format('D MMMM YYYY'));
+    });
+
+ });
+</script>
+
+<script type="text/javascript">
+$(document).ready(function()
+    {
+      $('#shubuh_dari').bootstrapMaterialDatePicker
+      ({
+        date: false,
+        shortTime: false,
+        format: 'HH:mm',
+        clearButton: true
+      });
+
+      $('#shubuh_sampai').bootstrapMaterialDatePicker
+      ({
+        date: false,
+        shortTime: false,
+        format: 'HH:mm',
+        clearButton: true
+      });
+
+
+      $('#dzuhur_dari').bootstrapMaterialDatePicker
+      ({
+        date: false,
+        shortTime: false,
+        format: 'HH:mm',
+        clearButton: true
+      });
+
+      $('#dzuhur_sampai').bootstrapMaterialDatePicker
+      ({
+        date: false,
+        shortTime: false,
+        format: 'HH:mm',
+        clearButton: true
+      });
+
+
+      $('#ashar_dari').bootstrapMaterialDatePicker
+      ({
+        date: false,
+        shortTime: false,
+        format: 'HH:mm',
+        clearButton: true
+      });
+
+      $('#ashar_sampai').bootstrapMaterialDatePicker
+      ({
+        date: false,
+        shortTime: false,
+        format: 'HH:mm',
+        clearButton: true
+      });
+
+
+      $('#maghrib_dari').bootstrapMaterialDatePicker
+      ({
+        date: false,
+        shortTime: false,
+        format: 'HH:mm',
+        clearButton: true
+      });
+
+      $('#maghrib_sampai').bootstrapMaterialDatePicker
+      ({
+        date: false,
+        shortTime: false,
+        format: 'HH:mm',
+        clearButton: true
+      });
+
+
+      $('#isya_dari').bootstrapMaterialDatePicker
+      ({
+        date: false,
+        shortTime: false,
+        format: 'HH:mm',
+        clearButton: true
+      });
+
+      $('#isya_sampai').bootstrapMaterialDatePicker
+      ({
+        date: false,
+        shortTime: false,
+        format: 'HH:mm',
+        clearButton: true
+      });
+
+      $.material.init()
+    });
+</script>
       
   </body>
 </html>
