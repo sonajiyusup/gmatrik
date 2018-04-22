@@ -55,8 +55,8 @@
                                 ?>
                             ><a href="?page=users">Semua</a>
                             </li>
-                        </ul>
-                        <ul class="ml-menu">
+                        
+                        
                             <li <?php 
                                   if (isset($_GET['page'])) {
                                     if ($_GET['page'] == 'pimpinan') {
@@ -66,8 +66,8 @@
                                 ?>
                             ><a href="?page=pimpinan">Pimpinan Matrikulasi</a>
                             </li>
-                        </ul>
-                        <ul class="ml-menu">
+                        
+                        
                             <li <?php 
                                   if (isset($_GET['page'])) {
                                     if ($_GET['page'] == 'adminmatrik') {
@@ -77,8 +77,7 @@
                                 ?>
                             ><a href="?page=adminmatrik">Admin Matrikulasi</a>
                             </li>
-                        </ul>
-                        <ul class="ml-menu">
+                        
                             <li <?php 
                                   if (isset($_GET['page'])) {
                                     if ($_GET['page'] == 'pembina') {
@@ -88,8 +87,7 @@
                                 ?>
                             ><a href="?page=pembina">Pembina Matrikulasi</a>
                             </li>
-                        </ul>
-                        <ul class="ml-menu">
+                        
                             <li <?php 
                                   if (isset($_GET['page'])) {
                                     if ($_GET['page'] == 'mahasiswa' || $_GET['page'] == 'mahasiswadetails' || $_GET['page'] == 'editmahasiswa') {
