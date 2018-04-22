@@ -33,14 +33,27 @@
                         </a>
                     </li>
                     <li class="header">PROGRAM PEMBINAAN</li>
-                    <li>
+                    <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'shalat') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            >
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">watch_later</i>
                             <span>Shalat Wajib</span>
                         </a>
                         <ul class="ml-menu">
-                            <li>
-                                <a href="pages/ui/alerts.html">Ikhtisar</a>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'shalat') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            ><a href="?page=shalat">Ikhtisar</a>
                             </li>
                             <li>
                                 <a href="pages/ui/animations.html">...</a>
@@ -225,7 +238,7 @@
             } else if ($_GET['page'] == 'tambahbinaan') {
               include 'pembina/pembina_tambahbinaan.php';
             } else if ($_GET['page'] == 'shalat') {
-              include 'shalat.php';
+              include 'shalat/shalat.php';
             } else if ($_GET['page'] == 'pbentuk') {
               include 'pelanggaran/pbentuk.php';
             } else if ($_GET['page'] == 'paksi') {
