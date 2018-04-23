@@ -13,7 +13,7 @@
                         <div class="body ">
                         	<div class="table-responsive">
 									<!-- Table Daftar Mahasiswa  -->
-						              <table id="tablePembina" class="table table-hover table-condensed">
+						              <table id="tableMahasiswa" class="table table-hover table-condensed">
 						                <thead>
 						                  <tr>
 						                  	<th></th>
@@ -88,7 +88,7 @@
 
     <script>
     $(document).ready(function() {
-      var t = $('#tablePembina').DataTable( {
+      var t = $('#tableMahasiswa').DataTable( {
             "processing": true,
             "serverSide": true,
             "ajax": "/gmatrik/dataMahasiswa.php",

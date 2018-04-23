@@ -46,8 +46,8 @@
                                   </tbody>          
                                 </table>
                                 <!-- /Table Daftar Pembina -->
-						              	</div><br>                
-						              	<button type="submit" name="submitBinaanMahasiswa" class="btn btn-primary"><i class="fa fa-check"></i>&nbsp;Submit</button>
+						              	</div>              
+						              	<button type="submit" name="submitBinaanMahasiswa" class="btn btn-primary waves-effect">SUBMIT</button>
 						              </form>
                         </div>
                     </div>

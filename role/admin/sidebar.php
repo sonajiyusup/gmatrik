@@ -151,7 +151,7 @@
             } else if ($_GET['page'] == 'pembina') {
               include 'pembina/pembina_edit.php';
             } else if ($_GET['page'] == 'mahasiswa') {
-              include 'profil.php';
+              include 'pengguna/mahasiswa.php';
             }
         } else{
             include 'dashboard.php';
