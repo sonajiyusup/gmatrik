@@ -1,5 +1,6 @@
 <?php 
   include 'functions.php';
+
  ?>
 
 	<div class="row clearfix">

@@ -158,7 +158,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="header">PENGGUNA</li>
+                    <li class="header">BINAAN</li>
                     <li <?php 
                                   if (isset($_GET['page'])) {
                                     if ($_GET['page'] == 'mahasiswa' || $_GET['page'] == 'mahasiswadetails' || $_GET['page'] == 'editmahasiswa') {
@@ -179,33 +179,7 @@
                                     }
                                   }
                                 ?>
-                            ><a href="?page=mahasiswa">Data Mahasiswa</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li <?php 
-                          if (isset($_GET['page'])) {
-                            if ($_GET['page'] == 'pembina' || $_GET['page'] == 'pembinadetails' || $_GET['page'] == 'editpembina' || $_GET['page'] == 'tambahbinaan') {
-                              echo "class='active'";
-                            }
-                          }
-                        ?>
-                    ><a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">supervisor_account</i>
-                            <span>Pembina</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li <?php 
-                                  if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'pembina' || $_GET['page'] == 'pembinadetails' || $_GET['page'] == 'editpembina' || $_GET['page'] == 'tambahbinaan') {
-                                      echo "class='active'";
-                                    }
-                                  }
-                                ?>
-                            ><a href="?page=pembina">Data Pembina</a>
-                            </li>
-                            <li>
-                                <a href="?page=mbinaan">Mahasiswa Binaan</a>
+                            ><a href="?page=mahasiswa">Data Mahasiswa Binaan</a>
                             </li>
                         </ul>
                     </li>
@@ -286,17 +260,17 @@
               include 'pelanggaran/planjut.php';
             } else if ($_GET['page'] == 'pikhtisar') {
             include 'pelanggaran/pikhtisar.php';
-          } else if ($_GET['page'] == 'pmaindetail') {
-            include 'pelanggaran/pikhtisar_detail.php';
-          } else if ($_GET['page'] == 'pbentukdetail') {
-            include 'pelanggaran/pbentuk_detail.php';
-          } else if ($_GET['page'] == 'paksidetail') {
-            include 'pelanggaran/paksi_detail.php';
-          } else if ($_GET['page'] == 'psanksidetail') {
-            include 'pelanggaran/psanksi_detail.php';
-          } else if ($_GET['page'] == 'planjutdetail') {
-            include 'pelanggaran/planjut_detail.php';
-          } 
+            } else if ($_GET['page'] == 'pmaindetail') {
+              include 'pelanggaran/pikhtisar_detail.php';
+            } else if ($_GET['page'] == 'pbentukdetail') {
+              include 'pelanggaran/pbentuk_detail.php';
+            } else if ($_GET['page'] == 'paksidetail') {
+              include 'pelanggaran/paksi_detail.php';
+            } else if ($_GET['page'] == 'psanksidetail') {
+              include 'pelanggaran/psanksi_detail.php';
+            } else if ($_GET['page'] == 'planjutdetail') {
+              include 'pelanggaran/planjut_detail.php';
+            } 
         } else{
             include 'dashboard.php';
         }

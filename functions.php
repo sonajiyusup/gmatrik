@@ -184,13 +184,26 @@
 
 	function tampilPikhtisar(){
 		$ambildata = mysql_query("SELECT id_pelanggaran, b.id_mahasiswa, b.namamhs, nama_bentuk, nama_aksi, nama_sanksi, nama_tindaklanjut, deskripsi, tanggal FROM pmain pm LEFT JOIN pbentuk pb ON pm.id_pbentuk = pb.id_pbentuk LEFT JOIN paksi pa ON pm.id_paksi = pa.id_paksi LEFT JOIN psanksi ps ON pm.id_psanksi = ps.id_psanksi LEFT JOIN planjut pl ON pm.id_planjut = pl.id_planjut LEFT JOIN( SELECT m.id_mahasiswa, m.nama AS namamhs, mb.id_mhsbinaan FROM m_binaan mb LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa ) b ON pm.id_mhsbinaan = b.id_mhsbinaan") or die(mysql_error());
-		if (mysql_num_rows($ambildata) > 0) {
-			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
-				$data[] = $ad;
-				return $data;
-		} else{
-			echo "Data pelanggaran masih kosong";
-		}
+
+			if (mysql_num_rows($ambildata) > 0) {
+				while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+					$data[] = $ad;
+					return $data;
+			} else{
+				echo "Data pelanggaran masih kosong";
+			}
+	}	
+
+	function tampilPikhtisarByPembina($idPembina){
+		$ambildata = mysql_query("SELECT id_pelanggaran, b.id_mahasiswa, b.namamhs, nama_bentuk, nama_aksi, nama_sanksi, nama_tindaklanjut, deskripsi, tanggal FROM pmain pm LEFT JOIN pbentuk pb ON pm.id_pbentuk = pb.id_pbentuk LEFT JOIN paksi pa ON pm.id_paksi = pa.id_paksi LEFT JOIN psanksi ps ON pm.id_psanksi = ps.id_psanksi LEFT JOIN planjut pl ON pm.id_planjut = pl.id_planjut LEFT JOIN ( SELECT m.id_mahasiswa, mb.id_pembina, m.nama AS namamhs, mb.id_mhsbinaan FROM m_binaan mb LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa ) b ON pm.id_mhsbinaan = b.id_mhsbinaan WHERE b.id_pembina = $idPembina") or die(mysql_error());
+		
+			if (mysql_num_rows($ambildata) > 0) {
+				while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+					$data[] = $ad;
+					return $data;
+			} else{
+				echo "Data pelanggaran masih kosong";
+			}
 	}	
 
 	function pDetailById($kategori, $id){
@@ -337,6 +350,17 @@
 				$data[] = $ad;
 				return $data;		
 	}	
+
+	function tampilBinaanByPembina($idPembina){
+		$ambildata = mysql_query("SELECT m.id_user, mb.id_mahasiswa, m.nim, m.nama, m.telp, u.last_login FROM m_binaan mb LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa LEFT JOIN users u ON m.id_user = u.id_user WHERE mb.id_pembina = $idPembina") or die(mysql_error());
+		if (mysql_num_rows($ambildata) > 0) {
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;
+		} else{
+			echo "Daftar pembina kosong";
+		}	
+	}
 
 	function mahasiswaByPembina($idPembina){
 		$ambildata = mysql_query("SELECT mahasiswa.nim AS nim, mahasiswa.nama AS nama FROM mhs_binaan INNER JOIN mahasiswa on mhs_binaan.id_mahasiswa = mahasiswa.id_mahasiswa WHERE mhs_binaan.id_pembina = $idPembina");
