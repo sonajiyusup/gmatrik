@@ -1,6 +1,8 @@
 <?php 
   include 'functions.php';
   $idP = $_GET['id']; 
+  $idPembina = $_SESSION['id_pembina'];
+
  ?>  
 
 <div class="container-fluid">
@@ -18,8 +20,10 @@
 							              <col width="20">
 							              <col width="750">
 							              <?php 
-							                $dataPelanggaran = pDetailById('ikhtisar', $idP);
-							                foreach($dataPelanggaran as $row){ 
+							                $dataPelanggaran = pDetailByIdPembina('ikhtisar', $idP, $idPembina);
+							                $no = 1;
+                                            if (is_array($dataPelanggaran) || is_object($dataPelanggaran)){
+                                             foreach($dataPelanggaran as $row){
 							              ?>
                                <tr> 
 						                    <th>ID Pelanggaran</th>
@@ -30,11 +34,6 @@
 						                    <th>Nama Mahasiswa</th>
 						                    <td>:</td>
 						                    <td><a href="?page=mahasiswadetails&id=<?php echo $row['uid_mhs']; ?>"><?php echo $row['namamhs']; ?></a></td>
-						                  </tr>
-						                  <tr>
-						                    <th>Nama Pembina</th>
-						                    <td>:</td>
-						                    <td><a href="?page=pembinadetails&id=<?php echo $row['uid_pembina']; ?>"><?php echo $row['namap']; ?></a></td>
 						                  </tr>
 						                  <tr>
 						                    <th>Bentuk Pelanggaran</th>
@@ -66,7 +65,7 @@
 						                    <td height="100">:</td>
 						                    <td><?php echo $row['deskripsi']; ?></td>
 						                  </tr>
-						                  <?php } ?>
+						                  <?php } }?>
                             </table>                          
                         </div>
                     </div>
