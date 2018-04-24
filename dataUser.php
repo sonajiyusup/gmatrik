@@ -20,7 +20,10 @@
 				'db' => 'username', 
 				'dt' => 1,
 				'formatter' => function( $d, $row ) {
-					return "<a href='index.php?page=userdetails&id=".$row[0]."'>".$d."</a>";
+					//return "<a href='index.php?page=userdetails&id=".$row[0]."'>".$d."</a>";
+
+					if($row[4] == 0){ return "<a href='index.php?page=administratordetails&id=".$row[0]."'>".$d."</a>";}else if($row[4] == 1){ return "<a href='index.php?page=pimpinandetails&id=".$row[0]."'>".$d."</a>" ;}else if($row[4] == 2){ return "<a href='index.php?page=adminmatrikdetails&id=".$row[0]."'>".$d."</a>" ;}else if($row[4] == 3){ return "<a href='index.php?page=pembinadetails&id=".$row[0]."'>".$d."</a>" ;}else if($row[4] == 4){ return "<a href='index.php?page=mahasiswadetails&id=".$row[0]."'>".$d."</a>" ;}
+
 				}
 			),
 			array( 'db' => 'password', 'dt' => 2 ),
