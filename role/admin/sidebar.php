@@ -146,6 +146,8 @@
               include 'pengguna/users.php';
             } else if ($_GET['page'] == 'pembina') {
               include 'pengguna/pembina.php';
+            } else if ($_GET['page'] == 'pembinadetails') {
+              include 'pengguna/pembina_detail.php';
             } else if ($_GET['page'] == 'adminmatrik') {
               include 'pengguna/adminmatrik.php';
             } else if ($_GET['page'] == 'mahasiswa') {

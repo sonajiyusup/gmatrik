@@ -100,63 +100,6 @@
                         <?php } ?>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header">
-                            <h2>
-                                MAHASISWA BINAAN &nbsp;
-                                <a href="?page=tambahbinaan&id=<?php echo $idPembina; ?>" class="btn btn-sm btn-link waves-effect" style="width: 17%;" title="Tambah Mahasiswa Binaan"><i class="material-icons">playlist_add</i></a>
-                            </h2>
-                        </div>
-                        <div class="body">
-                        <!-- Table Daftar Pembina -->
-                          <table id="tableDaftarBinaan" class="table table-bordered table-hover table-condensed">
-                            <thead>
-                              <tr>
-                                <th>#</th>
-                                <th>NIM</th>
-                                <th>Nama Mahasiswa Binaan</th>
-                                <th>Aksi</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                            <?php 
-                              $dataByPembina = MhsByPembinaDetail($row['id_pembina']);
-
-                              $no = 1;
-
-                              if (is_array($dataByPembina) || is_object($dataByPembina)){
-
-                               foreach($dataByPembina as $row){  
-                            ?>
-                            <tr>
-                              <td><?php echo $no ?></td>
-                              <td><?php echo "<span class='badge bg-green'>".$row['nim']."</span>" ?></td>
-                              <td><a href="index.php?page=mahasiswadetails&id=<?php echo $row['uid_mahasiswa']; ?>" style='text-decoration:none'><?php echo $row['nama_mahasiswa']?></a></td>
-                              <td>
-                                
-
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons" style="font-size: 14px">settings</i>&nbsp;<span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                      <li><?php echo "<a style='color:#DD4B39;' href='#ModalHapusBinaan' class='dropdown-item' data-toggle='modal' data-href='action/hapus.php?idmahasiswabinaan=".$row['id_mahasiswa']."&uidpembina=".$row['uid_pembina']."' aria-hidden='true'><i class='material-icons' style='font-size: 20px'>delete</i></a>"; ?></li>
-                                    </ul>
-                                </div>
-                              </td>
-                            </tr>
-                           <?php 
-                              $no++; }
-                              }
-                            ?> 
-                            </tbody>          
-                          </table>
-                          <!-- /Table Daftar Pembina -->
-                        </div>
-                    </div>
-                </div>
-                <!-- #END# Color Variations -->                
   </div>
 </div>
 
@@ -174,30 +117,4 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Small Size -->
-            <div class="modal fade" id="ModalHapusBinaan" tabindex="-1" role="dialog">
-                <div class="modal-dialog modal-sm" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title" id="smallModalLabel">Hapus Mahasiswa Binaan ?</h4>
-                        </div>
-                        <div class="modal-footer">
-                            <a type="button" class="btn btn-danger btn-ok waves-effect">HAPUS</a>
-                            <button class="btn btn-link waves-effect" data-dismiss="modal">BATAL</button>
-                        </div>
-                    </div>
-                </div>
-            </div>            
-
-    <script>
-    $(document).ready(function() {
-      var t = $('#tableDaftarBinaan').DataTable( {
-            "columnDefs": [
-              { "searchable": false, "orderable": false, "targets": [0,3]}
-            ]
-        } );
-
-    } );
-    </script>   
+            </div>           
