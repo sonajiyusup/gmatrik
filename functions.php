@@ -325,6 +325,12 @@
 		return $data;		
 	}
 
+	function totalPelanggaranBinaanByPembina($idPembina){
+		$ambildata = mysql_query("SELECT COUNT(p.id_pelanggaran) AS 'jml_plgr_mhs' FROM pmain p INNER JOIN m_binaan mb ON p.id_mhsbinaan = mb.id_mhsbinaan WHERE mb.id_pembina = $idPembina");
+		$data = mysql_fetch_assoc($ambildata);
+		return $data;
+	}
+
 	function BinaanByPembina($idPembina){
 		$ambildata = mysql_query("SELECT * from mhs_binaan WHERE id_pembina = $idPembina");
 			$ad = mysql_fetch_assoc($ambildata);

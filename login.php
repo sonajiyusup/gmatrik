@@ -36,15 +36,18 @@ if(isset($_POST['login'])){
         }
 
         if ($ava == NULL) {
-          if ($gender == 'Perempuan'){
+          if ($gender == 'Perempuan' || $gender == 'Akhwat'){
             $_SESSION['ava'] ='default-female.jpg';
           } else
-          if ($gender == 'Laki-laki'){
+          if ($gender == 'Laki-laki' || $gender == 'Ikhwan'){
             $_SESSION['ava'] ='default-male.png';
+          } else
+          if ($gender == NULL){
+            $_SESSION['ava'] ='default.png';
           }
         } else{
           $_SESSION['ava'] = $ava;
-        } 
+        }  
         
         $_SESSION['id_admin'] = $id_admin;
         $_SESSION['role'] = 'administrator';
@@ -102,11 +105,14 @@ if(isset($_POST['login'])){
         }
 
         if ($ava == NULL) {
-          if ($gender == 'Perempuan'){
+          if ($gender == 'Perempuan' || $gender == 'Akhwat'){
             $_SESSION['ava'] ='default-female.jpg';
           } else
-          if ($gender == 'Laki-laki'){
+          if ($gender == 'Laki-laki' || $gender == 'Ikhwan'){
             $_SESSION['ava'] ='default-male.png';
+          } else
+          if ($gender == NULL){
+            $_SESSION['ava'] ='default.png';
           }
         } else{
           $_SESSION['ava'] = $ava;
@@ -137,12 +143,13 @@ if(isset($_POST['login'])){
         }
 
         if ($ava == NULL) {
-          if ($gender == 'Perempuan'){
+          if ($gender == 'Perempuan' || $gender == 'Akhwat'){
             $_SESSION['ava'] ='default-female.jpg';
           } else
-          if ($gender == 'Laki-laki'){
+          if ($gender == 'Laki-laki' || $gender == 'Ikhwan'){
             $_SESSION['ava'] ='default-male.png';
-          } else{
+          } else
+          if ($gender == NULL){
             $_SESSION['ava'] ='default.png';
           }
         } else{
