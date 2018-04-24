@@ -24,7 +24,21 @@
                                   <td colspan="3"> 
                                     <div class="image" align="center">
                                       <a href="#ModalUploadAva" title="Klik untuk Ganti Foto Profil" data-toggle='modal'>
-                                        <img src=<?php echo "assets/img/user/".$row['avatar']; ?> width="100" height="100" alt="User" />
+                                        <img src=<?php
+                                          if ($row['avatar'] == NULL) {
+                                            if ($row['j_kelamin'] == 'Akhwat' || $row['j_kelamin'] == 'Perempuan'){
+                                              echo 'assets/img/user/default-female.jpg';
+                                            } else
+                                            if ($row['j_kelamin'] == 'Ikhwan' || $row['j_kelamin'] == 'Laki-laki'){
+                                              echo 'assets/img/user/default-male.png';
+                                            } else
+                                            if ($row['j_kelamin'] == NULL){
+                                              echo 'assets/img/user/default.png';
+                                            }
+                                          } else if($row['avatar'] != NULL){
+                                            echo 'assets/img/user/'.$row['avatar'];
+                                          }               
+                                        ?> width="100" height="100" alt="User" />
                                       </a>
                                       <br>
                                       <h4 align="center"><?php echo $row['nama']; ?></h4>
