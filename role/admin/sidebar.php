@@ -35,7 +35,7 @@
                     <li class="header">PENGGUNA</li>
                     <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'users' || $_GET['page'] == 'pimpinan' || $_GET['page'] == 'adminmatrik' || $_GET['page'] == 'pembina' || $_GET['page'] == 'mahasiswa' || $_GET['page'] == 'mahasiswadetails') {
+                                    if ($_GET['page'] == 'users' || $_GET['page'] == 'pimpinan' || $_GET['page'] == 'adminmatrik' || $_GET['page'] == 'pembina' || $_GET['page'] == 'mahasiswa' || $_GET['page'] == 'mahasiswadetails'  || $_GET['page'] == 'pembinadetails' || $_GET['page'] == 'adminmatrikdetails') {
                                       echo "class='active'";
                                     }
                                   }
@@ -59,18 +59,16 @@
                         
                             <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'pimpinan') {
+                                    if ($_GET['page'] == 'pimpinan' || $_GET['page'] == 'pimpinandetails') {
                                       echo "class='active'";
                                     }
                                   }
                                 ?>
                             ><a href="?page=pimpinan">Pimpinan Matrikulasi</a>
                             </li>
-                        
-                        
                             <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'adminmatrik') {
+                                    if ($_GET['page'] == 'adminmatrik' || $_GET['page'] == 'adminmatrikdetails') {
                                       echo "class='active'";
                                     }
                                   }
@@ -80,7 +78,7 @@
                         
                             <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'pembina') {
+                                    if ($_GET['page'] == 'pembina' || $_GET['page'] == 'pembinadetails') {
                                       echo "class='active'";
                                     }
                                   }
@@ -150,6 +148,8 @@
               include 'pengguna/pembina_detail.php';
             } else if ($_GET['page'] == 'adminmatrik') {
               include 'pengguna/adminmatrik.php';
+            } else if ($_GET['page'] == 'adminmatrikdetails') {
+              include 'pengguna/adminmatrik_detail.php';
             } else if ($_GET['page'] == 'mahasiswa') {
               include 'pengguna/mahasiswa.php';
             } else if ($_GET['page'] == 'mahasiswadetails') {
