@@ -144,8 +144,8 @@
         if (isset($_GET['page'])) {
             if ($_GET['page'] == 'users') {
               include 'pengguna/users.php';
-            } else if ($_GET['page'] == 'pimpinan') {
-              include 'pembina/pembina.php';
+            } else if ($_GET['page'] == 'pembina') {
+              include 'pengguna/pembina.php';
             } else if ($_GET['page'] == 'adminmatrik') {
               include 'pembina/pembina_detail.php';
             } else if ($_GET['page'] == 'pembina') {
