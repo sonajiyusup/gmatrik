@@ -150,6 +150,8 @@
               include 'pengguna/adminmatrik.php';
             } else if ($_GET['page'] == 'mahasiswa') {
               include 'pengguna/mahasiswa.php';
+            } else if ($_GET['page'] == 'pimpinan') {
+              include 'pengguna/pimpinan.php';
             }
         } else{
             include 'dashboard.php';

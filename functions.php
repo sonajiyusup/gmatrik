@@ -78,7 +78,7 @@
 				$data[] = $ad;
 				return $data;
 		} else{
-			echo "Daftar pembina kosong";
+			echo "Daftar pimpinan kosong";
 		}		
 	}	
 
