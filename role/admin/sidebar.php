@@ -147,9 +147,7 @@
             } else if ($_GET['page'] == 'pembina') {
               include 'pengguna/pembina.php';
             } else if ($_GET['page'] == 'adminmatrik') {
-              include 'pembina/pembina_detail.php';
-            } else if ($_GET['page'] == 'pembina') {
-              include 'pembina/pembina_edit.php';
+              include 'pengguna/adminmatrik.php';
             } else if ($_GET['page'] == 'mahasiswa') {
               include 'pengguna/mahasiswa.php';
             }
