@@ -3,6 +3,32 @@
 	mysql_connect("localhost", "root", "");
 	mysql_select_db("simon");
 
+	function tambahUser($nama, $j_kelamin, $level, $user){
+
+		$randpass = substr(str_shuffle(str_repeat("0123456789aAbBcCdDeEfFgGhHiIjJ0123456789kKlLmMnNoOpPqQrRsStT0123456789uUvVwWxXyYzZ", 10)), 0, 10);
+		$_randpass = mysql_real_escape_string($randpass);
+
+		mysql_query("INSERT INTO users (username, password, password_default, level) VALUES ('$user','$_randpass', 1, '$level')");
+
+		if (mysql_errno() == 1062) {
+    	return 1;
+		} else{
+			$sql = mysql_query("SELECT id_user FROM users WHERE username='$user'") or die(mysql_error());
+			$row = mysql_fetch_assoc($sql);
+			$id_user = $row['id_user'];
+
+			if ($level == 0) {
+				mysql_query("INSERT INTO administrator (nama, j_kelamin, id_user) VALUES ('$nama','$j_kelamin', '$id_user')");
+			} else
+			if($level == 1){
+				mysql_query("INSERT INTO pimpinan (nama, j_kelamin, id_user) VALUES ('$nama','$j_kelamin', '$id_user')");
+			} else
+			if($level == 2){
+				mysql_query("INSERT INTO adminmatrik (nama, j_kelamin, id_user) VALUES ('$nama','$j_kelamin', '$id_user')");
+			}
+		}
+	}	
+
 	function tambahPembina($nama, $j_kelamin, $tgl_lahir, $gelar, $asalkota, $email, $telp, $user, $pass){
 		mysql_query("INSERT INTO users (username, password, level) VALUES ('$user','$pass', 3)");
 

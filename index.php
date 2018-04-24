@@ -71,6 +71,9 @@
     <!-- iCheck 1.0.1 -->
     <script src="assets/js/icheck.min.js"></script>
 
+    <!-- Bootstrap Notify Plugin Js -->
+    <script src="assets/js/bootstrap-notify.js"></script>
+
     <!-- Waves Effect Plugin Js -->
     <script src="assets/js/waves.js"></script>
 
@@ -105,6 +108,7 @@
     <script src="assets/js/admin.js"></script>
     <script src="assets/js/jquery-datatable.js"></script>
     <script src="assets/js/basic-form-elements.js"></script>
+    <script src="assets/js/notifications.js"></script>
 
     <!-- Demo Js -->
     <script src="assets/js/demo.js"></script>
