@@ -35,7 +35,7 @@
                     <li class="header">PENGGUNA</li>
                     <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'users' || $_GET['page'] == 'pimpinan' || $_GET['page'] == 'adminmatrik' || $_GET['page'] == 'pembina' || $_GET['page'] == 'mahasiswa') {
+                                    if ($_GET['page'] == 'users' || $_GET['page'] == 'pimpinan' || $_GET['page'] == 'adminmatrik' || $_GET['page'] == 'pembina' || $_GET['page'] == 'mahasiswa' || $_GET['page'] == 'mahasiswadetails') {
                                       echo "class='active'";
                                     }
                                   }
@@ -150,6 +150,8 @@
               include 'pengguna/adminmatrik.php';
             } else if ($_GET['page'] == 'mahasiswa') {
               include 'pengguna/mahasiswa.php';
+            } else if ($_GET['page'] == 'mahasiswadetails') {
+              include 'pengguna/mahasiswa_detail.php';
             } else if ($_GET['page'] == 'pimpinan') {
               include 'pengguna/pimpinan.php';
             }
