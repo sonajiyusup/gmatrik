@@ -22,8 +22,8 @@
 							              <?php 
 							                $dataPelanggaran = pDetailByIdPembina('ikhtisar', $idP, $idPembina);
 							                $no = 1;
-                                            if (is_array($dataPelanggaran) || is_object($dataPelanggaran)){
-                                             foreach($dataPelanggaran as $row){
+															if (is_array($dataPelanggaran) || is_object($dataPelanggaran)){
+																foreach($dataPelanggaran as $row){
 							              ?>
                                <tr> 
 						                    <th>ID Pelanggaran</th>
