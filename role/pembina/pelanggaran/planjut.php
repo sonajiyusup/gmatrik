@@ -1,5 +1,6 @@
 <?php 
   include 'functions.php';
+  $idPembina = $_SESSION['id_pembina'];
  ?>   
 
 	<div class="row clearfix">
@@ -18,26 +19,23 @@
 						                  <tr>
 							                  <th>Level</th>
 						                    <th>Tindak Lanjut</th>
-						                    <th>Sanksi</th>
 						                    <th>Jumlah Pelanggaran</th>
 						                  </tr>
 						                </thead>
 						                <tbody>
 						                  <?php 
-						                    $dataPlanjut = tampilPlanjut();
+						                    $dataPlanjut = tampilPlanjutByPembina($idPembina);
 						                    
 						                    $no = 1;
 						                  	if (is_array($dataPlanjut) || is_object($dataPlanjut)){
 						                    foreach($dataPlanjut as $row){
-
 						                   ?>
-						                <tr>
-						                  <td><?php echo $row['level']; ?></td>
-						                  <td><a href="?page=planjutdetail&id=<?php echo $row['id_planjut']; ?> "><?php echo $row['nama_tindaklanjut']; ?></a></td>
-						                  <td><?php echo $row['nama_sanksi']; ?></td>
-						                  <td><?php echo $row['jumlah']; ?></td>
-						                </tr>
-						                  <?php 
+							                <tr>
+							                  <td><?php echo $row['level']; ?></td>
+							                  <td><a href="?page=planjutdetail&id=<?php echo $row['id_planjut']; ?> "><?php echo $row['nama_tindaklanjut']; ?></a></td>
+							                  <td><?php echo $row['jumlah']; ?></td>
+							                </tr>
+							                  <?php 
 						                    $no++; }
 						                   }
 						                  ?>      

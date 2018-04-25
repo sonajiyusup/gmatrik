@@ -171,6 +171,17 @@
 		}
 	}	
 
+	function tampilPaksiByPembina($idPembina){
+		$ambildata = mysql_query("SELECT pa.id_paksi, pa.nama_aksi, COUNT(pmb.id_paksi) AS jumlah FROM paksi pa LEFT JOIN ( SELECT b.id_pembina, pa.id_paksi FROM pmain pm LEFT JOIN paksi pa ON pm.id_paksi = pa.id_paksi LEFT JOIN ( SELECT p.id_pembina, p.id_user AS uid_pembina, p.nama AS namap, mb.id_mhsbinaan FROM m_binaan mb LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina ) b ON pm.id_mhsbinaan = b.id_mhsbinaan WHERE b.id_pembina = $idPembina ) pmb ON pa.id_paksi = pmb.id_paksi GROUP BY pa.nama_aksi ORDER BY jumlah DESC, pa.id_paksi") or die(mysql_error());
+		if (mysql_num_rows($ambildata) > 0) {
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;
+		} else{
+			echo "Bentuk pelanggaran belum ditambahkan";
+		}
+	}		
+
 	function tampilPsanksi(){
 		$ambildata = mysql_query("SELECT ps.id_psanksi, ps.nama_sanksi, ps.bobot ,COUNT(pm.id_psanksi) AS jumlah FROM psanksi ps LEFT JOIN pmain pm ON ps.id_psanksi = pm.id_psanksi GROUP BY ps.nama_sanksi ORDER BY jumlah DESC") or die(mysql_error());
 		if (mysql_num_rows($ambildata) > 0) {
@@ -182,6 +193,17 @@
 		}
 	}		
 
+	function tampilPsanksiByPembina($idPembina){
+		$ambildata = mysql_query("SELECT ps.id_psanksi, ps.nama_sanksi, ps.bobot, COUNT(pmb.id_psanksi) AS jumlah FROM psanksi ps LEFT JOIN ( SELECT b.id_pembina, ps.id_psanksi FROM pmain pm LEFT JOIN psanksi ps ON pm.id_psanksi = ps.id_psanksi LEFT JOIN ( SELECT p.id_pembina, p.id_user AS uid_pembina, p.nama AS namap, mb.id_mhsbinaan FROM m_binaan mb LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina ) b ON pm.id_mhsbinaan = b.id_mhsbinaan WHERE b.id_pembina = $idPembina ) pmb ON ps.id_psanksi = pmb.id_psanksi GROUP BY ps.nama_sanksi ORDER BY jumlah DESC, ps.id_psanksi") or die(mysql_error());
+		if (mysql_num_rows($ambildata) > 0) {
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;
+		} else{
+			echo "Bentuk pelanggaran belum ditambahkan";
+		}
+	}	
+
 	function tampilPlanjut(){
 		$ambildata = mysql_query("SELECT pl.id_planjut, pl.level, pl.nama_tindaklanjut, ps.nama_sanksi, COUNT(pm.id_planjut) AS jumlah FROM planjut pl LEFT JOIN pmain pm ON pl.id_planjut = pm.id_planjut LEFT JOIN psanksi ps ON pl.id_psanksi = ps.id_psanksi GROUP BY pl.nama_tindaklanjut ORDER BY level") or die(mysql_error());
 		if (mysql_num_rows($ambildata) > 0) {
@@ -192,6 +214,17 @@
 			echo "Sanksi belum ditambahkan";
 		}
 	}	
+
+	function tampilPlanjutByPembina($idPembina){
+		$ambildata = mysql_query("SELECT pl.id_planjut, pl.nama_tindaklanjut, pl.level, COUNT(pmb.id_planjut) AS jumlah FROM planjut pl LEFT JOIN ( SELECT b.id_pembina, pl.id_planjut FROM pmain pm LEFT JOIN planjut pl ON pm.id_planjut = pl.id_planjut LEFT JOIN ( SELECT p.id_pembina, p.id_user AS uid_pembina, p.nama AS namap, mb.id_mhsbinaan FROM m_binaan mb LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina ) b ON pm.id_mhsbinaan = b.id_mhsbinaan WHERE b.id_pembina = $idPembina ) pmb ON pl.id_planjut = pmb.id_planjut GROUP BY pl.nama_tindaklanjut ORDER BY pl.level") or die(mysql_error());
+		if (mysql_num_rows($ambildata) > 0) {
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;
+		} else{
+			echo "Bentuk pelanggaran belum ditambahkan";
+		}
+	}		
 
 	function tampilPikhtisar(){
 		$ambildata = mysql_query("SELECT id_pelanggaran, b.id_mahasiswa, b.namamhs, nama_bentuk, nama_aksi, nama_sanksi, nama_tindaklanjut, deskripsi, tanggal FROM pmain pm LEFT JOIN pbentuk pb ON pm.id_pbentuk = pb.id_pbentuk LEFT JOIN paksi pa ON pm.id_paksi = pa.id_paksi LEFT JOIN psanksi ps ON pm.id_psanksi = ps.id_psanksi LEFT JOIN planjut pl ON pm.id_planjut = pl.id_planjut LEFT JOIN( SELECT m.id_mahasiswa, m.nama AS namamhs, mb.id_mhsbinaan FROM m_binaan mb LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa ) b ON pm.id_mhsbinaan = b.id_mhsbinaan") or die(mysql_error());

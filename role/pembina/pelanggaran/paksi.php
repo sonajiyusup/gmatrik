@@ -1,5 +1,6 @@
 <?php 
   include 'functions.php';
+  $idPembina = $_SESSION['id_pembina'];
  ?>   
 
 	<div class="row clearfix">
@@ -24,7 +25,7 @@
 						                </thead>
 						                <tbody>
 						                  <?php 
-						                    $dataPaksi = tampilPaksi();
+						                    $dataPaksi = tampilPaksiByPembina($idPembina);
 						                    
 						                    $no = 1;
 						                  	if (is_array($dataPaksi) || is_object($dataPaksi)){
