@@ -9,7 +9,7 @@
                     <div class="card">
                         <div class="header">
                           <h2>DAFTAR PELANGGARAN MAHASISWA 
-                            <button class="btn btn-sm btn-link waves-effect " data-toggle="modal" data-target="#tambahPelanggaran" style="width: 10%;" title="Tambah Data Pelanggaran"><i class="material-icons">playlist_add</i></button>
+                            <a href="?page=tambahpelanggaran" class="btn btn-sm btn-link waves-effect" style="width: 10%;" title="Tambah Data Pelanggaran"><i class="material-icons">playlist_add</i></a>
                           </h2>
                         </div>
                         <div class="body ">

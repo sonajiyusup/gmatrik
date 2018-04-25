@@ -270,6 +270,8 @@
               include 'pelanggaran/psanksi_detail.php';
             } else if ($_GET['page'] == 'planjutdetail') {
               include 'pelanggaran/planjut_detail.php';
+            } else if ($_GET['page'] == 'tambahpelanggaran') {
+              include 'pelanggaran/tambah.php';
             } 
         } else{
             include 'dashboard.php';

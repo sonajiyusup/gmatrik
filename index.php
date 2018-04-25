@@ -20,6 +20,8 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 
+    <link rel="stylesheet" href="assets/css/jquery-ui.css">
+
     <!-- Bootstrap Core Css -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
 
@@ -58,6 +60,15 @@
 
     <!-- Jquery Core Js -->
     <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery-ui.min.js"></script>
+
+    <script>
+    $(function() {
+      $( "#daftarMhs" ).autocomplete({
+        source: 'action/cari.php'
+      });
+    });
+    </script>    
 
     <!-- Bootstrap Core Js -->
     <script src="assets/js/bootstrap.js"></script>
@@ -112,7 +123,8 @@
 
     <!-- Demo Js -->
     <script src="assets/js/demo.js"></script>
-    <script src="assets/js/modals.js"></script>    
+    <script src="assets/js/modals.js"></script>  
+
 </head>
 
 <body class="theme-blue">
