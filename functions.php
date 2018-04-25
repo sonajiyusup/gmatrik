@@ -131,7 +131,7 @@
 	}
 
 	function tampilPbentukByPembina($idPembina){
-		$ambildata = mysql_query("SELECT pb.id_pbentuk, pb.nama_bentuk, COUNT(pmb.id_pbentuk) AS jumlah FROM pbentuk pb LEFT JOIN ( SELECT b.id_pembina, pb.id_pbentuk FROM pmain pm LEFT JOIN pbentuk pb ON pm.id_pbentuk = pb.id_pbentuk LEFT JOIN ( SELECT p.id_pembina, p.id_user AS uid_pembina, p.nama AS namap, mb.id_mhsbinaan FROM m_binaan mb LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina ) b ON pm.id_mhsbinaan = b.id_mhsbinaan WHERE b.id_pembina = 22 ) pmb ON pb.id_pbentuk = pmb.id_pbentuk GROUP BY pb.nama_bentuk ORDER BY jumlah DESC, pb.id_pbentuk") or die(mysql_error());
+		$ambildata = mysql_query("SELECT pb.id_pbentuk, pb.nama_bentuk, COUNT(pmb.id_pbentuk) AS jumlah FROM pbentuk pb LEFT JOIN ( SELECT b.id_pembina, pb.id_pbentuk FROM pmain pm LEFT JOIN pbentuk pb ON pm.id_pbentuk = pb.id_pbentuk LEFT JOIN ( SELECT p.id_pembina, p.id_user AS uid_pembina, p.nama AS namap, mb.id_mhsbinaan FROM m_binaan mb LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina ) b ON pm.id_mhsbinaan = b.id_mhsbinaan WHERE b.id_pembina = $idPembina ) pmb ON pb.id_pbentuk = pmb.id_pbentuk GROUP BY pb.nama_bentuk ORDER BY jumlah DESC, pb.id_pbentuk") or die(mysql_error());
 		if (mysql_num_rows($ambildata) > 0) {
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
