@@ -33,7 +33,7 @@
 						                   ?>
 						                <tr>
 						                  <td><?php echo $no; ?></td>
-						                  <td><a href="?page=psanksidetail&id=<?php echo $row['id_psanksi']; ?> "><?php echo $row['nama_sanksi']; ?></a></td>
+						                  <td><?php if($row['jumlah'] != 0){echo "<a href=?page=psanksidetail&id=".$row['id_psanksi'].">".$row['nama_sanksi']."</a>";}else{echo $row['nama_sanksi'];} ?></td>
 						                  <td><?php echo $row['bobot']; ?></td>
 						                  <td><?php echo $row['jumlah']; ?></td>
 						                </tr>

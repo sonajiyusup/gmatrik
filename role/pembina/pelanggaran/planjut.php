@@ -32,7 +32,7 @@
 						                   ?>
 							                <tr>
 							                  <td><?php echo $row['level']; ?></td>
-							                  <td><?php if($row['jumlah'] != 0){echo "<a href=?page=planjutdetail&id=".$row['id_planjut'].">".$row['nama_tindaklanjut']."</a>";}else{echo $row['nama_tindaklanjut'];} ?> </td>
+							                  <td><?php if($row['jumlah'] != 0){echo "<a href=?page=planjutdetail&id=".$row['id_planjut'].">".$row['nama_tindaklanjut']."</a>";}else{echo $row['nama_tindaklanjut'];} ?></td>
 							                  <td><?php echo $row['jumlah']; ?></td>
 							                </tr>
 							                  <?php 
