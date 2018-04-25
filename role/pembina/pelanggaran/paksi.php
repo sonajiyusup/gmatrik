@@ -34,7 +34,7 @@
 						                   ?>
 						                <tr>
 						                  <td><?php echo $no; ?></td>
-						                  <td><a href="?page=paksidetail&id=<?php echo $row['id_paksi']; ?> "><?php echo $row['nama_aksi']; ?></a></td>
+						                  <td><?php if($row['jumlah'] != 0){echo "<a href=?page=paksidetail&id=".$row['id_paksi'].">".$row['nama_aksi']."</a>";}else{echo $row['nama_aksi'];} ?></td>
 						                  <td><?php echo $row['jumlah']; ?></td>
 						                </tr>
 						                  <?php 
