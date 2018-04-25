@@ -1,6 +1,7 @@
 <?php 
   include 'functions.php';
   $idPbentuk = $_GET['id']; 
+  $idPembina = $_SESSION['id_pembina'];
 
   $nbP = tampilSesuatu('pbentuk', 'nama_bentuk', 'id_pbentuk', $idPbentuk);
  ?>    
@@ -28,7 +29,7 @@
 						                </thead>
 						                <tbody>
 						                  <?php 
-						                    $dataPBentuk = pDetailById('pbentuk', $idPbentuk);
+						                    $dataPBentuk = pDetailByIdPembina('pbentuk', $idPbentuk, $idPembina);
 						                    
 						                    $no = 1;
 						                  	if (is_array($dataPBentuk) || is_object($dataPBentuk)){
