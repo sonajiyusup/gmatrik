@@ -21,4 +21,4 @@ $(function () {
         clearButton: true,
         date: false
     });
-});
+})  

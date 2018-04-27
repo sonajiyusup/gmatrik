@@ -51,6 +51,16 @@
 						                </tbody>          
 						              </table>
 						              <!-- /Table Daftar Pembina -->   
+						              <div class="col-sm-12">
+                                      <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons" style="font-size: 24px">today</i>
+                                            </span>
+                                            <div class="form-line">
+                                                <input type="text" class="datepicker form-control" name="tgl_lahir" placeholder="Tanggal" >
+                                            </div>
+                                      </div>
+                                    </div>
 						              </div>                       
                         </div>
                     </div>

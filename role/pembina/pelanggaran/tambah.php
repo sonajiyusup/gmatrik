@@ -1,11 +1,9 @@
 <?php 
   include 'functions.php';
-
-  $idPembina = $_SESSION['id_pembina'];
  ?>   
 
 	<div class="row clearfix">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
                           <h2><a href="?page=pikhtisar" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;TAMBAH DATA PELANGGARAN MAHASISWA BINAAN
@@ -16,88 +14,119 @@
                                 <div class="col-sm-12">
                                     <div class="input-group">
                                         <span class="input-group-addon">
-                                            <i class="material-icons">assignment_ind</i>
+                                            <i class="material-icons" style="font-size: 24px">assignment_ind</i>
                                         </span>
                                         <div class="form-line">
                                             <input id="npamamhs" class="form-control" name="nama" placeholder="Nama Mahasiswa" required>
                                         </div>
                                     </div>
                                 </div>
+                                
                                 <div class="col-sm-12">
                                   <div class="input-group">
                                         <span class="input-group-addon">
-                                            <i class="material-icons">today</i>
+                                            <i class="material-icons" style="font-size: 24px">streetview</i>
                                         </span>
-                                        <div class="form-line">
-                                            <input type="text" class="datepicker form-control" name="tgl_lahir" placeholder="Tanggal Lahir" >
-                                        </div>
-                                  </div>
-                                </div>
-                                <div class="col-sm-12">
-                                  <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <i class="material-icons">school</i>
-                                        </span>
-                                        <select class="form-control show-tick" name="gelar" >
-	                                        <option value="">-- Pilih Gelar --</option>
-	                                        <option value="S.Ei">S.Ei</option>
-	                                        <option value="M.Ei">M.Ei</option>
-                                    		</select>                                            
+                                        <select class="form-control show-tick" id="pbentuk" name="pbentuk">
+	                                        <option value="">-- Bentuk Pelanggaran --</option>
+                                            <?php
+                                            $query = mysql_query("SELECT * FROM pbentuk ORDER BY nama_bentuk");
+                                              while ($row = mysql_fetch_array($query)) {
+                                              ?>
+                                                  <option value="<?php echo $row['id_pbentuk']; ?>">
+                                                      <?php echo $row['nama_bentuk']; ?>
+                                                  </option>
+                                              <?php
+                                              }
+                                            ?>
+                                    		</select>
                                     </div>
-                                </div>
-                                <div class="col-sm-12">
-                                  <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <i class="material-icons">location_city</i>
-                                        </span>
-                                        <div class="form-line">
-                                            <input type="text" name="asalkota" class="form-control date" placeholder="Kota Asal" >
-                                        </div>
                                   </div>
-                                </div>
-                                <div class="col-sm-12">
-                                  <div class="input-group">
+                                  <div class="col-sm-12">
+                                    <div class="input-group">
                                         <span class="input-group-addon">
-                                            <i class="material-icons">email</i>
+                                            <i class="material-icons" style="font-size: 24px">accessibility</i>
                                         </span>
-                                        <div class="form-line">
-                                            <input type="email" name="email" class="form-control date" placeholder="Email" required>
-                                        </div>
-                                  </div>
-                                </div>
-                                <div class="col-sm-12">
-                                  <div class="input-group">
+                                        <select class="form-control show-tick" id="paksi" name="paksi">
+                                          <option value="">-- Aksi Pelanggaran --</option>
+                                            <?php
+                                            $query = mysql_query("SELECT
+                                                                *
+                                                              FROM
+                                                                paksi
+                                                                INNER JOIN pbentuk ON paksi.id_pbentuk = pbentuk.id_pbentuk ORDER BY paksi.nama_aksi");
+                                              while ($row = mysql_fetch_array($query)) {
+                                              ?>
+                                                  <option id="paksi" class="<?php echo $row['id_pbentuk']; ?>" value="<?php echo $row['id_paksi']; ?>">
+                                                      <?php echo $row['nama_aksi']; ?>
+                                                  </option>
+                                              <?php
+                                              }
+                                            ?>
+                                        </select>  
+                                      </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                      <div class="input-group">
                                         <span class="input-group-addon">
-                                            <i class="material-icons">phone_iphone</i>
+                                            <i class="material-icons" style="font-size: 24px">turned_in</i>
                                         </span>
-                                        <div class="form-line">
-                                            <input type="text" name="telp" class="form-control date" placeholder="No Telp." required>
-                                        </div>
-                                  </div>
-                                </div>
-                                <div class="col-sm-12">
-                                  <div class="input-group">
+                                        <select class="form-control show-tick" id="psanksi" name="psanksi">
+                                            <option value="">-- Sanksi --</option>
+                                            <?php
+                                            $query = mysql_query("SELECT * FROM psanksi ORDER BY nama_sanksi");
+                                              while ($row = mysql_fetch_array($query)) {
+                                              ?>
+                                                  <option value="<?php echo $row['id_psanksi']; ?>">
+                                                      <?php echo $row['nama_sanksi']; ?>
+                                                  </option>
+                                              <?php
+                                              }
+                                            ?>
+                                        </select>  
+                                      </div>
+                                    </div>
+
+                                    <div class="col-sm-12">
+                                      <div class="input-group">
                                         <span class="input-group-addon">
-                                            <i class="material-icons">person</i>
+                                            <i class="material-icons" style="font-size: 24px">account_balance</i>
                                         </span>
-                                        <div class="form-line">
-                                            <input type="text" name="username" class="form-control date" placeholder="Username" required>
-                                        </div>
-                                  </div>
-                                </div>
-                                <div class="col-sm-12">
-                                  <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <i class="material-icons">lock</i>
-                                        </span>
-                                        <div class="form-line">
-                                            <input type="text" name="password" class="form-control date" placeholder="Password" required>
-                                        </div>
-                                  </div>
-                                </div>
+                                        <select class="form-control show-tick" id="planjut" name="planjut">
+                                            <option value="">-- Tindak Lanjut --</option>
+                                            <?php
+                                            $query = mysql_query("SELECT * FROM planjut pl INNER JOIN psanksi ps ON pl.id_psanksi = ps.id_psanksi ORDER BY pl.level");
+                                              while ($row = mysql_fetch_array($query)) {
+                                              ?>
+                                                  <option id="kota" class="<?php echo $row['id_psanksi']; ?>" value="<?php echo $row['id_planjut']; ?>">
+                                                      <?php echo $row['nama_tindaklanjut']; ?>
+                                                  </option>
+                                              <?php
+                                              }
+                                            ?>
+                                        </select>
+                                      </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                      <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons" style="font-size: 24px">today</i>
+                                            </span>
+                                            <div class="form-line">
+                                                <input type="text" class="datepicker form-control" name="tgl_lahir" placeholder="Tanggal" >
+                                            </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                      <div class="form-group">
+                                          <div class="form-line">
+                                              <textarea rows="4" class="form-control no-resize" placeholder="Keterangan"></textarea>
+                                          </div>
+                                      </div>
+                                    </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-           
+

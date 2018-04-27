@@ -60,6 +60,7 @@
 
     <!-- Jquery Core Js -->
     <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.chained.min.js"></script>
     <script src="assets/js/jquery-ui.min.js"></script>
 
     <script>
@@ -385,6 +386,11 @@ function validatePassword(){
     pwinput2.onchange = validatePassword;
     pwinput3.onkeyup = validatePassword;
 </script>   
+
+<script>
+  $("#paksi").chained("#pbentuk");
+  $("#planjut").chained("#psanksi");
+</script> 
       
-  </body>
+</body>
 </html>
