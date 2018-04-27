@@ -6,8 +6,8 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                          <h2>DAFTAR PELANGGARAN MAHASISWA 
-                            <button class="btn btn-sm btn-link waves-effect " data-toggle="modal" data-target="#tambahPelanggaran" style="width: 10%;" title="Tambah Data Pelanggaran"><i class="material-icons">playlist_add</i></button>
+                          <h2>DAFTAR PELANGGARAN MAHASISWA
+                          	<small>Semua Data Pelanggaran</small>
                           </h2>
                         </div>
                         <div class="body ">
