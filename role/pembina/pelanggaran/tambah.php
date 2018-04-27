@@ -8,7 +8,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                          <h2>TAMBAH DATA PELANGGARAN MAHASISWA BINAAN
+                          <h2><a href="?page=pikhtisar" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;TAMBAH DATA PELANGGARAN MAHASISWA BINAAN
                           </h2>
                         </div>
                         <div class="body ">
@@ -19,7 +19,7 @@
                                             <i class="material-icons">assignment_ind</i>
                                         </span>
                                         <div class="form-line">
-                                            <input id="nama" class="form-control" name="nama" placeholder="Nama Mahasiswa" required>
+                                            <input id="npamamhs" class="form-control" name="nama" placeholder="Nama Mahasiswa" required>
                                         </div>
                                     </div>
                                 </div>

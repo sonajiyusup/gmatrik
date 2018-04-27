@@ -64,7 +64,7 @@
 
     <script>
     $(function() {
-      $( "#daftarMhs" ).autocomplete({
+      $( "#npamamhs" ).autocomplete({
         source: 'action/cari.php'
       });
     });
