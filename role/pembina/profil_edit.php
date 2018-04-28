@@ -1,8 +1,8 @@
 <?php 
 
   include 'functions.php';
-      $dataAdminMatrik = adminMatrikDetails($_SESSION['id_user']);
-      foreach($dataAdminMatrik as $row){ 
+      $dataPembina = pembinaDetails($_SESSION['id_user']);
+      foreach($dataPembina as $row){ 
  ?>
 
 <div class="row clearfix">
@@ -20,6 +20,14 @@
                                         </span>
                                         <div class="form-line">
                                             <input type="text" name="nama" class="form-control date" placeholder="Nama" value="<?php echo $row['nama']; ?>" >
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">school</i>
+                                        </span>
+                                        <div class="form-line">
+                                            <input type="text" name="gelar" class="form-control date" placeholder="Gelar" value="<?php echo $row['gelar']; ?>" >
                                         </div>
                                     </div>
                                     <div class="input-group">
@@ -76,6 +84,14 @@
                                             <input type="text" name="telp" class="form-control date" placeholder="No Telp." value="<?php echo $row['telp']; ?>">
                                         </div>
                                   </div>
+                                  <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">location_city</i>
+                                        </span>
+                                        <div class="form-line">
+                                            <input type="text" name="asalkota" class="form-control date" placeholder="Kota Asal" value="<?php echo $row['asalkota']; ?>">
+                                        </div>
+                                  </div>
                                   <button type="submit" class="btn btn-primary btn-block waves-effect" name="editProfilSaya"><span>SIMPAN</span></button>
                                   </form>
                                 </div>
@@ -86,7 +102,7 @@
 
 <?php
     if (isset($_POST['editProfilSaya'])) {
-      editAdminMatrikDetails($row['id_adminmatrik'], $_POST['nama'], $_POST['telp'], $_POST['email'], $_POST['gender'], date("Y-m-d", strtotime($_POST['tgl_lahir'])));
+      editPembina($_SESSION['id_user'], $_POST['nama'], $_POST['gender'], date("Y-m-d", strtotime($_POST['tgl_lahir'])), $_POST['gelar'], $_POST['asalkota'], $_POST['email'], $_POST['telp']);
       echo "<script>document.location='?page=profil'</script>";
     }
   } 

@@ -41,7 +41,7 @@
                                         ?> width="100" height="100" alt="User" />
                                       </a>
                                       <br>
-                                      <h4 align="center"><?php echo $row['nama']; ?></h4>
+                                      <h4 align="center"><?php echo $row['nama']." ".$row['gelar']; ?></h4>
                                     </div>
                                   </td>
                                 </tr>
