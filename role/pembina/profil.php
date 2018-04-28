@@ -1,8 +1,8 @@
 <?php 
 
   include 'functions.php';
-      $dataAdminMatrik = adminMatrikDetails($_SESSION['id_user']);
-      foreach($dataAdminMatrik as $row){ 
+      $dataPembina = pembinaDetails($_SESSION['id_user']);
+      foreach($dataPembina as $row){ 
  ?>
 
 <div class="container-fluid">
@@ -46,9 +46,9 @@
                                   </td>
                                 </tr>
                                 <tr>
-                                  <th>ID Admin Matrikulasi</th>
+                                  <th>ID Pembina</th>
                                   <td>:</td>
-                                  <td><?php echo $row['id_adminmatrik']; ?></td>
+                                  <td><?php echo $row['id_pembina']; ?></td>
                                 </tr>
                                 <tr>
                                   <th>Username</th>
