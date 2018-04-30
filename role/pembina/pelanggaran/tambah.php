@@ -107,21 +107,21 @@
                                         </select>
                                       </div>
                                     </div>
-                                    <div class="col-sm-12">
+                                    <!-- <div class="col-sm-12">
                                       <div class="input-group">
                                             <span class="input-group-addon">
                                                 <i class="material-icons" style="font-size: 24px">today</i>
                                             </span>
                                             <div class="form-line">
-                                                <input type="text" class="datepicker form-control" name="tgl_lahir" placeholder="Tanggal" >
+                                                <input type="text" class="form-control" name="tgl_lahir" placeholder="Tanggal" id="datepicker_plgr">
                                             </div>
                                       </div>
-                                    </div>
+                                    </div> -->
                                     <div class="col-sm-12">
                                       <div class="form-group">
-                                          <div class="form-line">
-                                              <textarea rows="4" class="form-control no-resize" placeholder="Keterangan"></textarea>
-                                          </div>
+                                        <div class="form-line">
+                                          <textarea rows="3" class="form-control no-resize" placeholder="Keterangan"></textarea>
+                                        </div>
                                       </div>
                                     </div>
                             </div>
@@ -130,3 +130,11 @@
                 </div>
             </div>
 
+<script>
+  $(function () {
+    //Date picker
+    $('#datepicker_plgr').datepicker({
+      autoclose: true
+    })
+  })
+</script>

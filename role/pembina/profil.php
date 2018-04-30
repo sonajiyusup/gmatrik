@@ -78,6 +78,11 @@
                                           ?></td>
                                 </tr>
                                 <tr>
+                                  <th>Kota Asal</th>
+                                  <td>:</td>
+                                  <td><?php echo $row['asalkota']; ?></td>
+                                </tr>
+                                <tr>
                                   <th>Tanggal Lahir</th>
                                   <td>:</td>
                                   <td><?php echo date('d F Y', strtotime($row['tgl_lahir'])); ?></td>

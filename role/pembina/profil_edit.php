@@ -93,6 +93,7 @@
                                         </div>
                                   </div>
                                   <button type="submit" class="btn btn-primary btn-block waves-effect" name="editProfilSaya"><span>SIMPAN</span></button>
+                                  <a class='btn btn-link btn-block waves-effect' href='?page=profil'>BATAL</a>
                                   </form>
                                 </div>
                     </div>
