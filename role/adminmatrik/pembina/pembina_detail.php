@@ -39,16 +39,13 @@
                                           echo $row['avatar'];
                                         }
                                           ?> width="100" height="100" alt="User" />
+                                        <br>
+                                        <h4 align="center"><?php echo $row['nama'].' '.$row['gelar']; ?></h4>
                                     </div>
                                   </td>
                                 </tr>
-                                <tr> 
-                                  <th>Nama Pembina</th>
-                                  <td>:</td>
-                                  <td><?php echo $row['nama'].' '.$row['gelar']; ?></td>
-                                </tr>
                                 <tr>
-                                  <th>ID</th>
+                                  <th>ID Pembina</th>
                                   <td>:</td>
                                   <td><?php echo $row['id_pembina']; ?></td>
                                 </tr>
