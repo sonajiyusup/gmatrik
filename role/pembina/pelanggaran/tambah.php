@@ -12,15 +12,15 @@
                         <div class="body ">
                         	<div class="row clearfix">
                                 <div class="col-sm-12">
-                                    <div class="input-group">
+                                  <div class="input-group">
                                         <span class="input-group-addon">
-                                            <i class="material-icons" style="font-size: 24px">assignment_ind</i>
+                                            <i class="material-icons" style="font-size: 24px">streetview</i>
                                         </span>
-                                        <div class="form-line">
-                                            <input id="npamamhs" class="form-control" name="nama" placeholder="Nama Mahasiswa" required>
-                                        </div>
+                                        <select id='selUser' class="form-control show-tick" id="pbentuk" name="pbentuk">
+                                          <option value='0'>-- Bentuk Pelanggaran --</option>
+                                        </select>
                                     </div>
-                                </div>
+                                  </div>
                                 
                                 <div class="col-sm-12">
                                   <div class="input-group">
@@ -138,3 +138,29 @@
     })
   })
 </script>
+
+        <script>
+        $(document).ready(function(){
+
+            $("#selUser").select2({
+                ajax: {
+                    url: "action/cari.php",
+                    type: "post",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            searchTerm: params.term // search term
+                        };
+                    },
+                    processResults: function (response) {
+                        return {
+                            results: response
+                        };
+                    },
+                    cache: true
+                }
+            });
+        });
+
+        </script>

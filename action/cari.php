@@ -1,20 +1,20 @@
 <?php
-//codingan.com
-$dbHost = 'localhost';
-$dbUsername = 'root';
-$dbPassword = '';
-$dbName = 'simon';
+include 'koneksi.php';
+$idPembina = 27;
 
-//menghubungkan ke database
-$db = new mysqli($dbHost,$dbUsername,$dbPassword,$dbName);
-//mendapatkan input pencarian
-$searchTerm = $_GET['term'];
+// "SELECT m.id_user, mb.id_mahasiswa, m.nim, m.nama, m.telp, u.last_login FROM m_binaan mb LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa LEFT JOIN users u ON m.id_user = u.id_user WHERE mb.id_pembina = $idPembina"
 
-//mendapatkan data yang sesuai dari tabel daftar_kota
-$query = $db->query("SELECT m.nama FROM m_binaan mb LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa WHERE m.nama LIKE '%".$searchTerm."%' ORDER BY m.nama ASC");
-while ($row = $query->fetch_assoc()) {
-    $data[] = $row['nama'];
+if(!isset($_POST['searchTerm'])){
+	$fetchData = mysqli_query($con,"select * from mahasiswa order by nama limit 5");
+}else{
+	$search = $_POST['searchTerm'];
+	$fetchData = mysqli_query($con,"SELECT m.id_user, mb.id_mahasiswa, m.nim, m.nama, m.telp, u.last_login FROM m_binaan mb LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa LEFT JOIN users u ON m.id_user = u.id_user WHERE mb.id_pembina = $idPembina AND nama like '%".$search."%' limit 5");
 }
-//return data json
+	
+$data = array();
+
+while ($row = mysqli_fetch_array($fetchData)) {
+    $data[] = array("id"=>$row['id_mahasiswa'], "text"=>$row['nama']);
+}
+
 echo json_encode($data);
-?>
