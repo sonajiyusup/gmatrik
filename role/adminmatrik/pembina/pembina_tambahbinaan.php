@@ -15,9 +15,7 @@
                           </h2>
                         </div>
                         <div class="body ">
-                        	<form method="POST">
                         		<div class="table-responsive">
-                        		
 															<!-- Table Daftar Pembina -->
                                 <table id="tableUsers" class="table table-hover table-condensed js-basic-example dataTable">
                                   <thead>
@@ -35,7 +33,7 @@
                                       foreach($calonBinaan as $row){
                                     ?>
                                   <tr style="height: 5px;">
-                                    <td><input type="checkbox" class="flat-red" name="idMahasiswa[]" value="<?php echo $row['id_mahasiswa']; ?>"></td>
+                                    <td><input type="checkbox" class="flat-red" name="idMahasiswa" value="<?php echo $row['id_mahasiswa']; ?>"></td>
                                     <td><?php echo "<span class='badge'>".$row['nim']."</span>" ?></td>
                                     <td><?php echo "<a href='index.php?page=mahasiswadetails&id=".$row['id_user']."'>".$row['nama']."</a>" ?></td>
                                     <td><?php if($row['j_kelamin'] == 'Ikhwan' || $row['j_kelamin'] == 'Laki-laki'){echo '<span class="label bg-green">Ikhwan</span>';} else if($row['j_kelamin'] == 'Akhwat' || $row['j_kelamin'] == 'Perempuan'){echo '<span class="label bg-yellow">Akhwat</span>';} else if($row['j_kelamin'] == NULL){echo '<span class="label label-default">Belum diset</span>';} ?></td>
@@ -46,7 +44,8 @@
                                   </tbody>          
                                 </table>
                                 <!-- /Table Daftar Pembina -->
-						              	</div>              
+						              	</div>
+                          <form method="POST" id="formBinaan">
 						              	<button type="submit" name="submitBinaanMahasiswa" class="btn btn-primary waves-effect">SUBMIT</button>
 						              </form>
                         </div>
@@ -72,3 +71,21 @@
       }
     }
     ?>
+
+    <script>
+    $('input').on('ifChecked', function(event){
+      var idMhs = $(this).val();
+      $('#formBinaan').append(
+        $('<input>')
+          .attr('type', 'hidden')
+          .attr('id', 'input'+idMhs)
+          .attr('name', 'idMahasiswa[]')
+          .val(idMhs)
+      );
+    });
+
+    $('input').on('ifUnchecked', function(event){
+      var idMhs = $(this).val();
+      document.getElementById("input"+idMhs).remove();
+    });
+    </script>
