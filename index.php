@@ -37,6 +37,8 @@
     <!-- Date Picker -->
     <link rel="stylesheet" href="assets/css/bootstrap-datepicker.min.css">
 
+    <link href='assets/css/select2.min.css' rel='stylesheet'>
+
     <!-- iCheck for checkboxes and radio inputs -->
     <link rel="stylesheet" href="assets/css/iCheck/all.css">
 
@@ -65,11 +67,13 @@
 
     <script>
     $(function() {
-      $( "#npamamhs" ).autocomplete({
+      $( "#daftarMhs" ).autocomplete({
         source: 'action/cari.php'
       });
     });
     </script>    
+
+    <!-- <script src='assets/js/select2.min.js'></script> -->
 
     <!-- Bootstrap Core Js -->
     <script src="assets/js/bootstrap.js"></script>

@@ -16,9 +16,7 @@
                                         <span class="input-group-addon">
                                             <i class="material-icons" style="font-size: 24px">streetview</i>
                                         </span>
-                                        <select id='selUser' class="form-control show-tick" id="pbentuk" name="pbentuk">
-                                          <option value='0'>-- Bentuk Pelanggaran --</option>
-                                        </select>
+                                        <input type="text" name="" class="form-control" id="daftarMhs" placeholder="Nama Mahasiswa">
                                     </div>
                                   </div>
                                 
@@ -131,36 +129,10 @@
             </div>
 
 <script>
-  $(function () {
+  /*$(function () {
     //Date picker
     $('#datepicker_plgr').datepicker({
       autoclose: true
     })
-  })
+  })*/
 </script>
-
-        <script>
-        $(document).ready(function(){
-
-            $("#selUser").select2({
-                ajax: {
-                    url: "action/cari.php",
-                    type: "post",
-                    dataType: 'json',
-                    delay: 250,
-                    data: function (params) {
-                        return {
-                            searchTerm: params.term // search term
-                        };
-                    },
-                    processResults: function (response) {
-                        return {
-                            results: response
-                        };
-                    },
-                    cache: true
-                }
-            });
-        });
-
-        </script>
