@@ -30,7 +30,9 @@
                                     <?php 
                                       $calonBinaan = tampilCalonBinaan();
                                       $no = 1;
-                                      foreach($calonBinaan as $row){
+
+                                      if (is_array($calonBinaan) || is_object($calonBinaan)){
+                                        foreach($calonBinaan as $row){
                                     ?>
                                   <tr style="height: 5px;">
                                     <td><input type="checkbox" class="flat-red" name="idMahasiswa" value="<?php echo $row['id_mahasiswa']; ?>"></td>
@@ -40,6 +42,7 @@
                                   </tr>
                                     <?php 
                                       $no++; }
+                                     }
                                     ?>      
                                   </tbody>          
                                 </table>
