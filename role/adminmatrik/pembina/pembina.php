@@ -130,8 +130,15 @@
                                         </span>
                                         <select class="form-control show-tick" name="gelar" >
 	                                        <option value="">-- Pilih Gelar --</option>
-	                                        <option value="S.Ei">S.Ei</option>
+                                          <option value="Lc">Lc</option>
+	                                        <option value="S.E.I">S.E.I</option>
+                                          <option value="S.E">S.E</option>
+                                          <option value="S.Pd">S.Pd</option>
+                                          <option value="S.Akun">S.Akun</option>
+                                          <option value="S.Si">S.Si</option>
+                                          <option value="S.H">S.H</option>
 	                                        <option value="M.Ei">M.Ei</option>
+                                          <option value="M.Si">M.Si</option>
                                     		</select>                                            
                                     </div>
                                 </div>
