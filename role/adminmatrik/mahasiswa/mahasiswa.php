@@ -52,7 +52,7 @@
 
             <div class="modal fade" id="importMhsModal" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-sm">
-                  <form action="upload.php" method="post" enctype="multipart/form-data">
+                  <form method="post">
                     <div class="modal-content">
                       <div class="modal-header">
                         <h4 class="modal-title" id="smallModalLabel">IMPORT DATA MAHASISWA DARI DATABASE</h4>
@@ -61,7 +61,7 @@
 	                        <div class="row">
 		                        <div class="col-lg-12">
 		                        	<label>Pilih Tahun Angkatan</label>
-		                          <select class="form-control show-tick" name="gender" required>
+		                          <select class="form-control show-tick" name="angkatan" required>
 		                            <option value="17">17</option>
 		                          </select> 
 		                        </div>

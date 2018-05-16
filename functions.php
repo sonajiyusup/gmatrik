@@ -83,7 +83,12 @@
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
 				return $data;
-		} 	
+		} else{
+			echo "<div class='alert alert-warning alert-dismissibl' role='alert'>
+							<button type='button' class='close' data-dismiss='alert' aria-label='Close'></button>
+							Semua Mahasiswa Sudah Ada Pembina-nya
+						</div>";
+		}
 	}	
 
 	function tampilAdminmatrik(){
