@@ -218,7 +218,7 @@
                           }
                         ?>
                     ><a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">supervisor_account</i>
+                            <i class="material-icons">person</i>
                             <span>Profil</span>
                         </a>
                         <ul class="ml-menu">
