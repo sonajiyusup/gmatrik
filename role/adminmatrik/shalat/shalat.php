@@ -90,7 +90,7 @@
 			                          <div class="form-group">
 			                            <label>Isya :</label>
 			                              <input type="text" name="isyaFrom" id="isya_dari" class="timepicker form-control" placeholder="Dari" value="19:00">
-			                              <input type="text" name="isyaTo" id="isya_sampai" class="timepicker form-control" placeholder="Sampai" value="20:00">
+			                              <input type="text" name="isyaTo" id="isya_sampai" class="timepicker form-control" placeholder="Sampai" value="21:00">
 			                          </div>
 			                        </div>
 			                      </div>
@@ -112,6 +112,8 @@
         $from = $tgl[0];
         $to = $tgl[1];
 
+        $jmlWktShalat = $_POST['jmlWktShalat'];
+
         $datefrom = date('Y-m-d', strtotime($from));
         $dateto = date('Y-m-d',strtotime($to));
 
@@ -131,7 +133,7 @@
         $isyaTo = $_POST['isyaTo'];
 
         updateTimeSetup($from, $to, $shubuhFrom, $shubuhTo, $dzuhurFrom, $dzuhurTo, $asharFrom, $asharTo, $maghribFrom, $maghribTo, $isyaFrom, $isyaTo);
-        importShalat('17', $datefrom, $dateto);
+        importShalat('17', $datefrom, $dateto, $jmlWktShalat);
 
         echo "<script>document.location='?page=shalat'</script>";
       }

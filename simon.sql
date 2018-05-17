@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 16 Mei 2018 pada 09.20
--- Versi Server: 10.1.25-MariaDB
+-- Generation Time: May 17, 2018 at 01:37 PM
+-- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `administrator`
+-- Table structure for table `administrator`
 --
 
 CREATE TABLE `administrator` (
@@ -40,7 +40,7 @@ CREATE TABLE `administrator` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `administrator`
+-- Dumping data for table `administrator`
 --
 
 INSERT INTO `administrator` (`id_admin`, `nama`, `j_kelamin`, `tgl_lahir`, `email`, `telp`, `avatar`, `id_user`) VALUES
@@ -49,7 +49,7 @@ INSERT INTO `administrator` (`id_admin`, `nama`, `j_kelamin`, `tgl_lahir`, `emai
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `adminmatrik`
+-- Table structure for table `adminmatrik`
 --
 
 CREATE TABLE `adminmatrik` (
@@ -64,7 +64,7 @@ CREATE TABLE `adminmatrik` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `adminmatrik`
+-- Dumping data for table `adminmatrik`
 --
 
 INSERT INTO `adminmatrik` (`id_adminmatrik`, `nama`, `telp`, `email`, `j_kelamin`, `tgl_lahir`, `id_user`, `avatar`) VALUES
@@ -74,7 +74,7 @@ INSERT INTO `adminmatrik` (`id_adminmatrik`, `nama`, `telp`, `email`, `j_kelamin
 
 --
 -- Stand-in structure for view `data_calonbinaan`
--- (Lihat di bawah untuk tampilan aktual)
+-- (See below for the actual view)
 --
 CREATE TABLE `data_calonbinaan` (
 `id_user` int(11)
@@ -88,7 +88,7 @@ CREATE TABLE `data_calonbinaan` (
 
 --
 -- Stand-in structure for view `data_mahasiswa`
--- (Lihat di bawah untuk tampilan aktual)
+-- (See below for the actual view)
 --
 CREATE TABLE `data_mahasiswa` (
 `nama` varchar(35)
@@ -104,7 +104,7 @@ CREATE TABLE `data_mahasiswa` (
 
 --
 -- Stand-in structure for view `data_user`
--- (Lihat di bawah untuk tampilan aktual)
+-- (See below for the actual view)
 --
 CREATE TABLE `data_user` (
 `id_user` int(11)
@@ -118,7 +118,7 @@ CREATE TABLE `data_user` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `mahasiswa`
+-- Table structure for table `mahasiswa`
 --
 
 CREATE TABLE `mahasiswa` (
@@ -136,7 +136,7 @@ CREATE TABLE `mahasiswa` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `mahasiswa`
+-- Dumping data for table `mahasiswa`
 --
 
 INSERT INTO `mahasiswa` (`id_mahasiswa`, `nim`, `nama`, `angkatan`, `j_kelamin`, `asalkota`, `email`, `telp`, `avatar`, `tgl_lahir`, `id_user`) VALUES
@@ -531,7 +531,7 @@ INSERT INTO `mahasiswa` (`id_mahasiswa`, `nim`, `nama`, `angkatan`, `j_kelamin`,
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `m_binaan`
+-- Table structure for table `m_binaan`
 --
 
 CREATE TABLE `m_binaan` (
@@ -541,7 +541,7 @@ CREATE TABLE `m_binaan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `m_binaan`
+-- Dumping data for table `m_binaan`
 --
 
 INSERT INTO `m_binaan` (`id_mhsbinaan`, `id_pembina`, `id_mahasiswa`) VALUES
@@ -936,7 +936,7 @@ INSERT INTO `m_binaan` (`id_mhsbinaan`, `id_pembina`, `id_mahasiswa`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `paksi`
+-- Table structure for table `paksi`
 --
 
 CREATE TABLE `paksi` (
@@ -946,7 +946,7 @@ CREATE TABLE `paksi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `paksi`
+-- Dumping data for table `paksi`
 --
 
 INSERT INTO `paksi` (`id_paksi`, `id_pbentuk`, `nama_aksi`) VALUES
@@ -964,7 +964,7 @@ INSERT INTO `paksi` (`id_paksi`, `id_pbentuk`, `nama_aksi`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pbentuk`
+-- Table structure for table `pbentuk`
 --
 
 CREATE TABLE `pbentuk` (
@@ -973,7 +973,7 @@ CREATE TABLE `pbentuk` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `pbentuk`
+-- Dumping data for table `pbentuk`
 --
 
 INSERT INTO `pbentuk` (`id_pbentuk`, `nama_bentuk`) VALUES
@@ -988,7 +988,7 @@ INSERT INTO `pbentuk` (`id_pbentuk`, `nama_bentuk`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pembina`
+-- Table structure for table `pembina`
 --
 
 CREATE TABLE `pembina` (
@@ -1005,7 +1005,7 @@ CREATE TABLE `pembina` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `pembina`
+-- Dumping data for table `pembina`
 --
 
 INSERT INTO `pembina` (`id_pembina`, `nama`, `j_kelamin`, `tgl_lahir`, `gelar`, `asalkota`, `email`, `telp`, `avatar`, `id_user`) VALUES
@@ -1032,7 +1032,7 @@ INSERT INTO `pembina` (`id_pembina`, `nama`, `j_kelamin`, `tgl_lahir`, `gelar`, 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pimpinan`
+-- Table structure for table `pimpinan`
 --
 
 CREATE TABLE `pimpinan` (
@@ -1049,7 +1049,7 @@ CREATE TABLE `pimpinan` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `planjut`
+-- Table structure for table `planjut`
 --
 
 CREATE TABLE `planjut` (
@@ -1060,7 +1060,7 @@ CREATE TABLE `planjut` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `planjut`
+-- Dumping data for table `planjut`
 --
 
 INSERT INTO `planjut` (`id_planjut`, `id_psanksi`, `nama_tindaklanjut`, `level`) VALUES
@@ -1078,7 +1078,7 @@ INSERT INTO `planjut` (`id_planjut`, `id_psanksi`, `nama_tindaklanjut`, `level`)
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pmain`
+-- Table structure for table `pmain`
 --
 
 CREATE TABLE `pmain` (
@@ -1095,7 +1095,7 @@ CREATE TABLE `pmain` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `psanksi`
+-- Table structure for table `psanksi`
 --
 
 CREATE TABLE `psanksi` (
@@ -1105,7 +1105,7 @@ CREATE TABLE `psanksi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `psanksi`
+-- Dumping data for table `psanksi`
 --
 
 INSERT INTO `psanksi` (`id_psanksi`, `nama_sanksi`, `bobot`) VALUES
@@ -1116,20 +1116,55 @@ INSERT INTO `psanksi` (`id_psanksi`, `nama_sanksi`, `bobot`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `shalat`
+-- Table structure for table `shalat`
 --
 
 CREATE TABLE `shalat` (
   `id_mahasiswa` int(11) DEFAULT NULL,
+  `id_periode` int(11) DEFAULT NULL,
   `tanggal` date DEFAULT NULL,
   `wkt_tapping` time DEFAULT NULL,
   `wkt_shalat` varchar(7) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `shalat`
+--
+
+INSERT INTO `shalat` (`id_mahasiswa`, `id_periode`, `tanggal`, `wkt_tapping`, `wkt_shalat`) VALUES
+(1174, 1, '2018-03-23', '12:33:46', 'dzuhur '),
+(1174, 1, '2018-03-23', '03:38:45', 'ashar  '),
+(1174, 1, '2018-03-23', '06:30:48', 'maghrib'),
+(1174, 1, '2018-03-23', '08:08:28', 'isya   '),
+(1174, 1, '2018-03-24', '03:35:47', 'ashar  '),
+(1174, 1, '2018-03-24', '06:31:33', 'maghrib'),
+(1174, 1, '2018-03-28', '03:42:43', 'ashar  '),
+(1174, 1, '2018-03-28', '06:26:00', 'maghrib');
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `shalat_periode`
+--
+
+CREATE TABLE `shalat_periode` (
+  `id_periode` int(11) NOT NULL,
+  `tanggal_dari` date DEFAULT NULL,
+  `tanggal_sampai` date DEFAULT NULL,
+  `jml_wkt_shalat` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `shalat_periode`
+--
+
+INSERT INTO `shalat_periode` (`id_periode`, `tanggal_dari`, `tanggal_sampai`, `jml_wkt_shalat`) VALUES
+(1, '2018-03-23', '2018-03-29', 35);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -1142,12 +1177,12 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id_user`, `username`, `password`, `password_default`, `level`, `last_login`) VALUES
 (1, 'admin', 'admin', 0, 0, '2018-04-24 08:58:28'),
-(2, 'derry', 'bismillah', 0, 2, '2018-05-16 10:21:28'),
+(2, 'derry', 'bismillah', 0, 2, '2018-05-17 09:05:41'),
 (21, 'bintang', 'bintang123', 0, 3, '2018-03-12 08:11:09'),
 (23, 'hasan', 'hasan123', 0, 2, '2017-11-30 17:06:08'),
 (24, 'rizky@tazkia.ac.id', 'rizy123', 0, 3, '0000-00-00 00:00:00'),
@@ -1559,7 +1594,7 @@ INSERT INTO `users` (`id_user`, `username`, `password`, `password_default`, `lev
 -- --------------------------------------------------------
 
 --
--- Struktur untuk view `data_calonbinaan`
+-- Structure for view `data_calonbinaan`
 --
 DROP TABLE IF EXISTS `data_calonbinaan`;
 
@@ -1568,7 +1603,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Struktur untuk view `data_mahasiswa`
+-- Structure for view `data_mahasiswa`
 --
 DROP TABLE IF EXISTS `data_mahasiswa`;
 
@@ -1577,7 +1612,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Struktur untuk view `data_user`
+-- Structure for view `data_user`
 --
 DROP TABLE IF EXISTS `data_user`;
 
@@ -1671,7 +1706,13 @@ ALTER TABLE `psanksi`
 -- Indexes for table `shalat`
 --
 ALTER TABLE `shalat`
-  ADD KEY `id_mahasiswa` (`id_mahasiswa`);
+  ADD KEY `id_periode` (`id_periode`);
+
+--
+-- Indexes for table `shalat_periode`
+--
+ALTER TABLE `shalat_periode`
+  ADD PRIMARY KEY (`id_periode`);
 
 --
 -- Indexes for table `users`
@@ -1723,66 +1764,71 @@ ALTER TABLE `planjut`
 -- AUTO_INCREMENT for table `pmain`
 --
 ALTER TABLE `pmain`
-  MODIFY `id_pelanggaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_pelanggaran` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `psanksi`
 --
 ALTER TABLE `psanksi`
   MODIFY `id_psanksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
+-- AUTO_INCREMENT for table `shalat_periode`
+--
+ALTER TABLE `shalat_periode`
+  MODIFY `id_periode` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=431;
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `administrator`
+-- Constraints for table `administrator`
 --
 ALTER TABLE `administrator`
   ADD CONSTRAINT `administrator_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`);
 
 --
--- Ketidakleluasaan untuk tabel `adminmatrik`
+-- Constraints for table `adminmatrik`
 --
 ALTER TABLE `adminmatrik`
   ADD CONSTRAINT `adminmatrik_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`);
 
 --
--- Ketidakleluasaan untuk tabel `m_binaan`
+-- Constraints for table `m_binaan`
 --
 ALTER TABLE `m_binaan`
   ADD CONSTRAINT `m_binaan_ibfk_1` FOREIGN KEY (`id_pembina`) REFERENCES `pembina` (`id_pembina`),
   ADD CONSTRAINT `m_binaan_ibfk_2` FOREIGN KEY (`id_mahasiswa`) REFERENCES `mahasiswa` (`id_mahasiswa`);
 
 --
--- Ketidakleluasaan untuk tabel `paksi`
+-- Constraints for table `paksi`
 --
 ALTER TABLE `paksi`
   ADD CONSTRAINT `paksi_ibfk_1` FOREIGN KEY (`id_pbentuk`) REFERENCES `pbentuk` (`id_pbentuk`);
 
 --
--- Ketidakleluasaan untuk tabel `pembina`
+-- Constraints for table `pembina`
 --
 ALTER TABLE `pembina`
   ADD CONSTRAINT `pembina_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`);
 
 --
--- Ketidakleluasaan untuk tabel `pimpinan`
+-- Constraints for table `pimpinan`
 --
 ALTER TABLE `pimpinan`
   ADD CONSTRAINT `pimpinan_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`);
 
 --
--- Ketidakleluasaan untuk tabel `planjut`
+-- Constraints for table `planjut`
 --
 ALTER TABLE `planjut`
   ADD CONSTRAINT `planjut_ibfk_1` FOREIGN KEY (`id_psanksi`) REFERENCES `psanksi` (`id_psanksi`);
 
 --
--- Ketidakleluasaan untuk tabel `pmain`
+-- Constraints for table `pmain`
 --
 ALTER TABLE `pmain`
   ADD CONSTRAINT `pmain_ibfk_1` FOREIGN KEY (`id_mhsbinaan`) REFERENCES `m_binaan` (`id_mhsbinaan`),
@@ -1792,10 +1838,10 @@ ALTER TABLE `pmain`
   ADD CONSTRAINT `pmain_ibfk_5` FOREIGN KEY (`id_planjut`) REFERENCES `planjut` (`id_planjut`);
 
 --
--- Ketidakleluasaan untuk tabel `shalat`
+-- Constraints for table `shalat`
 --
 ALTER TABLE `shalat`
-  ADD CONSTRAINT `shalat_ibfk_1` FOREIGN KEY (`id_mahasiswa`) REFERENCES `mahasiswa` (`id_mahasiswa`);
+  ADD CONSTRAINT `shalat_ibfk_1` FOREIGN KEY (`id_periode`) REFERENCES `shalat_periode` (`id_periode`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
