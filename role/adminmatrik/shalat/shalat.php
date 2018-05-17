@@ -41,13 +41,21 @@
                         </div>
                         <div class="modal-body">
                         	<div class="input-group">
-														<span class="input-group-addon">
-															<i class="material-icons">today</i>
-														</span>
+                        		<label>Periode :</label>
 														<div class="form-line">
-															<input type="text" name="daterangeShalat" class="form-control date" id="reportrange" placeholder="Periode Waktu Tapping" required>
+															<input type="text" name="daterangeShalat" class="form-control date" id="reportrange" required>
 														</div>
 													</div>
+													<div class="input-group spinner" data-trigger="spinner">
+													<label>Jumlah Waktu Shalat :</label>
+													<div class="form-line">
+													<input type="text" class="form-control" name="jmlWktShalat" value="35" data-rule="quantity" required>
+													</div>
+													<span class="input-group-addon">
+													<a href="javascript:;" class="spin-up" data-spin="up"><i class="glyphicon glyphicon-chevron-up"></i></a>
+													<a href="javascript:;" class="spin-down" data-spin="down"><i class="glyphicon glyphicon-chevron-down"></i></a>
+													</span>
+													</div>                          
 													<div class="bootstrap-timepicker">
 			                      <div class="row">
 			                        <div class="col-md-3 nopadding">
