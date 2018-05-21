@@ -36,7 +36,13 @@
 		$row = mysql_fetch_assoc($sql);
 		$id_user = $row['id_user'];
 
-		mysql_query("INSERT INTO pembina (nama, j_kelamin, tgl_lahir, gelar, asalkota, email, telp, id_user) VALUES ('$nama', '$j_kelamin', '$tgl_lahir', '$gelar', '$asalkota', '$email', '$telp', '$id_user')");
+		if (mysql_num_rows($row) == 0) {
+			echo "<script>document.location='?page=pembina&alert=duplicateusername'</script>";
+		} else{
+			mysql_query("INSERT INTO pembina (nama, j_kelamin, tgl_lahir, gelar, asalkota, email, telp, id_user) VALUES ('$nama', '$j_kelamin', '$tgl_lahir', '$gelar', '$asalkota', '$email', '$telp', '$id_user')");
+
+			echo "<script>document.location='?page=pembina'</script>";
+		}
 	}
 
 	function tambahMhsBinaan($idPembina, $idMahasiswa){

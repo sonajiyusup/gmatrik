@@ -5,6 +5,16 @@
 
 	<div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	<?php 
+              if (isset($_GET['alert'])) {
+                if ($_GET['alert'] == 'duplicateusername') {
+                	echo "<div class='alert bg-red alert-dismissible' role='alert'>
+                                <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+                                <strong>Tambah Pembina Gagal !</strong> Username tidak boleh sama
+                            </div>";
+                }
+              }
+             ?>                  
                     <div class="card">
                         <div class="header">
                           <h2>DAFTAR PEMBINA MAHASISWA 
@@ -207,7 +217,7 @@
       if (isset($_POST['tambahPembina'])) {
         tambahPembina($_POST['nama'], $_POST['gender'], date("Y-m-d", strtotime($_POST['tgl_lahir'])), $_POST['gelar'], $_POST['asalkota'], $_POST['email'], $_POST['telp'], $_POST['username'], $_POST['password']);
         
-        echo "<script>document.location='?page=pembina'</script>";
+        //echo "<script>document.location='?page=pembina'</script>";
       }
     ?> 
 
