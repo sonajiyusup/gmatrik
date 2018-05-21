@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 17, 2018 at 01:37 PM
+-- Generation Time: May 21, 2018 at 04:23 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -1182,7 +1182,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id_user`, `username`, `password`, `password_default`, `level`, `last_login`) VALUES
 (1, 'admin', 'admin', 0, 0, '2018-04-24 08:58:28'),
-(2, 'derry', 'bismillah', 0, 2, '2018-05-17 09:05:41'),
+(2, 'derry', 'bismillah', 0, 2, '2018-05-21 09:12:44'),
 (21, 'bintang', 'bintang123', 0, 3, '2018-03-12 08:11:09'),
 (23, 'hasan', 'hasan123', 0, 2, '2017-11-30 17:06:08'),
 (24, 'rizky@tazkia.ac.id', 'rizy123', 0, 3, '0000-00-00 00:00:00'),
