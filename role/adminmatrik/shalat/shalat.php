@@ -41,13 +41,21 @@
                         </div>
                         <div class="modal-body">
                         	<div class="input-group">
-														<span class="input-group-addon">
-															<i class="material-icons">today</i>
-														</span>
+                        		<label>Periode :</label>
 														<div class="form-line">
-															<input type="text" name="daterangeShalat" class="form-control date" id="reportrange" placeholder="Periode Waktu Tapping" required>
+															<input type="text" name="daterangeShalat" class="form-control date" id="reportrange" required>
 														</div>
 													</div>
+													<div class="input-group spinner" data-trigger="spinner">
+													<label>Jumlah Waktu Shalat :</label>
+													<div class="form-line">
+													<input type="text" class="form-control" name="jmlWktShalat" value="35" data-rule="quantity" required>
+													</div>
+													<span class="input-group-addon">
+													<a href="javascript:;" class="spin-up" data-spin="up"><i class="glyphicon glyphicon-chevron-up"></i></a>
+													<a href="javascript:;" class="spin-down" data-spin="down"><i class="glyphicon glyphicon-chevron-down"></i></a>
+													</span>
+													</div>                          
 													<div class="bootstrap-timepicker">
 			                      <div class="row">
 			                        <div class="col-md-3 nopadding">
@@ -82,7 +90,7 @@
 			                          <div class="form-group">
 			                            <label>Isya :</label>
 			                              <input type="text" name="isyaFrom" id="isya_dari" class="timepicker form-control" placeholder="Dari" value="19:00">
-			                              <input type="text" name="isyaTo" id="isya_sampai" class="timepicker form-control" placeholder="Sampai" value="20:00">
+			                              <input type="text" name="isyaTo" id="isya_sampai" class="timepicker form-control" placeholder="Sampai" value="21:00">
 			                          </div>
 			                        </div>
 			                      </div>
@@ -104,6 +112,8 @@
         $from = $tgl[0];
         $to = $tgl[1];
 
+        $jmlWktShalat = $_POST['jmlWktShalat'];
+
         $datefrom = date('Y-m-d', strtotime($from));
         $dateto = date('Y-m-d',strtotime($to));
 
@@ -123,7 +133,7 @@
         $isyaTo = $_POST['isyaTo'];
 
         updateTimeSetup($from, $to, $shubuhFrom, $shubuhTo, $dzuhurFrom, $dzuhurTo, $asharFrom, $asharTo, $maghribFrom, $maghribTo, $isyaFrom, $isyaTo);
-        importShalat('17', $datefrom, $dateto);
+        importShalat('17', $datefrom, $dateto, $jmlWktShalat);
 
         echo "<script>document.location='?page=shalat'</script>";
       }

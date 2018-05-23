@@ -31,6 +31,9 @@
     <!-- Animation Css -->
     <link href="assets/css/animate.css" rel="stylesheet" />
 
+    <!-- Bootstrap Spinner Css -->
+    <link href="assets/css/bootstrap-spinner.css" rel="stylesheet">
+
     <!-- Bootstrap Material Datetime Picker Css -->
     <link href="assets/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
 
@@ -83,6 +86,9 @@
 
     <!-- Slimscroll Plugin Js -->
     <script src="assets/js/jquery.slimscroll.js"></script>
+
+    <!-- Jquery Spinner Plugin Js -->
+    <script src="assets/js/jquery.spinner.js"></script>
 
     <!-- iCheck 1.0.1 -->
     <script src="assets/js/icheck.min.js"></script>

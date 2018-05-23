@@ -36,7 +36,13 @@
 		$row = mysql_fetch_assoc($sql);
 		$id_user = $row['id_user'];
 
-		mysql_query("INSERT INTO pembina (nama, j_kelamin, tgl_lahir, gelar, asalkota, email, telp, id_user) VALUES ('$nama', '$j_kelamin', '$tgl_lahir', '$gelar', '$asalkota', '$email', '$telp', '$id_user')");
+		if (mysql_num_rows($row) == 0) {
+			echo "<script>document.location='?page=pembina&alert=duplicateusername'</script>";
+		} else{
+			mysql_query("INSERT INTO pembina (nama, j_kelamin, tgl_lahir, gelar, asalkota, email, telp, id_user) VALUES ('$nama', '$j_kelamin', '$tgl_lahir', '$gelar', '$asalkota', '$email', '$telp', '$id_user')");
+
+			echo "<script>document.location='?page=pembina'</script>";
+		}
 	}
 
 	function tambahMhsBinaan($idPembina, $idMahasiswa){
@@ -507,7 +513,12 @@
 		}
 	}
 
-	function importShalat($angkatan, $from, $to){
+	function importShalat($angkatan, $from, $to, $jmlWktShalat){
+
+		// Periode shalat table
+		mysql_query("INSERT INTO shalat_periode (tanggal_dari, tanggal_sampai, jml_wkt_shalat) VALUES ('$from','$to', '$jmlWktShalat')");
+
+
 		$koneksi_mdb = odbc_connect( 'att2000', "", "");
 		
 		$sql = "SELECT userid AS id_mahasiswa, Format(tanggal, 'yyyy-mm-dd') AS tgl, Format(TimeValue(Min(t.CHECKTIME))) As wkt_tapping, session AS wkt_shalat FROM (SELECT session_from, session_to, date_from, date_to, session FROM ((timesetup i LEFT JOIN dateperiod d ON i.period_id = d.period_id) LEFT JOIN sessionrange q ON i.sessionrange_id = q.sessionrange_id)) As s INNER JOIN (SELECT Format(DateValue(CHECKTIME)) As tanggal, Format(TimeValue(CHECKTIME)) As tapping, u.userid, u.Badgenumber, CHECKTIME FROM CHECKINOUT c LEFT JOIN USERINFO u ON c.userid = u.userid WHERE (Format(DateValue(c.CHECKTIME), 'yyyy-mm-dd')  BETWEEN '$from' AND '$to') AND (u.Badgenumber LIKE '$angkatan%')) t ON ((t.tanggal BETWEEN s.date_from AND s.date_to) AND (t.tapping BETWEEN s.session_from AND s.session_to)) GROUP BY userid, tanggal, session, u.Badgenumber ORDER BY userid, tanggal, Format(TimeValue(Min(t.CHECKTIME)))";
@@ -516,11 +527,11 @@
 
 		while($row_mdb = odbc_fetch_array($result)){
 
-			$wktNew = date('h:i:s', strtotime($row_mdb['wkt_tapping']));
+			$wktNew = date('H:i:s', strtotime($row_mdb['wkt_tapping']));
 			$tglNew = date('Y-m-d', strtotime($row_mdb['tgl']));	
 
 			//if(strpos($row_mdb['Name'], $row_mdb['Badgenumber']) === FALSE){
-			$mysql_insert_presensi = "INSERT INTO shalat(id_mahasiswa, tanggal, wkt_tapping, wkt_shalat) VALUES ('".$row_mdb['id_mahasiswa']."', '$tglNew', '$wktNew','".$row_mdb['wkt_shalat']."')";
+			$mysql_insert_presensi = "INSERT INTO shalat(id_mahasiswa, id_periode, tanggal, wkt_tapping, wkt_shalat) VALUES ('".$row_mdb['id_mahasiswa']."', (SELECT id_periode FROM shalat_periode WHERE tanggal_dari BETWEEN '$from' AND '$to'), '$tglNew', '$wktNew','".$row_mdb['wkt_shalat']."')";
 
 			mysql_query($mysql_insert_presensi);
 
