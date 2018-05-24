@@ -16,17 +16,6 @@
                                         <span class="input-group-addon">
                                             <i class="material-icons" style="font-size: 24px">streetview</i>
                                         </span>
-                                        <select id='selUser' class="form-control show-tick" id="pbentuk" name="pbentuk">
-                                          <option value='0'>-- Bentuk Pelanggaran --</option>
-                                        </select>
-                                    </div>
-                                  </div>
-                                
-                                <div class="col-sm-12">
-                                  <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <i class="material-icons" style="font-size: 24px">streetview</i>
-                                        </span>
                                         <select class="form-control show-tick" id="pbentuk" name="pbentuk">
 	                                        <option value="">-- Bentuk Pelanggaran --</option>
                                             <?php

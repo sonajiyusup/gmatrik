@@ -10,8 +10,36 @@
                             <button class="btn btn-sm btn-default waves-effect " data-toggle="modal" data-target="#importShalat" title="Import Database Mahasiswa"><i class="material-icons">get_app</i><span>IMPORT DATA PRESENSI</span></button>
                           </h2>
                         </div>
-                        <div class="body ">
-                        	                 
+                        <div class="body">
+                          <div class="table-responsive">
+                            <table id="tableShalatIkhtisar" class="table table-hover table-condensed">
+                            <thead>
+                              <tr>
+                                <th>Periode</th>
+                                <th>Total Waktu Shalat</th>
+                                <th>Target Jml Waktu Shalat</th>
+                                <th>Rata-rata Jml Waktu Shalat Per-Mhs</th>
+                                <th>Nilai Rata-rata Per-Mhs</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <?php 
+                                $dataPresensi = shalatIkhtisar();
+                                
+                                $no = 1;
+                                foreach($dataPresensi as $row){
+                               ?>
+                              <tr>
+                                <td><?php echo date('d M Y', strtotime($row['tanggal_dari']))." - ".date('d M Y', strtotime($row['tanggal_sampai'])); ?></td>
+                                <td><?php echo $row['total']; ?></td>
+                                <td><?php echo $row['target']; ?></td>
+                                <td><?php echo $row['jmlrt']; ?></td>
+                                <td><?php echo $row['nilai']; ?></td>
+                              </tr>
+                              <?php } ?>
+                            </tbody> 
+                            </table>
+                          </div>
                         </div>
                     </div>
                 </div>
