@@ -8,7 +8,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <h2>NILAI RATA-RATA PER-PERIODE</h2>
+                            <h2>GRAFIK PRESENSI NILAI RATA-RATA SEMUA MAHASISWA</h2>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
                                     <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
