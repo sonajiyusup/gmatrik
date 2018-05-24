@@ -37,6 +37,7 @@ function getChartJs(type) {
             options: {
                 responsive: true,
                 legend: false
+                
             }
         }
     }

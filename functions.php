@@ -599,4 +599,11 @@
 		}			
 	}
 
+	function tampilPeriode(){
+		$ambildata = mysql_query("SELECT id_periode, tanggal_dari, tanggal_sampai FROM shalat_periode GROUP BY id_periode ORDER BY id_periode") or die(mysql_error());
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;
+	}
+
  ?>

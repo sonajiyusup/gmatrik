@@ -130,7 +130,7 @@
     <script src="assets/js/jquery-datatable.js"></script>
     <script src="assets/js/basic-form-elements.js"></script>
     <script src="assets/js/notifications.js"></script>
-    <script src="assets/js/chartjs.js"></script>
+    <!-- <script src="assets/js/chartjs.js"></script> -->
 
     <!-- Demo Js -->
     <script src="assets/js/demo.js"></script>
