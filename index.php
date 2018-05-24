@@ -98,6 +98,8 @@
     <!-- Chart Plugins Js -->
     <script src="assets/js/Chart.bundle.min.js"></script>
 
+    <script src="assets/js/jquery.sparkline.js"></script>
+
     <!-- Autosize Plugin Js -->
     <script src="assets/js/autosize.js"></script>
 
@@ -130,6 +132,7 @@
     <script src="assets/js/jquery-datatable.js"></script>
     <script src="assets/js/basic-form-elements.js"></script>
     <script src="assets/js/notifications.js"></script>
+    <script src="assets/js/sparkline.js"></script>
     <!-- <script src="assets/js/chartjs.js"></script> -->
 
     <!-- Demo Js -->
