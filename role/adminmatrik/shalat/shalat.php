@@ -3,6 +3,86 @@
  ?>
 
 	<div class="row clearfix">
+
+    <!-- Line Chart -->
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>GRAFIK PRESENSI NILAI RATA-RATA SEMUA MAHASISWA</h2>
+                        </div>
+                        <div class="body">
+                            <canvas id="line_chart" height="70"></canvas>
+                        </div>
+                        <script type="text/javascript">
+                          $(function () {
+                              new Chart(document.getElementById("line_chart").getContext("2d"), getChartJs('line'));
+                          });
+
+                          function getChartJs(type) {
+                              var config = null;
+
+                              if (type === 'line') {
+                                  config = {
+                                      type: 'line',
+                                      data: {
+                                          labels: [<?php
+                                                    $dataPeriode = shalatIkhtisar();
+                                                    foreach ($dataPeriode as $row){
+                                                     echo '"'.$row['id_periode'].'",';
+                                                    }
+                                                  ?>],
+                                          datasets: [{
+                                              label: "Nilai Rata-rata",
+                                              data: [<?php
+                                                    $dataNilaiRata = shalatIkhtisar();
+                                                    foreach ($dataNilaiRata as $row){
+                                                     echo '"'.$row['nilai'].'",';
+                                                    }
+                                                  ?>],
+                                              borderColor: 'rgba(0, 188, 212, 0.75)',
+                                              backgroundColor: 'rgba(0, 188, 212, 0.3)',
+                                              pointBorderColor: 'rgba(0, 188, 212, 0)',
+                                              pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
+                                              pointBorderWidth: 1
+                                          }, {
+                                                  label: "Target Jumlah Shalat",
+                                                  data: [<?php
+                                                    $dataNilaiRata = shalatIkhtisar();
+                                                    foreach ($dataNilaiRata as $row){
+                                                     echo '"'.$row['target'].'",';
+                                                    }
+                                                  ?>],
+                                                  borderColor: 'rgba(233, 30, 99, 0.75)',
+                                                  pointBorderColor: 'rgba(233, 30, 99, 0)',
+                                                  pointBackgroundColor: 'rgba(233, 30, 99, 0.9)',
+                                                  pointBorderWidth: 1
+                                              }, {
+                                                  label: "Jumlah Shalat",
+                                                  data: [<?php
+                                                    $dataNilaiRata = shalatIkhtisar();
+                                                    foreach ($dataNilaiRata as $row){
+                                                     echo '"'.$row['jmlrt'].'",';
+                                                    }
+                                                  ?>],
+
+                                                  borderColor: 'rgba(154,10,222,0.75)',
+                                                  pointBorderColor: 'rgba(154,10,222, 0)',
+                                                  pointBackgroundColor: 'rgba(154,10,222, 0.9)',
+                                                  pointBorderWidth: 1
+                                              }]
+                                      },
+                                      options: {
+                                          responsive: true,
+                                          legend: false
+                                      }
+                                  }
+                              }
+                              return config;
+                          }                          
+                        </script>
+                    </div>
+                </div>
+
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
@@ -10,8 +90,36 @@
                             <button class="btn btn-sm btn-default waves-effect " data-toggle="modal" data-target="#importShalat" title="Import Database Mahasiswa"><i class="material-icons">get_app</i><span>IMPORT DATA PRESENSI</span></button>
                           </h2>
                         </div>
-                        <div class="body ">
-                        	                 
+                        <div class="body">
+                          <div class="table-responsive">
+                            <table id="tableShalatIkhtisar" class="table table-hover">
+                              <thead>
+                                <tr>
+                                  <th>ID</th>
+                                  <th>Periode</th>
+                                  <th>Total Waktu Shalat</th>
+                                  <th>Target Jml Waktu Shalat</th>
+                                  <th>Rata-rata Jml Waktu Shalat Per-Mhs</th>
+                                  <th>Nilai Rata-rata Per-Mhs</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <?php 
+                                  $dataPresensi = shalatIkhtisar();
+                                  foreach($dataPresensi as $row){
+                                 ?>
+                                <tr>
+                                  <td><?php echo $row['id_periode']; ?></td>
+                                  <td><?php echo date('d M Y', strtotime($row['tanggal_dari']))." - ".date('d M Y', strtotime($row['tanggal_sampai'])); ?></td>
+                                  <td><?php echo $row['total']; ?></td>
+                                  <td><?php echo $row['target']; ?></td>
+                                  <td><?php echo $row['jmlrt']; ?></td>
+                                  <td><?php echo $row['nilai']; ?></td>
+                                </tr>
+                                <?php } ?>
+                              </tbody> 
+                            </table>
+                          </div>
                         </div>
                     </div>
                 </div>
@@ -32,7 +140,7 @@
                 </div>
             </div> -->
 
-            <div class="modal fade" id="importShalat" tabindex="-1" role="dialog">
+           <div class="modal fade" id="importShalat" tabindex="-1" role="dialog">
                 <div class="modal-dialog">
                   <form method="POST">
                     <div class="modal-content">
@@ -143,11 +251,16 @@
     <!-- /.content -->
 
 <!-- Daterange picker import data presensi shalat mahasiswa -->
+    <script>
+    $(document).ready(function() {
+      var t = $('#tableShalatIkhtisar').DataTable({});
+    } );
+    </script>  
+
 <script type="text/javascript">
 var startDate;
 var endDate;
 
-$(document).ready(function() {
     $('#reportrange').daterangepicker(
        {
           startDate: moment().subtract('days', 6),
@@ -199,12 +312,10 @@ $(document).ready(function() {
         console.log(startDate.format('D MMMM YYYY') + ' - ' + endDate.format('D MMMM YYYY'));
     });
 
- });
+ ;
 </script>    
 
 <script type="text/javascript">
-$(document).ready(function()
-    {
       $('#shubuh_dari').bootstrapMaterialDatePicker
       ({
         date: false,
@@ -290,5 +401,5 @@ $(document).ready(function()
       });
 
       $.material.init()
-    });
+    ;
 </script>

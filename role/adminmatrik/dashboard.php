@@ -4,6 +4,7 @@
   $tb = totalPembina();
   $tm = totalMahasiswa();
   $tp = totalPelanggaran();
+  
 ?>
 
 <div class="container-fluid">
@@ -42,6 +43,41 @@
                         <div class="content">
                             <div class="text">JUMLAH PELANGGARAN</div>
                             <div class="number count-to" data-from="0" data-to="125" data-speed="1000" data-fresh-interval="20"><?php foreach($tp as $totalPelanggaran){ echo $totalPelanggaran; }?></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row clearfix">
+              <!-- Line Chart -->
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <div class="card">
+                        <div class="header">
+                            <h2>SHALAT WAJIB <small>Nilai Rata-rata Semua Mahasiswa Sepanjang Periode</small></h2>
+                            <ul class="header-dropdown m-r--5">
+                                <li class="dropdown">
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                        <i class="material-icons">more_vert</i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li><a href="?page=shalat">Lihat Detil</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="body">
+                            <div class="sparkline" data-type="line" data-spot-Radius="3" data-highlight-Spot-Color="rgb(233, 30, 99)" data-highlight-Line-Color="#222"
+                                 data-min-Spot-Color="rgb(233, 30, 99)" data-max-Spot-Color="rgb(0, 150, 136)" data-spot-Color="rgb(0, 188, 212)"
+                                 data-offset="90" data-width="100%" data-height="150px" data-line-Width="3" data-line-Color="rgb(0, 188, 212)"
+                                 data-fill-Color="rgba(0, 188, 212, 0.3)">
+                                <?php
+                                                    $dataNilaiRata = shalatIkhtisar();
+                                                    
+                                                    foreach ($dataNilaiRata as $row){
+                                                     $nilai[] = $row['nilai'];
+                                                    }
+                                                    echo implode(",", $nilai);
+                                                  ?>
+                            </div>
                         </div>
                     </div>
                 </div>

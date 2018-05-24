@@ -16,6 +16,7 @@
                                         <span class="input-group-addon">
                                             <i class="material-icons" style="font-size: 24px">streetview</i>
                                         </span>
+<<<<<<< HEAD
                                         <input type="text" name="" class="form-control" id="daftarMhs" placeholder="Nama Mahasiswa">
                                     </div>
                                   </div>
@@ -25,6 +26,8 @@
                                         <span class="input-group-addon">
                                             <i class="material-icons" style="font-size: 24px">streetview</i>
                                         </span>
+=======
+>>>>>>> 3975af3886a58f692a5995e0ce5d8cdbb54d2d56
                                         <select class="form-control show-tick" id="pbentuk" name="pbentuk">
 	                                        <option value="">-- Bentuk Pelanggaran --</option>
                                             <?php
