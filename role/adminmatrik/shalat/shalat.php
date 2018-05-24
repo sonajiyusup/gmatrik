@@ -38,14 +38,19 @@
                                       type: 'line',
                                       data: {
                                           labels: [<?php
-                                                    $dataPeriode = tampilPeriode();
-                                                    foreach ($dataPeriode as $row){ // Perbaiki struktur komen JS dan PHP (tanda kutip + koma)
+                                                    $dataPeriode = shalatIkhtisar();
+                                                    foreach ($dataPeriode as $row){
                                                      echo '"'.$row['id_periode'].'",';
                                                     }
                                                   ?>],
                                           datasets: [{
                                               label: "Nilai Rata-rata",
-                                              data: [61, 62, 86, 58, 64, 62, 63, 81],
+                                              data: [<?php
+                                                    $dataNilaiRata = shalatIkhtisar();
+                                                    foreach ($dataNilaiRata as $row){
+                                                     echo '"'.$row['nilai'].'",';
+                                                    }
+                                                  ?>],
                                               borderColor: 'rgba(0, 188, 212, 0.75)',
                                               backgroundColor: 'rgba(0, 188, 212, 0.3)',
                                               pointBorderColor: 'rgba(0, 188, 212, 0)',
@@ -53,14 +58,25 @@
                                               pointBorderWidth: 1
                                           }, {
                                                   label: "Target Jumlah Shalat",
-                                                  data: [33, 33, 23, 35, 34, 35, 35, 23],
+                                                  data: [<?php
+                                                    $dataNilaiRata = shalatIkhtisar();
+                                                    foreach ($dataNilaiRata as $row){
+                                                     echo '"'.$row['target'].'",';
+                                                    }
+                                                  ?>],
                                                   borderColor: 'rgba(233, 30, 99, 0.75)',
                                                   pointBorderColor: 'rgba(233, 30, 99, 0)',
                                                   pointBackgroundColor: 'rgba(233, 30, 99, 0.9)',
                                                   pointBorderWidth: 1
                                               }, {
                                                   label: "Jumlah Shalat",
-                                                  data: [20, 20, 20, 20, 22, 22, 22, 19],
+                                                  data: [<?php
+                                                    $dataNilaiRata = shalatIkhtisar();
+                                                    foreach ($dataNilaiRata as $row){
+                                                     echo '"'.$row['jmlrt'].'",';
+                                                    }
+                                                  ?>],
+
                                                   borderColor: 'rgba(154,10,222,0.75)',
                                                   pointBorderColor: 'rgba(154,10,222, 0)',
                                                   pointBackgroundColor: 'rgba(154,10,222, 0.9)',

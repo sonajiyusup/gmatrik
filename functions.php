@@ -588,7 +588,7 @@
 	}*/
 
 	function shalatIkhtisar(){
-		$ambildata = mysql_query("SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, COUNT(s.wkt_shalat) AS 'total', sp.jml_wkt_shalat AS 'target', ROUND(COUNT(s.wkt_shalat)/387) AS 'jmlrt', ROUND((COUNT(s.wkt_shalat)/387)/sp.jml_wkt_shalat*100) AS 'nilai' FROM shalat_periode sp LEFT JOIN shalat s ON sp.id_periode = s.id_periode GROUP BY sp.id_periode ORDER BY sp.id_periode DESC") or die(mysql_error());
+		$ambildata = mysql_query("SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, COUNT(s.wkt_shalat) AS 'total', sp.jml_wkt_shalat AS 'target', ROUND(COUNT(s.wkt_shalat)/387) AS 'jmlrt', ROUND((COUNT(s.wkt_shalat)/387)/sp.jml_wkt_shalat*100) AS 'nilai' FROM shalat_periode sp LEFT JOIN shalat s ON sp.id_periode = s.id_periode GROUP BY sp.id_periode ORDER BY sp.id_periode") or die(mysql_error());
 		
 		if (mysql_num_rows($ambildata) > 0) {
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
@@ -597,13 +597,6 @@
 		} else{
 			echo "Data Presensi Shalat Kosong";
 		}			
-	}
-
-	function tampilPeriode(){
-		$ambildata = mysql_query("SELECT id_periode, tanggal_dari, tanggal_sampai FROM shalat_periode GROUP BY id_periode ORDER BY id_periode") or die(mysql_error());
-			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
-				$data[] = $ad;
-				return $data;
 	}
 
  ?>
