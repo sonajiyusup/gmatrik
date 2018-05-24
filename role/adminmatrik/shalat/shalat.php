@@ -3,6 +3,31 @@
  ?>
 
 	<div class="row clearfix">
+
+    <!-- Line Chart -->
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>NILAI RATA-RATA PER-PERIODE</h2>
+                            <ul class="header-dropdown m-r--5">
+                                <li class="dropdown">
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                        <i class="material-icons">more_vert</i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li><a href="javascript:void(0);">Action</a></li>
+                                        <li><a href="javascript:void(0);">Another action</a></li>
+                                        <li><a href="javascript:void(0);">Something else here</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="body">
+                            <canvas id="line_chart" height="60"></canvas>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
@@ -12,9 +37,10 @@
                         </div>
                         <div class="body">
                           <div class="table-responsive">
-                            <table id="tableShalatIkhtisar" class="table table-hover table-condensed">
+                            <table id="tableShalatIkhtisar" class="table table-hover">
                               <thead>
                                 <tr>
+                                  <th>ID</th>
                                   <th>Periode</th>
                                   <th>Total Waktu Shalat</th>
                                   <th>Target Jml Waktu Shalat</th>
@@ -29,6 +55,7 @@
                                   foreach($dataPresensi as $row){
                                  ?>
                                 <tr>
+                                  <td><?php echo $row['id_periode']; ?></td>
                                   <td><?php echo date('d M Y', strtotime($row['tanggal_dari']))." - ".date('d M Y', strtotime($row['tanggal_sampai'])); ?></td>
                                   <td><?php echo $row['total']; ?></td>
                                   <td><?php echo $row['target']; ?></td>
@@ -172,18 +199,14 @@
 <!-- Daterange picker import data presensi shalat mahasiswa -->
     <script>
     $(document).ready(function() {
-      var t = $('#tableShalatIkhtisar').DataTable( {
-            
-        } );
-
+      var t = $('#tableShalatIkhtisar').DataTable({});
     } );
     </script>  
-    
+
 <script type="text/javascript">
 var startDate;
 var endDate;
 
-$(document).ready(function() {
     $('#reportrange').daterangepicker(
        {
           startDate: moment().subtract('days', 6),
@@ -235,12 +258,10 @@ $(document).ready(function() {
         console.log(startDate.format('D MMMM YYYY') + ' - ' + endDate.format('D MMMM YYYY'));
     });
 
- });
+ ;
 </script>    
 
 <script type="text/javascript">
-$(document).ready(function()
-    {
       $('#shubuh_dari').bootstrapMaterialDatePicker
       ({
         date: false,
@@ -326,5 +347,5 @@ $(document).ready(function()
       });
 
       $.material.init()
-    });
+    ;
 </script>
