@@ -13,31 +13,30 @@
                         <div class="body">
                           <div class="table-responsive">
                             <table id="tableShalatIkhtisar" class="table table-hover table-condensed">
-                            <thead>
-                              <tr>
-                                <th>Periode</th>
-                                <th>Total Waktu Shalat</th>
-                                <th>Target Jml Waktu Shalat</th>
-                                <th>Rata-rata Jml Waktu Shalat Per-Mhs</th>
-                                <th>Nilai Rata-rata Per-Mhs</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <?php 
-                                $dataPresensi = shalatIkhtisar();
-                                
-                                $no = 1;
-                                foreach($dataPresensi as $row){
-                               ?>
-                              <tr>
-                                <td><?php echo date('d M Y', strtotime($row['tanggal_dari']))." - ".date('d M Y', strtotime($row['tanggal_sampai'])); ?></td>
-                                <td><?php echo $row['total']; ?></td>
-                                <td><?php echo $row['target']; ?></td>
-                                <td><?php echo $row['jmlrt']; ?></td>
-                                <td><?php echo $row['nilai']; ?></td>
-                              </tr>
-                              <?php } ?>
-                            </tbody> 
+                              <thead>
+                                <tr>
+                                  <th>Periode</th>
+                                  <th>Total Waktu Shalat</th>
+                                  <th>Target Jml Waktu Shalat</th>
+                                  <th>Rata-rata Jml Waktu Shalat Per-Mhs</th>
+                                  <th>Nilai Rata-rata Per-Mhs</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <?php 
+                                  $dataPresensi = shalatIkhtisar();
+                                  $no = 1;
+                                  foreach($dataPresensi as $row){
+                                 ?>
+                                <tr>
+                                  <td><?php echo date('d M Y', strtotime($row['tanggal_dari']))." - ".date('d M Y', strtotime($row['tanggal_sampai'])); ?></td>
+                                  <td><?php echo $row['total']; ?></td>
+                                  <td><?php echo $row['target']; ?></td>
+                                  <td><?php echo $row['jmlrt']; ?></td>
+                                  <td><?php echo $row['nilai']; ?></td>
+                                </tr>
+                                <?php } ?>
+                              </tbody> 
                             </table>
                           </div>
                         </div>
@@ -60,7 +59,7 @@
                 </div>
             </div> -->
 
-            <div class="modal fade" id="importShalat" tabindex="-1" role="dialog">
+           <div class="modal fade" id="importShalat" tabindex="-1" role="dialog">
                 <div class="modal-dialog">
                   <form method="POST">
                     <div class="modal-content">
@@ -171,6 +170,15 @@
     <!-- /.content -->
 
 <!-- Daterange picker import data presensi shalat mahasiswa -->
+    <script>
+    $(document).ready(function() {
+      var t = $('#tableShalatIkhtisar').DataTable( {
+            
+        } );
+
+    } );
+    </script>  
+    
 <script type="text/javascript">
 var startDate;
 var endDate;
