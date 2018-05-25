@@ -26,17 +26,17 @@
                                       type: 'line',
                                       data: {
                                           labels: [<?php
-                                                    $dataPeriode = shalatIkhtisar();
+                                                    $dataPeriode = tampilPeriodeShalat();
                                                     foreach ($dataPeriode as $row){
                                                      echo '"'.$row['id_periode'].'",';
                                                     }
                                                   ?>],
                                           datasets: [{
-                                              label: "Nilai Rata-rata",
+                                              label: "Nilai Rata-rata Ikhwan",
                                               data: [<?php
-                                                    $dataNilaiRata = shalatIkhtisar();
-                                                    foreach ($dataNilaiRata as $row){
-                                                     echo '"'.$row['nilai'].'",';
+                                                    $dataNilaiAkhwat = shalatIkhtisarIkhwan();
+                                                    foreach ($dataNilaiAkhwat as $row){
+                                                     echo '"'.$row['nilai_ikhwan'].'",';
                                                     }
                                                   ?>],
                                               borderColor: 'rgba(0, 188, 212, 0.75)',
@@ -45,29 +45,16 @@
                                               pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
                                               pointBorderWidth: 1
                                           }, {
-                                                  label: "Maksimal Jumlah Shalat",
+                                                  label: "Nilai Rata-rata Akhwat",
                                                   data: [<?php
-                                                    $dataNilaiRata = shalatIkhtisar();
-                                                    foreach ($dataNilaiRata as $row){
-                                                     echo '"'.$row['target'].'",';
+                                                    $dataNilaiAkhwat = shalatIkhtisarAkhwat();
+                                                    foreach ($dataNilaiAkhwat as $row){
+                                                     echo '"'.$row['nilai_akhwat'].'",';
                                                     }
                                                   ?>],
                                                   borderColor: 'rgba(233, 30, 99, 0.75)',
                                                   pointBorderColor: 'rgba(233, 30, 99, 0)',
                                                   pointBackgroundColor: 'rgba(233, 30, 99, 0.9)',
-                                                  pointBorderWidth: 1
-                                              }, {
-                                                  label: "Jumlah Shalat",
-                                                  data: [<?php
-                                                    $dataNilaiRata = shalatIkhtisar();
-                                                    foreach ($dataNilaiRata as $row){
-                                                     echo '"'.$row['jmlrt'].'",';
-                                                    }
-                                                  ?>],
-
-                                                  borderColor: 'rgba(154,10,222,0.75)',
-                                                  pointBorderColor: 'rgba(154,10,222, 0)',
-                                                  pointBackgroundColor: 'rgba(154,10,222, 0.9)',
                                                   pointBorderWidth: 1
                                               }]
                                       },
@@ -145,7 +132,7 @@
                   <form method="POST">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h4 class="modal-title" id="smallModalLabel">IMPORT DATA PRESENSI SHALAT MAHASISWA</h4>
+                        <h4 class="modal-title" id="smallModalLabel">IMPORT DATA PRESENSI SHALATMAHASISWA</h4>
                         </div>
                         <div class="modal-body">
                           <div class="col-md-12">
