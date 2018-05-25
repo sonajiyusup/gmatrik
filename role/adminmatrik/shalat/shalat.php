@@ -110,7 +110,7 @@
                                  ?>
                                 <tr>
                                   <td><?php echo $row['id_periode']; ?></td>
-                                  <td><?php echo date('d M Y', strtotime($row['tanggal_dari']))." - ".date('d M Y', strtotime($row['tanggal_sampai'])); ?></td>
+                                  <td><?php echo '<a href="?page=shalatpdetail&id='.$row['id_periode'].'">'.date('d M Y', strtotime($row['tanggal_dari']))." - ".date('d M Y', strtotime($row['tanggal_sampai'])).'</a>'; ?></td>
                                   <td><?php echo $row['total']; ?></td>
                                   <td><?php echo $row['target']; ?></td>
                                   <td><?php echo $row['jmlrt']; ?></td>
