@@ -45,7 +45,7 @@
                                               pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
                                               pointBorderWidth: 1
                                           }, {
-                                                  label: "Target Jumlah Shalat",
+                                                  label: "Maksimal Jumlah Shalat",
                                                   data: [<?php
                                                     $dataNilaiRata = shalatIkhtisar();
                                                     foreach ($dataNilaiRata as $row){
@@ -145,64 +145,82 @@
                   <form method="POST">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h4 class="modal-title" id="smallModalLabel">IMPORT DATA PRESENSI MAHASISWA</h4>
+                        <h4 class="modal-title" id="smallModalLabel">IMPORT DATA PRESENSI SHALAT MAHASISWA</h4>
                         </div>
                         <div class="modal-body">
-                        	<div class="input-group">
-                        		<label>Periode :</label>
-														<div class="form-line">
-															<input type="text" name="daterangeShalat" class="form-control date" id="reportrange" required>
-														</div>
-													</div>
-													<div class="input-group spinner" data-trigger="spinner">
-													<label>Jumlah Waktu Shalat :</label>
-													<div class="form-line">
-													<input type="text" class="form-control" name="jmlWktShalat" value="35" data-rule="quantity" required>
-													</div>
-													<span class="input-group-addon">
-													<a href="javascript:;" class="spin-up" data-spin="up"><i class="glyphicon glyphicon-chevron-up"></i></a>
-													<a href="javascript:;" class="spin-down" data-spin="down"><i class="glyphicon glyphicon-chevron-down"></i></a>
-													</span>
-													</div>                          
-													<div class="bootstrap-timepicker">
-			                      <div class="row">
-			                        <div class="col-md-3 nopadding">
-			                          <div class="form-group">
-			                            <label>Shubuh :</label>
-			                              <input type="text" name="shubuhFrom" id="shubuh_dari" class="timepicker form-control" placeholder="Dari" value="04:00">
-			                              <input type="text" name="shubuhTo" id="shubuh_sampai" class="timepicker form-control" placeholder="Sampai" value="06:00">
-			                          </div>
-			                        </div>
-			                        <div class="col-md-3 nopadding">
-			                          <div class="form-group">
-			                            <label>Dzuhur :</label>
-			                              <input type="text" name="dzuhurFrom" id="dzuhur_dari" class="timepicker form-control" placeholder="Dari" value="12:00">
-			                              <input type="text" name="dzuhurTo" id="dzuhur_sampai" class="timepicker form-control" placeholder="Sampai" value="13:00">
-			                          </div>
-			                        </div>
-			                        <div class="col-md-3 nopadding">
-			                          <div class="form-group">
-			                            <label>Ashar :</label>
-			                              <input type="text" name="asharFrom" id="ashar_dari" class="timepicker form-control" placeholder="Dari" value="15:00">
-			                              <input type="text" name="asharTo" id="ashar_sampai" class="timepicker form-control" placeholder="Sampai" value="16:00">
-			                          </div>
-			                        </div>
-			                        <div class="col-md-3 nopadding">
-			                          <div class="form-group">
-			                            <label>Maghrib :</label>
-			                              <input type="text" name="maghribFrom" id="maghrib_dari" class="timepicker form-control" placeholder="Dari" value="18:00">
-			                              <input type="text" name="maghribTo" id="maghrib_sampai" class="timepicker form-control" placeholder="Sampai" value="18:35">
-			                          </div>
-			                        </div>
-			                        <div class="col-md-3 nopadding">
-			                          <div class="form-group">
-			                            <label>Isya :</label>
-			                              <input type="text" name="isyaFrom" id="isya_dari" class="timepicker form-control" placeholder="Dari" value="19:00">
-			                              <input type="text" name="isyaTo" id="isya_sampai" class="timepicker form-control" placeholder="Sampai" value="21:00">
-			                          </div>
-			                        </div>
-			                      </div>
-			                    </div>
+                          <div class="col-md-12">
+                          	<div class="input-group">
+                          		<label>Periode :</label>
+  														<div class="form-line">
+  															<input type="text" name="daterangeShalat" class="form-control date" id="reportrange" required>
+  														</div>
+  													</div>
+                          </div>
+                          <div class="col-md-6">
+  													<div class="input-group spinner" data-trigger="spinner">
+    													<label>Jumlah Waktu Shalat Ikhwan :</label>
+      													<div class="form-line">
+      													 <input type="text" class="form-control" name="jmlWktShalat" value="35" data-rule="quantity" required>
+      													</div>
+    													<span class="input-group-addon">
+      													<a href="javascript:;" class="spin-up" data-spin="up"><i class="glyphicon glyphicon-chevron-up"></i></a>
+      													<a href="javascript:;" class="spin-down" data-spin="down"><i class="glyphicon glyphicon-chevron-down"></i></a>
+    													</span>
+  													</div>  
+                          </div>
+                          <div class="col-md-6">
+                            <div class="input-group spinner" data-trigger="spinner">
+                              <label>Jumlah Waktu Shalat Akhwat :</label>
+                                <div class="form-line">
+                                 <input type="text" class="form-control" name="jmlWktShalat" value="35" data-rule="quantity" required>
+                                </div>
+                              <span class="input-group-addon">
+                                <a href="javascript:;" class="spin-up" data-spin="up"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                                <a href="javascript:;" class="spin-down" data-spin="down"><i class="glyphicon glyphicon-chevron-down"></i></a>
+                              </span>
+                            </div> 
+                          </div>  
+                          <div class="col-md-12">                      
+  													<div class="bootstrap-timepicker">
+  			                      <div class="row">
+  			                        <div class="col-md-3 nopadding">
+  			                          <div class="form-group">
+  			                            <label>Shubuh :</label>
+  			                              <input type="text" name="shubuhFrom" id="shubuh_dari" class="timepicker form-control" placeholder="Dari" value="04:00">
+  			                              <input type="text" name="shubuhTo" id="shubuh_sampai" class="timepicker form-control" placeholder="Sampai" value="06:00">
+  			                          </div>
+  			                        </div>
+  			                        <div class="col-md-3 nopadding">
+  			                          <div class="form-group">
+  			                            <label>Dzuhur :</label>
+  			                              <input type="text" name="dzuhurFrom" id="dzuhur_dari" class="timepicker form-control" placeholder="Dari" value="12:00">
+  			                              <input type="text" name="dzuhurTo" id="dzuhur_sampai" class="timepicker form-control" placeholder="Sampai" value="13:00">
+  			                          </div>
+  			                        </div>
+  			                        <div class="col-md-3 nopadding">
+  			                          <div class="form-group">
+  			                            <label>Ashar :</label>
+  			                              <input type="text" name="asharFrom" id="ashar_dari" class="timepicker form-control" placeholder="Dari" value="15:00">
+  			                              <input type="text" name="asharTo" id="ashar_sampai" class="timepicker form-control" placeholder="Sampai" value="16:00">
+  			                          </div>
+  			                        </div>
+  			                        <div class="col-md-3 nopadding">
+  			                          <div class="form-group">
+  			                            <label>Maghrib :</label>
+  			                              <input type="text" name="maghribFrom" id="maghrib_dari" class="timepicker form-control" placeholder="Dari" value="18:00">
+  			                              <input type="text" name="maghribTo" id="maghrib_sampai" class="timepicker form-control" placeholder="Sampai" value="18:35">
+  			                          </div>
+  			                        </div>
+  			                        <div class="col-md-3 nopadding">
+  			                          <div class="form-group">
+  			                            <label>Isya :</label>
+  			                              <input type="text" name="isyaFrom" id="isya_dari" class="timepicker form-control" placeholder="Dari" value="19:00">
+  			                              <input type="text" name="isyaTo" id="isya_sampai" class="timepicker form-control" placeholder="Sampai" value="21:00">
+  			                          </div>
+  			                        </div>
+  			                      </div>
+  			                    </div>
+                          </div>
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary waves-effect" name="importPresensiShalat">IMPORT</button>
