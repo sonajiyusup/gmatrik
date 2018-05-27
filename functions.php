@@ -622,4 +622,13 @@
 				return $data;
 	}
 
+	// Untuk Chart sparkline di Dashboard
+	function shalatNilaiSemua(){
+		$ambildata = mysql_query("SELECT ROUND((COUNT(s.wkt_shalat)/387)/((sp.jws_ikhwan+sp.jws_ikhwan)/2)*100) AS 'nilai' FROM shalat_periode sp LEFT JOIN shalat s ON sp.id_periode = s.id_periode LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa GROUP BY sp.id_periode ORDER BY sp.id_periode") or die(mysql_error());
+		
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;
+	}	
+
  ?>

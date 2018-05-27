@@ -70,7 +70,7 @@
                                  data-offset="90" data-width="100%" data-height="150px" data-line-Width="3" data-line-Color="rgb(0, 188, 212)"
                                  data-fill-Color="rgba(0, 188, 212, 0.3)">
                                 <?php
-                                                    $dataNilaiRata = shalatIkhtisar();
+                                                    $dataNilaiRata = shalatNilaiSemua();
                                                     
                                                     foreach ($dataNilaiRata as $row){
                                                      $nilai[] = $row['nilai'];
