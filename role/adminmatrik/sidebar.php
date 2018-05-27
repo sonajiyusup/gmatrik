@@ -35,7 +35,7 @@
                     <li class="header">PROGRAM PEMBINAAN</li>
                     <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'shalat') {
+                                    if ($_GET['page'] == 'shalat' || $_GET['page'] == 'shalatia') {
                                       echo "class='active'";
                                     }
                                   }
@@ -55,8 +55,14 @@
                                 ?>
                             ><a href="?page=shalat">Ikhtisar</a>
                             </li>
-                            <li>
-                                <a href="pages/ui/animations.html">...</a>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'shalatia') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                              ><a href="?page=shalatia">Berdasar Ikhwan/Akhwat</a>
                             </li>
                             <li>
                                 <a href="pages/ui/badges.html">...</a>
@@ -276,6 +282,8 @@
               include 'pembina/pembina_tambahbinaan.php';
             } else if ($_GET['page'] == 'shalat') {
               include 'shalat/shalat.php';
+            } else if ($_GET['page'] == 'shalatia') {
+              include 'shalat/shalat_ikwan_akhwat.php';
             } else if ($_GET['page'] == 'pbentuk') {
               include 'pelanggaran/pbentuk.php';
             } else if ($_GET['page'] == 'paksi') {
@@ -286,17 +294,17 @@
               include 'pelanggaran/planjut.php';
             } else if ($_GET['page'] == 'pikhtisar') {
             include 'pelanggaran/pikhtisar.php';
-          } else if ($_GET['page'] == 'pmaindetail') {
-            include 'pelanggaran/pikhtisar_detail.php';
-          } else if ($_GET['page'] == 'pbentukdetail') {
-            include 'pelanggaran/pbentuk_detail.php';
-          } else if ($_GET['page'] == 'paksidetail') {
-            include 'pelanggaran/paksi_detail.php';
-          } else if ($_GET['page'] == 'psanksidetail') {
-            include 'pelanggaran/psanksi_detail.php';
-          } else if ($_GET['page'] == 'planjutdetail') {
-            include 'pelanggaran/planjut_detail.php';
-          } 
+            } else if ($_GET['page'] == 'pmaindetail') {
+              include 'pelanggaran/pikhtisar_detail.php';
+            } else if ($_GET['page'] == 'pbentukdetail') {
+              include 'pelanggaran/pbentuk_detail.php';
+            } else if ($_GET['page'] == 'paksidetail') {
+              include 'pelanggaran/paksi_detail.php';
+            } else if ($_GET['page'] == 'psanksidetail') {
+              include 'pelanggaran/psanksi_detail.php';
+            } else if ($_GET['page'] == 'planjutdetail') {
+              include 'pelanggaran/planjut_detail.php';
+            } 
         } else{
             include 'dashboard.php';
         }
