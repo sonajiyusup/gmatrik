@@ -587,6 +587,18 @@
 				return $data;
 	}*/
 
+	// Table Nilai PRESENSI SHALAT WAJIB MAHASISWA
+	function shalatNilaiIkhtisar(){
+		$ambildata = mysql_query("SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, COUNT(s.wkt_shalat) AS 'total', ikhwan.nilai AS 'nilai_ikhwan', akhwat.nilai AS 'nilai_akhwat' FROM shalat_periode sp LEFT JOIN ( SELECT sp.id_periode, ROUND((COUNT(s.wkt_shalat)/186)/sp.jws_ikhwan*100) AS 'nilai' FROM shalat_periode sp LEFT JOIN shalat s ON sp.id_periode = s.id_periode LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa WHERE m.j_kelamin = 'Ikhwan' GROUP BY sp.id_periode ORDER BY sp.id_periode ) AS ikhwan ON sp.id_periode = ikhwan.id_periode LEFT JOIN ( SELECT sp.id_periode, ROUND((COUNT(s.wkt_shalat)/201)/sp.jws_akhwat*100) AS 'nilai' FROM shalat_periode sp LEFT JOIN shalat s ON sp.id_periode = s.id_periode LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa WHERE m.j_kelamin = 'Akhwat' GROUP BY sp.id_periode ORDER BY sp.id_periode ) AS akhwat ON sp.id_periode = akhwat.id_periode LEFT JOIN shalat s ON sp.id_periode = s.id_periode GROUP BY sp.id_periode ORDER BY sp.id_periode") or die(mysql_error());
+		if (mysql_num_rows($ambildata) > 0) {
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;
+		} else{
+			echo "Data Nilai Shalat kosong";
+		}	
+	}		
+
 	function tampilPeriodeShalat(){
 		$ambildata = mysql_query("SELECT id_periode FROM `shalat_periode`") or die(mysql_error());
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
@@ -594,28 +606,20 @@
 				return $data;
 	}
 
-	function shalatIkhtisarIkhwan(){
-		$ambildata = mysql_query("SELECT ROUND((COUNT(s.wkt_shalat)/186)/sp.jws_ikhwan*100) AS 'nilai_ikhwan' FROM shalat_periode sp LEFT JOIN shalat s ON sp.id_periode = s.id_periode LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa WHERE m.j_kelamin = 'Ikhwan' GROUP BY sp.id_periode ORDER BY sp.id_periode") or die(mysql_error());
+	function shalatNilaiIkhwan(){
+		$ambildata = mysql_query("SELECT sp.id_periode, ROUND((COUNT(s.wkt_shalat)/186)/sp.jws_ikhwan*100) AS 'nilai_ikhwan' FROM shalat_periode sp LEFT JOIN shalat s ON sp.id_periode = s.id_periode LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa WHERE m.j_kelamin = 'Ikhwan' GROUP BY sp.id_periode ORDER BY sp.id_periode") or die(mysql_error());
 		
-		if (mysql_num_rows($ambildata) > 0) {
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
 				return $data;
-		} else{
-			echo "Data Presensi Shalat Kosong";
-		}			
 	}
 
-	function shalatIkhtisarAkhwat(){
-		$ambildata = mysql_query("SELECT ROUND((COUNT(s.wkt_shalat)/201)/sp.jws_akhwat*100) AS 'nilai_akhwat' FROM shalat_periode sp LEFT JOIN shalat s ON sp.id_periode = s.id_periode LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa WHERE m.j_kelamin = 'Akhwat' GROUP BY sp.id_periode ORDER BY sp.id_periode") or die(mysql_error());
+	function shalatNilaiAkhwat(){
+		$ambildata = mysql_query("SELECT sp.id_periode, ROUND((COUNT(s.wkt_shalat)/201)/sp.jws_akhwat*100) AS 'nilai_akhwat' FROM shalat_periode sp LEFT JOIN shalat s ON sp.id_periode = s.id_periode LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa WHERE m.j_kelamin = 'Akhwat' GROUP BY sp.id_periode ORDER BY sp.id_periode") or die(mysql_error());
 		
-		if (mysql_num_rows($ambildata) > 0) {
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
 				return $data;
-		} else{
-			echo "Data Presensi Shalat Kosong";
-		}			
-	}	
+	}
 
  ?>

@@ -8,7 +8,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <h2>GRAFIK PRESENSI NILAI RATA-RATA SEMUA MAHASISWA</h2>
+                            <h2>GRAFIK NILAI PRESENSI RATA-RATA MAHASISWA IKHWAN & AKHWAT</h2>
                         </div>
                         <div class="body">
                             <canvas id="line_chart" height="70"></canvas>
@@ -34,7 +34,7 @@
                                           datasets: [{
                                               label: "Nilai Rata-rata Ikhwan",
                                               data: [<?php
-                                                    $dataNilaiAkhwat = shalatIkhtisarIkhwan();
+                                                    $dataNilaiAkhwat = shalatNilaiIkhwan();
                                                     foreach ($dataNilaiAkhwat as $row){
                                                      echo '"'.$row['nilai_ikhwan'].'",';
                                                     }
@@ -47,7 +47,7 @@
                                           }, {
                                                   label: "Nilai Rata-rata Akhwat",
                                                   data: [<?php
-                                                    $dataNilaiAkhwat = shalatIkhtisarAkhwat();
+                                                    $dataNilaiAkhwat = shalatNilaiAkhwat();
                                                     foreach ($dataNilaiAkhwat as $row){
                                                      echo '"'.$row['nilai_akhwat'].'",';
                                                     }
@@ -73,35 +73,33 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                          <h2>PRESENSI SHALAT WAJIB MAHASISWA &nbsp;&nbsp;&nbsp;
+                          <h2>DATA NILAI PRESENSI SHALAT WAJIB MAHASISWA IKHWAN & AKHWAT &nbsp;&nbsp;&nbsp;
                             <button class="btn btn-sm btn-default waves-effect " data-toggle="modal" data-target="#importShalat" title="Import Database Mahasiswa"><i class="material-icons">get_app</i><span>IMPORT DATA PRESENSI</span></button>
                           </h2>
                         </div>
                         <div class="body">
                           <div class="table-responsive">
-                            <table id="tableShalatIkhtisar" class="table table-hover">
+                            <table id="tableShalatIkhtisar" class="table table-hover table-condensed">
                               <thead>
                                 <tr>
                                   <th>ID</th>
                                   <th>Periode</th>
                                   <th>Total Waktu Shalat</th>
-                                  <th>Target Jml Waktu Shalat</th>
-                                  <th>Rata-rata Jml Waktu Shalat Per-Mhs</th>
-                                  <th>Nilai Rata-rata Per-Mhs</th>
+                                  <th>Nilai Rata-rata Ikhwan</th>
+                                  <th>Nilai Rata-rata Akhwat</th>
                                 </tr>
                               </thead>
                               <tbody>
                                 <?php 
-                                  $dataPresensi = shalatIkhtisar();
+                                  $dataPresensi = shalatNilaiIkhtisar();
                                   foreach($dataPresensi as $row){
                                  ?>
                                 <tr>
                                   <td><?php echo $row['id_periode']; ?></td>
                                   <td><?php echo '<a href="?page=shalatpdetail&id='.$row['id_periode'].'">'.date('d M Y', strtotime($row['tanggal_dari']))." - ".date('d M Y', strtotime($row['tanggal_sampai'])).'</a>'; ?></td>
                                   <td><?php echo $row['total']; ?></td>
-                                  <td><?php echo $row['target']; ?></td>
-                                  <td><?php echo $row['jmlrt']; ?></td>
-                                  <td><?php echo $row['nilai']; ?></td>
+                                  <td><?php echo $row['nilai_ikhwan']; ?></td>
+                                  <td><?php echo $row['nilai_akhwat']; ?></td>
                                 </tr>
                                 <?php } ?>
                               </tbody> 
