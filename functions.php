@@ -607,7 +607,7 @@
 	}
 
 	function shalatNilaiIkhwan(){
-		$ambildata = mysql_query("SELECT sp.id_periode, ROUND((COUNT(s.wkt_shalat)/186)/sp.jws_ikhwan*100) AS 'nilai_ikhwan' FROM shalat_periode sp LEFT JOIN shalat s ON sp.id_periode = s.id_periode LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa WHERE m.j_kelamin = 'Ikhwan' GROUP BY sp.id_periode ORDER BY sp.id_periode") or die(mysql_error());
+		$ambildata = mysql_query("SELECT sp.id_periode, sp.jws_ikhwan AS 'target', ROUND(COUNT(s.wkt_shalat)/186) AS 'jmlrt', ROUND((COUNT(s.wkt_shalat)/186)/sp.jws_ikhwan*100) AS 'nilai_ikhwan' FROM shalat_periode sp LEFT JOIN shalat s ON sp.id_periode = s.id_periode LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa WHERE m.j_kelamin = 'Ikhwan' GROUP BY sp.id_periode ORDER BY sp.id_periode") or die(mysql_error());
 		
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
@@ -615,7 +615,7 @@
 	}
 
 	function shalatNilaiAkhwat(){
-		$ambildata = mysql_query("SELECT sp.id_periode, ROUND((COUNT(s.wkt_shalat)/201)/sp.jws_akhwat*100) AS 'nilai_akhwat' FROM shalat_periode sp LEFT JOIN shalat s ON sp.id_periode = s.id_periode LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa WHERE m.j_kelamin = 'Akhwat' GROUP BY sp.id_periode ORDER BY sp.id_periode") or die(mysql_error());
+		$ambildata = mysql_query("SELECT sp.id_periode, sp.jws_akhwat AS 'target', ROUND(COUNT(s.wkt_shalat)/201) AS 'jmlrt', ROUND((COUNT(s.wkt_shalat)/201)/sp.jws_akhwat*100) AS 'nilai_akhwat' FROM shalat_periode sp LEFT JOIN shalat s ON sp.id_periode = s.id_periode LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa WHERE m.j_kelamin = 'Akhwat' GROUP BY sp.id_periode ORDER BY sp.id_periode") or die(mysql_error());
 		
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
