@@ -35,7 +35,7 @@
                     <li class="header">PROGRAM PEMBINAAN</li>
                     <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'shalat' || $_GET['page'] == 'shalatia') {
+                                    if ($_GET['page'] == 'shalat' || $_GET['page'] == 'shalatia' || $_GET['page'] == 'shalatbpembina') {
                                       echo "class='active'";
                                     }
                                   }
@@ -64,8 +64,14 @@
                                 ?>
                               ><a href="?page=shalatia">Berdasar Ikhwan/Akhwat</a>
                             </li>
-                            <li>
-                                <a href="pages/ui/badges.html">...</a>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'shalatbpembina') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                              ><a href="?page=shalatbpembina">Berdasar Pembina</a>
                             </li>
                         </ul>
                     </li>
