@@ -629,6 +629,14 @@
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
 				return $data;
+	}
+
+	function shalatByPeriodID($idPeriod){
+		$ambildata = mysql_query("SELECT sp.id_periode, s.tanggal, COUNT(s.wkt_shalat) AS 'total', ROUND(COUNT(s.wkt_shalat)/387) AS 'jmlrt' FROM shalat_periode sp LEFT JOIN shalat s ON sp.id_periode = s.id_periode WHERE sp.id_periode = $idPeriod GROUP BY s.tanggal") or die(mysql_error());
+		
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;
 	}	
 
  ?>
