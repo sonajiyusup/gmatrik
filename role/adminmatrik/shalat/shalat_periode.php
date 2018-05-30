@@ -31,7 +31,7 @@
                                           labels: [<?php
                                                     $dataPeriode = shalatByPeriodID($idPeriod);
                                                     foreach ($dataPeriode as $row){
-                                                     echo '"'.$row['tanggal'].'",';
+                                                     echo '"'.date('d M Y', strtotime($row['tanggal'])).'",';
                                                     }
                                                   ?>],
                                           datasets: [{
@@ -95,7 +95,7 @@
                                   foreach($dataPresensi as $row){
                                  ?>
                                 <tr>
-                                  <td><?php echo $row['tanggal']; ?></td>
+                                  <td><?php echo date('d M Y', strtotime($row['tanggal'])); ?></td>
                                   <td><?php echo $row['total']; ?></td>
                                   <td><?php echo $row['jmlrt']; ?></td>
                                   
