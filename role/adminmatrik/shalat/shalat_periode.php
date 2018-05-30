@@ -11,6 +11,13 @@
                         <div class="header">
                             <h2>
                               <a href="?page=shalat" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;GRAFIK NILAI RATA-RATA PRESENSI SEMUA MAHASISWA
+                              <small> Periode
+                                <?php $dataPresensi = tampilTglPeriodeById($idPeriod);
+                                  foreach($dataPresensi as $row){
+                                    echo date('d M Y', strtotime($row['tanggal_dari']))." - ".date('d M Y', strtotime($row['tanggal_sampai']));
+                                  } 
+                                ?>
+                              </small>
                             </h2>
                         </div>
                         <div class="body">
@@ -76,7 +83,14 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                          <h2>DATA NILAI RATA-RATA PRESENSI SEMUA MAHASISWA
+                          <h2>DATA NILAI RATA-RATA PRESENSI MAHASISWA
+                            <small> Periode
+                              <?php $dataPresensi = tampilTglPeriodeById($idPeriod);
+                                foreach($dataPresensi as $row){
+                                  echo date('d M Y', strtotime($row['tanggal_dari']))." - ".date('d M Y', strtotime($row['tanggal_sampai']));
+                                } 
+                              ?>
+                            </small>
                           </h2>
                         </div>
                         <div class="body">
