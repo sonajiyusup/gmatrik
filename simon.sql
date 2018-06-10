@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 06, 2018 at 10:19 AM
+-- Generation Time: Jun 10, 2018 at 12:45 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -986,7 +986,6 @@ INSERT INTO `pembina` (`id_pembina`, `nama`, `j_kelamin`, `tgl_lahir`, `gelar`, 
 (23, 'Riyan Ariyandi', 'Ikhwan', '2017-12-08', 'S.Pd', 'Riau', 'riyan.ariyandi@tazkia.ac.id', '0812474829', NULL, 27),
 (24, 'Rizqan Abadi', 'Ikhwan', '2017-12-22', 'S.Pd', 'Lombok', 'rizqan@tazkia.ac.id', '0857382844', NULL, 28),
 (25, 'Shofi Arofatul Marits', 'Akhwat', '2017-12-11', 'S.E', 'Palembang', 'sofi@tazkia.ac.id', '0896473824', NULL, 29),
-(26, 'Diva Azka Karimah', 'Akhwat', '2017-12-13', 'S.E', 'Jakarta', 'diva@tazkia.ac.id', '0812758382', NULL, 30),
 (27, 'Nashrudin Al-Huda', 'Ikhwan', '2017-12-01', 'S.E', 'Semarang', 'huda@tazkia.ac.id', '0856738232', NULL, 31),
 (29, 'Abdul Hamid', 'Ikhwan', '2015-05-01', 'Lc', 'Solo', 'abdul.hamid@tazkia.ac.id', '0816542364', NULL, 420),
 (30, 'Akbar', 'Ikhwan', '2018-05-05', 'S.E.I', 'Padang', 'akbar@tazkia.ac.id', '0896421774', NULL, 421),
@@ -70542,15 +70541,15 @@ CREATE TABLE `shalat_periode` (
 --
 
 INSERT INTO `shalat_periode` (`id_periode`, `tanggal_dari`, `tanggal_sampai`, `jws_ikhwan`, `jws_akhwat`) VALUES
-(1, '2018-03-02', '2018-03-08', 33, 34),
-(2, '2018-03-09', '2018-03-15', 33, 35),
+(1, '2018-03-02', '2018-03-08', 35, 34),
+(2, '2018-03-09', '2018-03-15', 35, 35),
 (3, '2018-03-16', '2018-03-22', 23, 35),
 (4, '2018-03-23', '2018-03-29', 35, 23),
 (5, '2018-03-30', '2018-04-05', 34, 35),
 (6, '2018-04-06', '2018-04-12', 35, 34),
-(7, '2018-04-13', '2018-04-19', 35, 35),
-(8, '2018-04-20', '2018-04-26', 23, 35),
-(9, '2018-04-27', '2018-05-03', 35, 35);
+(7, '2018-04-13', '2018-04-19', 35, 34),
+(8, '2018-04-20', '2018-04-26', 23, 34),
+(9, '2018-04-27', '2018-05-03', 35, 23);
 
 -- --------------------------------------------------------
 
@@ -70599,7 +70598,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id_user`, `username`, `password`, `password_default`, `level`, `last_login`) VALUES
 (1, 'admin', 'admin', 0, 0, '2018-04-24 08:58:28'),
-(2, 'derry', 'bismillah', 0, 2, '2018-06-06 11:22:29'),
+(2, 'derry', 'bismillah', 0, 2, '2018-06-10 17:22:40'),
 (21, 'bintang', 'bintang123', 0, 3, '2018-03-12 08:11:09'),
 (23, 'hasan', 'hasan123', 0, 2, '2017-11-30 17:06:08'),
 (24, 'rizky@tazkia.ac.id', 'rizy123', 0, 3, '0000-00-00 00:00:00'),
@@ -70608,7 +70607,6 @@ INSERT INTO `users` (`id_user`, `username`, `password`, `password_default`, `lev
 (27, 'riyan', 'riyan123', 0, 3, '2018-03-12 08:10:45'),
 (28, 'rizqan', 'rizqan123', 0, 3, '0000-00-00 00:00:00'),
 (29, 'sofi', 'sofi123', 0, 3, '2017-12-02 21:28:17'),
-(30, 'diva', 'diva123', 0, 3, '0000-00-00 00:00:00'),
 (31, 'huda', 'huda123', 0, 3, '2018-05-24 09:14:16'),
 (33, '17101003', 'VGA52j6y2L', 1, 4, '0000-00-00 00:00:00'),
 (34, '17102002', 'Ac81i17Hxc', 1, 4, '0000-00-00 00:00:00'),
