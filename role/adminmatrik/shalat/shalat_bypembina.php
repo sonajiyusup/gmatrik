@@ -13,7 +13,7 @@
                             </h2>
                         </div>
                         <div class="body">
-                            <canvas id="bar_chart" height="70"></canvas>
+                            <canvas id="bar_chart" height="95"></canvas>
                         </div>
                         <script type="text/javascript">
                           $(function () {
@@ -59,7 +59,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                          <h2>GRAFIK NILAI RATA-RATA PRESENSI SHALAT MAHASISWA
+                          <h2>DATA NILAI RATA-RATA PRESENSI SHALAT MAHASISWA
                             <small>Berdasarkan Pembina</small>
                           </h2>
                         </div>
