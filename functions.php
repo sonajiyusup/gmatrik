@@ -646,4 +646,12 @@
 				return $data;
 	}	
 
+	function shalatByPembina(){
+		$ambildata = mysql_query("SELECT p.id_pembina, p.nama AS 'pembina', p.j_kelamin, SUM(s.jws) As 'total', ROUND(SUM(s.jws)/COUNT(s.id_mahasiswa),2) AS 'Rata2', (CASE WHEN p.j_kelamin = 'Ikhwan' THEN rt.rikhwan ELSE rt.rakhwat END) AS pembagi, ROUND((((SUM(s.jws)/COUNT(s.id_mahasiswa)/7)/(CASE WHEN p.j_kelamin = 'Ikhwan' THEN rt.rikhwan ELSE rt.rakhwat END))*100),2) AS Nilai FROM pembina p LEFT JOIN ( SELECT sl.id_periode, mb.id_mhsbinaan, mb.id_pembina, mb.id_mahasiswa, m.nama, COUNT(sl.wkt_tapping) AS jws FROM m_binaan mb LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa LEFT JOIN shalat sl ON m.id_mahasiswa = sl.id_mahasiswa GROUP BY m.nama ) s ON p.id_pembina = s.id_pembina LEFT JOIN ( SELECT sp.id_periode, ROUND(SUM(sp.jws_ikhwan)/COUNT(sp.jws_ikhwan),2) AS rikhwan ,ROUND(SUM(sp.jws_akhwat)/COUNT(sp.jws_akhwat),2) AS rakhwat FROM shalat_periode sp ) rt ON s.id_periode = rt.id_periode GROUP BY p.nama") or die(mysql_error());
+		
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;		
+	}
+
  ?>

@@ -292,6 +292,8 @@
               include 'shalat/shalat_periode.php';
             } else if ($_GET['page'] == 'shalatia') {
               include 'shalat/shalat_ikwan_akhwat.php';
+            } else if ($_GET['page'] == 'shalatbpembina') {
+              include 'shalat/shalat_bypembina.php';
             } else if ($_GET['page'] == 'pbentuk') {
               include 'pelanggaran/pbentuk.php';
             } else if ($_GET['page'] == 'paksi') {
@@ -301,7 +303,7 @@
             } else if ($_GET['page'] == 'planjut') {
               include 'pelanggaran/planjut.php';
             } else if ($_GET['page'] == 'pikhtisar') {
-            include 'pelanggaran/pikhtisar.php';
+              include 'pelanggaran/pikhtisar.php';
             } else if ($_GET['page'] == 'pmaindetail') {
               include 'pelanggaran/pikhtisar_detail.php';
             } else if ($_GET['page'] == 'pbentukdetail') {
