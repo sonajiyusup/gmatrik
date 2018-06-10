@@ -21,19 +21,19 @@
                             </h2>
                         </div>
                         <div class="body">
-                            <canvas id="line_chart" height="70"></canvas>
+                            <canvas id="bar_chart" height="70"></canvas>
                         </div>
                         <script type="text/javascript">
                           $(function () {
-                              new Chart(document.getElementById("line_chart").getContext("2d"), getChartJs('line'));
+                              new Chart(document.getElementById("bar_chart").getContext("2d"), getChartJs('bar'));
                           });
 
                           function getChartJs(type) {
                               var config = null;
 
-                              if (type === 'line') {
+                              if (type === 'bar') {
                                   config = {
-                                      type: 'line',
+                                      type: 'bar',
                                       data: {
                                           labels: [<?php
                                                     $dataPeriode = shalatByPeriodID($idPeriod);
@@ -42,18 +42,14 @@
                                                     }
                                                   ?>],
                                           datasets: [{
-                                              label: "Total Waktu Shalat",
+                                              label: "Nilai Harian Rata-rata",
                                               data: [<?php
                                                     $dataNilai = shalatByPeriodID($idPeriod);
                                                     foreach ($dataNilai as $row){
                                                      echo '"'.$row['nilai_harian'].'",';
                                                     }
                                                   ?>],
-                                              borderColor: 'rgba(0, 188, 212, 0.75)',
-                                              backgroundColor: 'rgba(0, 188, 212, 0.3)',
-                                              pointBorderColor: 'rgba(0, 188, 212, 0)',
-                                              pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
-                                              pointBorderWidth: 1
+                                              backgroundColor: 'rgba(0, 188, 212, 0.8)',
                                           }]
                                       },
                                       options: {
