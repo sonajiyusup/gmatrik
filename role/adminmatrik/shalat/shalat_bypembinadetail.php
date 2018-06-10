@@ -21,7 +21,7 @@
                             </h2>
                         </div>
                         <div class="body">
-                            <canvas id="bar_chart" height="70"></canvas>
+                            <canvas id="line_chart" height="70"></canvas>
                         </div>
                         <script type="text/javascript">
                           $(function () {
