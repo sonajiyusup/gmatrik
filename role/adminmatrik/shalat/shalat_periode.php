@@ -46,7 +46,7 @@
                                               data: [<?php
                                                     $dataNilai = shalatByPeriodID($idPeriod);
                                                     foreach ($dataNilai as $row){
-                                                     echo '"'.$row['total'].'",';
+                                                     echo '"'.$row['nilai_harian'].'",';
                                                     }
                                                   ?>],
                                               borderColor: 'rgba(0, 188, 212, 0.75)',
@@ -54,19 +54,7 @@
                                               pointBorderColor: 'rgba(0, 188, 212, 0)',
                                               pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
                                               pointBorderWidth: 1
-                                          }, {
-                                                  label: "Rata-rata Jumlah Waktu Shalat Per-hari",
-                                                  data: [<?php
-                                                    $dataTarget = shalatByPeriodID($idPeriod);
-                                                    foreach ($dataTarget as $row){
-                                                     echo '"'.$row['jmlrt'].'",';
-                                                    }
-                                                  ?>],
-                                                  borderColor: 'rgba(233, 30, 99, 0.75)',
-                                                  pointBorderColor: 'rgba(233, 30, 99, 0)',
-                                                  pointBackgroundColor: 'rgba(233, 30, 99, 0.9)',
-                                                  pointBorderWidth: 1
-                                              }]
+                                          }]
                                       },
                                       options: {
                                           responsive: true,
@@ -100,7 +88,7 @@
                                 <tr>
                                   <th>Tanggal</th>
                                   <th>Total Waktu Shalat</th>
-                                  <th>Jumlah Rata-rata Waktu Shalat</th>
+                                  <th>Nilai</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -111,7 +99,7 @@
                                 <tr>
                                   <td><?php echo date('d M Y', strtotime($row['tanggal'])); ?></td>
                                   <td><?php echo $row['total']; ?></td>
-                                  <td><?php echo $row['jmlrt']; ?></td>
+                                  <td><?php echo $row['nilai_harian']; ?></td>
                                   
                                 </tr>
                                 <?php } ?>
