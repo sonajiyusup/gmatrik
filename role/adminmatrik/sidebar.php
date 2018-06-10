@@ -35,7 +35,7 @@
                     <li class="header">PROGRAM PEMBINAAN</li>
                     <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'shalat' || $_GET['page'] == 'shalatia' || $_GET['page'] == 'shalatbpembina' || $_GET['page'] == 'shalatpdetail') {
+                                    if ($_GET['page'] == 'shalat' || $_GET['page'] == 'shalatia' || $_GET['page'] == 'shalatbpembina' || $_GET['page'] == 'shalatpdetail' || $_GET['page'] == 'shalatbpembinadetail') {
                                       echo "class='active'";
                                     }
                                   }
@@ -66,7 +66,7 @@
                             </li>
                             <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'shalatbpembina') {
+                                    if ($_GET['page'] == 'shalatbpembina' || $_GET['page'] == 'shalatbpembinadetail') {
                                       echo "class='active'";
                                     }
                                   }
@@ -294,6 +294,8 @@
               include 'shalat/shalat_ikwan_akhwat.php';
             } else if ($_GET['page'] == 'shalatbpembina') {
               include 'shalat/shalat_bypembina.php';
+            } else if ($_GET['page'] == 'shalatbpembinadetail') {
+              include 'shalat/shalat_bypembinadetail.php';
             } else if ($_GET['page'] == 'pbentuk') {
               include 'pelanggaran/pbentuk.php';
             } else if ($_GET['page'] == 'paksi') {

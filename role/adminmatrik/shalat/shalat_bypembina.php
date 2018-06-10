@@ -68,6 +68,7 @@
                             <table id="tableShalatByPembina" class="table table-hover table-condensed">
                               <thead>
                                 <tr>
+                                  <th>#</th>
                                   <th>Nama Pembina</th>
                                   <th>Ikhwan/Akhwat</th>
                                   <th>Total</th>
@@ -78,18 +79,20 @@
                               </thead>
                               <tbody>
                                 <?php 
+                                  $no = 1;
                                   $dataPresensi = shalatByPembina();
                                   foreach($dataPresensi as $row){
                                  ?>
                                 <tr>
-                                  <td><?php echo '<a href="?page=shalatbpembina&id='.$row['id_pembina'].'">'.$row['pembina'].'</a>';  ?></td>
+                                  <td><?php echo $no; ?></td>
+                                  <td><?php echo '<a href="?page=shalatbpembinadetail&id='.$row['id_pembina'].'">'.$row['pembina'].'</a>';  ?></td>
                                   <td><?php if($row['j_kelamin'] == 'Ikhwan' || $row['j_kelamin'] == 'Laki-laki'){echo '<span class="label bg-light-blue">Ikhwan</span>';} else if($row['j_kelamin'] == 'Akhwat' || $row['j_kelamin'] == 'Perempuan'){echo '<span class="label bg-pink">Akhwat</span>';} ?></td>
                                   <td><?php echo $row['total']; ?></td>
                                   <td><?php echo $row['Rata2']; ?></td>
                                   <td><?php echo $row['pembagi']; ?></td>
                                   <td><?php echo $row['Nilai']; ?></td>
                                 </tr>
-                                <?php } ?>
+                                <?php $no++; } ?>
                               </tbody> 
                             </table>
                           </div>
