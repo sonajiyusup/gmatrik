@@ -82,7 +82,7 @@
                                   foreach($dataPresensi as $row){
                                  ?>
                                 <tr>
-                                  <td><?php echo $row['pembina']; ?></td>
+                                  <td><?php echo '<a href="?page=shalatbpembina&id='.$row['id_pembina'].'">'.$row['pembina'].'</a>';  ?></td>
                                   <td><?php if($row['j_kelamin'] == 'Ikhwan' || $row['j_kelamin'] == 'Laki-laki'){echo '<span class="label bg-light-blue">Ikhwan</span>';} else if($row['j_kelamin'] == 'Akhwat' || $row['j_kelamin'] == 'Perempuan'){echo '<span class="label bg-pink">Akhwat</span>';} ?></td>
                                   <td><?php echo $row['total']; ?></td>
                                   <td><?php echo $row['Rata2']; ?></td>

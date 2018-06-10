@@ -654,4 +654,12 @@
 				return $data;		
 	}
 
+	function shalatByPembinaId($idPembina){
+		$ambildata = mysql_query("SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, COUNT(s.wkt_shalat) AS 'total', (CASE WHEN t.j_kelamin = 'Ikhwan' THEN sp.jws_ikhwan ELSE sp.jws_akhwat END) AS target, j.jmlb, ROUND((((COUNT(s.wkt_shalat)/(CASE WHEN t.j_kelamin = 'Ikhwan' THEN sp.jws_ikhwan ELSE sp.jws_akhwat END))/j.jmlb)*100),2) AS nilai FROM shalat_periode sp LEFT JOIN shalat s ON sp.id_periode = s.id_periode LEFT JOIN( SELECT mb.id_mhsbinaan, m.id_mahasiswa, p.id_pembina, p.j_kelamin FROM m_binaan mb LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa ) t ON s.id_mahasiswa = t.id_mahasiswa LEFT JOIN( SELECT P.id_pembina, p.nama, COUNT(mb.id_mahasiswa) AS jmlb FROM m_binaan mb LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina WHERE mb.id_pembina = $idPembina GROUP BY p.nama	) j ON t.id_pembina = j.id_pembina WHERE t.id_pembina = $idPembina GROUP BY sp.id_periode ORDER BY sp.id_periode") or die(mysql_error());
+		
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;	
+	}
+
  ?>
