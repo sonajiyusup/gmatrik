@@ -13,7 +13,7 @@
                               <a href="?page=shalatbpembina" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;GRAFIK NILAI RATA-RATA PRESENSI MAHASISWA BERDASARKAN PEMBINA
                               <small>
                                 <div class="btn-group">
-                                                    <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button type="button" class="btn bg-cyan waves-effect dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         <?php $namaPembina = namaPembinaById($idPembina);
                                                           foreach($namaPembina as $row){
                                                             echo $row['nama'].' '.$row['gelar'];
@@ -77,9 +77,10 @@
                                                      echo '"'.$row['target'].'",';
                                                     }
                                                   ?>],
-                                                  borderColor: 'rgba(233, 30, 99, 0.75)',
+                                                  borderColor: 'rgba(233, 30, 99, 0.30)',
+                                                  backgroundColor: 'rgba(233, 30, 99, 0.2)',
                                                   pointBorderColor: 'rgba(233, 30, 99, 0)',
-                                                  pointBackgroundColor: 'rgba(233, 30, 99, 0.9)',
+                                                  pointBackgroundColor: 'rgba(233, 30, 99, 0.7)',
                                                   pointBorderWidth: 1
                                               }, {
                                                   label: "Rata-rata Jumlah Shalat",
@@ -89,9 +90,9 @@
                                                      echo '"'.$row['jmlrt'].'",';
                                                     }
                                                   ?>],
-                                                  borderColor: 'rgba(173, 66, 244, 0.75)',
+                                                  borderColor: 'rgba(173, 66, 244, 0.30)',
                                                   pointBorderColor: 'rgba(173, 66, 244, 0)',
-                                                  pointBackgroundColor: 'rgba(173, 66, 244, 0.9)',
+                                                  pointBackgroundColor: 'rgba(173, 66, 244, 0.7)',
                                                   pointBorderWidth: 1
                                               }]
                                       },
@@ -111,13 +112,15 @@
                     <div class="card">
                         <div class="header">
                           <h2>DATA NILAI RATA-RATA PRESENSI MAHASISWA BERDASARKAN PEMBINA
-                            <small>
+                            <small> 
+                              <span class="label bg-cyan">
                                 <?php $namaPembina = namaPembinaById($idPembina);
                                   foreach($namaPembina as $row){
                                     echo $row['nama'].' '.$row['gelar'];
                                   } 
                                 ?>
-                              </small>
+                              </span>
+                            </small>
                           </h2>
                         </div>
                         <div class="body">
