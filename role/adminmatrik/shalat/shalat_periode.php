@@ -53,7 +53,7 @@
                                           labels: [<?php
                                                     $dataPeriode = shalatByPeriodID($idPeriod);
                                                     foreach ($dataPeriode as $row){
-                                                      echo '"'.date('D', strtotime($row['tanggal'])).'",';
+                                                      echo '"'.date('l', strtotime($row['tanggal'])).'",';
                                                     }
                                                   ?>],
                                           datasets: [{

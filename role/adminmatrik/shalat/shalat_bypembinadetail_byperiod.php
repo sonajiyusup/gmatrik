@@ -76,7 +76,7 @@
                                           labels: [<?php
                                                     $dataPeriode = shalatByPeriodID($idPeriod);
                                                     foreach ($dataPeriode as $row){
-                                                      echo '"'.date('D', strtotime($row['tanggal'])).'",';
+                                                      echo '"'.date('l', strtotime($row['tanggal'])).'",';
                                                     }
                                                   ?>],
                                           datasets: [{
@@ -109,10 +109,10 @@
                                                       }
                                                     }
                                                   ?>],
-                                                  borderColor: 'rgba(233, 30, 99, 0.20)',
-                                                  backgroundColor: 'rgba(233, 30, 99, 0.2)',
-                                                  pointBorderColor: 'rgba(233, 30, 99, 0)',
-                                                  pointBackgroundColor: 'rgba(233, 30, 99, 0.5)',
+                                                  borderColor: 'rgba(233, 30, 30, 0.20)',
+                                                  backgroundColor: 'rgba(233, 30, 30, 0.2)',
+                                                  pointBorderColor: 'rgba(233, 30, 30, 0)',
+                                                  pointBackgroundColor: 'rgba(233, 30, 30, 0.5)',
                                                   pointBorderWidth: 1
                                               }]
                                       },
