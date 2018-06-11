@@ -600,7 +600,7 @@
 	}		
 
 	function tampilPeriodeShalat(){
-		$ambildata = mysql_query("SELECT id_periode FROM `shalat_periode`") or die(mysql_error());
+		$ambildata = mysql_query("SELECT id_periode, tanggal_dari, tanggal_sampai FROM `shalat_periode`") or die(mysql_error());
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
 				return $data;

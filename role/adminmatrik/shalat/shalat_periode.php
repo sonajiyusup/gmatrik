@@ -11,12 +11,27 @@
                         <div class="header">
                             <h2>
                               <a href="?page=shalat" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;GRAFIK NILAI RATA-RATA PRESENSI SEMUA MAHASISWA
-                              <small> Periode
-                                <?php $dataPresensi = tampilTglPeriodeById($idPeriod);
-                                  foreach($dataPresensi as $row){
-                                    echo date('d M Y', strtotime($row['tanggal_dari']))." - ".date('d M Y', strtotime($row['tanggal_sampai']));
-                                  } 
-                                ?>
+                              <small> Periode : &nbsp;
+                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <?php $dataPresensi = tampilTglPeriodeById($idPeriod);
+                                                          foreach($dataPresensi as $row){
+                                                            echo date('d M Y', strtotime($row['tanggal_dari']))." - ".date('d M Y', strtotime($row['tanggal_sampai']));
+                                                          } 
+                                                        ?>
+                                            <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <?php
+                                                          $dataPeriode = tampilPeriodeShalat();
+                                                          foreach($dataPeriode as $row){
+                                                          ?>
+                                                            <li><?php echo '<a href="?page=shalatpdetail&id='.$row['id_periode'].'">'.date('d M Y', strtotime($row['tanggal_dari'])).' - '.date('d M Y', strtotime($row['tanggal_sampai'])).'</a>'; ?></li>
+                                                          <?php
+                                                          }
+                                                        ?>
+                                                    </ul>
+                                                </div>
                               </small>
                             </h2>
                         </div>
