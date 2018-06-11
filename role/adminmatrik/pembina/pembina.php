@@ -45,7 +45,7 @@
 						                   ?>
 						                <tr>
 						                  <td><b><?php echo $no ?></b></td>  
-						                  <td><?php echo "<a href='index.php?page=pembinadetails&id=".$row['id_user']."' style='text-decoration:none'>".$row['nama']."</a>" ?></td>
+						                  <td><?php echo "<a href='index.php?page=pembinadetails&id=".$row['id_user']."&idP=".$row['id_pembina']."' style='text-decoration:none'>".$row['nama']."</a>" ?></td>
 						                  <td><?php echo $row['jml_binaan'] ?></td>
 						                  <td><?php if($row['j_kelamin'] == 'Ikhwan' || $row['j_kelamin'] == 'Laki-laki'){echo '<span class="label bg-light-blue">Ikhwan</span>';} else if($row['j_kelamin'] == 'Akhwat' || $row['j_kelamin'] == 'Perempuan'){echo '<span class="label bg-pink">Akhwat</span>';} ?></td>
 						                  <td><?php echo $row['telp'] ?></td>
