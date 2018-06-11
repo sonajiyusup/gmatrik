@@ -36,24 +36,24 @@
                             </h2>
                         </div>
                         <div class="body">
-                            <canvas id="bar_chart" height="70"></canvas>
+                            <canvas id="line_chart" height="70"></canvas>
                         </div>
                         <script type="text/javascript">
                           $(function () {
-                              new Chart(document.getElementById("bar_chart").getContext("2d"), getChartJs('bar'));
+                              new Chart(document.getElementById("line_chart").getContext("2d"), getChartJs('line'));
                           });
 
                           function getChartJs(type) {
                               var config = null;
 
-                              if (type === 'bar') {
+                              if (type === 'line') {
                                   config = {
-                                      type: 'bar',
+                                      type: 'line',
                                       data: {
                                           labels: [<?php
                                                     $dataPeriode = shalatByPeriodID($idPeriod);
                                                     foreach ($dataPeriode as $row){
-                                                      echo '"'.date('D - d M Y', strtotime($row['tanggal'])).'",';
+                                                      echo '"'.date('D', strtotime($row['tanggal'])).'",';
                                                     }
                                                   ?>],
                                           datasets: [{
@@ -64,8 +64,34 @@
                                                      echo '"'.$row['nilai_harian'].'",';
                                                     }
                                                   ?>],
-                                              backgroundColor: 'rgba(0, 188, 212, 0.8)',
-                                          }]
+                                              borderColor: 'rgba(0, 188, 212, 0.75)',
+                                              backgroundColor: 'rgba(0, 188, 212, 0.3)',
+                                              pointBorderColor: 'rgba(0, 188, 212, 0)',
+                                              pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
+                                              pointBorderWidth: 1
+                                          }, {
+                                                  label: "Hari Yang Sama Pada Periode Sebelumnya",
+                                                  data: [<?php
+
+                                                    if($idPeriod != 1){
+                                                      $dataTarget = shalatByPeriodID($idPeriod-1);
+                                                      foreach ($dataTarget as $row){
+                                                       echo '"'.$row['nilai_harian'].'",';
+                                                      }
+                                                    } else
+                                                    if($idPeriod == 1){
+                                                      $dataTarget = shalatByPeriodID($idPeriod);
+                                                      foreach ($dataTarget as $row){
+                                                       echo '"'.$row['nilai_harian'].'",';
+                                                      }
+                                                    }
+                                                  ?>],
+                                                  borderColor: 'rgba(233, 30, 30, 0.20)',
+                                                  backgroundColor: 'rgba(233, 30, 30, 0.2)',
+                                                  pointBorderColor: 'rgba(233, 30, 30, 0)',
+                                                  pointBackgroundColor: 'rgba(233, 30, 30, 0.4)',
+                                                  pointBorderWidth: 1
+                                              }]
                                       },
                                       options: {
                                           responsive: true,
@@ -73,6 +99,7 @@
                                       }
                                   }
                               }
+
                               return config;
                           }                          
                         </script>
