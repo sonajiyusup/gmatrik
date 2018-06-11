@@ -52,9 +52,10 @@
                                                      echo '"'.$row['target'].'",';
                                                     }
                                                   ?>],
-                                                  borderColor: 'rgba(233, 30, 99, 0.75)',
+                                                  borderColor: 'rgba(233, 30, 99, 0.30)',
+                                                  backgroundColor: 'rgba(233, 30, 99, 0.2)',
                                                   pointBorderColor: 'rgba(233, 30, 99, 0)',
-                                                  pointBackgroundColor: 'rgba(233, 30, 99, 0.9)',
+                                                  pointBackgroundColor: 'rgba(233, 30, 99, 0.7)',
                                                   pointBorderWidth: 1
                                               }, {
                                                   label: "Rata-rata Jumlah Shalat",
@@ -64,9 +65,9 @@
                                                      echo '"'.$row['jmlrt'].'",';
                                                     }
                                                   ?>],
-                                                  borderColor: 'rgba(173, 66, 244, 0.75)',
+                                                  borderColor: 'rgba(173, 66, 244, 0.30)',
                                                   pointBorderColor: 'rgba(173, 66, 244, 0)',
-                                                  pointBackgroundColor: 'rgba(173, 66, 244, 0.9)',
+                                                  pointBackgroundColor: 'rgba(173, 66, 244, 0.7)',
                                                   pointBorderWidth: 1
                                               }]
                                       },
