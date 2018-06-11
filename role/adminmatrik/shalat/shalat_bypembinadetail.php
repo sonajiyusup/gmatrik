@@ -12,11 +12,26 @@
                             <h2>
                               <a href="?page=shalatbpembina" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;GRAFIK NILAI RATA-RATA PRESENSI MAHASISWA BERDASARKAN PEMBINA
                               <small>
-                                <?php $namaPembina = namaPembinaById($idPembina);
-                                  foreach($namaPembina as $row){
-                                    echo $row['nama'].' '.$row['gelar'];
-                                  } 
-                                ?>
+                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <?php $namaPembina = namaPembinaById($idPembina);
+                                                          foreach($namaPembina as $row){
+                                                            echo $row['nama'].' '.$row['gelar'];
+                                                          } 
+                                                        ?>
+                                            <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <?php
+                                                          $query = mysql_query("SELECT p.id_pembina, p.nama, p.gelar FROM pembina p ORDER BY p.nama");
+                                                          while ($row = mysql_fetch_array($query)) {
+                                                          ?>
+                                                            <li><?php echo '<a href="?page=shalatbpembinadetail&id='.$row['id_pembina'].'">'.$row['nama'].' '.$row['gelar'].'</a>'; ?></li>
+                                                          <?php
+                                                          }
+                                                        ?>
+                                                    </ul>
+                                                </div>
                               </small>
                             </h2>
                         </div>

@@ -354,7 +354,7 @@
 	}	
 
 	function namaPembinaById($idPembina){
-	    $ambildata = mysql_query("SELECT p.nama AS nama, p.gelar FROM pembina p WHERE p.id_pembina = $idPembina");
+	    $ambildata = mysql_query("SELECT p.id_pembina, p.nama AS nama, p.gelar FROM pembina p WHERE p.id_pembina = $idPembina");
 	      $ad = mysql_fetch_assoc($ambildata);
 	      	$data[] = $ad;
 	        return $data;
