@@ -10,7 +10,7 @@
                     <div class="card">
                         <div class="header">
                             <h2>
-                              <a href="?page=shalatbpembina" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;GRAFIK NILAI RATA-RATA PRESENSI MAHASISWA BERDASARKAN PEMBINA
+                              <a href="?page=shalatbpembina" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;GRAFIK NILAI RATA-RATA PRESENSI MAHASISWA BERDASARKAN PEMBINA
                               <small>
                                 <div class="btn-group">
                                                     <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -140,7 +140,7 @@
                                  ?>
                                 <tr>
                                   <td><?php echo $row['id_periode']; ?></td>
-                                  <td><?php echo '<a href="?page=shalatpdetail&id='.$row['id_periode'].'">'.date('d M Y', strtotime($row['tanggal_dari']))." - ".date('d M Y', strtotime($row['tanggal_sampai'])).'</a>'; ?></td>
+                                  <td><?php echo '<a href="?page=shalatbpembinabp&idP='.$idPembina.'&id='.$row['id_periode'].'">'.date('d M Y', strtotime($row['tanggal_dari']))." - ".date('d M Y', strtotime($row['tanggal_sampai'])).'</a>'; ?></td>
                                   <td><?php echo $row['total']; ?></td>
                                   <td><?php echo $row['target']; ?></td>
                                   <td><?php echo $row['jmlrt']; ?></td>

@@ -607,7 +607,7 @@
 	}
 
 	function tampilTglPeriodeById($idPeriod){
-		$ambildata = mysql_query("SELECT sp.tanggal_dari, sp.tanggal_sampai FROM shalat_periode sp WHERE sp.id_periode = $idPeriod") or die(mysql_error());
+		$ambildata = mysql_query("SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai FROM shalat_periode sp WHERE sp.id_periode = $idPeriod") or die(mysql_error());
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
 				return $data;
@@ -639,7 +639,7 @@
 	}
 
 	function shalatByPeriodID($idPeriod){
-		$ambildata = mysql_query("SELECT sp.id_periode, s.tanggal, COUNT(s.wkt_shalat) AS 'total', ROUND(((sp.jws_ikhwan+sp.jws_akhwat)/2),2) AS 'jws', ROUND((((sp.jws_ikhwan+sp.jws_akhwat)/2)/7),2) AS 'target_harian', (DATEDIFF(sp.tanggal_sampai, sp.tanggal_dari))+1 AS 'jml_hari', ROUND((((COUNT(s.wkt_shalat)/372)/ROUND((((sp.jws_ikhwan+sp.jws_akhwat)/2)/((DATEDIFF(sp.tanggal_sampai, sp.tanggal_dari))+1)),2))*100),2) AS 'nilai_harian' FROM shalat_periode sp LEFT JOIN shalat s ON sp.id_periode = s.id_periode WHERE sp.id_periode = $idPeriod GROUP BY s.tanggal") or die(mysql_error());
+		$ambildata = mysql_query("SELECT sp.id_periode, s.tanggal, COUNT(s.wkt_shalat) AS 'total', ROUND(((sp.jws_ikhwan+sp.jws_akhwat)/2),2) AS 'jws', ROUND((((sp.jws_ikhwan+sp.jws_akhwat)/2)/7),2) AS 'target_harian', (DATEDIFF(sp.tanggal_sampai, sp.tanggal_dari))+1 AS 'jml_hari', ROUND((((COUNT(s.wkt_shalat)/372)/ROUND((((sp.jws_ikhwan+sp.jws_akhwat)/2)/((DATEDIFF(sp.tanggal_sampai, sp.tanggal_dari))+1)),2))*100),2) AS 'nilai_harian' FROM shalat_periode sp LEFT JOIN shalat s ON sp.id_periode = s.id_periode WHERE sp.id_periode = $idPeriod GROUP BY s.tanggal ORDER BY s.tanggal") or die(mysql_error());
 		
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
@@ -660,6 +660,14 @@
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
 				return $data;	
+	}
+
+	function shalatByPembinaByPeriod($idPembina, $idPeriod){
+		$ambildata = mysql_query("SELECT sp.id_periode, s.tanggal, COUNT(s.wkt_shalat) AS 'total', (CASE WHEN t.j_kelamin = 'Ikhwan' THEN sp.jws_ikhwan ELSE sp.jws_akhwat END) AS target, ROUND(((CASE WHEN t.j_kelamin = 'Ikhwan' THEN sp.jws_ikhwan ELSE sp.jws_akhwat END)/7),2) AS target_harian, ROUND((COUNT(s.wkt_shalat)/j.jmlb),2) AS jws, (DATEDIFF(sp.tanggal_sampai, sp.tanggal_dari))+1 AS 'jml_hari', j.jmlb, ROUND((((COUNT(s.wkt_shalat)/j.jmlb)/ROUND(((CASE WHEN t.j_kelamin = 'Ikhwan' THEN sp.jws_ikhwan ELSE sp.jws_akhwat END)/((DATEDIFF(sp.tanggal_sampai, sp.tanggal_dari))+1)),2))*100),2) AS 'nilai_harian' FROM shalat_periode sp LEFT JOIN shalat s ON sp.id_periode = s.id_periode LEFT JOIN( SELECT mb.id_mhsbinaan, m.id_mahasiswa, p.id_pembina, p.j_kelamin FROM m_binaan mb LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa ) t ON s.id_mahasiswa = t.id_mahasiswa LEFT JOIN( SELECT P.id_pembina, p.nama, COUNT(mb.id_mahasiswa) AS jmlb FROM m_binaan mb LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina WHERE mb.id_pembina = $idPembina GROUP BY p.nama ) j ON t.id_pembina = j.id_pembina WHERE (t.id_pembina = $idPembina) AND (sp.id_periode = $idPeriod) GROUP BY s.tanggal ORDER BY s.tanggal") or die(mysql_error());
+		
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;		
 	}
 
  ?>
