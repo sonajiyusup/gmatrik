@@ -23,8 +23,8 @@
                                                     </button>
                                                     <ul class="dropdown-menu">
                                                         <?php
-                                                          $query = mysql_query("SELECT p.id_pembina, p.nama, p.gelar FROM pembina p ORDER BY p.nama");
-                                                          while ($row = mysql_fetch_array($query)) {
+                                                          $dataPembina = tampilPembina();
+                                                          foreach($dataPembina as $row){
                                                           ?>
                                                             <li><?php echo '<a href="?page=shalatbpembinadetail&id='.$row['id_pembina'].'">'.$row['nama'].' '.$row['gelar'].'</a>'; ?></li>
                                                           <?php
