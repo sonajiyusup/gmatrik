@@ -158,6 +158,7 @@
                                   <th>Tanggal</th>
                                   <th>Total Waktu Shalat</th>
                                   <th>Nilai</th>
+                                  <th>Aksi</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -172,6 +173,7 @@
                                   <td><?php echo date('d M Y', strtotime($row['tanggal'])); ?></td>
                                   <td><?php echo $row['total']; ?></td>
                                   <td><?php echo $row['nilai_harian']; ?></td>
+                                  <td><?php echo '<a href="?page=shalatbpembinabpday&idP='.$idPembina.'&p='.$idPeriod.'&t='.date('Ymd', strtotime($row['tanggal'])).'" class="btn btn-default btn-xs waves-effect">Lebih Detil</a>' ?></td> 
                                 </tr>
                                 <?php $no++; } ?>
                               </tbody> 
