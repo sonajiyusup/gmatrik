@@ -74,9 +74,9 @@
                                       type: 'line',
                                       data: {
                                           labels: [<?php
-                                                    $dataPeriode = shalatByPeriodID($idPeriod);
+                                                    $dataPeriode = shalatByPembinaByPeriod($idPembina, $idPeriod);
                                                     foreach ($dataPeriode as $row){
-                                                      echo '"'.date('l', strtotime($row['tanggal'])).'",';
+                                                      echo '"'.date('D - d M Y', strtotime($row['tanggal'])).'",';
                                                     }
                                                   ?>],
                                           datasets: [{
@@ -93,26 +93,30 @@
                                               pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
                                               pointBorderWidth: 1
                                           }, {
-                                                  label: "Hari Yang Sama Pada Periode Sebelumnya",
+                                                  label: "Maksimal Jumlah Shalat",
                                                   data: [<?php
-
-                                                    if($idPeriod != 1){
-                                                      $dataTarget = shalatByPembinaByPeriod($idPembina, $idPeriod-1);
-                                                      foreach ($dataTarget as $row){
-                                                       echo '"'.$row['nilai_harian'].'",';
-                                                      }
-                                                    } else
-                                                    if($idPeriod == 1){
                                                       $dataTarget = shalatByPembinaByPeriod($idPembina, $idPeriod);
                                                       foreach ($dataTarget as $row){
-                                                       echo '"'.$row['nilai_harian'].'",';
+                                                       echo '"'.$row['target'].'",';
                                                       }
-                                                    }
                                                   ?>],
                                                   borderColor: 'rgba(233, 30, 30, 0.20)',
                                                   backgroundColor: 'rgba(233, 30, 30, 0.2)',
                                                   pointBorderColor: 'rgba(233, 30, 30, 0)',
                                                   pointBackgroundColor: 'rgba(233, 30, 30, 0.5)',
+                                                  pointBorderWidth: 1
+                                              }, {
+                                                  label: "Jumlah Shalat Yang Dicapai",
+                                                  data: [<?php
+                                                      $dataTarget = shalatByPembinaByPeriod($idPembina, $idPeriod);
+                                                      foreach ($dataTarget as $row){
+                                                       echo '"'.$row['total'].'",';
+                                                      }
+                                                  ?>],
+                                                  borderColor: 'rgba(1,173,8, 0.20)',
+                                                  backgroundColor: 'rgba(1,173,8, 0.2)',
+                                                  pointBorderColor: 'rgba(1,173,8, 0)',
+                                                  pointBackgroundColor: 'rgba(1,173,8, 0.5)',
                                                   pointBorderWidth: 1
                                               }]
                                       },
