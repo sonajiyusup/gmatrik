@@ -52,8 +52,16 @@
                                                           }
                                                         ?>
                                                     </ul>
-                                                </div>
+                              </div>
                             </small>
+                            <?php 
+                                  /*$dataTglJPulang = tampilTglJPulang();
+                                  foreach ($dataTglJPulang as $row) {
+                                    if ($row['tanggal'] == date('Y-m-d', strtotime($tgl))) {
+                                      echo '<span class="label bg-purple label-lg">JADWAL PULANG</span>';
+                                    }
+                                  }*/
+                                 ?>
                           </h2>
                         </div>
                         <div class="body">

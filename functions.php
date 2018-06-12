@@ -697,4 +697,12 @@
 				return $data;	
 	}
 
+	function tampilTglJPulang(){
+		$ambildata = mysql_query("SELECT tanggal FROM j_pulang") or die(mysql_error());
+		
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;			
+	}
+
  ?>
