@@ -33,6 +33,14 @@
                                     ?>
                                   </ul>
                                 </div>
+                                <span class="label bg-cyan label-lg">
+                                  <?php 
+                                    $jmlb = tampilJmlBinaan($idPembina);
+                                      foreach($jmlb as $row){
+                                        echo $row['jmlb'];
+                                      } 
+                                  ?>
+                                </span>
 
                               <small> Periode : &nbsp;
                                 <div class="btn-group">
@@ -142,6 +150,15 @@
                                         echo $row['nama'].' '.$row['gelar'];
                                       } 
                                     ?> </span>
+                                    <span class="label bg-cyan">(
+                                      <?php 
+                                        $jmlb = tampilJmlBinaan($idPembina);
+                                          foreach($jmlb as $row){
+                                            echo $row['jmlb'];
+                                          } 
+                                      ?>&nbsp;)
+                                    </span>
+
                             <small> Periode : &nbsp; <span class="label bg-orange">
                               <?php $dataPresensi = tampilTglPeriodeById($idPeriod);
                                 foreach($dataPresensi as $row){

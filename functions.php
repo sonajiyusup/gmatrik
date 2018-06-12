@@ -689,4 +689,12 @@
 				return $data;	
 	}
 
+	function tampilJmlBinaan($idPembina){
+		$ambildata = mysql_query("SELECT COUNT(mb.id_mahasiswa) AS jmlb FROM m_binaan mb WHERE mb.id_pembina = $idPembina") or die(mysql_error());
+		
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;	
+	}
+
  ?>
