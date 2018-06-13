@@ -631,7 +631,7 @@
 
 	// Untuk Chart sparkline di Dashboard & Shalat Ikhtisar
 	function shalatNilaiSemua(){
-		$ambildata = mysql_query("SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, COUNT(s.wkt_shalat) AS 'total', ROUND(((sp.jws_ikhwan+sp.jws_ikhwan)/2)) AS 'target', ROUND(COUNT(s.wkt_shalat)/372) AS 'jmlrt', ROUND((COUNT(s.wkt_shalat)/372)/((sp.jws_ikhwan+sp.jws_ikhwan)/2)*100) AS 'nilai' FROM shalat_periode sp LEFT JOIN shalat s ON sp.id_periode = s.id_periode GROUP BY sp.id_periode ORDER BY sp.id_periode") or die(mysql_error());
+		$ambildata = mysql_query("SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, COUNT(s.wkt_shalat) AS 'total', ROUND((((sp.jws_ikhwan+sp.jws_akhwat)/2)),2) AS 'target', ROUND(COUNT(s.wkt_shalat)/372) AS 'jmlrt', ROUND(((COUNT(s.wkt_shalat)/372)/((sp.jws_ikhwan+sp.jws_akhwat)/2)*100),2) AS 'nilai' FROM shalat_periode sp LEFT JOIN shalat s ON sp.id_periode = s.id_periode GROUP BY sp.id_periode ORDER BY sp.id_periode") or die(mysql_error());
 		
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
