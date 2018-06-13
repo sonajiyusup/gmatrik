@@ -131,6 +131,7 @@
                                   <th>Tanggal</th>
                                   <th>Total Waktu Shalat</th>
                                   <th>Nilai</th>
+                                  <th>Keterangan</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -145,6 +146,7 @@
                                   <td><?php echo date('d M Y', strtotime($row['tanggal'])); ?></td>
                                   <td><?php echo $row['total']; ?></td>
                                   <td><?php echo $row['nilai_harian']; ?></td>
+                                  <td><?php if($row['j_kelamin'] == 'akhwat'){echo '<span class="label bg-pink">Jadwal Pulang Akhwat</span>';} else if($row['j_kelamin'] == 'ikhwan'){echo '<span class="label bg-cyan">Jadwal Pulang Ikhwan</span>';} ?></td>
                                 </tr>
                                 <?php $no++; } ?>
                               </tbody> 

@@ -639,7 +639,7 @@
 	}
 
 	function shalatByPeriodID($idPeriod){
-		$ambildata = mysql_query("SELECT sp.id_periode, s.tanggal, COUNT(s.wkt_shalat) AS 'total', ROUND(((sp.jws_ikhwan+sp.jws_akhwat)/2),2) AS 'jws', ROUND((((sp.jws_ikhwan+sp.jws_akhwat)/2)/7),2) AS 'target_harian', (DATEDIFF(sp.tanggal_sampai, sp.tanggal_dari))+1 AS 'jml_hari', ROUND((((COUNT(s.wkt_shalat)/372)/ROUND((((sp.jws_ikhwan+sp.jws_akhwat)/2)/((DATEDIFF(sp.tanggal_sampai, sp.tanggal_dari))+1)),2))*100),2) AS 'nilai_harian' FROM shalat_periode sp LEFT JOIN shalat s ON sp.id_periode = s.id_periode WHERE sp.id_periode = $idPeriod GROUP BY s.tanggal ORDER BY s.tanggal") or die(mysql_error());
+		$ambildata = mysql_query("SELECT sp.id_periode, s.tanggal, (372*5) AS 'target_harian', ((DATEDIFF(sp.tanggal_sampai, sp.tanggal_dari))+1) AS 'jml_hari', COUNT(s.wkt_shalat) AS total, COUNT(s.wkt_shalat)/372 AS 'total_rata', ROUND((((sp.jws_ikhwan+sp.jws_akhwat)/2)),2) AS 'jws', IF(jp.p_jws IS NULL, 0, jp.p_jws) AS 'dispensasi', jp.j_kelamin, ROUND((((sp.jws_ikhwan+sp.jws_akhwat)/2)),2)-(IF(jp.p_jws IS NULL, 0, jp.p_jws)) AS total_jws, ROUND(((((COUNT(s.wkt_shalat)/372)*((DATEDIFF(sp.tanggal_sampai, sp.tanggal_dari))+1))/(((sp.jws_ikhwan+sp.jws_akhwat)/2)-(IF(jp.p_jws IS NULL, 0, jp.p_jws))))*100),2) AS 'nilai_harian' FROM shalat_periode sp LEFT JOIN shalat s ON sp.id_periode = s.id_periode LEFT JOIN j_pulang jp ON s.tanggal = jp.tanggal WHERE sp.id_periode = $idPeriod GROUP BY s.tanggal ORDER BY s.tanggal") or die(mysql_error());
 		
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
