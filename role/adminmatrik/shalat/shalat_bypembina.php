@@ -28,7 +28,7 @@
                                       type: 'bar',
                                       data: {
                                           labels: [<?php
-                                                    $namaPembina = shalatByPembina();
+                                                    $namaPembina = shalatByPembina('nama');
                                                     foreach ($namaPembina as $row){
                                                      echo '"'.$row['pembina'].'",';
                                                     }
@@ -36,9 +36,9 @@
                                           datasets: [{
                                               label: "Nilai Rata-rata Mhs Binaan",
                                               data: [<?php
-                                                    $dataNilai = shalatByPembina();
+                                                    $dataNilai = shalatByPembina('chart');
                                                     foreach ($dataNilai as $row){
-                                                     echo '"'.$row['Nilai'].'",';
+                                                     echo '"'.$row['nilai'].'",';
                                                     }
                                                   ?>],
                                               backgroundColor: 'rgba(0, 188, 212, 0.8)',
@@ -72,15 +72,16 @@
                                   <th>Nama Pembina</th>
                                   <th>Ikhwan/Akhwat</th>
                                   <th>Total</th>
-                                  <th>Rata-rata per-Periode</th>
-                                  <th>Pembagi</th>
+                                  <th>Jml Binaan</th>
+                                  <th>Jml Hari</th>
+                                  <th>Target</th>
                                   <th>Nilai</th>
                                 </tr>
                               </thead>
                               <tbody>
                                 <?php 
                                   $no = 1;
-                                  $dataPresensi = shalatByPembina();
+                                  $dataPresensi = shalatByPembina('table');
                                   foreach($dataPresensi as $row){
                                  ?>
                                 <tr>
@@ -88,9 +89,10 @@
                                   <td><?php echo '<a href="?page=shalatbpembinadetail&id='.$row['id_pembina'].'">'.$row['pembina'].'</a>';  ?></td>
                                   <td><?php if($row['j_kelamin'] == 'Ikhwan' || $row['j_kelamin'] == 'Laki-laki'){echo '<span class="label bg-light-blue">Ikhwan</span>';} else if($row['j_kelamin'] == 'Akhwat' || $row['j_kelamin'] == 'Perempuan'){echo '<span class="label bg-pink">Akhwat</span>';} ?></td>
                                   <td><?php echo $row['total']; ?></td>
-                                  <td><?php echo $row['Rata2']; ?></td>
-                                  <td><?php echo $row['pembagi']; ?></td>
-                                  <td><?php echo $row['Nilai']; ?></td>
+                                  <td><?php echo $row['jmlb']; ?></td>
+                                  <td><?php echo $row['jhari']; ?></td>
+                                  <td><?php echo $row['target']; ?></td>
+                                  <td><?php echo $row['nilai']; ?></td>
                                 </tr>
                                 <?php $no++; } ?>
                               </tbody> 
