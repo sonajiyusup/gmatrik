@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 10, 2018 at 12:45 PM
+-- Generation Time: Jun 17, 2018 at 04:57 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -114,6 +114,31 @@ CREATE TABLE `data_user` (
 ,`level` int(11)
 ,`last_login` datetime
 );
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `j_pulang`
+--
+
+CREATE TABLE `j_pulang` (
+  `id_pulang` int(11) NOT NULL,
+  `id_periode` int(11) NOT NULL,
+  `tanggal` date NOT NULL,
+  `j_kelamin` varchar(6) DEFAULT NULL,
+  `p_jws` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `j_pulang`
+--
+
+INSERT INTO `j_pulang` (`id_pulang`, `id_periode`, `tanggal`, `j_kelamin`, `p_jws`) VALUES
+(1, 3, '2018-03-17', 'Ikhwan', 6),
+(2, 8, '2018-04-21', 'Ikhwan', 6),
+(3, 4, '2018-03-24', 'Akhwat', 6),
+(4, 9, '2018-04-28', 'Akhwat', 6),
+(5, 9, '2018-04-29', 'Akhwat', 6);
 
 -- --------------------------------------------------------
 
@@ -70598,7 +70623,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id_user`, `username`, `password`, `password_default`, `level`, `last_login`) VALUES
 (1, 'admin', 'admin', 0, 0, '2018-04-24 08:58:28'),
-(2, 'derry', 'bismillah', 0, 2, '2018-06-10 17:22:40'),
+(2, 'derry', 'bismillah', 0, 2, '2018-06-17 06:45:32'),
 (21, 'bintang', 'bintang123', 0, 3, '2018-03-12 08:11:09'),
 (23, 'hasan', 'hasan123', 0, 2, '2017-11-30 17:06:08'),
 (24, 'rizky@tazkia.ac.id', 'rizy123', 0, 3, '0000-00-00 00:00:00'),
@@ -70607,7 +70632,7 @@ INSERT INTO `users` (`id_user`, `username`, `password`, `password_default`, `lev
 (27, 'riyan', 'riyan123', 0, 3, '2018-03-12 08:10:45'),
 (28, 'rizqan', 'rizqan123', 0, 3, '0000-00-00 00:00:00'),
 (29, 'sofi', 'sofi123', 0, 3, '2017-12-02 21:28:17'),
-(31, 'huda', 'huda123', 0, 3, '2018-05-24 09:14:16'),
+(31, 'huda', 'huda123', 0, 3, '2018-06-11 08:43:44'),
 (33, '17101003', 'VGA52j6y2L', 1, 4, '0000-00-00 00:00:00'),
 (34, '17102002', 'Ac81i17Hxc', 1, 4, '0000-00-00 00:00:00'),
 (35, '17101004', 'ZSw0YK4jt8', 1, 4, '0000-00-00 00:00:00'),
@@ -71052,6 +71077,13 @@ ALTER TABLE `adminmatrik`
   ADD KEY `id_user` (`id_user`);
 
 --
+-- Indexes for table `j_pulang`
+--
+ALTER TABLE `j_pulang`
+  ADD PRIMARY KEY (`id_pulang`),
+  ADD KEY `id_periode` (`id_periode`);
+
+--
 -- Indexes for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
@@ -71167,6 +71199,11 @@ ALTER TABLE `administrator`
 ALTER TABLE `adminmatrik`
   MODIFY `id_adminmatrik` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
+-- AUTO_INCREMENT for table `j_pulang`
+--
+ALTER TABLE `j_pulang`
+  MODIFY `id_pulang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
 -- AUTO_INCREMENT for table `m_binaan`
 --
 ALTER TABLE `m_binaan`
@@ -71215,7 +71252,7 @@ ALTER TABLE `shalat_periode`
 -- AUTO_INCREMENT for table `shalat_udzur`
 --
 ALTER TABLE `shalat_udzur`
-  MODIFY `id_udzur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_udzur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `users`
 --
@@ -71236,6 +71273,12 @@ ALTER TABLE `administrator`
 --
 ALTER TABLE `adminmatrik`
   ADD CONSTRAINT `adminmatrik_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`);
+
+--
+-- Constraints for table `j_pulang`
+--
+ALTER TABLE `j_pulang`
+  ADD CONSTRAINT `j_pulang_ibfk_1` FOREIGN KEY (`id_periode`) REFERENCES `shalat` (`id_periode`);
 
 --
 -- Constraints for table `m_binaan`
