@@ -511,3 +511,14 @@ LEFT JOIN (
     GROUP BY m.id_mahasiswa    
 ) a ON m.id_mahasiswa = a.id_mahasiswa
 GROUP BY m.id_mahasiswa
+
+
+-- try shalat wajib berdasarkan mahasiswa detail (WORK !)
+SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, COUNT(s.wkt_tapping) AS total,
+(CASE WHEN m.j_kelamin = 'Akhwat' THEN sp.jws_akhwat ELSE sp.jws_ikhwan END) AS target,
+ROUND(((COUNT(s.wkt_tapping)/(CASE WHEN m.j_kelamin = 'Akhwat' THEN sp.jws_akhwat ELSE sp.jws_ikhwan END))*100),2) AS nilai
+FROM shalat_periode sp
+LEFT JOIN shalat s ON sp.id_periode = s.id_periode
+LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa
+WHERE m.id_mahasiswa = 1175
+GROUP BY sp.id_periode
