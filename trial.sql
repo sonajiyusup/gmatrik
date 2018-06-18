@@ -478,3 +478,36 @@ GROUP BY p.nama
 
 
 SELECT p.id_pembina, p.nama AS 'pembina', p.j_kelamin, COUNT(s.jws) AS 'total', j.jmlb, r.jmltgl, pu.jplg, r.jmltgl-pu.jplg AS jhari, (j.jmlb*(r.jmltgl-pu.jplg)*5) AS target, ROUND(((COUNT(s.jws)/(j.jmlb*(r.jmltgl-pu.jplg)*5))*100),2) AS nilai FROM pembina p LEFT JOIN ( SELECT mb.id_pembina, sl.wkt_tapping AS jws FROM m_binaan mb LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa LEFT JOIN shalat sl ON m.id_mahasiswa = sl.id_mahasiswa ) s ON p.id_pembina = s.id_pembina LEFT JOIN ( SELECT p.id_pembina, COUNT(mb.id_mahasiswa) AS jmlb FROM m_binaan mb LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina GROUP BY p.id_pembina ) j ON p.id_pembina = j.id_pembina LEFT JOIN ( SELECT p.id_pembina, DATEDIFF(MAX(s.tanggal),MIN(s.tanggal))+1 AS jmltgl FROM pembina p LEFT JOIN m_binaan mb ON p.id_pembina = mb.id_pembina LEFT JOIN shalat s ON mb.id_mahasiswa = s.id_mahasiswa GROUP BY p.id_pembina ) r ON p.id_pembina = r.id_pembina LEFT JOIN ( SELECT p.id_pembina, COUNT(jp.tanggal) AS jplg FROM pembina p LEFT JOIN j_pulang jp ON p.j_kelamin = jp.j_kelamin GROUP BY p.id_pembina ) pu ON p.id_pembina = pu.id_pembina GROUP BY p.nama
+
+
+-- try shalat wajib berdasarkan mahasiswa (BUG)
+SELECT m.id_mahasiswa, m.nama, m.j_kelamin, COUNT(s.wkt_tapping) AS total,
+DATEDIFF(MAX(sp.tanggal_sampai),MIN(sp.tanggal_dari))+1 AS jmltgl
+FROM mahasiswa m
+LEFT JOIN shalat s ON m.id_mahasiswa = s.id_mahasiswa
+JOIN shalat_periode sp
+GROUP BY m.id_mahasiswa
+
+-- try shalat wajib berdasarkan mahasiswa (WORK !)
+SELECT m.id_mahasiswa, m.nama, m.j_kelamin, COUNT(s.wkt_tapping) AS total,
+a.jmltgl, a.jplg, a.jmltgl-a.jplg AS jhari,
+(a.jmltgl-a.jplg)*5 AS target,
+ROUND(((COUNT(s.wkt_tapping)/((a.jmltgl-a.jplg)*5))*100),2) AS nilai
+FROM mahasiswa m
+LEFT JOIN shalat s ON m.id_mahasiswa = s.id_mahasiswa
+LEFT JOIN (
+    SELECT m.id_mahasiswa,
+    DATEDIFF(MAX(sp.tanggal_sampai),MIN(sp.tanggal_dari))+1 AS jmltgl,
+    r.jplg
+    FROM mahasiswa m
+    LEFT JOIN shalat s ON m.id_mahasiswa = s.id_mahasiswa
+    JOIN shalat_periode sp
+    LEFT JOIN (
+        SELECT m.id_mahasiswa, COUNT(jp.tanggal) AS jplg
+        FROM mahasiswa m
+        LEFT JOIN j_pulang jp ON m.j_kelamin = jp.j_kelamin
+        GROUP BY m.id_mahasiswa
+    ) r ON m.id_mahasiswa = r.id_mahasiswa
+    GROUP BY m.id_mahasiswa    
+) a ON m.id_mahasiswa = a.id_mahasiswa
+GROUP BY m.id_mahasiswa
