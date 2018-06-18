@@ -513,7 +513,7 @@ LEFT JOIN (
 GROUP BY m.id_mahasiswa
 
 
--- try shalat wajib berdasarkan mahasiswa detail (WORK !)
+-- shalat wajib berdasarkan mahasiswa detail (WORK !)
 SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, COUNT(s.wkt_tapping) AS total,
 (CASE WHEN m.j_kelamin = 'Akhwat' THEN sp.jws_akhwat ELSE sp.jws_ikhwan END) AS target,
 ROUND(((COUNT(s.wkt_tapping)/(CASE WHEN m.j_kelamin = 'Akhwat' THEN sp.jws_akhwat ELSE sp.jws_ikhwan END))*100),2) AS nilai
@@ -522,3 +522,49 @@ LEFT JOIN shalat s ON sp.id_periode = s.id_periode
 LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa
 WHERE m.id_mahasiswa = 1175
 GROUP BY sp.id_periode
+
+
+-- shalat wajib berdasarkan mahasiswa detail by period (WORK !)
+SELECT s.tanggal, COUNT(s.wkt_tapping) AS total,
+5 AS target, ROUND(((COUNT(s.wkt_tapping)/5)*100),2) AS nilai
+FROM shalat s
+LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa
+WHERE m.id_mahasiswa = 1175 AND s.id_periode = 3
+GROUP BY s.tanggal
+
+
+-- shalat wajib berdasarkan mahasiswa detail by period by day (WORK !)
+SELECT su.id_mahasiswa, su.wkt_tapping AS 'Shubuh', zu.wkt_tapping AS 'Dzuhur', ar.wkt_tapping AS 'Ashar', mg.wkt_tapping AS 'Maghrib', iy.wkt_tapping AS 'Isya'
+FROM shalat s 
+LEFT JOIN(
+    SELECT m.id_mahasiswa, s.wkt_tapping
+    FROM shalat s
+    LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa
+    WHERE s.wkt_shalat = 'shubuh' AND s.tanggal = '2018-03-09'
+) su ON s.id_mahasiswa = su.id_mahasiswa
+LEFT JOIN(
+    SELECT m.id_mahasiswa, s.wkt_tapping
+    FROM shalat s
+    LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa
+    WHERE s.wkt_shalat = 'dzuhur' AND s.tanggal = '2018-03-09'
+) zu ON s.id_mahasiswa = zu.id_mahasiswa
+LEFT JOIN(
+    SELECT m.id_mahasiswa, s.wkt_tapping
+    FROM shalat s
+    LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa
+    WHERE s.wkt_shalat = 'ashar' AND s.tanggal = '2018-03-09'
+) ar ON s.id_mahasiswa = ar.id_mahasiswa
+LEFT JOIN(
+    SELECT m.id_mahasiswa, s.wkt_tapping
+    FROM shalat s
+    LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa
+    WHERE s.wkt_shalat = 'maghrib' AND s.tanggal = '2018-03-09'
+) mg ON s.id_mahasiswa = mg.id_mahasiswa
+LEFT JOIN(
+    SELECT m.id_mahasiswa, s.wkt_tapping
+    FROM shalat s
+    LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa
+    WHERE s.wkt_shalat = 'isya' AND s.tanggal = '2018-03-09'
+) iy ON s.id_mahasiswa = iy.id_mahasiswa
+WHERE su.id_mahasiswa = 1175
+GROUP BY su.id_mahasiswa
