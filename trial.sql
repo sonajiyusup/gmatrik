@@ -568,3 +568,34 @@ LEFT JOIN(
 ) iy ON s.id_mahasiswa = iy.id_mahasiswa
 WHERE su.id_mahasiswa = 1175
 GROUP BY su.id_mahasiswa
+
+
+-- shalat wajib berdasarkan ikhwan/akhwat (WORK !, )
+SELECT m.j_kelamin AS 'I/A', COUNT(s.wkt_tapping) AS total, jk.jmhs, g.jmltgl, g.jplg, g.jmltgl-g.jplg AS jhari,
+jk.jmhs*(g.jmltgl-g.jplg)*5 AS target,
+ROUND(((COUNT(s.wkt_tapping)/(jk.jmhs*(g.jmltgl-g.jplg)*5))*100),2) AS nilai
+FROM mahasiswa m 
+LEFT JOIN shalat s ON m.id_mahasiswa = s.id_mahasiswa
+LEFT JOIN (
+    SELECT m.j_kelamin, COUNT(m.id_mahasiswa) AS jmhs 
+    FROM mahasiswa m
+    GROUP BY m.j_kelamin
+) jk ON m.j_kelamin = jk.j_kelamin
+LEFT JOIN (
+    SELECT m.j_kelamin,
+    DATEDIFF(MAX(sp.tanggal_sampai),MIN(sp.tanggal_dari))+1 AS jmltgl,
+    r.jplg
+    FROM mahasiswa m
+    LEFT JOIN shalat s ON m.id_mahasiswa = s.id_mahasiswa
+    JOIN shalat_periode sp
+    LEFT JOIN (
+        SELECT m.id_mahasiswa, COUNT(jp.tanggal) AS jplg
+        FROM mahasiswa m
+        LEFT JOIN j_pulang jp ON m.j_kelamin = jp.j_kelamin
+        GROUP BY m.id_mahasiswa
+    ) r ON m.id_mahasiswa = r.id_mahasiswa
+    GROUP BY m.j_kelamin     
+) g ON m.j_kelamin = g.j_kelamin
+GROUP BY m.j_kelamin
+
+
