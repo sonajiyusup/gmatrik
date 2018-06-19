@@ -682,3 +682,11 @@ LEFT JOIN (
     WHERE s.wkt_shalat = 'isya' AND s.tanggal = '2018-03-23'
 ) iy ON m.id_mahasiswa = iy.id_mahasiswa
 WHERE m.j_kelamin = 'Ikhwan'
+
+-- shalat wajib berdasarkan ikhwan/akhwat detail by period by day (nilai by wkt shalat)
+SELECT s.wkt_shalat, COUNT(s.wkt_tapping) AS total
+FROM shalat s
+LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa
+WHERE m.j_kelamin = 'Ikhwan'
+GROUP BY s.wkt_shalat
+ORDER BY s.wkt_tapping
