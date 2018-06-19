@@ -598,7 +598,7 @@ LEFT JOIN (
 ) g ON m.j_kelamin = g.j_kelamin
 GROUP BY m.j_kelamin
 
--- shalat wajib berdasarkan ikhwan/akhwat detail
+-- shalat wajib berdasarkan ikhwan/akhwat detail (WORK !)
 SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, COUNT(s.wkt_tapping) AS total, j.jmhs, 
 ROUND(((COUNT(s.wkt_tapping)/j.jmhs)),2) AS rtotal,
 sp.jws_akhwat AS target,
@@ -614,7 +614,7 @@ LEFT JOIN (
 WHERE m.j_kelamin = 'Akhwat'
 GROUP BY sp.id_periode
 
--- shalat wajib berdasarkan ikhwan/akhwat detail (different nila1 nilai2 calc version)
+-- shalat wajib berdasarkan ikhwan/akhwat detail (different nila1 nilai2 calc version) (WORK !)
 SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, COUNT(s.wkt_tapping) AS total, j.jmhs, 
 DATEDIFF(MAX(sp.tanggal_sampai), MIN(sp.tanggal_dari))+1 AS jtgl,
 IF(k.jplg IS NULL, 0, k.jplg) AS jplg,
@@ -653,7 +653,7 @@ LEFT JOIN (
 WHERE m.j_kelamin = 'Akhwat' AND s.id_periode = 4
 GROUP BY s.tanggal
 
--- shalat wajib berdasarkan ikhwan/akhwat detail by period by day
+-- shalat wajib berdasarkan ikhwan/akhwat detail by period by day (WORK !)
 SELECT m.id_mahasiswa, m.nama, su.wkt_tapping AS 'Shubuh', zu.wkt_tapping AS 'Dzuhur', ar.wkt_tapping AS 'Ashar', mg.wkt_tapping AS 'Maghrib', iy.wkt_tapping AS 'Isya'
 FROM mahasiswa m 
 LEFT JOIN (
@@ -688,5 +688,25 @@ SELECT s.wkt_shalat, COUNT(s.wkt_tapping) AS total
 FROM shalat s
 LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa
 WHERE m.j_kelamin = 'Ikhwan'
+GROUP BY s.wkt_shalat
+ORDER BY s.wkt_tapping
+
+
+-- shalat wajib berdasarkan wkt_shalat (WORK !)
+SELECT s.wkt_shalat, COUNT(s.wkt_tapping) AS total, j.jmhs, 
+DATEDIFF(MAX(s.tanggal),MIN(s.tanggal))+1 AS jtgl, p.jplg,
+(DATEDIFF(MAX(s.tanggal),MIN(s.tanggal))+1)-p.jplg AS jhari,
+j.jmhs*((DATEDIFF(MAX(s.tanggal),MIN(s.tanggal))+1)-p.jplg) AS target,
+ROUND(((COUNT(s.wkt_tapping)/(j.jmhs*((DATEDIFF(MAX(s.tanggal),MIN(s.tanggal))+1)-p.jplg)))*100),2) AS nilai
+FROM shalat s
+LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa
+JOIN (
+    SELECT COUNT(m.id_mahasiswa) AS jmhs
+    FROM mahasiswa m 
+) j
+JOIN (
+    SELECT COUNT(jp.tanggal) AS jplg
+    FROM j_pulang jp
+) p
 GROUP BY s.wkt_shalat
 ORDER BY s.wkt_tapping
