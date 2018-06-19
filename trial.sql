@@ -640,3 +640,15 @@ LEFT JOIN (
 ) k ON sp.id_periode = k.id_periode
 WHERE m.j_kelamin = 'Akhwat'
 GROUP BY sp.id_periode
+
+-- shalat wajib berdasarkan ikhwan/akhwat detail by period by day
+SELECT s.tanggal, COUNT(s.wkt_tapping) AS total, j.jmhs, j.jmhs*5 AS target, ROUND(((COUNT(s.wkt_tapping)/(j.jmhs*5))*100),2) AS nilai
+FROM shalat s
+LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa
+LEFT JOIN (
+    SELECT m.j_kelamin, COUNT(m.id_mahasiswa) AS jmhs
+    FROM mahasiswa m
+    WHERE m.j_kelamin = 'Akhwat'
+) j ON m.j_kelamin = j.j_kelamin
+WHERE m.j_kelamin = 'Akhwat' AND s.id_periode = 4
+GROUP BY s.tanggal
