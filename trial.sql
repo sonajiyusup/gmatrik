@@ -710,3 +710,38 @@ JOIN (
 ) p
 GROUP BY s.wkt_shalat
 ORDER BY s.wkt_tapping
+
+-- shalat wajib berdasarkan wkt_shalat detail, total value only (WORK !)
+SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, su.jws AS 'total_shubuh', zu.jws AS 'total_dzuhur', ar.jws AS 'total_ashar', mg.jws AS 'total_maghrib', iy.jws AS 'total_isya'
+FROM shalat_periode sp
+LEFT JOIN(
+    SELECT s.id_periode, COUNT(s.wkt_tapping) AS jws
+    FROM shalat s
+    WHERE s.wkt_shalat = 'shubuh'
+    GROUP BY s.id_periode
+) su ON sp.id_periode = su.id_periode
+LEFT JOIN(
+    SELECT s.id_periode, COUNT(s.wkt_tapping) AS jws
+    FROM shalat s
+    WHERE s.wkt_shalat = 'dzuhur'
+    GROUP BY s.id_periode
+) zu ON sp.id_periode = zu.id_periode
+LEFT JOIN(
+    SELECT s.id_periode, COUNT(s.wkt_tapping) AS jws
+    FROM shalat s
+    WHERE s.wkt_shalat = 'ashar'
+    GROUP BY s.id_periode
+) ar ON sp.id_periode = ar.id_periode
+LEFT JOIN(
+    SELECT s.id_periode, COUNT(s.wkt_tapping) AS jws
+    FROM shalat s
+    WHERE s.wkt_shalat = 'maghrib'
+    GROUP BY s.id_periode
+) mg ON sp.id_periode = mg.id_periode
+LEFT JOIN(
+    SELECT s.id_periode, COUNT(s.wkt_tapping) AS jws
+    FROM shalat s
+    WHERE s.wkt_shalat = 'isya'
+    GROUP BY s.id_periode
+) iy ON sp.id_periode = iy.id_periode
+GROUP BY sp.id_periode
