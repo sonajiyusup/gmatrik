@@ -711,19 +711,7 @@ JOIN (
 GROUP BY s.wkt_shalat
 ORDER BY s.wkt_tapping
 
--- shalat wajib berdasarkan wkt_shalat detail, total value only (WORK !)
-SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, su.jws AS 'total'
-FROM shalat_periode sp
-LEFT JOIN(
-    SELECT s.id_periode, COUNT(s.wkt_tapping) AS jws
-    FROM shalat s
-    WHERE s.wkt_shalat = 'shubuh'
-    GROUP BY s.id_periode
-) su ON sp.id_periode = su.id_periode
-GROUP BY sp.id_periode
-
-
--- shalat wajib berdasarkan wkt_shalat detail by period (WORK !)
+-- shalat wajib berdasarkan wkt_shalat detail (WORK !)
 SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, su.jws AS 'total', j.jmhs,
 DATEDIFF(MAX(sp.tanggal_sampai), MIN(sp.tanggal_dari))+1 AS jtgl,
 IF(k.jplg IS NULL, 0, k.jplg) AS jplg,
@@ -747,3 +735,32 @@ LEFT JOIN (
     GROUP BY jp.id_periode
 ) k ON sp.id_periode = k.id_periode
 GROUP BY sp.id_periode
+
+-- shalat wajib berdasarkan wkt_shalat detail by period (WORK !)
+SELECT s.tanggal, COUNT(s.wkt_tapping) AS total, j.jmhs,
+IF(p.tanggal IS NULL, '-', (CASE WHEN p.j_kelamin = 'Akhwat' THEN 'Akhwat' ELSE 'Ikhwan' END)) AS plg,
+IF(p.tanggal IS NULL, 0, (CASE WHEN p.j_kelamin = 'Akhwat' THEN a.plg ELSE i.plg END)) AS jplg,
+j.jmhs-(IF(p.tanggal IS NULL, 0, (CASE WHEN p.j_kelamin = 'Akhwat' THEN a.plg ELSE i.plg END))) AS target,
+ROUND(((COUNT(s.wkt_tapping)/(j.jmhs-(IF(p.tanggal IS NULL, 0, (CASE WHEN p.j_kelamin = 'Akhwat' THEN a.plg ELSE i.plg END)))))*100),2) AS nilai
+FROM shalat s
+LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa
+JOIN (
+    SELECT COUNT(m.id_mahasiswa) AS jmhs
+    FROM mahasiswa m
+) j
+LEFT JOIN (
+    SELECT jp.tanggal, jp.j_kelamin
+    FROM j_pulang jp 
+) p ON s.tanggal = p.tanggal
+JOIN (
+    SELECT COUNT(m.id_mahasiswa) AS plg
+    FROM mahasiswa m
+    WHERE m.j_kelamin = 'Akhwat'
+) a
+JOIN (
+    SELECT COUNT(m.id_mahasiswa) AS plg
+    FROM mahasiswa m
+    WHERE m.j_kelamin = 'Ikhwan'
+) i
+WHERE s.id_periode = 9 AND s.wkt_shalat = 'dzuhur'
+GROUP BY s.tanggal
