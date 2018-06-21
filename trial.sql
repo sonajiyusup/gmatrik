@@ -736,7 +736,7 @@ LEFT JOIN (
 ) k ON sp.id_periode = k.id_periode
 GROUP BY sp.id_periode
 
--- shalat wajib berdasarkan wkt_shalat detail by period (WORK !)
+-- shalat wajib berdasarkan wkt_shalat detail by period (WORK ! Lengkap dg kondisional plg ikhwan/akhwat)
 SELECT s.tanggal, COUNT(s.wkt_tapping) AS total, j.jmhs,
 IF(p.tanggal IS NULL, '-', (CASE WHEN p.j_kelamin = 'Akhwat' THEN 'Akhwat' ELSE 'Ikhwan' END)) AS plg,
 IF(p.tanggal IS NULL, 0, (CASE WHEN p.j_kelamin = 'Akhwat' THEN a.plg ELSE i.plg END)) AS jplg,
