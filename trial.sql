@@ -712,7 +712,7 @@ GROUP BY s.wkt_shalat
 ORDER BY s.wkt_tapping
 
 -- shalat wajib berdasarkan wkt_shalat detail, total value only (WORK !)
-SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, su.jws AS 'total_shubuh', zu.jws AS 'total_dzuhur', ar.jws AS 'total_ashar', mg.jws AS 'total_maghrib', iy.jws AS 'total_isya'
+SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, su.jws AS 'total'
 FROM shalat_periode sp
 LEFT JOIN(
     SELECT s.id_periode, COUNT(s.wkt_tapping) AS jws
@@ -720,28 +720,30 @@ LEFT JOIN(
     WHERE s.wkt_shalat = 'shubuh'
     GROUP BY s.id_periode
 ) su ON sp.id_periode = su.id_periode
+GROUP BY sp.id_periode
+
+
+-- shalat wajib berdasarkan wkt_shalat detail by period (WORK !)
+SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, su.jws AS 'total', j.jmhs,
+DATEDIFF(MAX(sp.tanggal_sampai), MIN(sp.tanggal_dari))+1 AS jtgl,
+IF(k.jplg IS NULL, 0, k.jplg) AS jplg,
+(DATEDIFF(MAX(sp.tanggal_sampai), MIN(sp.tanggal_dari))+1)-IF(k.jplg IS NULL, 0, k.jplg) AS jhari,
+j.jmhs*((DATEDIFF(MAX(sp.tanggal_sampai), MIN(sp.tanggal_dari))+1)-IF(k.jplg IS NULL, 0, k.jplg)) AS target,
+ROUND(((su.jws/(j.jmhs*((DATEDIFF(MAX(sp.tanggal_sampai), MIN(sp.tanggal_dari))+1)-IF(k.jplg IS NULL, 0, k.jplg))))*100),2) AS nilai
+FROM shalat_periode sp
 LEFT JOIN(
     SELECT s.id_periode, COUNT(s.wkt_tapping) AS jws
     FROM shalat s
-    WHERE s.wkt_shalat = 'dzuhur'
+    WHERE s.wkt_shalat = 'shubuh'
     GROUP BY s.id_periode
-) zu ON sp.id_periode = zu.id_periode
-LEFT JOIN(
-    SELECT s.id_periode, COUNT(s.wkt_tapping) AS jws
-    FROM shalat s
-    WHERE s.wkt_shalat = 'ashar'
-    GROUP BY s.id_periode
-) ar ON sp.id_periode = ar.id_periode
-LEFT JOIN(
-    SELECT s.id_periode, COUNT(s.wkt_tapping) AS jws
-    FROM shalat s
-    WHERE s.wkt_shalat = 'maghrib'
-    GROUP BY s.id_periode
-) mg ON sp.id_periode = mg.id_periode
-LEFT JOIN(
-    SELECT s.id_periode, COUNT(s.wkt_tapping) AS jws
-    FROM shalat s
-    WHERE s.wkt_shalat = 'isya'
-    GROUP BY s.id_periode
-) iy ON sp.id_periode = iy.id_periode
+) su ON sp.id_periode = su.id_periode
+JOIN (
+    SELECT COUNT(m.id_mahasiswa) AS jmhs
+    FROM mahasiswa m
+) j
+LEFT JOIN (
+    SELECT jp.id_periode, COUNT(jp.tanggal) AS jplg
+    FROM j_pulang jp     
+    GROUP BY jp.id_periode
+) k ON sp.id_periode = k.id_periode
 GROUP BY sp.id_periode
