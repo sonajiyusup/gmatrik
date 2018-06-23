@@ -764,3 +764,9 @@ JOIN (
 ) i
 WHERE s.id_periode = 9 AND s.wkt_shalat = 'dzuhur'
 GROUP BY s.tanggal
+
+-- shalat wajib berdasarkan wkt_shalat detail by period by day (WORK !)
+SELECT s.id_mahasiswa, m.nama, s.wkt_tapping
+FROM shalat s
+LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa
+WHERE s.id_periode = 3 AND s.wkt_shalat = 'dzuhur' AND s.tanggal = '2018-03-16'
