@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 22, 2018 at 05:32 AM
+-- Generation Time: Jun 26, 2018 at 04:36 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -139,6 +139,69 @@ INSERT INTO `j_pulang` (`id_pulang`, `id_periode`, `tanggal`, `j_kelamin`, `p_jw
 (3, 4, '2018-03-24', 'Akhwat', 6),
 (4, 9, '2018-04-28', 'Akhwat', 6),
 (5, 9, '2018-04-29', 'Akhwat', 6);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `j_pulang2`
+--
+
+CREATE TABLE `j_pulang2` (
+  `id_periode` int(11) NOT NULL,
+  `tanggal` date NOT NULL,
+  `j_kelamin` varchar(6) NOT NULL,
+  `wkt_shalat` varchar(7) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `j_pulang2`
+--
+
+INSERT INTO `j_pulang2` (`id_periode`, `tanggal`, `j_kelamin`, `wkt_shalat`) VALUES
+(4, '2018-03-24', 'Akhwat', 'shubuh'),
+(4, '2018-03-24', 'Akhwat', 'dzuhur'),
+(4, '2018-03-24', 'Akhwat', 'ashar'),
+(4, '2018-03-24', 'Akhwat', 'maghrib'),
+(4, '2018-03-24', 'Akhwat', 'isya'),
+(4, '2018-03-25', 'Akhwat', 'shubuh'),
+(4, '2018-03-25', 'Akhwat', 'dzuhur'),
+(4, '2018-03-25', 'Akhwat', 'ashar'),
+(4, '2018-03-25', 'Akhwat', 'maghrib'),
+(4, '2018-03-25', 'Akhwat', 'isya'),
+(4, '2018-03-26', 'Akhwat', 'shubuh'),
+(3, '2018-03-17', 'Ikhwan', 'shubuh'),
+(3, '2018-03-17', 'Ikhwan', 'dzuhur'),
+(3, '2018-03-17', 'Ikhwan', 'ashar'),
+(3, '2018-03-17', 'Ikhwan', 'maghrib'),
+(3, '2018-03-17', 'Ikhwan', 'isya'),
+(3, '2018-03-18', 'Ikhwan', 'shubuh'),
+(3, '2018-03-18', 'Ikhwan', 'dzuhur'),
+(3, '2018-03-18', 'Ikhwan', 'ashar'),
+(3, '2018-03-18', 'Ikhwan', 'maghrib'),
+(3, '2018-03-18', 'Ikhwan', 'isya'),
+(3, '2018-03-19', 'Ikhwan', 'shubuh'),
+(8, '2018-04-21', 'Ikhwan', 'shubuh'),
+(8, '2018-04-21', 'Ikhwan', 'dzuhur'),
+(8, '2018-04-21', 'Ikhwan', 'ashar'),
+(8, '2018-04-21', 'Ikhwan', 'maghrib'),
+(8, '2018-04-21', 'Ikhwan', 'isya'),
+(8, '2018-04-22', 'Ikhwan', 'shubuh'),
+(8, '2018-04-22', 'Ikhwan', 'dzuhur'),
+(8, '2018-04-22', 'Ikhwan', 'ashar'),
+(8, '2018-04-22', 'Ikhwan', 'maghrib'),
+(8, '2018-04-22', 'Ikhwan', 'isya'),
+(8, '2018-04-23', 'Ikhwan', 'shubuh'),
+(9, '2018-04-28', 'Akhwat', 'shubuh'),
+(9, '2018-04-28', 'Akhwat', 'dzuhur'),
+(9, '2018-04-28', 'Akhwat', 'ashar'),
+(9, '2018-04-28', 'Akhwat', 'maghrib'),
+(9, '2018-04-28', 'Akhwat', 'isya'),
+(9, '2018-04-29', 'Akhwat', 'shubuh'),
+(9, '2018-04-29', 'Akhwat', 'dzuhur'),
+(9, '2018-04-29', 'Akhwat', 'ashar'),
+(9, '2018-04-29', 'Akhwat', 'maghrib'),
+(9, '2018-04-29', 'Akhwat', 'isya'),
+(9, '2018-04-30', 'Akhwat', 'shubuh');
 
 -- --------------------------------------------------------
 
@@ -70623,7 +70686,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id_user`, `username`, `password`, `password_default`, `level`, `last_login`) VALUES
 (1, 'admin', 'admin', 0, 0, '2018-04-24 08:58:28'),
-(2, 'derry', 'bismillah', 0, 2, '2018-06-18 08:30:18'),
+(2, 'derry', 'bismillah', 0, 2, '2018-06-25 19:40:59'),
 (21, 'bintang', 'bintang123', 0, 3, '2018-03-12 08:11:09'),
 (23, 'hasan', 'hasan123', 0, 2, '2017-11-30 17:06:08'),
 (24, 'rizky@tazkia.ac.id', 'rizy123', 0, 3, '0000-00-00 00:00:00'),
@@ -71084,6 +71147,12 @@ ALTER TABLE `j_pulang`
   ADD KEY `id_periode` (`id_periode`);
 
 --
+-- Indexes for table `j_pulang2`
+--
+ALTER TABLE `j_pulang2`
+  ADD KEY `id_periode` (`id_periode`);
+
+--
 -- Indexes for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
@@ -71279,6 +71348,12 @@ ALTER TABLE `adminmatrik`
 --
 ALTER TABLE `j_pulang`
   ADD CONSTRAINT `j_pulang_ibfk_1` FOREIGN KEY (`id_periode`) REFERENCES `shalat` (`id_periode`);
+
+--
+-- Constraints for table `j_pulang2`
+--
+ALTER TABLE `j_pulang2`
+  ADD CONSTRAINT `j_pulang2_ibfk_1` FOREIGN KEY (`id_periode`) REFERENCES `shalat_periode` (`id_periode`);
 
 --
 -- Constraints for table `m_binaan`
