@@ -598,12 +598,14 @@ LEFT JOIN (
 ) g ON m.j_kelamin = g.j_kelamin
 GROUP BY m.j_kelamin
 
--- shalat wajib berdasarkan ikhwan/akhwat versi j_pulang2 (WORK !, )
+-- shalat wajib berdasarkan ikhwan/akhwat versi j_pulang2 + shalat_udzur2 (WORK !, )
 SELECT m.j_kelamin, COUNT(s.wkt_tapping) AS total, h.jmhs, d.jhari,
-h.jmhs*d.jhari*5 AS target,
+h.jmhs*d.jhari*5 AS target_awal,
 j.jwsp*h.jmhs AS jplg,
-(h.jmhs*d.jhari*5)-(j.jwsp*h.jmhs) AS target_,
-ROUND(((COUNT(s.wkt_tapping)/((h.jmhs*d.jhari*5)-(j.jwsp*h.jmhs)))*100),2) AS nilai
+IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
+(j.jwsp*h.jmhs)+(IF(u.jmlu IS NULL, 0, u.jmlu)) AS total_dispen,
+(h.jmhs*d.jhari*5)-((j.jwsp*h.jmhs)+(IF(u.jmlu IS NULL, 0, u.jmlu))) AS target_akhir,
+ROUND(((COUNT(s.wkt_tapping)/((h.jmhs*d.jhari*5)-((j.jwsp*h.jmhs)+(IF(u.jmlu IS NULL, 0, u.jmlu)))))*100),2) AS nilai
 FROM mahasiswa m
 LEFT JOIN shalat s ON m.id_mahasiswa = s.id_mahasiswa
 LEFT JOIN (
@@ -620,6 +622,12 @@ LEFT JOIN (
     FROM j_pulang2 jp
     GROUP BY jp.j_kelamin
 ) j ON m.j_kelamin = j.j_kelamin
+LEFT JOIN (
+    SELECT COUNT(su.udzur) AS jmlu, m.j_kelamin
+    FROM shalat_udzur2 su
+    LEFT JOIN mahasiswa m ON su.id_mahasiswa = m.id_mahasiswa
+    WHERE su.disetujui = 1
+) u ON m.j_kelamin = u.j_kelamin
 GROUP BY m.j_kelamin
 
 -- shalat wajib berdasarkan ikhwan/akhwat detail (WORK !)
