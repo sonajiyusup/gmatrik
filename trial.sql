@@ -598,7 +598,7 @@ LEFT JOIN (
 ) g ON m.j_kelamin = g.j_kelamin
 GROUP BY m.j_kelamin
 
--- shalat wajib berdasarkan ikhwan/akhwat versi j_pulang2 + shalat_udzur2 (WORK !, )
+-- shalat wajib berdasarkan ikhwan/akhwat versi j_pulang2 + shalat_udzur2 (WORK !, LIGHTER)
 SELECT m.j_kelamin, COUNT(s.wkt_tapping) AS total, h.jmhs, d.jhari,
 h.jmhs*d.jhari*5 AS target_awal,
 j.jwsp*h.jmhs AS jplg,
