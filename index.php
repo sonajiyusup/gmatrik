@@ -59,6 +59,15 @@
 
     <!-- Custom Css -->
     <link href="assets/css/style.css" rel="stylesheet">
+    <style type="text/css">
+      /*customize align material design icons*/
+        .vertical-align-middle { 
+            vertical-align: middle; 
+        }
+        .padding-bottom-3 {
+            padding-bottom: 3px;
+        }        
+    </style>
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="assets/css/all-themes.css" rel="stylesheet" />

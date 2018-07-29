@@ -646,6 +646,14 @@
 				return $data;
 	}	
 
+	function percenIkhtisarByPeriod($p1, $p2){
+		$ambildata = mysql_query("SELECT a.jml AS a, b.jml AS b, ROUND((((b.jml-a.jml)/a.jml)*100),2) AS percent FROM ( SELECT s.id_periode, COUNT(s.wkt_tapping) AS jml FROM shalat s WHERE s.id_periode = $p1 GROUP BY s.id_periode ) a JOIN ( SELECT s.id_periode, COUNT(s.wkt_tapping) AS jml FROM shalat s WHERE s.id_periode = $p2 GROUP BY s.id_periode ) b") or die(mysql_error());
+		
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;			
+	}	
+
 	function shalatIkhtisarDetailByDay($tgl){
 
 		$tgl_ = date('Y-m-d', strtotime($tgl));

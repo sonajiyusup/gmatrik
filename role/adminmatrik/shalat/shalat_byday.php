@@ -13,7 +13,25 @@
                             <h2>
                               <a href="?page=shalatpdetail&id=<?php echo $idPeriod;?>" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;
                             GRAFIK PRESENSI SHALAT MAHASISWA &nbsp;
-                            <div class="btn-group">
+                                  <?php 
+                                    if($tgl != '20180302'){
+                                      $percent = percenIkhtisarByDay(($tgl-1), $tgl);
+                                      foreach ($percent as $row){
+                                        if ($row['a'] > $row['b']) {
+                                          echo '<span class="label bg-red">
+                                          <i class="material-icons vertical-align-middle padding-bottom-3">trending_down</i>
+                                          '.$row['percent'].'% dibandingkan hari sebelumnya</span>';
+                                        } else
+                                        if ($row['a'] < $row['b']) {
+                                          echo '<span class="label bg-green">
+                                          <i class="material-icons vertical-align-middle padding-bottom-3">trending_up</i>
+                                          +'.$row['percent'].'% dibandingkan hari sebelumnya</span>';
+                                        } 
+                                      }
+                                    }
+                                  ?>
+                              <small> Hari : &nbsp;
+                                <div class="btn-group">
                                   <button type="button" class="btn bg-cyan waves-effect dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <?php 
                                       echo date('l', strtotime($tgl_)).' '.date('d M Y', strtotime($tgl_));
@@ -30,23 +48,8 @@
                                      }
                                     ?>
                                   </ul>
-                                </div>
-                                 &nbsp;
-                                
-                                  <?php 
-                                    if($tgl != '20180302'){
-                                      $percent = percenIkhtisarByDay(($tgl-1), $tgl);
-                                      foreach ($percent as $row){
-                                        if ($row['a'] > $row['b']) {
-                                          echo '<span class="label bg-red">'.$row['percent'].'% dibandingkan kemarin</span>';
-                                        } else
-                                        if ($row['a'] < $row['b']) {
-                                          echo '<span class="label bg-green">+'.$row['percent'].'% dibandingkan kemarin</span>';
-                                        } 
-                                      }
-                                    }
-                                  ?>
-                                
+                                </div>                                
+                              </small>
                             </h2>
                         </div>
                         <div class="body">
