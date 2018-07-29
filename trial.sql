@@ -911,3 +911,33 @@ LEFT JOIN (
 ) u ON s.tanggal = u.tanggal
 WHERE s.id_periode = 9
 GROUP BY s.tanggal
+
+
+-- Shalat detail ikhtisar by day (WORK)
+SELECT m.id_mahasiswa, m.nama, su.wkt_tapping AS 'shubuh', dz.wkt_tapping AS 'dzuhur', ah.wkt_tapping AS 'ashar', mg.wkt_tapping AS 'maghrib', iy.wkt_tapping AS 'isya'
+FROM mahasiswa m
+LEFT JOIN (
+    SELECT s.id_mahasiswa, s.wkt_tapping, s.wkt_shalat
+    FROM shalat s
+    WHERE s.wkt_shalat = 'shubuh' AND s.tanggal = '2018-03-23'
+) su ON m.id_mahasiswa = su.id_mahasiswa
+LEFT JOIN (
+    SELECT s.id_mahasiswa, s.wkt_tapping, s.wkt_shalat
+    FROM shalat s
+    WHERE s.wkt_shalat = 'dzuhur' AND s.tanggal = '2018-03-23'
+) dz ON m.id_mahasiswa = dz.id_mahasiswa
+LEFT JOIN (
+    SELECT s.id_mahasiswa, s.wkt_tapping, s.wkt_shalat
+    FROM shalat s
+    WHERE s.wkt_shalat = 'ashar' AND s.tanggal = '2018-03-23'
+) ah ON m.id_mahasiswa = ah.id_mahasiswa
+LEFT JOIN (
+    SELECT s.id_mahasiswa, s.wkt_tapping, s.wkt_shalat
+    FROM shalat s
+    WHERE s.wkt_shalat = 'maghrib' AND s.tanggal = '2018-03-23'
+) mg ON m.id_mahasiswa = mg.id_mahasiswa
+LEFT JOIN (
+    SELECT s.id_mahasiswa, s.wkt_tapping, s.wkt_shalat
+    FROM shalat s
+    WHERE s.wkt_shalat = 'isya' AND s.tanggal = '2018-03-23'
+) iy ON m.id_mahasiswa = iy.id_mahasiswa

@@ -639,12 +639,20 @@
 	}
 
 	function shalatByPeriodID($idPeriod){
-		$ambildata = mysql_query("SELECT s.tanggal, COUNT(s.wkt_tapping) AS total, j.jmhs,(IF(p.tanggal IS NULL, j.jmhs, (CASE WHEN p.j_kelamin = 'Akhwat' THEN i.plg ELSE a.plg END)))*5 AS target1,IF(p.tanggal IS NULL, '-', (CASE WHEN p.j_kelamin = 'Akhwat' THEN 'Akhwat' ELSE 'Ikhwan' END)) AS plg,IF(p.tanggal IS NULL, j.jmhs, (CASE WHEN p.j_kelamin = 'Akhwat' THEN i.plg ELSE a.plg END)) AS jsisa,IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,((IF(p.tanggal IS NULL, j.jmhs, (CASE WHEN p.j_kelamin = 'Akhwat' THEN i.plg ELSE a.plg END)))*5)-IF(u.jmlu IS NULL, 0, u.jmlu) AS target2,ROUND((((COUNT(s.wkt_tapping))/(((IF(p.tanggal IS NULL, j.jmhs, (CASE WHEN p.j_kelamin = 'Akhwat' THEN i.plg ELSE a.plg END)))*5)-IF(u.jmlu IS NULL, 0, u.jmlu)))*100),2) AS nilai FROM shalat s LEFT JOIN ( SELECT jp.tanggal, jp.j_kelamin FROM j_pulang2 jp GROUP BY jp.tanggal ) p ON s.tanggal = p.tanggal JOIN ( SELECT COUNT(m.id_mahasiswa) AS jmhs FROM mahasiswa m ) j JOIN ( SELECT COUNT(m.id_mahasiswa) AS plg FROM mahasiswa m WHERE m.j_kelamin = 'Akhwat' ) a JOIN (SELECT COUNT(m.id_mahasiswa) AS plg FROM mahasiswa m WHERE m.j_kelamin = 'Ikhwan' ) i LEFT JOIN ( SELECT su.tanggal, COUNT(su.udzur) AS jmlu FROM shalat_udzur2 su WHERE su.disetujui = 1 ) u ON s.tanggal = u.tanggal WHERE s.id_periode = 9 GROUP BY s.tanggal") or die(mysql_error());
+		$ambildata = mysql_query("SELECT s.tanggal, COUNT(s.wkt_tapping) AS total, j.jmhs,(IF(p.tanggal IS NULL, j.jmhs, (CASE WHEN p.j_kelamin = 'Akhwat' THEN i.plg ELSE a.plg END)))*5 AS target1,IF(p.tanggal IS NULL, '-', (CASE WHEN p.j_kelamin = 'Akhwat' THEN 'Akhwat' ELSE 'Ikhwan' END)) AS plg,IF(p.tanggal IS NULL, j.jmhs, (CASE WHEN p.j_kelamin = 'Akhwat' THEN i.plg ELSE a.plg END)) AS jsisa,IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,((IF(p.tanggal IS NULL, j.jmhs, (CASE WHEN p.j_kelamin = 'Akhwat' THEN i.plg ELSE a.plg END)))*5)-IF(u.jmlu IS NULL, 0, u.jmlu) AS target2,ROUND((((COUNT(s.wkt_tapping))/(((IF(p.tanggal IS NULL, j.jmhs, (CASE WHEN p.j_kelamin = 'Akhwat' THEN i.plg ELSE a.plg END)))*5)-IF(u.jmlu IS NULL, 0, u.jmlu)))*100),2) AS nilai FROM shalat s LEFT JOIN ( SELECT jp.tanggal, jp.j_kelamin FROM j_pulang2 jp GROUP BY jp.tanggal ) p ON s.tanggal = p.tanggal JOIN ( SELECT COUNT(m.id_mahasiswa) AS jmhs FROM mahasiswa m ) j JOIN ( SELECT COUNT(m.id_mahasiswa) AS plg FROM mahasiswa m WHERE m.j_kelamin = 'Akhwat' ) a JOIN (SELECT COUNT(m.id_mahasiswa) AS plg FROM mahasiswa m WHERE m.j_kelamin = 'Ikhwan' ) i LEFT JOIN ( SELECT su.tanggal, COUNT(su.udzur) AS jmlu FROM shalat_udzur2 su WHERE su.disetujui = 1 ) u ON s.tanggal = u.tanggal WHERE s.id_periode = $idPeriod GROUP BY s.tanggal") or die(mysql_error());
 		
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
 				return $data;
 	}	
+
+	function shalatIkhtisarDetailByDay($tgl_){
+		$ambildata = mysql_query("SELECT m.id_mahasiswa, m.nama, su.wkt_tapping AS 'shubuh', dz.wkt_tapping AS 'dzuhur', ah.wkt_tapping AS 'ashar', mg.wkt_tapping AS 'maghrib', iy.wkt_tapping AS 'isya' FROM mahasiswa m LEFT JOIN ( SELECT s.id_mahasiswa, s.wkt_tapping, s.wkt_shalat FROM shalat s WHERE s.wkt_shalat = 'shubuh' AND s.tanggal = '$tgl_' ) su ON m.id_mahasiswa = su.id_mahasiswa LEFT JOIN ( SELECT s.id_mahasiswa, s.wkt_tapping, s.wkt_shalat FROM shalat s WHERE s.wkt_shalat = 'dzuhur' AND s.tanggal = '$tgl_' ) dz ON m.id_mahasiswa = dz.id_mahasiswa LEFT JOIN ( SELECT s.id_mahasiswa, s.wkt_tapping, s.wkt_shalat FROM shalat s WHERE s.wkt_shalat = 'ashar' AND s.tanggal = '$tgl_' ) ah ON m.id_mahasiswa = ah.id_mahasiswa LEFT JOIN ( SELECT s.id_mahasiswa, s.wkt_tapping, s.wkt_shalat FROM shalat s WHERE s.wkt_shalat = 'maghrib' AND s.tanggal = '$tgl_' ) mg ON m.id_mahasiswa = mg.id_mahasiswa LEFT JOIN ( SELECT s.id_mahasiswa, s.wkt_tapping, s.wkt_shalat FROM shalat s WHERE s.wkt_shalat = 'isya' AND s.tanggal = '$tgl_') iy ON m.id_mahasiswa = iy.id_mahasiswa") or die(mysql_error());
+		
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;		
+	}
 
 	function shalatByPembina($column){
 		if ($column == 'chart') {
