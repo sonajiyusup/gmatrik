@@ -657,6 +657,27 @@
 				return $data;		
 	}
 
+	function jmlShalatPerDayByWaktu($tgl){
+		$tgl_ = date('Y-m-d', strtotime($tgl));
+
+		$ambildata = mysql_query("SELECT s.wkt_shalat, COUNT(s.wkt_tapping) AS jml FROM shalat s WHERE s.tanggal = '$tgl_' GROUP BY s.wkt_shalat ORDER BY s.wkt_tapping") or die(mysql_error());
+		
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;	
+	}
+
+	function percenIkhtisarByDay($tgl1, $tgl2){
+		$tgl1_ = date('Y-m-d', strtotime($tgl1));
+		$tgl2_ = date('Y-m-d', strtotime($tgl2));
+
+		$ambildata = mysql_query("SELECT a.jml AS a, b.jml AS b, ROUND((((b.jml-a.jml)/a.jml)*100),2) AS percent FROM ( SELECT s.tanggal, COUNT(s.wkt_tapping) AS jml FROM shalat s WHERE s.tanggal = '$tgl1_' GROUP BY s.tanggal ) a JOIN ( SELECT s.tanggal, COUNT(s.wkt_tapping) AS jml FROM shalat s WHERE s.tanggal = '$tgl2_' GROUP BY s.tanggal ) b") or die(mysql_error());
+		
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;			
+	}
+
 	function shalatByPembina($column){
 		if ($column == 'chart') {
 			$ambildata = mysql_query("SELECT ROUND(((COUNT(s.jws)/(j.jmlb*(r.jmltgl-pu.jplg)*5))*100),2) AS nilai FROM pembina p LEFT JOIN ( SELECT mb.id_pembina, sl.wkt_tapping AS jws FROM m_binaan mb LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa LEFT JOIN shalat sl ON m.id_mahasiswa = sl.id_mahasiswa ) s ON p.id_pembina = s.id_pembina LEFT JOIN ( SELECT p.id_pembina, COUNT(mb.id_mahasiswa) AS jmlb FROM m_binaan mb LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina GROUP BY p.id_pembina ) j ON p.id_pembina = j.id_pembina LEFT JOIN ( SELECT p.id_pembina, DATEDIFF(MAX(s.tanggal),MIN(s.tanggal))+1 AS jmltgl FROM pembina p LEFT JOIN m_binaan mb ON p.id_pembina = mb.id_pembina LEFT JOIN shalat s ON mb.id_mahasiswa = s.id_mahasiswa GROUP BY p.id_pembina ) r ON p.id_pembina = r.id_pembina LEFT JOIN ( SELECT p.id_pembina, COUNT(jp.tanggal) AS jplg FROM pembina p LEFT JOIN j_pulang jp ON p.j_kelamin = jp.j_kelamin GROUP BY p.id_pembina ) pu ON p.id_pembina = pu.id_pembina GROUP BY p.nama") or die(mysql_error());

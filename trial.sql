@@ -941,3 +941,54 @@ LEFT JOIN (
     FROM shalat s
     WHERE s.wkt_shalat = 'isya' AND s.tanggal = '2018-03-23'
 ) iy ON m.id_mahasiswa = iy.id_mahasiswa
+
+
+-- Shalat detail ikhtisar by day JML for graph (WORK)
+SELECT su.tanggal, su.jml AS shubuh, zu.jml AS dzuhur, ar.jml AS ashar, mg.jml AS maghrib, iy.jml AS isya
+FROM (
+    SELECT s.tanggal, COUNT(s.wkt_tapping) AS jml
+    FROM shalat s 
+    WHERE s.wkt_shalat = 'shubuh' AND s.tanggal = '2018-03-23'
+    GROUP BY s.wkt_shalat
+) su
+LEFT JOIN (
+    SELECT s.tanggal, COUNT(s.wkt_tapping) AS jml
+    FROM shalat s 
+    WHERE s.wkt_shalat = 'dzuhur' AND s.tanggal = '2018-03-23'
+    GROUP BY s.wkt_shalat    
+) zu ON su.tanggal = zu.tanggal
+LEFT JOIN (
+    SELECT s.tanggal, COUNT(s.wkt_tapping) AS jml
+    FROM shalat s 
+    WHERE s.wkt_shalat = 'ashar' AND s.tanggal = '2018-03-23'
+    GROUP BY s.wkt_shalat    
+) ar ON su.tanggal = ar.tanggal
+LEFT JOIN (
+    SELECT s.tanggal, COUNT(s.wkt_tapping) AS jml
+    FROM shalat s 
+    WHERE s.wkt_shalat = 'maghrib' AND s.tanggal = '2018-03-23'
+    GROUP BY s.wkt_shalat    
+) mg ON su.tanggal = mg.tanggal
+LEFT JOIN (
+    SELECT s.tanggal, COUNT(s.wkt_tapping) AS jml
+    FROM shalat s 
+    WHERE s.wkt_shalat = 'isya' AND s.tanggal = '2018-03-23'
+    GROUP BY s.wkt_shalat    
+) iy ON su.tanggal = iy.tanggal
+
+
+-- Hitung persentase naik/turun shalat by day / date (WORK)
+SELECT a.jml AS a, b.jml AS b, 
+ROUND((((b.jml-a.jml)/a.jml)*100),2) AS '%'
+FROM (
+    SELECT s.tanggal, COUNT(s.wkt_tapping) AS jml 
+    FROM shalat s
+    WHERE s.tanggal = '2018-03-16' 
+    GROUP BY s.tanggal 
+) a 
+JOIN (
+    SELECT s.tanggal, COUNT(s.wkt_tapping) AS jml 
+    FROM shalat s
+    WHERE s.tanggal = '2018-03-17' 
+    GROUP BY s.tanggal
+) b
