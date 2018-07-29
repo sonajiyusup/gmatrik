@@ -4,10 +4,11 @@
 
 - create jml shalat per waktu graph on shalatbyday
 
+DOING
 - redesign query and page shalatia
 	- table
 	- graph
 - create query and page shalatiadetail
 	- table
-	- graph
-	- percentage
+	-> graph
+	-> percentage
