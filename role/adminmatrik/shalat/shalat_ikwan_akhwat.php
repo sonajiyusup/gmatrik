@@ -3,9 +3,57 @@
  ?>
 <section>
 	<div class="row clearfix">
+    <!-- Bar Chart -->
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>GRAFIK NILAI RATA-RATA PRESENSI SHALAT MAHASISWA
+                              <small>Berdasarkan Ikhwan Akhwat</small>
+                            </h2>
+                        </div>
+                        <div class="body">
+                            <canvas id="bar_chart" height="55"></canvas>
+                        </div>
+                        <script type="text/javascript">
+                          $(function () {
+                              new Chart(document.getElementById("bar_chart").getContext("2d"), getChartJs('bar'));
+                          });
 
-    <!-- Line Chart -->
-                
+                          function getChartJs(type) {
+                              var config = null;
+
+                              if (type === 'bar') {
+                                  config = {
+                                      type: 'bar',
+                                      data: {
+                                          labels: [<?php
+                                                    $data = shalatIkhwanAkhwat();
+                                                    foreach ($data as $row){
+                                                     echo '"'.$row['j_kelamin'].'",';
+                                                    }
+                                                  ?>],
+                                          datasets: [{
+                                              label: "Nilai Rata-rata Mhs Binaan",
+                                              data: [<?php
+                                                    $dataNilai = shalatIkhwanAkhwat();
+                                                    foreach ($dataNilai as $row){
+                                                     echo '"'.$row['nilai'].'",';
+                                                    }
+                                                  ?>],
+                                              backgroundColor: 'rgba(0, 188, 212, 0.8)',
+                                          }]
+                                      },
+                                      options: {
+                                          responsive: true,
+                                          legend: false
+                                      }
+                                  }
+                              }
+                              return config;
+                          }                          
+                        </script>
+                    </div>
+                </div>
 
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
