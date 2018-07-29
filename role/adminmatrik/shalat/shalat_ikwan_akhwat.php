@@ -81,7 +81,7 @@
                                   foreach($dataPresensi as $row){
                                  ?>
                                 <tr>
-                                  <td><?php echo $row['j_kelamin']; ?></td>
+                                  <td><?php echo '<a href="?page=shalatiadetail&j='.$row['j_kelamin'].'">'.$row['j_kelamin'].'</a>'; ?></td>
                                   <td><?php echo $row['total']; ?></td>
                                   <td><?php echo $row['jmhs']; ?></td>
                                   <td><?php echo $row['jmlu']; ?></td>
