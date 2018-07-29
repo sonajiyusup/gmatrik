@@ -35,7 +35,7 @@
                     <li class="header">PROGRAM PEMBINAAN</li>
                     <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'shalat' || $_GET['page'] == 'shalatia' || $_GET['page'] == 'shalatbpembina' || $_GET['page'] == 'shalatpdetail' || $_GET['page'] == 'shalatbpembinadetail' || $_GET['page'] == 'shalatbpembinabp' || $_GET['page'] == 'shalatbpembinabpday' || $_GET['page'] == 'shalatbyday') {
+                                    if ($_GET['page'] == 'shalat' || $_GET['page'] == 'shalatia' || $_GET['page'] == 'shalatbpembina' || $_GET['page'] == 'shalatpdetail' || $_GET['page'] == 'shalatbpembinadetail' || $_GET['page'] == 'shalatbpembinabp' || $_GET['page'] == 'shalatbpembinabpday' || $_GET['page'] == 'shalatbyday' || $_GET['page'] == 'shalatiadetail') {
                                       echo "class='active'";
                                     }
                                   }
@@ -57,7 +57,7 @@
                             </li>
                             <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'shalatia') {
+                                    if ($_GET['page'] == 'shalatia'|| $_GET['page'] == 'shalatiadetail') {
                                       echo "class='active'";
                                     }
                                   }
@@ -294,6 +294,8 @@
               include 'shalat/shalat_byday.php';
             } else if ($_GET['page'] == 'shalatia') {
               include 'shalat/shalat_ikwan_akhwat.php';
+            } else if ($_GET['page'] == 'shalatiadetail') {
+              include 'shalat/shalat_iadetail.php';
             } else if ($_GET['page'] == 'shalatbpembina') {
               include 'shalat/shalat_bypembina.php';
             } else if ($_GET['page'] == 'shalatbpembinadetail') {
