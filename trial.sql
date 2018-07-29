@@ -883,7 +883,7 @@ IF(p.tanggal IS NULL, '-', (CASE WHEN p.j_kelamin = 'Akhwat' THEN 'Akhwat' ELSE 
 IF(p.tanggal IS NULL, j.jmhs, (CASE WHEN p.j_kelamin = 'Akhwat' THEN i.plg ELSE a.plg END)) AS jsisa,
 IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
 ((IF(p.tanggal IS NULL, j.jmhs, (CASE WHEN p.j_kelamin = 'Akhwat' THEN i.plg ELSE a.plg END)))*5)-IF(u.jmlu IS NULL, 0, u.jmlu) AS target2,
-((COUNT(s.wkt_tapping))/(((IF(p.tanggal IS NULL, j.jmhs, (CASE WHEN p.j_kelamin = 'Akhwat' THEN i.plg ELSE a.plg END)))*5)-IF(u.jmlu IS NULL, 0, u.jmlu)))*100 AS nilai
+ROUND((((COUNT(s.wkt_tapping))/(((IF(p.tanggal IS NULL, j.jmhs, (CASE WHEN p.j_kelamin = 'Akhwat' THEN i.plg ELSE a.plg END)))*5)-IF(u.jmlu IS NULL, 0, u.jmlu)))*100),2) AS nilai
 FROM shalat s
 LEFT JOIN (
     SELECT jp.tanggal, jp.j_kelamin
@@ -909,5 +909,5 @@ LEFT JOIN (
     FROM shalat_udzur2 su
     WHERE su.disetujui = 1
 ) u ON s.tanggal = u.tanggal
-WHERE s.id_periode = 1
+WHERE s.id_periode = 9
 GROUP BY s.tanggal

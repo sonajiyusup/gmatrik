@@ -61,7 +61,7 @@
                                               data: [<?php
                                                     $dataNilai = shalatByPeriodID($idPeriod);
                                                     foreach ($dataNilai as $row){
-                                                     echo '"'.$row['nilai_harian'].'",';
+                                                     echo '"'.$row['nilai'].'",';
                                                     }
                                                   ?>],
                                               borderColor: 'rgba(0, 188, 212, 0.75)',
@@ -76,13 +76,13 @@
                                                     if($idPeriod != 1){
                                                       $dataTarget = shalatByPeriodID($idPeriod-1);
                                                       foreach ($dataTarget as $row){
-                                                       echo '"'.$row['nilai_harian'].'",';
+                                                       echo '"'.$row['nilai'].'",';
                                                       }
                                                     } else
                                                     if($idPeriod == 1){
                                                       $dataTarget = shalatByPeriodID($idPeriod);
                                                       foreach ($dataTarget as $row){
-                                                       echo '"'.$row['nilai_harian'].'",';
+                                                       echo '"'.$row['nilai'].'",';
                                                       }
                                                     }
                                                   ?>],
@@ -129,9 +129,11 @@
                                   <th>#</th>
                                   <th>Hari</th>
                                   <th>Tanggal</th>
-                                  <th>Total Waktu Shalat</th>
+                                  <th>Jadwal Pulang</th>
+                                  <th>Total</th>
+                                  <th>Jml Udzur</th>
+                                  <th>Maks</th>
                                   <th>Nilai</th>
-                                  <th>Keterangan</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -144,9 +146,11 @@
                                   <td><?php echo $no; ?></td>
                                   <td><?php echo date('l', strtotime($row['tanggal'])); ?></td>
                                   <td><?php echo date('d M Y', strtotime($row['tanggal'])); ?></td>
+                                  <td><?php if($row['plg'] == 'Akhwat'){echo '<span class="label bg-pink">Akhwat</span>';} else if($row['plg'] == 'Ikhwan'){echo '<span class="label bg-cyan">Ikhwan</span>';} ?></td>
                                   <td><?php echo $row['total']; ?></td>
-                                  <td><?php echo $row['nilai_harian']; ?></td>
-                                  <td><?php if($row['j_kelamin'] == 'akhwat'){echo '<span class="label bg-pink">Jadwal Pulang Akhwat</span>';} else if($row['j_kelamin'] == 'ikhwan'){echo '<span class="label bg-cyan">Jadwal Pulang Ikhwan</span>';} ?></td>
+                                  <td><?php echo $row['jmlu']; ?></td>
+                                  <td><?php echo $row['target2']; ?></td>
+                                  <td><?php echo $row['nilai']; ?></td>
                                 </tr>
                                 <?php $no++; } ?>
                               </tbody> 
