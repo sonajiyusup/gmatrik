@@ -1,3 +1,13 @@
 - add jadwal pulang on shalat ikhtisar table OK
 - add jadwal pulang on shalat period table OK
 - create shalat detail by day ikhtisar page
+
+- create jml shalat per waktu graph on shalatbyday
+
+- redesign query and page shalatia
+	- table
+	- graph
+- create query and page shalatiadetail
+	- table
+	- graph
+	- percentage

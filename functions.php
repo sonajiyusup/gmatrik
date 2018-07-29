@@ -588,15 +588,12 @@
 	}*/
 
 	// Table Nilai PRESENSI SHALAT WAJIB MAHASISWA
-	function shalatNilaiIkhtisar(){
-		$ambildata = mysql_query("SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, COUNT(s.wkt_shalat) AS 'total', ikhwan.nilai AS 'nilai_ikhwan', akhwat.nilai AS 'nilai_akhwat' FROM shalat_periode sp LEFT JOIN ( SELECT sp.id_periode, ROUND((COUNT(s.wkt_shalat)/179)/sp.jws_ikhwan*100) AS 'nilai' FROM shalat_periode sp LEFT JOIN shalat s ON sp.id_periode = s.id_periode LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa WHERE m.j_kelamin = 'Ikhwan' GROUP BY sp.id_periode ORDER BY sp.id_periode ) AS ikhwan ON sp.id_periode = ikhwan.id_periode LEFT JOIN ( SELECT sp.id_periode, ROUND((COUNT(s.wkt_shalat)/193)/sp.jws_akhwat*100) AS 'nilai' FROM shalat_periode sp LEFT JOIN shalat s ON sp.id_periode = s.id_periode LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa WHERE m.j_kelamin = 'Akhwat' GROUP BY sp.id_periode ORDER BY sp.id_periode ) AS akhwat ON sp.id_periode = akhwat.id_periode LEFT JOIN shalat s ON sp.id_periode = s.id_periode GROUP BY sp.id_periode ORDER BY sp.id_periode") or die(mysql_error());
-		if (mysql_num_rows($ambildata) > 0) {
+	function shalatIkhwanAkhwat(){
+		$ambildata = mysql_query("SELECT m.j_kelamin, COUNT(s.wkt_tapping) AS total, h.jmhs, d.jhari, h.jmhs*d.jhari*5 AS target_awal, j.jwsp*h.jmhs AS jplg, IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,(j.jwsp*h.jmhs)+(IF(u.jmlu IS NULL, 0, u.jmlu)) AS total_dispen, (h.jmhs*d.jhari*5)-((j.jwsp*h.jmhs)+(IF(u.jmlu IS NULL, 0, u.jmlu))) AS target_akhir, ROUND(((COUNT(s.wkt_tapping)/((h.jmhs*d.jhari*5)-((j.jwsp*h.jmhs)+(IF(u.jmlu IS NULL, 0, u.jmlu)))))*100),2) AS nilai FROM mahasiswa m LEFT JOIN shalat s ON m.id_mahasiswa = s.id_mahasiswa LEFT JOIN ( SELECT m.j_kelamin, COUNT(m.id_mahasiswa) AS jmhs FROM mahasiswa m GROUP BY m.j_kelamin ) h ON m.j_kelamin = h.j_kelamin JOIN ( SELECT DATEDIFF(MAX(s.tanggal),MIN(s.tanggal))+1 AS jhari FROM shalat s ) d LEFT JOIN ( SELECT jp.j_kelamin, COUNT(jp.wkt_shalat) AS jwsp FROM j_pulang2 jp GROUP BY jp.j_kelamin ) j ON m.j_kelamin = j.j_kelamin LEFT JOIN ( SELECT COUNT(su.udzur) AS jmlu, m.j_kelamin FROM shalat_udzur2 su LEFT JOIN mahasiswa m ON su.id_mahasiswa = m.id_mahasiswa WHERE su.disetujui = 1 ) u ON m.j_kelamin = u.j_kelamin GROUP BY m.j_kelamin") or die(mysql_error());
+
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
 				return $data;
-		} else{
-			echo "Data Nilai Shalat kosong";
-		}	
 	}		
 
 	function tampilPeriodeShalat(){
