@@ -827,3 +827,50 @@ SELECT s.id_mahasiswa, m.nama, s.wkt_tapping
 FROM shalat s
 LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa
 WHERE s.id_periode = 3 AND s.wkt_shalat = 'dzuhur' AND s.tanggal = '2018-03-16'
+
+
+-- shalatNilaiSemua NEW QUERY DESIGN (STILL BUG IN nilai2 minus value)
+SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, 
+COUNT(s.wkt_shalat) AS 'total', 
+d.jhari*h.jmhs*5 AS target1,
+h.jmhs,
+d.jhari,
+IF(p.id_periode IS NULL, '-', (CASE WHEN p.j_kelamin = 'Akhwat' THEN 'Akhwat' ELSE 'Ikhwan' END)) AS plg,
+IF(p.id_periode IS NULL, 0, (CASE WHEN p.j_kelamin = 'Akhwat' THEN a.plg ELSE i.plg END)) AS jpmhs,
+IF(j.jplg IS NULL, 0, j.jplg) AS jplg,
+(IF(p.id_periode IS NULL, 0, (CASE WHEN p.j_kelamin = 'Akhwat' THEN a.plg ELSE i.plg END)))*IF(j.jplg IS NULL, 0, j.jplg) AS total_jplg,
+(d.jhari*h.jmhs*5)-((IF(p.id_periode IS NULL, 0, (CASE WHEN p.j_kelamin = 'Akhwat' THEN a.plg ELSE i.plg END)))*IF(j.jplg IS NULL, 0, j.jplg)) AS target2,
+(COUNT(s.wkt_shalat)/(d.jhari*h.jmhs*5)-((IF(p.id_periode IS NULL, 0, (CASE WHEN p.j_kelamin = 'Akhwat' THEN a.plg ELSE i.plg END)))*IF(j.jplg IS NULL, 0, j.jplg)))*100 AS nilai2,
+ROUND(((COUNT(s.wkt_shalat)/372)/((sp.jws_ikhwan+sp.jws_akhwat)/2)*100),2) AS 'nilai' 
+FROM shalat_periode sp 
+LEFT JOIN shalat s ON sp.id_periode = s.id_periode 
+JOIN (
+    SELECT COUNT(m.id_mahasiswa) AS jmhs
+    FROM mahasiswa m
+) h
+LEFT JOIN (
+    SELECT sp.id_periode, DATEDIFF(sp.tanggal_sampai, sp.tanggal_dari)+1 AS jhari
+    FROM shalat_periode sp
+) d ON sp.id_periode = d.id_periode
+LEFT JOIN (
+    SELECT jp.id_periode, jp.j_kelamin
+    FROM j_pulang2 jp 
+    GROUP BY jp.id_periode
+) p ON sp.id_periode = p.id_periode
+JOIN (
+    SELECT COUNT(m.id_mahasiswa) AS plg
+    FROM mahasiswa m
+    WHERE m.j_kelamin = 'Akhwat'
+) a
+JOIN (
+    SELECT COUNT(m.id_mahasiswa) AS plg
+    FROM mahasiswa m
+    WHERE m.j_kelamin = 'Ikhwan'
+) i
+LEFT JOIN (
+    SELECT jp.id_periode, COUNT(jp.wkt_shalat) AS jplg
+    FROM j_pulang2 jp
+    GROUP BY jp.id_periode
+) j ON sp.id_periode = j.id_periode
+GROUP BY sp.id_periode 
+ORDER BY sp.id_periode

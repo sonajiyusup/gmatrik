@@ -98,8 +98,9 @@
                                   <th>ID</th>
                                   <th>Periode</th>
                                   <th>Total Waktu Shalat</th>
-                                  <th>Jumlah Maks Waktu Shalat</th>
-                                  <th>Jumlah Waktu Shalat</th>
+                                  <th>Maks Jml Waktu Shalat</th>
+                                  <th>Jadwal Pulang</th>
+                                  <th>Real Jml Waktu Shalat</th>
                                   <th>Nilai</th>
                                 </tr>
                               </thead>
@@ -113,6 +114,7 @@
                                   <td><?php echo '<a href="?page=shalatpdetail&id='.$row['id_periode'].'">'.date('d M Y', strtotime($row['tanggal_dari']))." - ".date('d M Y', strtotime($row['tanggal_sampai'])).'</a>'; ?></td>
                                   <td><?php echo $row['total']; ?></td>
                                   <td><?php echo $row['target']; ?></td>
+                                  <td><?php echo $row['plg']; ?></td>
                                   <td><?php echo $row['jmlrt']; ?></td>
                                   <td><?php echo $row['nilai']; ?></td>
                                 </tr>
