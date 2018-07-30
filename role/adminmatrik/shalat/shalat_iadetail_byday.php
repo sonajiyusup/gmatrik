@@ -12,7 +12,7 @@
                     <div class="card">
                         <div class="header">
                             <h2>
-                              <a href="?page=shalatpdetail&id=<?php echo $idPeriod;?>" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;
+                              <a href="?page=shalatiabyperiod&j=<?php echo $jKelamin;?>&p=<?php echo $idPeriod;?>" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;
                             GRAFIK PRESENSI SHALAT MAHASISWA &nbsp;
                                   <?php 
                                     if($tgl != '20180302'){
