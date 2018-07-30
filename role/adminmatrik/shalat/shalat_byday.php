@@ -98,10 +98,10 @@
                                                       }
                                                     }
                                                   ?>],
-                                                  borderColor: 'rgba(233, 30, 30, 0.20)',
-                                                  backgroundColor: 'rgba(233, 30, 30, 0.2)',
-                                                  pointBorderColor: 'rgba(233, 30, 30, 0)',
-                                                  pointBackgroundColor: 'rgba(233, 30, 30, 0.4)',
+                                                  borderColor: 'rgba(233, 30, 99, 0.75)',
+                                                  backgroundColor: 'rgba(200, 30, 99, 0.3)',
+                                                  pointBorderColor: 'rgba(200, 30, 99, 0)',
+                                                  pointBackgroundColor: 'rgba(200, 30, 99, 0.9)',
                                                   pointBorderWidth: 1
                                               }]
                                       },
