@@ -187,7 +187,7 @@
                                  ?>
                                 <tr>
                                   <td><?php echo $no; ?></td>
-                                  <td><?php echo '<a href="?page=shalatbyday&p='.$idPeriod.'&t='.date('Ymd', strtotime($row['tanggal'])).'">'.date('l', strtotime($row['tanggal'])).'</a>'; ?></td> 
+                                  <td><?php echo '<a href="?page=shalatiabyday&j='.$jKelamin.'&p='.$idPeriod.'&t='.date('Ymd', strtotime($row['tanggal'])).'">'.date('l', strtotime($row['tanggal'])).'</a>'; ?></td> 
                                   <td><?php echo date('d M Y', strtotime($row['tanggal'])); ?></td>
                                   <td><?php if($row['plg'] == 'Akhwat'){echo '<span class="label bg-pink">Akhwat</span>';} else if($row['plg'] == 'Ikhwan'){echo '<span class="label bg-cyan">Ikhwan</span>';} ?></td>
                                   <td><?php echo $row['total']; ?></td>
