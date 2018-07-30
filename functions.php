@@ -604,6 +604,14 @@
 				return $data;		
 	}
 
+	function shalatIAByPeriodDetail($j_kelamin, $periodId){
+		$ambildata = mysql_query("SELECT t.tanggal, IF(p.tanggal IS NULL, t.total, 0) AS total, j.jmhs, (IF(p.tanggal IS NULL, j.jmhs, p.j_kelamin))*5 AS target1, IF(p.tanggal IS NULL, '-', p.j_kelamin) AS plg, IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu, ((IF(p.tanggal IS NULL, j.jmhs, p.j_kelamin))*5)-(IF(u.jmlu IS NULL, 0, u.jmlu)) AS target2, IF(ROUND((((IF(p.tanggal IS NULL, t.total, 0))/(((IF(p.tanggal IS NULL, j.jmhs, p.j_kelamin))*5)-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) IS NULL, 0, ROUND((((IF(p.tanggal IS NULL, t.total, 0))/(((IF(p.tanggal IS NULL, j.jmhs, p.j_kelamin))*5)-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2)) AS nilai FROM ( SELECT s.tanggal, COUNT(s.wkt_tapping) AS total, s.id_periode FROM shalat s LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa WHERE m.j_kelamin = '$j_kelamin' GROUP BY s.tanggal ) t LEFT JOIN ( SELECT jp.tanggal, jp.j_kelamin FROM j_pulang2 jp WHERE jp.j_kelamin = '$j_kelamin' GROUP BY jp.tanggal ) p ON t.tanggal = p.tanggal JOIN ( SELECT COUNT(m.id_mahasiswa) AS jmhs FROM mahasiswa m WHERE m.j_kelamin = '$j_kelamin' ) j LEFT JOIN ( SELECT su.tanggal, COUNT(su.udzur) AS jmlu FROM shalat_udzur2 su WHERE su.disetujui = 1 ) u ON t.tanggal = u.tanggal WHERE t.id_periode = $periodId GROUP BY t.tanggal") or die(mysql_error());
+
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;	
+	}
+
 	function tampilPeriodeShalat(){
 		$ambildata = mysql_query("SELECT id_periode, tanggal_dari, tanggal_sampai FROM `shalat_periode`") or die(mysql_error());
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}

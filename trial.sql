@@ -686,17 +686,40 @@ LEFT JOIN (
 WHERE m.j_kelamin = 'Akhwat'
 GROUP BY sp.id_periode
 
--- shalat wajib berdasarkan ikhwan/akhwat detail by period
-SELECT s.tanggal, COUNT(s.wkt_tapping) AS total, j.jmhs, j.jmhs*5 AS target, ROUND(((COUNT(s.wkt_tapping)/(j.jmhs*5))*100),2) AS nilai
-FROM shalat s
-LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa
-LEFT JOIN (
-    SELECT m.j_kelamin, COUNT(m.id_mahasiswa) AS jmhs
-    FROM mahasiswa m
-    WHERE m.j_kelamin = 'Akhwat'
-) j ON m.j_kelamin = j.j_kelamin
-WHERE m.j_kelamin = 'Akhwat' AND s.id_periode = 4
-GROUP BY s.tanggal
+-- shalat wajib berdasarkan ikhwan/akhwat detail by period (WORK)
+SELECT t.tanggal, 
+IF(p.tanggal IS NULL, t.total, 0) AS total,
+j.jmhs,
+(IF(p.tanggal IS NULL, j.jmhs, p.j_kelamin))*5 AS target1,
+IF(p.tanggal IS NULL, '-', p.j_kelamin) AS plg,
+IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
+((IF(p.tanggal IS NULL, j.jmhs, p.j_kelamin))*5)-(IF(u.jmlu IS NULL, 0, u.jmlu)) AS target2,
+IF(ROUND((((IF(p.tanggal IS NULL, t.total, 0))/(((IF(p.tanggal IS NULL, j.jmhs, p.j_kelamin))*5)-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) IS NULL, 0, ROUND((((IF(p.tanggal IS NULL, t.total, 0))/(((IF(p.tanggal IS NULL, j.jmhs, p.j_kelamin))*5)-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2)) AS nilai 
+FROM (
+    SELECT s.tanggal, COUNT(s.wkt_tapping) AS total, s.id_periode
+    FROM shalat s
+    LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa
+    WHERE m.j_kelamin = 'Ikhwan'
+    GROUP BY s.tanggal
+) t
+LEFT JOIN ( 
+    SELECT jp.tanggal, jp.j_kelamin 
+    FROM j_pulang2 jp 
+    WHERE jp.j_kelamin = 'Ikhwan'
+    GROUP BY jp.tanggal 
+) p ON t.tanggal = p.tanggal 
+JOIN ( 
+    SELECT COUNT(m.id_mahasiswa) AS jmhs 
+    FROM mahasiswa m 
+    WHERE m.j_kelamin = 'Ikhwan'
+) j 
+LEFT JOIN ( 
+    SELECT su.tanggal, COUNT(su.udzur) AS jmlu 
+    FROM shalat_udzur2 su 
+    WHERE su.disetujui = 1 
+) u ON t.tanggal = u.tanggal 
+WHERE t.id_periode = 1
+GROUP BY t.tanggal
 
 -- shalat wajib berdasarkan ikhwan/akhwat detail by period by day (WORK !)
 SELECT m.id_mahasiswa, m.nama, su.wkt_tapping AS 'Shubuh', zu.wkt_tapping AS 'Dzuhur', ar.wkt_tapping AS 'Ashar', mg.wkt_tapping AS 'Maghrib', iy.wkt_tapping AS 'Isya'
