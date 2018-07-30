@@ -1028,3 +1028,62 @@ JOIN (
     WHERE s.tanggal = '2018-03-17' 
     GROUP BY s.tanggal
 ) b
+
+
+-- Shalat Ikhwan/ Akhwat By Day (WORK)
+SELECT m.id_mahasiswa, m.nama, su.wkt_tapping AS 'shubuh', dz.wkt_tapping AS 'dzuhur', ah.wkt_tapping AS 'ashar', mg.wkt_tapping AS 'maghrib', iy.wkt_tapping AS 'isya'
+FROM mahasiswa m
+LEFT JOIN (
+    SELECT s.id_mahasiswa, s.wkt_tapping, s.wkt_shalat
+    FROM shalat s
+    WHERE s.wkt_shalat = 'shubuh' AND s.tanggal = '2018-03-23'
+) su ON m.id_mahasiswa = su.id_mahasiswa
+LEFT JOIN (
+    SELECT s.id_mahasiswa, s.wkt_tapping, s.wkt_shalat
+    FROM shalat s
+    WHERE s.wkt_shalat = 'dzuhur' AND s.tanggal = '2018-03-23'
+) dz ON m.id_mahasiswa = dz.id_mahasiswa
+LEFT JOIN (
+    SELECT s.id_mahasiswa, s.wkt_tapping, s.wkt_shalat
+    FROM shalat s
+    WHERE s.wkt_shalat = 'ashar' AND s.tanggal = '2018-03-23'
+) ah ON m.id_mahasiswa = ah.id_mahasiswa
+LEFT JOIN (
+    SELECT s.id_mahasiswa, s.wkt_tapping, s.wkt_shalat
+    FROM shalat s
+    WHERE s.wkt_shalat = 'maghrib' AND s.tanggal = '2018-03-23'
+) mg ON m.id_mahasiswa = mg.id_mahasiswa
+LEFT JOIN (
+    SELECT s.id_mahasiswa, s.wkt_tapping, s.wkt_shalat
+    FROM shalat s
+    WHERE s.wkt_shalat = 'isya' AND s.tanggal = '2018-03-23'
+) iy ON m.id_mahasiswa = iy.id_mahasiswa
+WHERE m.j_kelamin = 'Akhwat'
+
+
+-- Hitung persentase naik/turun ikhwan/akhwat shalat by day / date (WORK)
+SELECT a.jml AS a, b.jml AS b, 
+ROUND((((b.jml-a.jml)/a.jml)*100),2) AS '%'
+FROM (
+    SELECT s.tanggal, COUNT(s.wkt_tapping) AS jml 
+    FROM shalat s
+    LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa
+    WHERE m.j_kelamin = 'Akhwat' AND s.tanggal = '2018-03-16'
+    GROUP BY s.tanggal 
+) a 
+JOIN (
+    SELECT s.tanggal, COUNT(s.wkt_tapping) AS jml 
+    FROM shalat s
+    LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa
+    WHERE m.j_kelamin = 'Akhwat' AND s.tanggal = '2018-03-17'
+    GROUP BY s.tanggal
+) b
+
+
+-- shalat ikhwan/akhwat by day JML for graph (WORK)
+SELECT s.wkt_shalat, COUNT(s.wkt_tapping) AS jml
+FROM shalat s
+LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa
+WHERE m.j_kelamin = 'Akhwat' AND s.tanggal = '2018-03-20'
+GROUP BY s.wkt_shalat
+ORDER BY s.wkt_tapping

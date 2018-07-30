@@ -612,6 +612,16 @@
 				return $data;	
 	}
 
+	function shalatIAByDay($j_kelamin, $tgl){
+		$tgl_ = date('Y-m-d', strtotime($tgl));
+
+		$ambildata = mysql_query("SELECT m.id_mahasiswa, m.nama, su.wkt_tapping AS 'shubuh', dz.wkt_tapping AS 'dzuhur', ah.wkt_tapping AS 'ashar', mg.wkt_tapping AS 'maghrib', iy.wkt_tapping AS 'isya' FROM mahasiswa m LEFT JOIN ( SELECT s.id_mahasiswa, s.wkt_tapping, s.wkt_shalat FROM shalat s WHERE s.wkt_shalat = 'shubuh' AND s.tanggal = '$tgl_' ) su ON m.id_mahasiswa = su.id_mahasiswa LEFT JOIN ( SELECT s.id_mahasiswa, s.wkt_tapping, s.wkt_shalat FROM shalat s WHERE s.wkt_shalat = 'dzuhur' AND s.tanggal = '$tgl_' ) dz ON m.id_mahasiswa = dz.id_mahasiswa LEFT JOIN ( SELECT s.id_mahasiswa, s.wkt_tapping, s.wkt_shalat FROM shalat s WHERE s.wkt_shalat = 'ashar' AND s.tanggal = '$tgl_' ) ah ON m.id_mahasiswa = ah.id_mahasiswa LEFT JOIN ( SELECT s.id_mahasiswa, s.wkt_tapping, s.wkt_shalat FROM shalat s WHERE s.wkt_shalat = 'maghrib' AND s.tanggal = '$tgl_' ) mg ON m.id_mahasiswa = mg.id_mahasiswa LEFT JOIN ( SELECT s.id_mahasiswa, s.wkt_tapping, s.wkt_shalat FROM shalat s WHERE s.wkt_shalat = 'isya' AND s.tanggal = '$tgl_' ) iy ON m.id_mahasiswa = iy.id_mahasiswa WHERE m.j_kelamin = '$j_kelamin' ORDER BY m.nama") or die(mysql_error());
+
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;			
+	}
+
 	function tampilPeriodeShalat(){
 		$ambildata = mysql_query("SELECT id_periode, tanggal_dari, tanggal_sampai FROM `shalat_periode`") or die(mysql_error());
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
@@ -696,6 +706,16 @@
 				return $data;	
 	}
 
+	function jmlShalatIAPerDayByWaktu($j_kelamin, $tgl){
+		$tgl_ = date('Y-m-d', strtotime($tgl));
+
+		$ambildata = mysql_query("SELECT s.wkt_shalat, COUNT(s.wkt_tapping) AS jml FROM shalat s LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa WHERE m.j_kelamin = '$j_kelamin' AND s.tanggal = '$tgl_' GROUP BY s.wkt_shalat ORDER BY s.wkt_tapping") or die(mysql_error());
+		
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;	
+	}	
+
 	function percenIkhtisarByDay($tgl1, $tgl2){
 		$tgl1_ = date('Y-m-d', strtotime($tgl1));
 		$tgl2_ = date('Y-m-d', strtotime($tgl2));
@@ -706,6 +726,17 @@
 				$data[] = $ad;
 				return $data;			
 	}
+
+	function percenIAByDay($j_kelamin, $tgl1, $tgl2){
+		$tgl1_ = date('Y-m-d', strtotime($tgl1));
+		$tgl2_ = date('Y-m-d', strtotime($tgl2));
+
+		$ambildata = mysql_query("SELECT a.jml AS a, b.jml AS b, ROUND((((b.jml-a.jml)/a.jml)*100),2) AS percent FROM ( SELECT s.tanggal, COUNT(s.wkt_tapping) AS jml FROM shalat s LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa WHERE m.j_kelamin = '$j_kelamin' AND s.tanggal = '$tgl1_' GROUP BY s.tanggal ) a JOIN ( SELECT s.tanggal, COUNT(s.wkt_tapping) AS jml FROM shalat s LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa WHERE m.j_kelamin = '$j_kelamin' AND s.tanggal = '$tgl2_' GROUP BY s.tanggal ) b") or die(mysql_error());
+		
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;			
+	}	
 
 	function shalatByPembina($column){
 		if ($column == 'chart') {
