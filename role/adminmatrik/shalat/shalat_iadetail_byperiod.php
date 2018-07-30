@@ -36,7 +36,7 @@
                                   ?>
                               <small> Periode : &nbsp;
                                 <div class="btn-group">
-                                                    <button type="button" class="btn bg-cyan waves-effect dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button type="button" class="btn <?php if($jKelamin == 'Akhwat'){echo 'bg-pink';}else if($jKelamin == 'Ikhwan'){echo 'bg-cyan';} ?> waves-effect dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         <?php $dataPresensi = tampilTglPeriodeById($idPeriod);
                                                           foreach($dataPresensi as $row){
                                                             echo $row['id_periode'].'. '.date('d M Y', strtotime($row['tanggal_dari']))." - ".date('d M Y', strtotime($row['tanggal_sampai']));
@@ -49,12 +49,32 @@
                                                           $dataPeriode = tampilPeriodeShalat();
                                                           foreach($dataPeriode as $row){
                                                           ?>
-                                                            <li><?php echo '<a href="?page=shalatpdetail&id='.$row['id_periode'].'">'.$row['id_periode'].'. '.date('d M Y', strtotime($row['tanggal_dari'])).' - '.date('d M Y', strtotime($row['tanggal_sampai'])).'</a>'; ?></li>
+                                                            <li><?php echo '<a href="?page=shalatiabyperiod&j='.$jKelamin.'&p='.$row['id_periode'].'">'.$row['id_periode'].'. '.date('d M Y', strtotime($row['tanggal_dari'])).' - '.date('d M Y', strtotime($row['tanggal_sampai'])).'</a>'; ?></li>
                                                           <?php
                                                           }
                                                         ?>
                                                     </ul>
                                                 </div>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn <?php if($jKelamin == 'Akhwat'){echo 'bg-pink';}else if($jKelamin == 'Ikhwan'){echo 'bg-cyan';} ?> waves-effect dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <?php 
+                                                          if($jKelamin == 'Akhwat'){echo 'AKHWAT';}else if($jKelamin == 'Ikhwan'){echo 'IKHWAN';}
+                                                        ?>
+                                            <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                      <?php 
+                                                        if ($jKelamin == 'Ikhwan') {
+                                                          echo '<li><a href="?page=shalatiabyperiod&j=Ikhwan&p='.$idPeriod.'">IKHWAN</a></li>
+                                                                <li><a href="?page=shalatiabyperiod&j=Akhwat&p='.$idPeriod.'">AKHWAT</a></li>';
+                                                        } else
+                                                        if ($jKelamin == 'Akhwat') {
+                                                          echo '<li><a href="?page=shalatiabyperiod&j=Akhwat&p='.$idPeriod.'">AKHWAT</a></li>
+                                                                <li><a href="?page=shalatiabyperiod&j=Ikhwan&p='.$idPeriod.'">IKHWAN</a></li>';
+                                                        }
+                                                       ?>
+                                                    </ul>
+                              </div>
                               </small>
                             </h2>
                         </div>
@@ -82,7 +102,7 @@
                                           datasets: [{
                                               label: "Nilai Harian Rata-rata",
                                               data: [<?php
-                                                    $dataNilai = shalatByPeriodID($idPeriod);
+                                                    $dataNilai = shalatIAByPeriodDetail($jKelamin, $idPeriod);
                                                     foreach ($dataNilai as $row){
                                                      echo '"'.$row['nilai'].'",';
                                                     }
@@ -97,13 +117,13 @@
                                                   data: [<?php
 
                                                     if($idPeriod != 1){
-                                                      $dataTarget = shalatByPeriodID($idPeriod-1);
+                                                      $dataTarget = shalatIAByPeriodDetail($jKelamin, $idPeriod-1);
                                                       foreach ($dataTarget as $row){
                                                        echo '"'.$row['nilai'].'",';
                                                       }
                                                     } else
                                                     if($idPeriod == 1){
-                                                      $dataTarget = shalatByPeriodID($idPeriod);
+                                                      $dataTarget = shalatIAByPeriodDetail($jKelamin, $idPeriod);
                                                       foreach ($dataTarget as $row){
                                                        echo '"'.$row['nilai'].'",';
                                                       }
