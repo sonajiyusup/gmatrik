@@ -14,17 +14,25 @@
                             <small>
                               Pilih Berdasarkan :
                               <div class="btn-group">
-                                                    <button type="button" class="btn bg-cyan waves-effect dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button type="button" class="btn <?php if($jKelamin == 'Akhwat'){echo 'bg-pink';}else if($jKelamin == 'Ikhwan'){echo 'bg-cyan';} ?> waves-effect dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         <?php 
                                                           if($jKelamin == 'Akhwat'){echo 'AKHWAT';}else if($jKelamin == 'Ikhwan'){echo 'IKHWAN';}
                                                         ?>
                                             <span class="caret"></span>
                                                     </button>
                                                     <ul class="dropdown-menu">
-                                                      <li><a href="?page=shalatiadetail&j=Ikhwan">IKHWAN</a></li>
-                                                      <li><a href="?page=shalatiadetail&j=Akhwat">AKHWAT</a></li>
+                                                      <?php 
+                                                        if ($jKelamin == 'Ikhwan') {
+                                                          echo '<li><a href="?page=shalatiadetail&j=Ikhwan">IKHWAN</a></li>
+                                                                <li><a href="?page=shalatiadetail&j=Akhwat">AKHWAT</a></li>';
+                                                        } else
+                                                        if ($jKelamin == 'Akhwat') {
+                                                          echo '<li><a href="?page=shalatiadetail&j=Akhwat">AKHWAT</a></li>
+                                                                <li><a href="?page=shalatiadetail&j=Ikhwan">IKHWAN</a></li>';
+                                                        }
+                                                       ?>
                                                     </ul>
-                                                </div>
+                              </div>
                             </small>
                         </div>
                         <div class="body">
@@ -56,10 +64,20 @@
                                                      echo '"'.$row['nilai'].'",';
                                                     }
                                                   ?>],
-                                              borderColor: 'rgba(0, 188, 212, 0.75)',
-                                              backgroundColor: 'rgba(0, 188, 212, 0.3)',
-                                              pointBorderColor: 'rgba(0, 188, 212, 0)',
-                                              pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
+                                              <?php 
+                                                if($jKelamin == 'Ikhwan'){
+                                                  echo "borderColor: 'rgba(0, 188, 212, 0.75)',
+                                                        backgroundColor: 'rgba(0, 188, 212, 0.3)',
+                                                        pointBorderColor: 'rgba(0, 188, 212, 0)',
+                                                        pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',";
+                                                } else
+                                                if($jKelamin == 'Akhwat'){
+                                                  echo "borderColor: 'rgba(233, 30, 99, 0.75)',
+                                                        backgroundColor: 'rgba(200, 30, 99, 0.3)',
+                                                        pointBorderColor: 'rgba(200, 30, 99, 0)',
+                                                        pointBackgroundColor: 'rgba(200, 30, 99, 0.9)',";
+                                                }
+                                               ?>
                                               pointBorderWidth: 1
                                           }]
                                       },
