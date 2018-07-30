@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 26, 2018 at 04:36 AM
+-- Generation Time: Jul 30, 2018 at 03:21 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -70668,6 +70668,39 @@ INSERT INTO `shalat_udzur` (`id_udzur`, `id_mhsbinaan`, `id_periode`, `id_m_udzu
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `shalat_udzur2`
+--
+
+CREATE TABLE `shalat_udzur2` (
+  `id_udzur` int(11) NOT NULL,
+  `id_periode` int(11) DEFAULT NULL,
+  `id_mahasiswa` int(11) NOT NULL,
+  `tanggal` date NOT NULL,
+  `wkt_shalat` varchar(7) NOT NULL,
+  `udzur` varchar(10) NOT NULL,
+  `keterangan` varchar(100) DEFAULT NULL,
+  `disetujui` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `shalat_udzur2`
+--
+
+INSERT INTO `shalat_udzur2` (`id_udzur`, `id_periode`, `id_mahasiswa`, `tanggal`, `wkt_shalat`, `udzur`, `keterangan`, `disetujui`) VALUES
+(1, 1, 1179, '2018-03-04', 'shubuh', 'haid', NULL, 1),
+(2, 1, 1179, '2018-03-04', 'dzuhur', 'haid', NULL, 1),
+(3, 1, 1179, '2018-03-04', 'ashar', 'haid', NULL, 1),
+(4, 1, 1179, '2018-03-04', 'maghrib', 'haid', NULL, 1),
+(5, 1, 1179, '2018-03-04', 'isya', 'haid', NULL, 1),
+(6, 1, 1179, '2018-03-05', 'shubuh', 'haid', NULL, 0),
+(7, 1, 1179, '2018-03-05', 'dzuhur', 'haid', NULL, 0),
+(8, 1, 1179, '2018-03-05', 'ashar', 'haid', NULL, 0),
+(9, 1, 1179, '2018-03-05', 'maghrib', 'haid', NULL, 0),
+(10, 1, 1179, '2018-03-05', 'isya', 'haid', NULL, 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -70686,7 +70719,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id_user`, `username`, `password`, `password_default`, `level`, `last_login`) VALUES
 (1, 'admin', 'admin', 0, 0, '2018-04-24 08:58:28'),
-(2, 'derry', 'bismillah', 0, 2, '2018-06-25 19:40:59'),
+(2, 'derry', 'bismillah', 0, 2, '2018-07-29 21:34:07'),
 (21, 'bintang', 'bintang123', 0, 3, '2018-03-12 08:11:09'),
 (23, 'hasan', 'hasan123', 0, 2, '2017-11-30 17:06:08'),
 (24, 'rizky@tazkia.ac.id', 'rizy123', 0, 3, '0000-00-00 00:00:00'),
@@ -71247,6 +71280,14 @@ ALTER TABLE `shalat_udzur`
   ADD KEY `id_m_udzur` (`id_m_udzur`);
 
 --
+-- Indexes for table `shalat_udzur2`
+--
+ALTER TABLE `shalat_udzur2`
+  ADD PRIMARY KEY (`id_udzur`),
+  ADD KEY `id_mahasiswa` (`id_mahasiswa`),
+  ADD KEY `id_periode` (`id_periode`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -71322,6 +71363,11 @@ ALTER TABLE `shalat_periode`
 --
 ALTER TABLE `shalat_udzur`
   MODIFY `id_udzur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `shalat_udzur2`
+--
+ALTER TABLE `shalat_udzur2`
+  MODIFY `id_udzur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `users`
 --
@@ -71410,6 +71456,13 @@ ALTER TABLE `shalat_udzur`
   ADD CONSTRAINT `shalat_udzur_ibfk_1` FOREIGN KEY (`id_mhsbinaan`) REFERENCES `m_binaan` (`id_mhsbinaan`),
   ADD CONSTRAINT `shalat_udzur_ibfk_2` FOREIGN KEY (`id_periode`) REFERENCES `shalat_periode` (`id_periode`),
   ADD CONSTRAINT `shalat_udzur_ibfk_3` FOREIGN KEY (`id_m_udzur`) REFERENCES `shalat_m_udzur` (`id_m_udzur`);
+
+--
+-- Constraints for table `shalat_udzur2`
+--
+ALTER TABLE `shalat_udzur2`
+  ADD CONSTRAINT `shalat_udzur2_ibfk_1` FOREIGN KEY (`id_mahasiswa`) REFERENCES `mahasiswa` (`id_mahasiswa`),
+  ADD CONSTRAINT `shalat_udzur2_ibfk_2` FOREIGN KEY (`id_periode`) REFERENCES `shalat_periode` (`id_periode`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
