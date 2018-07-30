@@ -15,7 +15,7 @@
 
                               <?php 
                                     if($idPeriod != 1){
-                                      $percent = percenIkhtisarByPeriod(($idPeriod-1), $idPeriod);
+                                      $percent = percenIAByPeriod($jKelamin, ($idPeriod-1), $idPeriod);
                                       foreach ($percent as $row){
                                         if ($row['a'] > $row['b']) {
                                           echo 
