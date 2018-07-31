@@ -1196,3 +1196,51 @@ LEFT JOIN (
 WHERE t.id_pembina = 34 
 GROUP BY sp.id_periode 
 ORDER BY sp.id_periode
+
+
+-- shalat by pembina detail by period LENGKAP (WORK)
+SELECT sp.id_periode, s.tanggal, 
+COUNT(s.wkt_shalat) AS 'total', 
+j.jmlb, 
+(j.jmlb*5) AS 'target1', 
+(CASE WHEN t.j_kelamin = 'Akhwat' THEN (IF(pa.jplg IS NULL, 0, pa.jplg)) ELSE (IF(pi.jplg IS NULL, 0, pi.jplg)) END) AS jplg,
+IF(uz.jmlu IS NULL, 0, uz.jmlu) AS jmlu,
+IF(((CASE WHEN t.j_kelamin = 'Akhwat' THEN (IF(pa.jplg IS NULL, 0, pa.jplg)) ELSE (IF(pi.jplg IS NULL, 0, pi.jplg)) END)) = 5 , 0, (j.jmlb*5)-(CASE WHEN t.j_kelamin = 'Akhwat' THEN (IF(pa.jplg IS NULL, 0, pa.jplg)) ELSE (IF(pi.jplg IS NULL, 0, pi.jplg)) END)-(IF(uz.jmlu IS NULL, 0, uz.jmlu))) AS target2,
+ROUND(((COUNT(s.wkt_shalat)/(IF(((CASE WHEN t.j_kelamin = 'Akhwat' THEN (IF(pa.jplg IS NULL, 0, pa.jplg)) ELSE (IF(pi.jplg IS NULL, 0, pi.jplg)) END)) = 5 , 0, (j.jmlb*5)-(CASE WHEN t.j_kelamin = 'Akhwat' THEN (IF(pa.jplg IS NULL, 0, pa.jplg)) ELSE (IF(pi.jplg IS NULL, 0, pi.jplg)) END)-(IF(uz.jmlu IS NULL, 0, uz.jmlu)))))*100),2) AS 'nilai' 
+FROM shalat_periode sp 
+LEFT JOIN shalat s ON sp.id_periode = s.id_periode 
+LEFT JOIN( 
+    SELECT mb.id_mhsbinaan, m.id_mahasiswa, p.id_pembina, p.j_kelamin 
+    FROM m_binaan mb 
+    LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina 
+    LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa 
+) t ON s.id_mahasiswa = t.id_mahasiswa 
+LEFT JOIN( 
+    SELECT P.id_pembina, p.nama, COUNT(mb.id_mahasiswa) AS jmlb 
+    FROM m_binaan mb 
+    LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa 
+    LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina 
+    WHERE mb.id_pembina = 34 GROUP BY p.nama 
+) j ON t.id_pembina = j.id_pembina 
+LEFT JOIN (
+    SELECT jp.tanggal, COUNT(jp.wkt_shalat) AS jplg
+    FROM j_pulang2 jp
+    WHERE jp.j_kelamin = 'Akhwat'
+    GROUP BY jp.tanggal    
+) pa ON s.tanggal = pa.tanggal
+LEFT JOIN (
+    SELECT jp.tanggal, COUNT(jp.wkt_shalat) AS jplg
+    FROM j_pulang2 jp
+    WHERE jp.j_kelamin = 'Ikhwan'
+    GROUP BY jp.tanggal    
+) pi ON s.tanggal = pi.tanggal
+LEFT JOIN (
+    SELECT su.tanggal, COUNT(su.wkt_shalat) AS jmlu
+    FROM shalat_udzur2 su
+    LEFT JOIN mahasiswa m ON su.id_mahasiswa = m.id_mahasiswa
+    LEFT JOIN m_binaan mb ON m.id_mahasiswa = mb.id_mahasiswa
+    LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina
+    WHERE p.id_pembina = 34 AND su.disetujui = 1
+    GROUP BY su.tanggal     
+) uz ON s.tanggal = uz.tanggal
+WHERE (t.id_pembina = 34) AND (sp.id_periode = 1) GROUP BY s.tanggal

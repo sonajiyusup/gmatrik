@@ -92,7 +92,7 @@
                                               data: [<?php
                                                     $dataNilai = shalatByPembinaByPeriod($idPembina, $idPeriod);
                                                     foreach ($dataNilai as $row){
-                                                     echo '"'.$row['nilai_harian'].'",';
+                                                     echo '"'.$row['nilai'].'",';
                                                     }
                                                   ?>],
                                               borderColor: 'rgba(0, 188, 212, 0.75)',
@@ -105,26 +105,13 @@
                                                   data: [<?php
                                                       $dataTarget = shalatByPembinaByPeriod($idPembina, $idPeriod);
                                                       foreach ($dataTarget as $row){
-                                                       echo '"'.$row['target'].'",';
+                                                       echo '"'.$row['target2'].'",';
                                                       }
                                                   ?>],
                                                   borderColor: 'rgba(233, 30, 30, 0.20)',
                                                   backgroundColor: 'rgba(233, 30, 30, 0.2)',
                                                   pointBorderColor: 'rgba(233, 30, 30, 0)',
                                                   pointBackgroundColor: 'rgba(233, 30, 30, 0.5)',
-                                                  pointBorderWidth: 1
-                                              }, {
-                                                  label: "Jumlah Shalat Yang Dicapai",
-                                                  data: [<?php
-                                                      $dataTarget = shalatByPembinaByPeriod($idPembina, $idPeriod);
-                                                      foreach ($dataTarget as $row){
-                                                       echo '"'.$row['total'].'",';
-                                                      }
-                                                  ?>],
-                                                  borderColor: 'rgba(1,173,8, 0.20)',
-                                                  backgroundColor: 'rgba(1,173,8, 0.2)',
-                                                  pointBorderColor: 'rgba(1,173,8, 0)',
-                                                  pointBackgroundColor: 'rgba(1,173,8, 0.5)',
                                                   pointBorderWidth: 1
                                               }]
                                       },
@@ -177,8 +164,10 @@
                                   <th>#</th>
                                   <th>Hari</th>
                                   <th>Tanggal</th>
+                                  <th>Total</th>
                                   <th>Maks</th>
-                                  <th>Total Waktu Shalat</th>
+                                  <th>Dispensasi</th>
+                                  <th>Jml Udzur</th>
                                   <th>Nilai</th>
                                   <th>Aksi</th>
                                 </tr>
@@ -193,9 +182,11 @@
                                   <td><?php echo $no; ?></td>
                                   <td><?php echo date('l', strtotime($row['tanggal'])); ?></td>
                                   <td><?php echo date('d M Y', strtotime($row['tanggal'])); ?></td>
-                                  <td><?php echo $row['target']; ?></td>
                                   <td><?php echo $row['total']; ?></td>
-                                  <td><?php echo $row['nilai_harian']; ?></td>
+                                  <td><?php echo $row['target2']; ?></td>
+                                  <td><?php echo $row['jplg']; ?></td>
+                                  <td><?php echo $row['jmlu']; ?></td>
+                                  <td><?php echo $row['nilai']; ?></td>
                                   <td><?php echo '<a href="?page=shalatbpembinabpday&idP='.$idPembina.'&p='.$idPeriod.'&t='.date('Ymd', strtotime($row['tanggal'])).'" class="btn btn-default btn-xs waves-effect">Lebih Detil</a>' ?></td> 
                                 </tr>
                                 <?php $no++; } ?>
