@@ -105,9 +105,11 @@
                                 <tr>
                                   <th>ID</th>
                                   <th>Periode</th>
-                                  <th>Total Waktu Shalat</th>
-                                  <th>Jumlah Maks</th>
-                                  <th>Jumlah Waktu Shalat</th>
+                                  <th>Total</th>
+                                  <th>Jml Binaan</th>
+                                  <th>Dispensasi</th>
+                                  <th>Jml Udzur</th>
+                                  <th>Maks</th>
                                   <th>Nilai</th>
                                 </tr>
                               </thead>
@@ -120,8 +122,10 @@
                                   <td><?php echo $row['id_periode']; ?></td>
                                   <td><?php echo '<a href="?page=shalatbpembinabp&idP='.$idPembina.'&id='.$row['id_periode'].'">'.date('d M Y', strtotime($row['tanggal_dari']))." - ".date('d M Y', strtotime($row['tanggal_sampai'])).'</a>'; ?></td>
                                   <td><?php echo $row['total']; ?></td>
-                                  <td><?php echo $row['target']; ?></td>
-                                  <td><?php echo $row['jmlrt']; ?></td>
+                                  <td><?php echo $row['jmlb']; ?></td>
+                                  <td><?php echo $row['jplg']; ?></td>
+                                  <td><?php echo $row['jmlu']; ?></td>
+                                  <td><?php echo $row['target2']; ?></td>
                                   <td><?php echo $row['nilai']; ?></td>
                                 </tr>
                                 <?php } ?>

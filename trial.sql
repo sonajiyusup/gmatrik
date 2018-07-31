@@ -1139,6 +1139,7 @@ LEFT JOIN (
 ) uz ON p.id_pembina = uz.id_pembina
 GROUP BY p.nama
 
+-- shalat by pembina detail LENGKAP (WORK)
 SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, 
 d.jhari, t.j_kelamin,
 COUNT(s.wkt_shalat) AS 'total', 
