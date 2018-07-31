@@ -1087,3 +1087,111 @@ LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa
 WHERE m.j_kelamin = 'Akhwat' AND s.tanggal = '2018-03-20'
 GROUP BY s.wkt_shalat
 ORDER BY s.wkt_tapping
+
+
+-- shalat by pembina LENGKAP (WORK)
+SELECT p.id_pembina, p.nama AS pembina, p.j_kelamin, 
+COUNT(s.jws) AS total, 
+j.jmlb, 
+r.jmltgl, pu.jplg, r.jmltgl-pu.jplg AS jhari, 
+(j.jmlb*(r.jmltgl-pu.jplg)*5) AS target1,
+IF(uz.jmlu IS NULL, 0, uz.jmlu) AS jmlu,
+(j.jmlb*(r.jmltgl-pu.jplg)*5)-(IF(uz.jmlu IS NULL, 0, uz.jmlu)) AS target2,
+ROUND(((COUNT(s.jws)/((j.jmlb*(r.jmltgl-pu.jplg)*5)-(IF(uz.jmlu IS NULL, 0, uz.jmlu))))*100),2) AS nilai 
+FROM pembina p 
+LEFT JOIN ( 
+    SELECT mb.id_pembina, sl.wkt_tapping AS jws 
+    FROM m_binaan mb 
+    LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa 
+    LEFT JOIN shalat sl ON m.id_mahasiswa = sl.id_mahasiswa 
+) s ON p.id_pembina = s.id_pembina 
+LEFT JOIN ( 
+    SELECT p.id_pembina, COUNT(mb.id_mahasiswa) AS jmlb 
+    FROM m_binaan mb 
+    LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina 
+    GROUP BY p.id_pembina 
+) j ON p.id_pembina = j.id_pembina 
+LEFT JOIN ( 
+    SELECT p.id_pembina, DATEDIFF(MAX(s.tanggal),MIN(s.tanggal))+1 AS jmltgl 
+    FROM pembina p 
+    LEFT JOIN m_binaan mb ON p.id_pembina = mb.id_pembina 
+    LEFT JOIN shalat s ON mb.id_mahasiswa = s.id_mahasiswa 
+    GROUP BY p.id_pembina 
+) r ON p.id_pembina = r.id_pembina 
+LEFT JOIN ( 
+    SELECT p.id_pembina, COUNT(jp.tanggal) AS jplg 
+    FROM pembina p 
+    LEFT JOIN j_pulang jp ON p.j_kelamin = jp.j_kelamin 
+    GROUP BY p.id_pembina 
+) pu ON p.id_pembina = pu.id_pembina 
+LEFT JOIN (
+    SELECT mb.id_pembina, u.jmlu
+    FROM m_binaan mb 
+    LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina
+    LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa
+    LEFT JOIN (
+        SELECT su.id_mahasiswa, COUNT(su.wkt_shalat) AS jmlu
+        FROM shalat_udzur2 su 
+        WHERE su.disetujui = 1
+        GROUP BY su.id_mahasiswa
+    ) u ON m.id_mahasiswa = u.id_mahasiswa
+    GROUP BY mb.id_pembina    
+) uz ON p.id_pembina = uz.id_pembina
+GROUP BY p.nama
+
+SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, 
+d.jhari, t.j_kelamin,
+COUNT(s.wkt_shalat) AS 'total', 
+j.jmlb,
+j.jmlb*d.jhari*5 AS target1,
+(COUNT(s.wkt_shalat)/(j.jmlb*d.jhari*5))*100 AS nilai1,
+j.jmlb*(CASE WHEN t.j_kelamin = 'Akhwat' THEN (IF(a.jplg IS NULL, 0, a.jplg)) ELSE (IF(i.jplg IS NULL, 0, i.jplg)) END) AS jplg,
+IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
+(j.jmlb*d.jhari*5)-((j.jmlb*(CASE WHEN t.j_kelamin = 'Akhwat' THEN (IF(a.jplg IS NULL, 0, a.jplg)) ELSE (IF(i.jplg IS NULL, 0, i.jplg)) END))+IF(u.jmlu IS NULL, 0, u.jmlu)) AS target2,
+ROUND(((COUNT(s.wkt_shalat)/((j.jmlb*d.jhari*5)-((j.jmlb*(CASE WHEN t.j_kelamin = 'Akhwat' THEN (IF(a.jplg IS NULL, 0, a.jplg)) ELSE (IF(i.jplg IS NULL, 0, i.jplg)) END))+IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai
+FROM shalat_periode sp 
+LEFT JOIN shalat s ON sp.id_periode = s.id_periode 
+LEFT JOIN ( 
+    SELECT mb.id_mhsbinaan, m.id_mahasiswa, p.id_pembina, p.j_kelamin 
+    FROM m_binaan mb 
+    LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina 
+    LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa 
+) t ON s.id_mahasiswa = t.id_mahasiswa 
+LEFT JOIN ( 
+    SELECT p.id_pembina, p.nama, COUNT(mb.id_mahasiswa) AS jmlb 
+    FROM m_binaan mb 
+    LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa 
+    LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina 
+    WHERE mb.id_pembina = 34 
+    GROUP BY p.nama 
+) j ON t.id_pembina = j.id_pembina 
+LEFT JOIN (
+    SELECT sp.id_periode, DATEDIFF(sp.tanggal_sampai, sp.tanggal_dari)+1 AS jhari
+    FROM shalat_periode sp
+) d ON sp.id_periode = d.id_periode
+LEFT JOIN (
+    SELECT sp.id_periode, COUNT(jp.wkt_shalat) AS jplg, jp.j_kelamin
+    FROM shalat_periode sp
+    LEFT JOIN j_pulang2 jp ON sp.id_periode = jp.id_periode
+    WHERE jp.j_kelamin = 'Ikhwan'
+    GROUP BY sp.id_periode    
+) i ON sp.id_periode = i.id_periode
+LEFT JOIN (
+    SELECT sp.id_periode, COUNT(jp.wkt_shalat) AS jplg, jp.j_kelamin
+    FROM shalat_periode sp
+    LEFT JOIN j_pulang2 jp ON sp.id_periode = jp.id_periode
+    WHERE jp.j_kelamin = 'Akhwat'
+    GROUP BY sp.id_periode
+) a ON sp.id_periode = a.id_periode
+LEFT JOIN (
+    SELECT su.id_periode, COUNT(su.wkt_shalat) AS jmlu
+    FROM shalat_udzur2 su
+    LEFT JOIN mahasiswa m ON su.id_mahasiswa = m.id_mahasiswa
+    LEFT JOIN m_binaan mb ON m.id_mahasiswa = mb.id_mahasiswa
+    LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina
+    WHERE p.id_pembina = 34 AND su.disetujui = 1
+    GROUP BY su.id_periode    
+) u ON sp.id_periode = u.id_periode
+WHERE t.id_pembina = 34 
+GROUP BY sp.id_periode 
+ORDER BY sp.id_periode

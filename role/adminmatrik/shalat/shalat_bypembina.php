@@ -73,8 +73,8 @@
                                   <th>Ikhwan/Akhwat</th>
                                   <th>Total</th>
                                   <th>Jml Binaan</th>
-                                  <th>Jml Hari</th>
-                                  <th>Target</th>
+                                  <th>Jml Udzur</th>
+                                  <th>Maks</th>
                                   <th>Nilai</th>
                                 </tr>
                               </thead>
@@ -90,8 +90,8 @@
                                   <td><?php if($row['j_kelamin'] == 'Ikhwan' || $row['j_kelamin'] == 'Laki-laki'){echo '<span class="label bg-light-blue">Ikhwan</span>';} else if($row['j_kelamin'] == 'Akhwat' || $row['j_kelamin'] == 'Perempuan'){echo '<span class="label bg-pink">Akhwat</span>';} ?></td>
                                   <td><?php echo $row['total']; ?></td>
                                   <td><?php echo $row['jmlb']; ?></td>
-                                  <td><?php echo $row['jhari']; ?></td>
-                                  <td><?php echo $row['target']; ?></td>
+                                  <td><?php echo $row['jmlu']; ?></td>
+                                  <td><?php echo $row['target2']; ?></td>
                                   <td><?php echo $row['nilai']; ?></td>
                                 </tr>
                                 <?php $no++; } ?>

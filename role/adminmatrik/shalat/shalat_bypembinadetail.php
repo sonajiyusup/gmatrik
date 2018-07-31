@@ -69,32 +69,7 @@
                                               pointBorderColor: 'rgba(0, 188, 212, 0)',
                                               pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
                                               pointBorderWidth: 1
-                                          }, {
-                                                  label: "Rata-rata Jumlah Maksimal Shalat",
-                                                  data: [<?php
-                                                    $dataTarget = shalatByPembinaId($idPembina);
-                                                    foreach ($dataTarget as $row){
-                                                     echo '"'.$row['target'].'",';
-                                                    }
-                                                  ?>],
-                                                  borderColor: 'rgba(233, 30, 99, 0.30)',
-                                                  backgroundColor: 'rgba(233, 30, 99, 0.2)',
-                                                  pointBorderColor: 'rgba(233, 30, 99, 0)',
-                                                  pointBackgroundColor: 'rgba(233, 30, 99, 0.7)',
-                                                  pointBorderWidth: 1
-                                              }, {
-                                                  label: "Rata-rata Jumlah Shalat",
-                                                  data: [<?php
-                                                    $dataJmlSlt = shalatByPembinaId($idPembina);
-                                                    foreach ($dataJmlSlt as $row){
-                                                     echo '"'.$row['jmlrt'].'",';
-                                                    }
-                                                  ?>],
-                                                  borderColor: 'rgba(173, 66, 244, 0.30)',
-                                                  pointBorderColor: 'rgba(173, 66, 244, 0)',
-                                                  pointBackgroundColor: 'rgba(173, 66, 244, 0.7)',
-                                                  pointBorderWidth: 1
-                                              }]
+                                          }]
                                       },
                                       options: {
                                           responsive: true,
