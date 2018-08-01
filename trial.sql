@@ -1274,3 +1274,38 @@ LEFT JOIN (
     GROUP BY su.id_mahasiswa
 ) u ON m.id_mahasiswa = u.id_mahasiswa
 ORDER BY m.nama
+
+
+-- shalat by mahasiswa by period NEW (Not finished)
+SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, 
+sh.total,
+DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1 AS jtgl,
+(DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*5 AS target1,
+(CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) AS jplg,
+IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu
+FROM shalat_periode sp
+LEFT JOIN (
+    SELECT s.id_periode, COUNT(s.wkt_tapping) AS total, m.j_kelamin, m.id_mahasiswa
+    FROM shalat s
+    LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa
+    WHERE m.id_mahasiswa = 1179
+    GROUP BY s.id_periode
+) sh ON sp.id_periode = sh.id_periode
+LEFT JOIN (
+    SELECT jp.id_periode, COUNT(jp.wkt_shalat) AS jplg
+    FROM j_pulang2 jp
+    WHERE jp.j_kelamin = 'Ikhwan'
+    GROUP BY jp.id_periode
+) pi ON sh.id_periode = pi.id_periode
+LEFT JOIN (
+    SELECT jp.id_periode, COUNT(jp.wkt_shalat) AS jplg
+    FROM j_pulang2 jp
+    WHERE jp.j_kelamin = 'Akhwat'
+    GROUP BY jp.id_periode
+) pa ON sh.id_periode = pa.id_periode
+LEFT JOIN (
+    SELECT su.id_periode, COUNT(su.wkt_shalat) AS jmlu
+    FROM shalat_udzur2 su 
+    WHERE su.disetujui = 1
+    GROUP BY su.id_periode
+) u ON sh.id_periode = u.id_periode
