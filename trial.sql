@@ -1276,13 +1276,15 @@ LEFT JOIN (
 ORDER BY m.nama
 
 
--- shalat by mahasiswa by period NEW (Not finished)
+-- shalat by mahasiswa detail NEW (Not finished)
 SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, 
 sh.total,
 DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1 AS jtgl,
 (DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*5 AS target1,
-(CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) AS jplg,
-IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu
+IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)) AS jplg,
+IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
+((DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*5)-(IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)))-(IF(u.jmlu IS NULL, 0, u.jmlu)) AS target2,
+ROUND((((sh.total)/(((DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*5)-(IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)))-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai
 FROM shalat_periode sp
 LEFT JOIN (
     SELECT s.id_periode, COUNT(s.wkt_tapping) AS total, m.j_kelamin, m.id_mahasiswa
