@@ -1245,6 +1245,8 @@ LEFT JOIN (
 ) uz ON s.tanggal = uz.tanggal
 WHERE (t.id_pembina = 34) AND (sp.id_periode = 1) GROUP BY s.tanggal
 
+------------------------------------------------------------- SHALAT BY MAHASISWA ------------------------------------------------------------
+
 -- shalat by mahasiswa NEW (WORK)
 SELECT m.nama, m.j_kelamin, sh.total, t.jtgl, 
 t.jtgl*5 As target1, 
@@ -1276,7 +1278,7 @@ LEFT JOIN (
 ORDER BY m.nama
 
 
--- shalat by mahasiswa detail NEW (Not finished)
+-- shalat by mahasiswa detail NEW (WORK)
 SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, 
 sh.total,
 DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1 AS jtgl,
@@ -1311,3 +1313,32 @@ LEFT JOIN (
     WHERE su.disetujui = 1
     GROUP BY su.id_periode
 ) u ON sh.id_periode = u.id_periode
+
+
+-- shalat by mahasiswa detail by period (UNSOLVED MISS DATE)
+SELECT s.tanggal, 
+IF(sh.total IS NULL, 0, sh.total) AS total, 
+5 AS target1,
+(CASE WHEN sh.j_kelamin = 'Ikhwan' THEN pi.jplg WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg END) AS jplg
+FROM shalat s
+LEFT JOIN (
+    SELECT s.tanggal, COUNT(s.wkt_tapping) AS total, m.j_kelamin, m.id_mahasiswa
+    FROM shalat s
+    LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa
+    WHERE m.id_mahasiswa = 1179 AND s.id_periode = 4
+    GROUP BY s.tanggal
+) sh ON s.tanggal = sh.tanggal
+LEFT JOIN (
+    SELECT jp.tanggal, COUNT(jp.wkt_shalat) AS jplg
+    FROM j_pulang2 jp
+    WHERE jp.j_kelamin = 'Ikhwan'
+    GROUP BY jp.tanggal    
+) pi ON s.tanggal = pi.tanggal
+LEFT JOIN (
+    SELECT jp.tanggal, COUNT(jp.wkt_shalat) AS jplg
+    FROM j_pulang2 jp
+    WHERE jp.j_kelamin = 'Akhwat'
+    GROUP BY jp.tanggal    
+) pa ON s.tanggal = pa.tanggal
+WHERE s.id_periode = 4
+GROUP BY s.tanggal
