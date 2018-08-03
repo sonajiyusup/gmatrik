@@ -1245,6 +1245,54 @@ LEFT JOIN (
 ) uz ON s.tanggal = uz.tanggal
 WHERE (t.id_pembina = 34) AND (sp.id_periode = 1) GROUP BY s.tanggal
 
+
+-- pembina by day nilai information for graph (WORK)
+SELECT s.wkt_shalat, COUNT(s.wkt_tapping) AS jml
+FROM shalat s
+LEFT JOIN m_binaan mb ON s.id_mahasiswa = mb.id_mahasiswa
+LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina
+WHERE s.tanggal = '2018-03-09' AND mb.id_pembina = 22
+GROUP BY s.wkt_shalat
+ORDER BY s.wkt_tapping
+
+
+-- percentage shalat by pembina by period (WORK)
+SELECT a.jml AS a, b.jml AS b, 
+ROUND((((b.jml-a.jml)/a.jml)*100),2) AS '%'
+FROM (
+    SELECT s.id_periode, COUNT(s.wkt_tapping) AS jml 
+    FROM shalat s
+    LEFT JOIN m_binaan mb ON s.id_mahasiswa = mb.id_mahasiswa
+    WHERE s.id_periode = 1 AND mb.id_pembina = 32
+    GROUP BY s.id_periode 
+) a 
+JOIN (
+    SELECT s.id_periode, COUNT(s.wkt_tapping) AS jml 
+    FROM shalat s
+    LEFT JOIN m_binaan mb ON s.id_mahasiswa = mb.id_mahasiswa
+    WHERE s.id_periode = 2 AND mb.id_pembina = 32
+    GROUP BY s.id_periode 
+) b
+
+
+-- percentage shalat by pembina by day
+SELECT a.jml AS a, b.jml AS b, 
+ROUND((((b.jml-a.jml)/a.jml)*100),2) AS '%'
+FROM (
+    SELECT s.tanggal, COUNT(s.wkt_tapping) AS jml 
+    FROM shalat s
+    LEFT JOIN m_binaan mb ON s.id_mahasiswa = mb.id_mahasiswa
+    WHERE s.tanggal = '2018-03-09' AND mb.id_pembina = 22
+    GROUP BY s.tanggal 
+) a 
+JOIN (
+    SELECT s.tanggal, COUNT(s.wkt_tapping) AS jml 
+    FROM shalat s
+    LEFT JOIN m_binaan mb ON s.id_mahasiswa = mb.id_mahasiswa
+    WHERE s.tanggal = '2018-03-10' AND mb.id_pembina = 22
+    GROUP BY s.tanggal 
+) b
+
 ------------------------------------------------------------- SHALAT BY MAHASISWA ------------------------------------------------------------
 
 -- shalat by mahasiswa NEW (WORK)
@@ -1315,17 +1363,27 @@ LEFT JOIN (
 ) u ON sh.id_periode = u.id_periode
 
 
+-- shalat by mahasiswa period for GRAPH
+SELECT s.tanggal, COUNT(s.wkt_tapping) AS jml
+FROM shalat s
+WHERE s.id_periode = 7 AND s.id_mahasiswa = 1179
+GROUP BY s.tanggal
+
+
 -- shalat by mahasiswa detail by period (UNSOLVED MISS DATE)
 SELECT s.tanggal, 
 IF(sh.total IS NULL, 0, sh.total) AS total, 
 5 AS target1,
-(CASE WHEN sh.j_kelamin = 'Ikhwan' THEN pi.jplg WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg END) AS jplg
+IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)) AS jplg,
+IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
+((5-(IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)))-(IF(u.jmlu IS NULL, 0, u.jmlu)))) AS target2,
+ROUND(((IF(sh.total IS NULL, 0, sh.total)/((5-(IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)))-(IF(u.jmlu IS NULL, 0, u.jmlu)))))*100),2) AS nilai
 FROM shalat s
 LEFT JOIN (
     SELECT s.tanggal, COUNT(s.wkt_tapping) AS total, m.j_kelamin, m.id_mahasiswa
     FROM shalat s
     LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa
-    WHERE m.id_mahasiswa = 1179 AND s.id_periode = 4
+    WHERE m.id_mahasiswa = 1179
     GROUP BY s.tanggal
 ) sh ON s.tanggal = sh.tanggal
 LEFT JOIN (
@@ -1340,5 +1398,50 @@ LEFT JOIN (
     WHERE jp.j_kelamin = 'Akhwat'
     GROUP BY jp.tanggal    
 ) pa ON s.tanggal = pa.tanggal
-WHERE s.id_periode = 4
+LEFT JOIN (
+    SELECT su.tanggal, COUNT(su.wkt_shalat) AS jmlu
+    FROM shalat_udzur2 su
+    WHERE su.id_mahasiswa = 1179 AND su.disetujui = 1
+    GROUP BY su.tanggal
+) u ON s.tanggal = u.tanggal
+WHERE s.id_periode = 8
 GROUP BY s.tanggal
+
+
+-- shalat by mahasiswa detail by period by day (WORK)
+SELECT m.id_mahasiswa, m.nama, su.wkt_tapping AS Shubuh, zu.wkt_tapping AS Dzuhur, ar.wkt_tapping AS Ashar, mg.wkt_tapping AS Maghrib, iy.wkt_tapping AS Isya
+FROM mahasiswa m
+LEFT JOIN (
+    SELECT s.id_mahasiswa, s.wkt_tapping, s.wkt_shalat
+    FROM shalat s
+    WHERE s.wkt_shalat = 'shubuh' AND s.tanggal = '2018-03-30'
+) su ON m.id_mahasiswa = su.id_mahasiswa
+LEFT JOIN (
+    SELECT s.id_mahasiswa, s.wkt_tapping, s.wkt_shalat
+    FROM shalat s
+    WHERE s.wkt_shalat = 'dzuhur' AND s.tanggal = '2018-03-30'
+) zu ON m.id_mahasiswa = zu.id_mahasiswa
+LEFT JOIN (
+    SELECT s.id_mahasiswa, s.wkt_tapping, s.wkt_shalat
+    FROM shalat s
+    WHERE s.wkt_shalat = 'ashar' AND s.tanggal = '2018-03-30'
+) ar ON m.id_mahasiswa = ar.id_mahasiswa
+LEFT JOIN (
+    SELECT s.id_mahasiswa, s.wkt_tapping, s.wkt_shalat
+    FROM shalat s
+    WHERE s.wkt_shalat = 'maghrib' AND s.tanggal = '2018-03-30'
+) mg ON m.id_mahasiswa = mg.id_mahasiswa
+LEFT JOIN (
+    SELECT s.id_mahasiswa, s.wkt_tapping, s.wkt_shalat
+    FROM shalat s
+    WHERE s.wkt_shalat = 'isya' AND s.tanggal = '2018-03-30'
+) iy ON m.id_mahasiswa = iy.id_mahasiswa
+WHERE m.id_mahasiswa = 1179
+
+
+-- shalat by mahasiswa by day graph (WORK)
+SELECT s.wkt_shalat, COUNT(s.wkt_tapping) AS jml
+FROM shalat s
+WHERE s.tanggal = '2018-03-19' AND s.id_mahasiswa = 1179
+GROUP BY s.wkt_shalat
+ORDER BY s.wkt_tapping

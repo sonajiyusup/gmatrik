@@ -12,3 +12,23 @@ DOING
 	- table
 	-> graph
 	-> percentage
+
+- create query and page shalatiabyday
+	- table
+	- graph
+	- percentage
+
+03/08/2018
+- continue design query for shalat by mahasiswa by period
+	- graph
+	- percentage
+- create design query for shalat by mahasiswa by period by day
+	- graph
+	- percentage
+- fixing query design shalat by pembina by period 
+	- fixing graph
+	- add percentage
+	- change sequent of column table
+- continue design query for pembina detail by day
+	- graph
+	- percentage

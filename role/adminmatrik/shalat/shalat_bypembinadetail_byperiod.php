@@ -100,20 +100,7 @@
                                               pointBorderColor: 'rgba(0, 188, 212, 0)',
                                               pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
                                               pointBorderWidth: 1
-                                          }, {
-                                                  label: "Maksimal Jumlah Shalat",
-                                                  data: [<?php
-                                                      $dataTarget = shalatByPembinaByPeriod($idPembina, $idPeriod);
-                                                      foreach ($dataTarget as $row){
-                                                       echo '"'.$row['target2'].'",';
-                                                      }
-                                                  ?>],
-                                                  borderColor: 'rgba(233, 30, 30, 0.20)',
-                                                  backgroundColor: 'rgba(233, 30, 30, 0.2)',
-                                                  pointBorderColor: 'rgba(233, 30, 30, 0)',
-                                                  pointBackgroundColor: 'rgba(233, 30, 30, 0.5)',
-                                                  pointBorderWidth: 1
-                                              }]
+                                          }]
                                       },
                                       options: {
                                           responsive: true,
