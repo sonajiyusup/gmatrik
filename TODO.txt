@@ -32,3 +32,8 @@ DOING
 - continue design query for pembina detail by day
 	- graph
 	- percentage
+
+06/08/2018
+- create shalat wajib by mahasiswa modul
+	- add sidebar option
+	- create page
