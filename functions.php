@@ -674,6 +674,16 @@
 				return $data;			
 	}	
 
+	function shalatMhsByDay($idMahasiswa, $tgl){
+		$tgl_ = date('Y-m-d', strtotime($tgl));
+		
+		$ambildata = mysql_query("SELECT m.id_mahasiswa, m.nama, su.wkt_tapping AS shubuh, zu.wkt_tapping AS dzuhur, ar.wkt_tapping AS ashar, mg.wkt_tapping AS maghrib, iy.wkt_tapping AS isya FROM mahasiswa m LEFT JOIN ( SELECT s.id_mahasiswa, s.wkt_tapping, s.wkt_shalat FROM shalat s WHERE s.wkt_shalat = 'shubuh' AND s.tanggal = '$tgl_' ) su ON m.id_mahasiswa = su.id_mahasiswa LEFT JOIN ( SELECT s.id_mahasiswa, s.wkt_tapping, s.wkt_shalat FROM shalat s WHERE s.wkt_shalat = 'dzuhur' AND s.tanggal = '$tgl_' ) zu ON m.id_mahasiswa = zu.id_mahasiswa LEFT JOIN ( SELECT s.id_mahasiswa, s.wkt_tapping, s.wkt_shalat FROM shalat s WHERE s.wkt_shalat = 'ashar' AND s.tanggal = '$tgl_' ) ar ON m.id_mahasiswa = ar.id_mahasiswa LEFT JOIN ( SELECT s.id_mahasiswa, s.wkt_tapping, s.wkt_shalat FROM shalat s WHERE s.wkt_shalat = 'maghrib' AND s.tanggal = '$tgl_' ) mg ON m.id_mahasiswa = mg.id_mahasiswa LEFT JOIN ( SELECT s.id_mahasiswa, s.wkt_tapping, s.wkt_shalat FROM shalat s WHERE s.wkt_shalat = 'isya' AND s.tanggal = '$tgl_' ) iy ON m.id_mahasiswa = iy.id_mahasiswa WHERE m.id_mahasiswa = $idMahasiswa") or die(mysql_error());
+
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;			
+	}		
+
 	function tampilPeriodeShalat(){
 		$ambildata = mysql_query("SELECT id_periode, tanggal_dari, tanggal_sampai FROM `shalat_periode`") or die(mysql_error());
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}

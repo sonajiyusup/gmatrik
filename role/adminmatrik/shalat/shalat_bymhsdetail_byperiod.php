@@ -141,7 +141,6 @@
                                   <th>Jml Udzur</th>
                                   <th>Maks Jml Shalat</th>
                                   <th>Nilai</th>
-                                  <th>Aksi</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -152,14 +151,13 @@
                                  ?>
                                 <tr>
                                   <td><?php echo $no; ?></td>
-                                  <td><?php echo date('l', strtotime($row['tanggal'])); ?></td>
+                                  <td><?php echo '<a href="?page=shalatmbyday&m='.$idMahasiswa.'&p='.$idPeriod.'&t='.date('Ymd', strtotime($row['tanggal'])).'">'.date('l', strtotime($row['tanggal'])).'</a>'; ?></td>
                                   <td><?php echo date('d M Y', strtotime($row['tanggal'])); ?></td>
                                   <td><?php echo $row['total']; ?></td>
                                   <td><?php echo $row['jplg']; ?></td>
                                   <td><?php echo $row['jmlu']; ?></td>
                                   <td><?php echo $row['target2']; ?></td>
                                   <td><?php echo $row['nilai']; ?></td>
-                                  <td><?php echo '<a href="" class="btn btn-default btn-xs waves-effect">Lebih Detil</a>' ?></td> 
                                 </tr>
                                 <?php $no++; } ?>
                               </tbody> 
