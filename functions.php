@@ -658,6 +658,22 @@
 				return $data;			
 	}	
 
+	function shalatMhsByPeriodGraph($idMahasiswa, $idPeriode){
+		$ambildata = mysql_query("SELECT s.tanggal, COUNT(s.wkt_tapping) AS jml FROM shalat s WHERE s.id_periode = $idPeriode AND s.id_mahasiswa = $idMahasiswa GROUP BY s.tanggal") or die(mysql_error());
+
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;			
+	}
+
+	function shalatMhsByPeriod($idMahasiswa, $idPeriode){
+		$ambildata = mysql_query("SELECT s.tanggal, IF(sh.total IS NULL, 0, sh.total) AS total, 5 AS target1, IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)) AS jplg, IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu, ((5-(IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)))-(IF(u.jmlu IS NULL, 0, u.jmlu)))) AS target2, ROUND(((IF(sh.total IS NULL, 0, sh.total)/((5-(IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)))-(IF(u.jmlu IS NULL, 0, u.jmlu)))))*100),2) AS nilai FROM shalat s LEFT JOIN ( SELECT s.tanggal, COUNT(s.wkt_tapping) AS total, m.j_kelamin, m.id_mahasiswa FROM shalat s LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa WHERE m.id_mahasiswa = $idMahasiswa GROUP BY s.tanggal ) sh ON s.tanggal = sh.tanggal LEFT JOIN ( SELECT jp.tanggal, COUNT(jp.wkt_shalat) AS jplg FROM j_pulang2 jp WHERE jp.j_kelamin = 'Ikhwan' GROUP BY jp.tanggal ) pi ON s.tanggal = pi.tanggal LEFT JOIN ( SELECT jp.tanggal, COUNT(jp.wkt_shalat) AS jplg FROM j_pulang2 jp WHERE jp.j_kelamin = 'Akhwat' GROUP BY jp.tanggal ) pa ON s.tanggal = pa.tanggal LEFT JOIN ( SELECT su.tanggal, COUNT(su.wkt_shalat) AS jmlu FROM shalat_udzur2 su WHERE su.id_mahasiswa = $idMahasiswa AND su.disetujui = 1 GROUP BY su.tanggal ) u ON s.tanggal = u.tanggal WHERE s.id_periode = $idPeriode GROUP BY s.tanggal") or die(mysql_error());
+
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;			
+	}	
+
 	function tampilPeriodeShalat(){
 		$ambildata = mysql_query("SELECT id_periode, tanggal_dari, tanggal_sampai FROM `shalat_periode`") or die(mysql_error());
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
