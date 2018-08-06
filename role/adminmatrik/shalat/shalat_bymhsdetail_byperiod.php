@@ -11,7 +11,7 @@
                     <div class="card">
                         <div class="header">
                             <h2>
-                              <a href="?page=shalatbpembinadetail&id=<?php echo $idPembina; ?>" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;GRAFIK NILAI PRESENSI SHALAT MAHASISWA 
+                              <a href="?page=shalatmdetail&id=<?php echo $idMahasiswa; ?>" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;GRAFIK NILAI PRESENSI SHALAT MAHASISWA 
                                 <div class="btn-group">
                                                     <button type="button" class="btn bg-cyan waves-effect dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         <?php $namaMhs = tampilMahasiswaById($idMahasiswa);
