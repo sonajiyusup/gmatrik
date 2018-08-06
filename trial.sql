@@ -1325,6 +1325,40 @@ LEFT JOIN (
 ) u ON m.id_mahasiswa = u.id_mahasiswa
 ORDER BY m.nama
 
+-- BEST 5 halat by mahasiswa NEW GRAPH (WORK)
+SELECT a.nama, a.j_kelamin, a.nilai
+FROM (
+    SELECT m.nama, m.j_kelamin, sh.total, t.jtgl, 
+    t.jtgl*5 As target1, 
+    p.jplg, 
+    IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
+    (t.jtgl*5)-(p.jplg+IF(u.jmlu IS NULL, 0, u.jmlu)) AS target2,
+    ROUND(((sh.total/((t.jtgl*5)-(p.jplg+IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai
+    FROM mahasiswa m
+    LEFT JOIN (
+        SELECT s.id_mahasiswa, COUNT(s.wkt_tapping) AS total
+        FROM shalat s
+        GROUP BY s.id_mahasiswa
+    ) sh ON m.id_mahasiswa = sh.id_mahasiswa
+    JOIN (
+        SELECT DATEDIFF(MAX(s.tanggal),MIN(s.tanggal))+1 AS jtgl
+        FROM shalat s 
+    ) t
+    LEFT JOIN (
+        SELECT jp.j_kelamin, COUNT(jp.wkt_shalat) AS jplg
+        FROM j_pulang2 jp
+        GROUP BY jp.j_kelamin
+    ) p ON m.j_kelamin = p.j_kelamin
+    LEFT JOIN (
+        SELECT su.id_mahasiswa, COUNT(su.wkt_shalat) AS jmlu
+        FROM shalat_udzur2 su 
+        WHERE su.disetujui = 1
+        GROUP BY su.id_mahasiswa
+    ) u ON m.id_mahasiswa = u.id_mahasiswa
+    ORDER BY nilai DESC
+    LIMIT 5    
+) a
+
 
 -- shalat by mahasiswa detail NEW (WORK)
 SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, 
