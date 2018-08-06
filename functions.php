@@ -83,6 +83,17 @@
 		}		
 	}
 
+	function tampilMahasiswaById($idMahasiswa){
+		$ambildata = mysql_query("SELECT m.*, u.*, p.id_pembina AS idp, p.nama AS namap FROM users u INNER JOIN mahasiswa m ON m.id_user = u.id_user LEFT JOIN m_binaan mb ON m.id_mahasiswa = mb.id_mahasiswa LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina WHERE m.id_mahasiswa = $idMahasiswa ORDER BY m.nama") or die(mysql_error());
+		if (mysql_num_rows($ambildata) > 0) {
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;
+		} else{
+			echo "Daftar mahasiswa kosong";
+		}		
+	}	
+
 	function tampilCalonBinaan(){
 		$ambildata = mysql_query("SELECT m.* FROM mahasiswa m WHERE m.id_mahasiswa NOT IN (SELECT m_binaan.id_mahasiswa FROM m_binaan) ORDER BY m.nama") or die(mysql_error());
 		if (mysql_num_rows($ambildata) > 0) {
@@ -638,6 +649,14 @@
 				$data[] = $ad;
 				return $data;			
 	}
+
+	function shalatMhsDetail($idMahasiswa){
+		$ambildata = mysql_query("SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, sh.total, DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1 AS jtgl, (DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*5 AS target1, IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)) AS jplg, IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu, ((DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*5)-(IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)))-(IF(u.jmlu IS NULL, 0, u.jmlu)) AS target2, ROUND((((sh.total)/(((DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*5)-(IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)))-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai FROM shalat_periode sp LEFT JOIN ( SELECT s.id_periode, COUNT(s.wkt_tapping) AS total, m.j_kelamin, m.id_mahasiswa FROM shalat s LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa WHERE m.id_mahasiswa = $idMahasiswa GROUP BY s.id_periode ) sh ON sp.id_periode = sh.id_periode LEFT JOIN ( SELECT jp.id_periode, COUNT(jp.wkt_shalat) AS jplg FROM j_pulang2 jp WHERE jp.j_kelamin = 'Ikhwan' GROUP BY jp.id_periode ) pi ON sh.id_periode = pi.id_periode LEFT JOIN ( SELECT jp.id_periode, COUNT(jp.wkt_shalat) AS jplg FROM j_pulang2 jp WHERE jp.j_kelamin = 'Akhwat' GROUP BY jp.id_periode ) pa ON sh.id_periode = pa.id_periode LEFT JOIN ( SELECT su.id_periode, COUNT(su.wkt_shalat) AS jmlu FROM shalat_udzur2 su WHERE su.disetujui = 1 GROUP BY su.id_periode ) u ON sh.id_periode = u.id_periode") or die(mysql_error());
+
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;			
+	}	
 
 	function tampilPeriodeShalat(){
 		$ambildata = mysql_query("SELECT id_periode, tanggal_dari, tanggal_sampai FROM `shalat_periode`") or die(mysql_error());
