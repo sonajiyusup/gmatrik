@@ -739,6 +739,14 @@
 				return $data;			
 	}	
 
+	function percenMhsByPeriod($idMahasiswa, $p1, $p2){
+		$ambildata = mysql_query("SELECT a.jml AS a, b.jml AS b, ROUND((((b.jml-a.jml)/a.jml)*100),2) AS 'percent' FROM ( SELECT s.id_periode, COUNT(s.wkt_tapping) AS jml FROM shalat s WHERE s.id_periode = $p1 AND s.id_mahasiswa = $idMahasiswa GROUP BY s.id_periode ) a JOIN ( SELECT s.id_periode, COUNT(s.wkt_tapping) AS jml FROM shalat s WHERE s.id_periode = $p2 AND s.id_mahasiswa = $idMahasiswa GROUP BY s.id_periode ) b") or die(mysql_error());
+		
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;				
+	}
+
 	function percenIAByPeriod($j_kelamin, $p1, $p2){
 		$ambildata = mysql_query("SELECT a.jml AS a, b.jml AS b, ROUND((((b.jml-a.jml)/a.jml)*100),2) AS percent FROM ( SELECT s.id_periode, COUNT(s.wkt_tapping) AS jml FROM shalat s LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa WHERE s.id_periode = $p1 AND m.j_kelamin = '$j_kelamin' GROUP BY s.id_periode ) a JOIN ( SELECT s.id_periode, COUNT(s.wkt_tapping) AS jml FROM shalat s LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa WHERE s.id_periode = $p2 AND m.j_kelamin = '$j_kelamin' GROUP BY s.id_periode ) b") or die(mysql_error());
 		

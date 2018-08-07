@@ -11,7 +11,7 @@
                     <div class="card">
                         <div class="header">
                             <h2>
-                              <a href="?page=shalatmdetail&id=<?php echo $idMahasiswa; ?>" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;GRAFIK NILAI PRESENSI SHALAT MAHASISWA 
+                              <a href="?page=shalatmdetail&id=<?php echo $idMahasiswa; ?>" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;GRAFIK NILAI PRESENSI SHALAT MAHASISWA &nbsp;
                                 <div class="btn-group">
                                                     <button type="button" class="btn bg-cyan waves-effect dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         <?php $namaMhs = tampilMahasiswaById($idMahasiswa);
@@ -32,6 +32,27 @@
                                                         ?>
                                                     </ul>
                                                 </div>    
+                                  <?php 
+                                    if($idPeriod != 1){
+                                      $percent = percenMhsByPeriod($idMahasiswa, ($idPeriod-1), $idPeriod);
+                                      foreach ($percent as $row){
+                                        if ($row['a'] > $row['b']) {
+                                          echo 
+                                          '<span class="label bg-red">
+                                            <i class="material-icons vertical-align-middle padding-bottom-3">trending_down</i>
+                                          '.$row['percent'].'% dibandingkan periode sebelumnya
+                                          </span>';
+                                        } else
+                                        if ($row['a'] < $row['b']) {
+                                          echo 
+                                          '<span class="label bg-green">
+                                            <i class="material-icons vertical-align-middle padding-bottom-3">trending_up</i>
+                                             +'.$row['percent'].'% dibandingkan periode sebelumnya
+                                          </span>';
+                                        } 
+                                      }
+                                    }
+                                  ?>
                                 
                               <small> Periode : &nbsp;
                                 <div class="btn-group">
@@ -91,7 +112,29 @@
                                               pointBorderColor: 'rgba(0, 188, 212, 0)',
                                               pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
                                               pointBorderWidth: 1
-                                          }]
+                                          }, {
+                                                  label: "Hari Yang Sama Pada Periode Sebelumnya",
+                                                  data: [<?php
+
+                                                    if($idPeriod != 1){
+                                                      $dataTarget = shalatMhsByPeriodGraph($idMahasiswa, ($idPeriod-1));
+                                                      foreach ($dataTarget as $row){
+                                                       echo '"'.$row['jml'].'",';
+                                                      }
+                                                    } else
+                                                    if($idPeriod == 1){
+                                                      $dataTarget = shalatMhsByPeriodGraph($idMahasiswa, $idPeriod);
+                                                      foreach ($dataTarget as $row){
+                                                       echo '"'.$row['jml'].'",';
+                                                      }
+                                                    }
+                                                  ?>],
+                                                  borderColor: 'rgba(233, 30, 99, 0.75)',
+                                                  backgroundColor: 'rgba(200, 30, 99, 0.3)',
+                                                  pointBorderColor: 'rgba(200, 30, 99, 0)',
+                                                  pointBackgroundColor: 'rgba(200, 30, 99, 0.9)',
+                                                  pointBorderWidth: 1
+                                              }]
                                       },
                                       options: {
                                           responsive: true,
