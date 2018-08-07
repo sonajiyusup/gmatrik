@@ -37,3 +37,4 @@ DOING
 - create shalat wajib by mahasiswa modul
 	- add sidebar option
 	- create page
+	- 

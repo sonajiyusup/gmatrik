@@ -1374,7 +1374,7 @@ LEFT JOIN (
     SELECT s.id_periode, COUNT(s.wkt_tapping) AS total, m.j_kelamin, m.id_mahasiswa
     FROM shalat s
     LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa
-    WHERE m.id_mahasiswa = 1179
+    WHERE m.id_mahasiswa = 1432
     GROUP BY s.id_periode
 ) sh ON sp.id_periode = sh.id_periode
 LEFT JOIN (
@@ -1392,7 +1392,7 @@ LEFT JOIN (
 LEFT JOIN (
     SELECT su.id_periode, COUNT(su.wkt_shalat) AS jmlu
     FROM shalat_udzur2 su 
-    WHERE su.disetujui = 1
+    WHERE su.disetujui = 1 AND su.id_mahasiswa = 1432
     GROUP BY su.id_periode
 ) u ON sh.id_periode = u.id_periode
 
