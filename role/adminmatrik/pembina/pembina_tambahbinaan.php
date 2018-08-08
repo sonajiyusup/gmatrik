@@ -10,7 +10,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                          <h2><a href="?page=pembinadetails&id=<?php foreach($ip as $idP){ echo $idP; }?>" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;TAMBAH MAHASISWA BINAAN 
+                          <h2><a href="?page=pembinadetails&id=<?php foreach($ip as $idP){ echo $idP; }?>&idP=<?php echo $idPembina; ?>" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;TAMBAH MAHASISWA BINAAN 
                           <small><?php foreach($np as $namaP){ echo $namaP['nama'].' '.$namaP['gelar']; }?></small>
                           </h2>
                         </div>

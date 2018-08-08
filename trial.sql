@@ -1491,11 +1491,17 @@ WHERE m.id_mahasiswa = 1179
 
 
 -- shalat by mahasiswa by day graph (WORK)
-SELECT s.wkt_shalat, COUNT(s.wkt_tapping) AS jml
-FROM shalat s
-WHERE s.tanggal = '2018-03-19' AND s.id_mahasiswa = 1179
-GROUP BY s.wkt_shalat
-ORDER BY s.wkt_tapping
+    SELECT IF(sh.jml IS NULL, 0, sh.jml) AS jml
+    FROM shalat s
+    LEFT JOIN (
+        SELECT s.id_mahasiswa, s.wkt_shalat, COUNT(s.wkt_tapping) AS jml
+        FROM shalat s
+        WHERE s.tanggal = '2018-04-08' AND s.id_mahasiswa = 1197
+        GROUP BY s.wkt_shalat
+        ORDER BY s.wkt_tapping
+    ) sh ON s.wkt_shalat = sh.wkt_shalat
+    GROUP BY s.wkt_shalat
+    ORDER BY s.wkt_tapping
 
 
 -- percentage shalat by mahasiswa by day (BUG when a = 0)
