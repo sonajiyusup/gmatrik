@@ -56,7 +56,7 @@
                                 <tr>
                                   <th>Pembina</th>
                                   <td>:</td>
-                                  <td><?php if($row['nama_pembina'] == NULL){echo 'Belum Diset';} else{ echo "<a href=index.php?page=pembinadetails&id=".$row['uid_pembina'].">".$row['nama_pembina'].".".$row['gelar']."</a>";} ?></td>
+                                  <td><?php if($row['nama_pembina'] == NULL){echo 'Belum Diset';} else{ echo "<a href=index.php?page=pembinadetails&id=".$row['uid_pembina']."&idP=".$row['id_pembina'].">".$row['nama_pembina'].".".$row['gelar']."</a>";} ?></td>
                                 </tr>
                                 <tr>
                                 <tr>
