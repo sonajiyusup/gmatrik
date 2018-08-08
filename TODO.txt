@@ -37,4 +37,12 @@ DOING
 - create shalat wajib by mahasiswa modul
 	- add sidebar option
 	- create page
-	- 
+
+
+07/08/2018
+- shalatmbyperiod
+	- add comparison graph
+	- add percentage
+- shalatmbyday 
+	- add bar chart
+	- add percentage

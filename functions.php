@@ -684,11 +684,39 @@
 				return $data;			
 	}		
 
+	function shalatMhsByDayGraph($idMahasiswa, $tgl){
+		$tgl_ = date('Y-m-d', strtotime($tgl));
+
+		$ambildata = mysql_query("SELECT s.wkt_shalat, COUNT(s.wkt_tapping) AS jml FROM shalat s WHERE s.id_mahasiswa = $idMahasiswa AND s.tanggal = '$tgl_' GROUP BY s.wkt_shalat ORDER BY s.wkt_tapping") or die(mysql_error());
+
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;				
+	}
+
+	function percentMhsByDay($idMahasiswa, $tgl1, $tgl2){
+		$tgl1_ = date('Y-m-d', strtotime($tgl1));
+		$tgl2_ = date('Y-m-d', strtotime($tgl2));
+
+		$ambildata = mysql_query("SELECT a.jml AS a, b.jml AS b, ROUND((((b.jml-a.jml)/a.jml)*100),2) AS 'percent' FROM ( SELECT s.tanggal, COUNT(s.wkt_tapping) AS jml FROM shalat s WHERE s.tanggal = '$tgl1_' AND s.id_mahasiswa = $idMahasiswa GROUP BY s.tanggal ) a JOIN ( SELECT s.tanggal, COUNT(s.wkt_tapping) AS jml FROM shalat s WHERE s.tanggal = '$tgl2_' AND s.id_mahasiswa = $idMahasiswa GROUP BY s.tanggal ) b") or die(mysql_error());
+
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;	
+	}
+
 	function tampilPeriodeShalat(){
 		$ambildata = mysql_query("SELECT id_periode, tanggal_dari, tanggal_sampai FROM `shalat_periode`") or die(mysql_error());
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
 				return $data;
+	}
+
+	function tampilWktShalat(){
+		$ambildata = mysql_query("SELECT s.wkt_shalat FROM shalat s GROUP by s.wkt_shalat ORDER BY s.wkt_tapping") or die(mysql_error());
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;		
 	}
 
 	function tampilTglPeriodeById($idPeriod){

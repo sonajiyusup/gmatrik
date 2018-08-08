@@ -1396,6 +1396,22 @@ LEFT JOIN (
     GROUP BY su.id_periode
 ) u ON sh.id_periode = u.id_periode
 
+-- shalatmbyperiod precentage (WORK)
+SELECT a.jml AS a, b.jml AS b, 
+ROUND((((b.jml-a.jml)/a.jml)*100),2) AS '%'
+FROM (
+    SELECT s.id_periode, COUNT(s.wkt_tapping) AS jml 
+    FROM shalat s
+    WHERE s.id_periode = 2 AND s.id_mahasiswa = 1434
+    GROUP BY s.id_periode 
+) a 
+JOIN (
+    SELECT s.id_periode, COUNT(s.wkt_tapping) AS jml 
+    FROM shalat s
+    WHERE s.id_periode = 3 AND s.id_mahasiswa = 1434
+    GROUP BY s.id_periode 
+) b
+
 
 -- shalat by mahasiswa period for GRAPH
 SELECT s.tanggal, COUNT(s.wkt_tapping) AS jml
@@ -1479,3 +1495,20 @@ FROM shalat s
 WHERE s.tanggal = '2018-03-19' AND s.id_mahasiswa = 1179
 GROUP BY s.wkt_shalat
 ORDER BY s.wkt_tapping
+
+
+-- percentage shalat by mahasiswa by day (WORK)
+SELECT a.jml AS a, b.jml AS b, 
+ROUND((((b.jml-a.jml)/a.jml)*100),2) AS 'percent'
+FROM (
+    SELECT s.tanggal, COUNT(s.wkt_tapping) AS jml 
+    FROM shalat s
+    WHERE s.tanggal = '2018-04-05' AND s.id_mahasiswa = 2029
+    GROUP BY s.tanggal 
+) a 
+JOIN (
+    SELECT s.tanggal, COUNT(s.wkt_tapping) AS jml 
+    FROM shalat s
+    WHERE s.tanggal = '2018-04-06' AND s.id_mahasiswa = 2029
+    GROUP BY s.tanggal 
+) b
