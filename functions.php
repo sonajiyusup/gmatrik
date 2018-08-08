@@ -687,7 +687,7 @@
 	function shalatMhsByDayGraph($idMahasiswa, $tgl){
 		$tgl_ = date('Y-m-d', strtotime($tgl));
 
-		$ambildata = mysql_query("SELECT s.wkt_shalat, COUNT(s.wkt_tapping) AS jml FROM shalat s WHERE s.id_mahasiswa = $idMahasiswa AND s.tanggal = '$tgl_' GROUP BY s.wkt_shalat ORDER BY s.wkt_tapping") or die(mysql_error());
+		$ambildata = mysql_query(" SELECT IF(sh.jml IS NULL, 0, sh.jml) AS jml FROM shalat s LEFT JOIN ( SELECT s.id_mahasiswa, s.wkt_shalat, COUNT(s.wkt_tapping) AS jml FROM shalat s WHERE s.tanggal = '$tgl_' AND s.id_mahasiswa = $idMahasiswa GROUP BY s.wkt_shalat ORDER BY s.wkt_tapping ) sh ON s.wkt_shalat = sh.wkt_shalat GROUP BY s.wkt_shalat ORDER BY s.wkt_tapping") or die(mysql_error());
 
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
@@ -698,7 +698,7 @@
 		$tgl1_ = date('Y-m-d', strtotime($tgl1));
 		$tgl2_ = date('Y-m-d', strtotime($tgl2));
 
-		$ambildata = mysql_query("SELECT a.jml AS a, b.jml AS b, ROUND((((b.jml-a.jml)/a.jml)*100),2) AS 'percent' FROM ( SELECT s.tanggal, COUNT(s.wkt_tapping) AS jml FROM shalat s WHERE s.tanggal = '$tgl1_' AND s.id_mahasiswa = $idMahasiswa GROUP BY s.tanggal ) a JOIN ( SELECT s.tanggal, COUNT(s.wkt_tapping) AS jml FROM shalat s WHERE s.tanggal = '$tgl2_' AND s.id_mahasiswa = $idMahasiswa GROUP BY s.tanggal ) b") or die(mysql_error());
+		$ambildata = mysql_query("SELECT a.jml AS a, b.jml AS b, ROUND((IF(a.jml = 0, (((b.jml-a.jml)/5)*100), (((((b.jml-a.jml)/a.jml))*100)))),2) AS percent FROM ( SELECT m.id_mahasiswa, COUNT(sh.wkt_tapping) AS jml FROM mahasiswa m LEFT JOIN ( SELECT s.id_mahasiswa, s.wkt_tapping FROM shalat s WHERE s.tanggal = '$tgl1_' ) sh ON m.id_mahasiswa = sh.id_mahasiswa WHERE m.id_mahasiswa = $idMahasiswa ) a JOIN ( SELECT m.id_mahasiswa, COUNT(sh.wkt_tapping) AS jml FROM mahasiswa m LEFT JOIN ( SELECT s.id_mahasiswa, s.wkt_tapping FROM shalat s WHERE s.tanggal = '$tgl2_' ) sh ON m.id_mahasiswa = sh.id_mahasiswa WHERE m.id_mahasiswa = $idMahasiswa ) b") or die(mysql_error());
 
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;

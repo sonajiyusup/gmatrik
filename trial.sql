@@ -1396,6 +1396,7 @@ LEFT JOIN (
     GROUP BY su.id_periode
 ) u ON sh.id_periode = u.id_periode
 
+
 -- shalatmbyperiod precentage (WORK)
 SELECT a.jml AS a, b.jml AS b, 
 ROUND((((b.jml-a.jml)/a.jml)*100),2) AS '%'
@@ -1497,7 +1498,7 @@ GROUP BY s.wkt_shalat
 ORDER BY s.wkt_tapping
 
 
--- percentage shalat by mahasiswa by day (WORK)
+-- percentage shalat by mahasiswa by day (BUG when a = 0)
 SELECT a.jml AS a, b.jml AS b, 
 ROUND((((b.jml-a.jml)/a.jml)*100),2) AS 'percent'
 FROM (
@@ -1511,4 +1512,29 @@ JOIN (
     FROM shalat s
     WHERE s.tanggal = '2018-04-06' AND s.id_mahasiswa = 2029
     GROUP BY s.tanggal 
+) b
+
+
+-- percentage shalat by mahasiswa by day (FULLY WORK)
+SELECT a.jml AS a, b.jml AS b,
+ROUND((IF(a.jml = 0, (((b.jml-a.jml)/5)*100), (((((b.jml-a.jml)/a.jml))*100)))),2) AS percent
+FROM (
+    SELECT m.id_mahasiswa, COUNT(sh.wkt_tapping) AS jml
+    FROM mahasiswa m
+    LEFT JOIN (
+        SELECT s.id_mahasiswa, s.wkt_tapping
+        FROM shalat s
+        WHERE s.tanggal = '2018-04-01'
+    ) sh ON m.id_mahasiswa = sh.id_mahasiswa
+    WHERE m.id_mahasiswa = 1197
+) a 
+JOIN (
+    SELECT m.id_mahasiswa,  COUNT(sh.wkt_tapping) AS jml
+    FROM mahasiswa m
+    LEFT JOIN (
+        SELECT s.id_mahasiswa,  s.wkt_tapping
+        FROM shalat s
+        WHERE s.tanggal = '2018-04-06'
+    ) sh ON m.id_mahasiswa = sh.id_mahasiswa
+    WHERE m.id_mahasiswa = 1197
 ) b
