@@ -887,6 +887,16 @@
 				return $data;		
 	}
 
+	function shalatByPembinaByDayGraph($idPembina, $tgl){
+		$tgl_ = date('Y-m-d', strtotime($tgl));
+
+		$ambildata = mysql_query("SELECT IF(sh.jml IS NULL, 0, sh.jml) AS jml FROM shalat s LEFT JOIN ( SELECT mb.id_pembina, s.wkt_shalat, COUNT(s.wkt_tapping) AS jml FROM m_binaan mb LEFT JOIN shalat s ON mb.id_mahasiswa = s.id_mahasiswa WHERE s.tanggal = '$tgl_' AND mb.id_pembina = $idPembina GROUP BY s.wkt_shalat ORDER BY s.wkt_tapping ) sh ON s.wkt_shalat = sh.wkt_shalat GROUP BY s.wkt_shalat ORDER BY s.wkt_tapping") or die(mysql_error());
+		
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;			
+	}
+
 	function tampilListTglByPeriod($idPeriod){
 		$ambildata = mysql_query("SELECT s.tanggal FROM shalat s WHERE s.id_periode = $idPeriod GROUP BY s.tanggal") or die(mysql_error());
 		
