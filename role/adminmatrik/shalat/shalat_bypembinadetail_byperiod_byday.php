@@ -34,6 +34,28 @@
                                     ?>
                                   </ul>
                                 </div>
+                                <?php 
+                                                  if($tgl != '20180302'){
+                                                    $percent = shalatByPembinaByDayPercent($idPembina, ($tgl-1), $tgl);
+                                                    foreach ($percent as $row){
+                                                      if ($row['a'] > $row['b']) {
+                                                        echo '<span class="label bg-red">
+                                                        <i class="material-icons vertical-align-middle padding-bottom-3">trending_down</i>
+                                                        '.$row['percent'].'% dibandingkan hari sebelumnya</span>';
+                                                      } else
+                                                      if ($row['a'] < $row['b']) {
+                                                        echo '<span class="label bg-green">
+                                                        <i class="material-icons vertical-align-middle padding-bottom-3">trending_up</i>
+                                                        +'.$row['percent'].'% dibandingkan hari sebelumnya</span>';
+                                                      } else
+                                                      if ($row['percent'] == 0) {
+                                                        echo '<span class="label bg-cyan">
+                                                        <i class="material-icons vertical-align-middle padding-bottom-3">trending_flat</i>
+                                                        sama dibandingkan hari sebelumnya</span>';
+                                                      }
+                                                    }
+                                                  }
+                                                ?>
                             <small> Tanggal : &nbsp;
                               <div class="btn-group">
                                                     <button type="button" class="btn bg-orange waves-effect dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

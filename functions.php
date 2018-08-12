@@ -897,6 +897,17 @@
 				return $data;			
 	}
 
+	function shalatByPembinaByDayPercent($idPembina, $tgl1, $tgl2){
+		$tgl1_ = date('Y-m-d', strtotime($tgl1));
+		$tgl2_ = date('Y-m-d', strtotime($tgl2));
+
+		$ambildata = mysql_query("SELECT a.jml AS a, b.jml AS b, ROUND((IF(a.jml = 0, (((b.jml-a.jml)/5)*100), (((((b.jml-a.jml)/a.jml))*100)))),2) AS percent FROM ( SELECT mb.id_pembina, COUNT(sh.wkt_tapping) AS jml FROM m_binaan mb LEFT JOIN ( SELECT s.id_mahasiswa, s.wkt_tapping FROM shalat s WHERE s.tanggal = '$tgl1_' ) sh ON mb.id_mahasiswa = sh.id_mahasiswa WHERE mb.id_pembina = $idPembina ) a JOIN ( SELECT mb.id_pembina, COUNT(sh.wkt_tapping) AS jml FROM m_binaan mb LEFT JOIN ( SELECT s.id_mahasiswa, s.wkt_tapping FROM shalat s WHERE s.tanggal = '$tgl2_' ) sh ON mb.id_mahasiswa = sh.id_mahasiswa WHERE mb.id_pembina = $idPembina ) b") or die(mysql_error());
+		
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;		
+	}
+
 	function tampilListTglByPeriod($idPeriod){
 		$ambildata = mysql_query("SELECT s.tanggal FROM shalat s WHERE s.id_periode = $idPeriod GROUP BY s.tanggal") or die(mysql_error());
 		

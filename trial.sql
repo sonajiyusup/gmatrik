@@ -1308,6 +1308,31 @@ JOIN (
     GROUP BY s.wkt_shalat
     ORDER BY s.wkt_tapping
 
+
+-- shalat by pembina by day percentage comparison (WORK)
+SELECT a.jml AS a, b.jml AS b,
+ROUND((IF(a.jml = 0, (((b.jml-a.jml)/5)*100), (((((b.jml-a.jml)/a.jml))*100)))),2) AS percent
+FROM (
+    SELECT mb.id_pembina, COUNT(sh.wkt_tapping) AS jml
+    FROM m_binaan mb
+    LEFT JOIN (
+        SELECT s.id_mahasiswa, s.wkt_tapping
+        FROM shalat s
+        WHERE s.tanggal = '2018-03-11'
+    ) sh ON mb.id_mahasiswa = sh.id_mahasiswa
+    WHERE mb.id_pembina = 30
+) a 
+JOIN (
+    SELECT mb.id_pembina, COUNT(sh.wkt_tapping) AS jml
+    FROM m_binaan mb
+    LEFT JOIN (
+        SELECT s.id_mahasiswa, s.wkt_tapping
+        FROM shalat s
+        WHERE s.tanggal = '2018-03-12'
+    ) sh ON mb.id_mahasiswa = sh.id_mahasiswa
+    WHERE mb.id_pembina = 30
+) b    
+
 ------------------------------------------------------------- SHALAT BY MAHASISWA ------------------------------------------------------------
 
 -- shalat by mahasiswa NEW (WORK)
