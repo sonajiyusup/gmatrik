@@ -46,3 +46,18 @@ DOING
 - shalatmbyday 
 	- add bar chart
 	- add percentage
+
+12/08/2018
+- shalat by pembina by day
+	- add graph
+		- query DONE
+		- UI DONE
+	- percentage comparison
+		- query DONE
+		- UI DONE
+	- change badge hari/tanggal to nama pembina, jumlah binaan
+- shalat by pembina by period
+	- add graph comparison
+	- add percentage comparison
+- shalat by mahasiswa by day
+	- change badge hari/tanggal to nama mahasiswa, pembina
