@@ -1293,6 +1293,21 @@ JOIN (
     GROUP BY s.tanggal 
 ) b
 
+
+-- shalat by pembina by day graph (WORK)
+    SELECT IF(sh.jml IS NULL, 0, sh.jml) AS jml
+    FROM shalat s
+    LEFT JOIN (
+        SELECT mb.id_pembina, s.wkt_shalat, COUNT(s.wkt_tapping) AS jml
+        FROM m_binaan mb 
+        LEFT JOIN shalat s ON mb.id_mahasiswa = s.id_mahasiswa
+        WHERE s.tanggal = '2018-03-11' AND mb.id_pembina = 30
+        GROUP BY s.wkt_shalat
+        ORDER BY s.wkt_tapping
+    ) sh ON s.wkt_shalat = sh.wkt_shalat
+    GROUP BY s.wkt_shalat
+    ORDER BY s.wkt_tapping
+
 ------------------------------------------------------------- SHALAT BY MAHASISWA ------------------------------------------------------------
 
 -- shalat by mahasiswa NEW (WORK)
