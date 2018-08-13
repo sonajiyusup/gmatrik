@@ -908,6 +908,15 @@
 				return $data;		
 	}
 
+
+	function shalatByWkt(){
+		$ambildata = mysql_query("SELECT s.wkt_shalat, COUNT(s.wkt_tapping) AS total, t.jtgl, h.jmhs, (t.jtgl*h.jmhs) AS target1, (p.jplg*h.jmhs) AS jplg, u.jmlu, (t.jtgl*h.jmhs)-(p.jplg*h.jmhs)-u.jmlu AS target2, ROUND(((((COUNT(s.wkt_tapping))/((t.jtgl*h.jmhs)-(p.jplg*h.jmhs)-u.jmlu))*100)),2) AS nilai FROM shalat s JOIN ( SELECT DATEDIFF(MAX(s.tanggal),MIN(s.tanggal))+1 AS jtgl FROM shalat s ) t JOIN ( SELECT COUNT(m.id_mahasiswa) AS jmhs FROM mahasiswa m ) h LEFT JOIN ( SELECT jp.wkt_shalat, COUNT(jp.wkt_shalat) AS jplg FROM j_pulang2 jp GROUP BY jp.wkt_shalat ) p ON s.wkt_shalat = p.wkt_shalat LEFT JOIN ( SELECT su.wkt_shalat, COUNT(su.wkt_shalat) AS jmlu FROM shalat_udzur2 su WHERE su.disetujui = 1 GROUP BY su.wkt_shalat ) u ON s.wkt_shalat = u.wkt_shalat GROUP BY s.wkt_shalat ORDER BY s.wkt_tapping") or die(mysql_error());
+		
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;					
+	}
+
 	function tampilListTglByPeriod($idPeriod){
 		$ambildata = mysql_query("SELECT s.tanggal FROM shalat s WHERE s.id_periode = $idPeriod GROUP BY s.tanggal") or die(mysql_error());
 		
