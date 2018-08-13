@@ -1718,3 +1718,13 @@ LEFT JOIN (
 ) u ON s.tanggal = u.tanggal
 WHERE s.id_periode = 8 AND s.wkt_shalat = 'shubuh'
 GROUP BY s.tanggal
+
+
+-- shalat by waktu shalat by day (WORK)
+SELECT m.id_mahasiswa, m.nama, sh.tap
+FROM mahasiswa m 
+LEFT JOIN (
+    SELECT s.id_mahasiswa, s.wkt_tapping AS tap
+    FROM shalat s 
+    WHERE s.tanggal = '2018-03-19' AND s.wkt_shalat = 'shubuh'
+) sh ON m.id_mahasiswa = sh.id_mahasiswa

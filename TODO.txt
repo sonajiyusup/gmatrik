@@ -61,3 +61,20 @@ DOING
 	- add percentage comparison
 - shalat by mahasiswa by day
 	- change badge hari/tanggal to nama mahasiswa, pembina
+
+13/08/2018
+- shalat by waktu shalat
+	- ikhtisar (ref : shalat by mahasiswa)
+		- table query DONE
+		- graph query
+	- detail (ref : shalat by mahasiswa detail)
+		- table query DONE
+		- graph query
+	- by period (ref : shalat by mahasiswa detail by period)
+		- table query DONE
+		- graph query
+		- percentage query
+	- by day (ref : shalat by mahasiswa detail by day)
+		- table query DONE
+		- graph query
+		- percentage query
