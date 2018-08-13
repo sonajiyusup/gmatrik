@@ -1719,6 +1719,22 @@ LEFT JOIN (
 WHERE s.id_periode = 8 AND s.wkt_shalat = 'shubuh'
 GROUP BY s.tanggal
 
+-- shalat by waktu shalat by period percentage (WORK)
+SELECT a.jml AS a, b.jml AS b, 
+ROUND((((b.jml-a.jml)/a.jml)*100),2) AS 'percent'
+FROM (
+    SELECT s.id_periode, COUNT(s.wkt_tapping) AS jml 
+    FROM shalat s
+    WHERE s.id_periode = 2 AND s.wkt_shalat = 'shubuh'
+    GROUP BY s.id_periode 
+) a 
+JOIN (
+    SELECT s.id_periode, COUNT(s.wkt_tapping) AS jml 
+    FROM shalat s
+    WHERE s.id_periode = 3 AND s.wkt_shalat = 'shubuh'
+    GROUP BY s.id_periode 
+) b
+
 
 -- shalat by waktu shalat by day (WORK)
 SELECT m.id_mahasiswa, m.nama, sh.tap
@@ -1728,3 +1744,20 @@ LEFT JOIN (
     FROM shalat s 
     WHERE s.tanggal = '2018-03-19' AND s.wkt_shalat = 'shubuh'
 ) sh ON m.id_mahasiswa = sh.id_mahasiswa
+
+
+-- shalat by waktu shalat by day percentage (WORK)
+SELECT a.jml AS a, b.jml AS b, 
+ROUND((((b.jml-a.jml)/a.jml)*100),2) AS 'percent'
+FROM (
+    SELECT s.tanggal, COUNT(s.wkt_tapping) AS jml 
+    FROM shalat s
+    WHERE s.tanggal = '2018-03-04' AND s.wkt_shalat = 'shubuh'
+    GROUP BY s.tanggal 
+) a 
+JOIN (
+    SELECT s.tanggal, COUNT(s.wkt_tapping) AS jml 
+    FROM shalat s
+    WHERE s.tanggal = '2018-03-05' AND s.wkt_shalat = 'shubuh'
+    GROUP BY s.tanggal 
+) b

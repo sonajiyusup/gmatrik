@@ -66,15 +66,15 @@ DOING
 - shalat by waktu shalat
 	- ikhtisar (ref : shalat by mahasiswa)
 		- table query DONE
-		- graph query
+		- graph query -> from 'nilai' result
 	- detail (ref : shalat by mahasiswa detail)
 		- table query DONE
-		- graph query
+		- graph query -> from 'nilai' result
 	- by period (ref : shalat by mahasiswa detail by period)
 		- table query DONE
 		- graph query
-		- percentage query
+		- percentage query DONE
 	- by day (ref : shalat by mahasiswa detail by day)
 		- table query DONE
 		- graph query
-		- percentage query
+		- percentage query DONE
