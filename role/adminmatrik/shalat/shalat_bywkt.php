@@ -78,7 +78,7 @@
                                  ?>
                                 <tr>
                                   <td><?php echo $no; ?></td>
-                                  <td><?php echo '<a href="?page=shalatwdetail">'.ucfirst($row['wkt_shalat']).'</a>' ?></td>
+                                  <td><?php echo '<a href="?page=shalatwdetail&w='.$row['wkt_shalat'].'">'.ucfirst($row['wkt_shalat']).'</a>' ?></td>
                                   <td><?php echo $row['total']; ?></td>
                                   <td><?php echo $row['jplg']; ?></td>
                                   <td><?php echo $row['jmlu']; ?></td>

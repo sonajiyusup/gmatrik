@@ -917,6 +917,14 @@
 				return $data;					
 	}
 
+	function shalatByWktDetail($wkt){
+		$ambildata = mysql_query("SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, sh.total, DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1 AS jtgl, h.jmhs, (DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*h.jmhs As target1, IF(p.id_periode IS NULL, '-', (CASE WHEN p.j_kelamin = 'Akhwat' THEN 'Akhwat' ELSE 'Ikhwan' END)) AS plg, IF(p.id_periode IS NULL, 0, (CASE WHEN p.j_kelamin = 'Akhwat' THEN a.plg ELSE i.plg END)) AS jpmhs, IF(j.jplg IS NULL, 0, j.jplg) AS jplg, (IF(p.id_periode IS NULL, 0, (CASE WHEN p.j_kelamin = 'Akhwat' THEN a.plg ELSE i.plg END)))*IF(j.jplg IS NULL, 0, j.jplg) AS total_jplg, IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu, (((DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*h.jmhs)-((IF(p.id_periode IS NULL, 0, (CASE WHEN p.j_kelamin = 'Akhwat' THEN a.plg ELSE i.plg END)))*IF(j.jplg IS NULL, 0, j.jplg))-(IF(u.jmlu IS NULL, 0, u.jmlu))) AS target2, ROUND((((sh.total)/(((DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*h.jmhs)-((IF(p.id_periode IS NULL, 0, (CASE WHEN p.j_kelamin = 'Akhwat' THEN a.plg ELSE i.plg END)))*IF(j.jplg IS NULL, 0, j.jplg))-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai FROM shalat_periode sp LEFT JOIN ( SELECT s.id_periode, COUNT(s.wkt_tapping) AS total FROM shalat s WHERE s.wkt_shalat = '$wkt' GROUP BY s.id_periode ) sh ON sp.id_periode = sh.id_periode JOIN ( SELECT COUNT(m.id_mahasiswa) AS jmhs FROM mahasiswa m ) h LEFT JOIN ( SELECT jp.id_periode, jp.j_kelamin FROM j_pulang2 jp GROUP BY jp.id_periode ) p ON sp.id_periode = p.id_periode JOIN ( SELECT COUNT(m.id_mahasiswa) AS plg FROM mahasiswa m WHERE m.j_kelamin = 'Akhwat' ) a JOIN ( SELECT COUNT(m.id_mahasiswa) AS plg FROM mahasiswa m WHERE m.j_kelamin = 'Ikhwan' ) i LEFT JOIN ( SELECT jp.id_periode, COUNT(jp.wkt_shalat) AS jplg FROM j_pulang2 jp WHERE jp.wkt_shalat = '$wkt' GROUP BY jp.id_periode ) j ON sp.id_periode = j.id_periode LEFT JOIN ( SELECT su.id_periode, COUNT(su.wkt_shalat) AS jmlu FROM shalat_udzur2 su WHERE su.wkt_shalat = '$wkt' AND su.disetujui = 1 GROUP BY su.id_periode ) u ON sp.id_periode = u.id_periode") or die(mysql_error());
+		
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;		
+	}
+
 	function tampilListTglByPeriod($idPeriod){
 		$ambildata = mysql_query("SELECT s.tanggal FROM shalat s WHERE s.id_periode = $idPeriod GROUP BY s.tanggal") or die(mysql_error());
 		
