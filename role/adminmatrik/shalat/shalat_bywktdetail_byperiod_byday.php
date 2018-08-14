@@ -94,9 +94,9 @@
                                   config = {
                                       type: 'bar',
                                       data: {
-                                          labels: ["Shubuh","Dzuhur","Ashar","Maghrib","Isya"],
+                                          labels: ["Jumlah Shalat"],
                                           datasets: [{
-                                              label: "Jumlah Shalat",
+                                              label: "<?php echo date('l - d M Y', strtotime($tgl)); ?>",
                                               data: [<?php
                                                       $dataNilai = shalatWktByDayGraph($tgl, $wkt);
                                                         foreach ($dataNilai as $row){
@@ -104,6 +104,15 @@
                                                         }
                                                     ?>],
                                               backgroundColor: 'rgba(0, 188, 212, 0.8)'
+                                          },{
+                                              label: "<?php echo date('l - d M Y', strtotime($tgl-1)); ?>",
+                                              data: [<?php
+                                                      $dataNilai = shalatWktByDayGraph($tgl-1, $wkt);
+                                                        foreach ($dataNilai as $row){
+                                                          echo '"'.$row['jml'].'",';
+                                                        }
+                                                    ?>],
+                                              backgroundColor: 'rgba(233, 30, 99, 0.8)'
                                           }]
                                       },
                                       options: {
