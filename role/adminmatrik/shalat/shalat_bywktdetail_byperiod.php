@@ -11,8 +11,8 @@
                     <div class="card">
                         <div class="header">
                             <h2>
-                              <a href="?page=shalatmdetail&id=<?php echo $idMahasiswa; ?>" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;GRAFIK NILAI PRESENSI SHALAT MAHASISWA &nbsp;
-                                                                <div class="btn-group">
+                              <a href="?page=shalatwdetail&p=<?php echo $idPeriod; ?>&w=<?php echo $wkt; ?>" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;GRAFIK NILAI PRESENSI SHALAT MAHASISWA &nbsp;
+                                          <div class="btn-group">
                                                     <button type="button" class="btn bg-cyan waves-effect dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         <?php echo ucfirst($wkt); ?>
                                             <span class="caret"></span>
@@ -24,7 +24,7 @@
                                                       <li><?php echo '<a href="?page=shalatwperiod&p='.$idPeriod.'&w=maghrib">Maghrib</a>'; ?></li>
                                                       <li><?php echo '<a href="?page=shalatwperiod&p='.$idPeriod.'&w=isya">Isya</a>'; ?></li>
                                                     </ul>
-                                                </div>       
+                                          </div>       
                                   <?php 
                                     if($idPeriod != 1){
                                       $percent = shalatWktByPeriodPercent(($idPeriod-1), $idPeriod, $wkt);
@@ -175,7 +175,7 @@
                                  ?>
                                 <tr>
                                   <td><?php echo $no; ?></td>
-                                  <td><?php echo '<a href="?page=shalatwbday&p='.$idPeriod.'&t='.date('Ymd', strtotime($row['tanggal'])).'">'.date('l', strtotime($row['tanggal'])).'</a>'; ?></td>
+                                  <td><?php echo '<a href="?page=shalatwbday&p='.$idPeriod.'&t='.date('Ymd', strtotime($row['tanggal'])).'&w='.$wkt.'">'.date('l', strtotime($row['tanggal'])).'</a>'; ?></td>
                                   <td><?php echo date('d M Y', strtotime($row['tanggal'])); ?></td>
                                   <td><?php echo $row['total']; ?></td>
                                   <td><?php echo $row['total_jplg']; ?></td>

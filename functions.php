@@ -942,6 +942,37 @@
 				return $data;
 	}
 
+	function shalatWktByDay($tgl, $wkt){
+		$tgl_ = date('Y-m-d', strtotime($tgl));
+
+		$ambildata = mysql_query("SELECT m.id_mahasiswa, m.nama, sh.tap FROM mahasiswa m LEFT JOIN ( SELECT s.id_mahasiswa, s.wkt_tapping AS tap FROM shalat s WHERE s.tanggal = '$tgl_' AND s.wkt_shalat = '$wkt' ) sh ON m.id_mahasiswa = sh.id_mahasiswa") or die(mysql_error());
+		
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;	
+	}
+
+	function shalatWktByDayGraph($tgl, $wkt){
+		$tgl_ = date('Y-m-d', strtotime($tgl));
+
+		$ambildata = mysql_query(" SELECT COUNT(s.wkt_tapping) AS jml FROM shalat s WHERE s.tanggal = '$tgl_' AND s.wkt_shalat = '$wkt'") or die(mysql_error());
+		
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;			
+	}
+
+	function shalatWktByDayPercent($tgl1, $tgl2, $wkt){
+		$tgl1_ = date('Y-m-d', strtotime($tgl1));
+		$tgl2_ = date('Y-m-d', strtotime($tgl2));
+
+		$ambildata = mysql_query("SELECT a.jml AS a, b.jml AS b, ROUND((((b.jml-a.jml)/a.jml)*100),2) AS 'percent' FROM ( SELECT s.tanggal, COUNT(s.wkt_tapping) AS jml FROM shalat s WHERE s.tanggal = '$tgl1_' AND s.wkt_shalat = '$wkt' GROUP BY s.tanggal ) a JOIN ( SELECT s.tanggal, COUNT(s.wkt_tapping) AS jml FROM shalat s WHERE s.tanggal = '$tgl2_' AND s.wkt_shalat = '$wkt' GROUP BY s.tanggal ) b") or die(mysql_error());
+		
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;		
+	}
+
 	function tampilListTglByPeriod($idPeriod){
 		$ambildata = mysql_query("SELECT s.tanggal FROM shalat s WHERE s.id_periode = $idPeriod GROUP BY s.tanggal") or die(mysql_error());
 		
