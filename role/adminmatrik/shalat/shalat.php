@@ -89,6 +89,8 @@
                           <h2>DATA NILAI RATA-RATA PRESENSI SEMUA MAHASISWA &nbsp;&nbsp;&nbsp;
                             <button class="btn btn-sm btn-default waves-effect " data-toggle="modal" data-target="#importShalat" title="Import Database Mahasiswa"><i class="material-icons">get_app</i><span>IMPORT DATA PRESENSI</span></button>
                           </h2>
+                          Jadwal Pulang : 
+                          <div class="toggle btn btn-primary" data-toggle="toggle" style="width: 58px; height: 34px;"><input type="checkbox" checked data-toggle="toggle"><div class="toggle-group"><label class="btn btn-primary toggle-on">Ya</label><label class="btn btn-default active toggle-off">Tidak</label><span class="toggle-handle btn btn-default"></span></div></div>
                         </div>
                         <div class="body">
                           <div class="table-responsive">
