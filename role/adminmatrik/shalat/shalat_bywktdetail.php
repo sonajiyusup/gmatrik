@@ -108,7 +108,7 @@
                                  ?>
                                 <tr>
                                   <td><?php echo $row['id_periode']; ?></td>
-                                  <td><?php echo '<a href="?page=shalatwperiod&p='.$row['id_periode'].'">'.date('d M Y', strtotime($row['tanggal_dari']))." - ".date('d M Y', strtotime($row['tanggal_sampai'])).'</a>'; ?></td>
+                                  <td><?php echo '<a href="?page=shalatwperiod&p='.$row['id_periode'].'&w='.$wkt.'">'.date('d M Y', strtotime($row['tanggal_dari']))." - ".date('d M Y', strtotime($row['tanggal_sampai'])).'</a>'; ?></td>
                                   <td><?php echo $row['total']; ?></td>
                                   <td><?php echo $row['total_jplg']; ?></td>
                                   <td><?php echo $row['jmlu']; ?></td>
