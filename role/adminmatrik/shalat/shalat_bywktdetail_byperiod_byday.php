@@ -20,11 +20,11 @@
                                             <span class="caret"></span>
                                                     </button>
                                                     <ul class="dropdown-menu">
-                                                      <li><?php echo '<a href="?page=shalatwday&p='.$idPeriod.'&w=shubuh&t='.$tgl.'">Shubuh</a>'; ?></li>
-                                                      <li><?php echo '<a href="?page=shalatwday&p='.$idPeriod.'&w=dzuhur&t='.$tgl.'">Dzuhur</a>'; ?></li>
-                                                      <li><?php echo '<a href="?page=shalatwday&p='.$idPeriod.'&w=ashar&t='.$tgl.'">Ashar</a>'; ?></li>
-                                                      <li><?php echo '<a href="?page=shalatwday&p='.$idPeriod.'&w=maghrib&t='.$tgl.'">Maghrib</a>'; ?></li>
-                                                      <li><?php echo '<a href="?page=shalatwday&p='.$idPeriod.'&w=isya&t='.$tgl.'">Isya</a>'; ?></li>
+                                                      <li><?php echo '<a href="?page=shalatwbday&p='.$idPeriod.'&t='.$tgl.'&w=shubuh">Shubuh</a>'; ?></li>
+                                                      <li><?php echo '<a href="?page=shalatwbday&p='.$idPeriod.'&t='.$tgl.'&w=dzuhur">Dzuhur</a>'; ?></li>
+                                                      <li><?php echo '<a href="?page=shalatwbday&p='.$idPeriod.'&t='.$tgl.'&w=ashar">Ashar</a>'; ?></li>
+                                                      <li><?php echo '<a href="?page=shalatwbday&p='.$idPeriod.'&t='.$tgl.'&w=maghrib">Maghrib</a>'; ?></li>
+                                                      <li><?php echo '<a href="?page=shalatwbday&p='.$idPeriod.'&t='.$tgl.'&w=isya">Isya</a>'; ?></li>
                                                     </ul>
                                           </div> 
                                                 <?php 
@@ -62,7 +62,7 @@
                                                           $dataTgl = tampilListTglByPeriod($idPeriod);
                                                           foreach($dataTgl as $row){
                                                           ?>
-                                                            <li><?php echo '<a href="?page=shalatmbyday&p='.$idPeriod.'&t='.date('Ymd', strtotime($row['tanggal'])).'">'.date('D - d M Y', strtotime($row['tanggal'])).'</a>'; ?></li>
+                                                            <li><?php echo '<a href="?page=shalatwbday&p='.$idPeriod.'&t='.date('Ymd', strtotime($row['tanggal'])).'&w='.$wkt.'">'.date('D - d M Y', strtotime($row['tanggal'])).'</a>'; ?></li>
                                                           <?php
                                                           }
                                                         ?>
