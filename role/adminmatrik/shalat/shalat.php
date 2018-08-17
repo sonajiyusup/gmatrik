@@ -223,12 +223,27 @@
   			                      </div>
   			                    </div>
                           </div>
+<script type="text/javascript">
+  s = 1;
+     function check(){
+         o = document.getElementById('opt');
+         if(o.value=='Y'){
+             s++;
+             if(s%2==0)
+             $('#txt').prop('disabled',false);
+             else
+             $('#txt').prop('disabled',true);
+         }
+         
+     }  
+</script>                          
                           <div class="col-md-12">
-                            <label>Jadwal Pulang ?</label><br>
+                            <label>Jadwal Pulang ?</label>&nbsp;
                             <label class="switch">
-                              <input type="checkbox">
-                              <span class="slider round"></span>
+                              <input type="checkbox" name="opt" id="opt" value="Y" onclick="check()">
+                              <span class="slider round"></span><br>
                             </label>                            
+                            <input type="text" id="txt" class="form-control" disabled/>
                           </div>                        
                         </div>
                         <div class="modal-footer">
