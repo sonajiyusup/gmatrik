@@ -89,34 +89,6 @@
                           <h2>DATA NILAI RATA-RATA PRESENSI SEMUA MAHASISWA &nbsp;&nbsp;&nbsp;
                             <button class="btn btn-sm btn-default waves-effect " data-toggle="modal" data-target="#importShalat" title="Import Database Mahasiswa"><i class="material-icons">get_app</i><span>IMPORT DATA PRESENSI</span></button>
                           </h2>
-                          Jadwal Pulang : 
-                          <style>
-
-</style>
-</head>
-<body>
-
-<h3>Toggle Switch</h3>
-
-<label class="switch">
-  <input type="checkbox">
-  <span class="slider"></span>
-</label>
-
-<label class="switch">
-  <input type="checkbox" checked>
-  <span class="slider"></span>
-</label><br><br>
-
-<label class="switch">
-  <input type="checkbox">
-  <span class="slider round"></span>
-</label>
-
-<label class="switch">
-  <input type="checkbox" checked>
-  <span class="slider round"></span>
-</label>
                         </div>
                         <div class="body">
                           <div class="table-responsive">
@@ -251,6 +223,13 @@
   			                      </div>
   			                    </div>
                           </div>
+                          <div class="col-md-12">
+                            <label>Jadwal Pulang ?</label><br>
+                            <label class="switch">
+                              <input type="checkbox">
+                              <span class="slider round"></span>
+                            </label>                            
+                          </div>                        
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary waves-effect" name="importPresensiShalat">IMPORT</button>
