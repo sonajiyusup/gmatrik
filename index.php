@@ -25,8 +25,8 @@
     <!-- Bootstrap Core Css -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
 
-    <!-- Bootstrap Toogle Css -->
-    <!-- <link href="assets/css/bootstrap-toggle.min.css" rel="stylesheet"> -->
+    <!-- Custom Toogle Button Css -->
+    <link href="assets/css/toogle.css" rel="stylesheet">
 
     <!-- Waves Effect Css -->
     <link href="assets/css/waves.css" rel="stylesheet" />
@@ -126,9 +126,6 @@
     <!-- Moment Plugin Js -->
     <script src="assets/js/moment.js"></script>
     <script src="assets/js/daterangepicker.js"></script>
-
-    <!-- Bootstrap Toogle Js -->
-    <!-- <script src="assets/js/bootstrap-toggle.min.js"></script> -->
 
     <!-- datepicker -->
     <script src="assets/js/bootstrap-datepicker.min.js"></script>
