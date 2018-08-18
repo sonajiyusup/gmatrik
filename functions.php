@@ -50,6 +50,11 @@
 		mysql_query("UPDATE mahasiswa m SET m.j_kelamin=(SELECT p.j_kelamin FROM pembina p WHERE p.id_pembina = $idPembina) WHERE m.id_mahasiswa = $idMahasiswa;");
 	}
 
+	function tambahJplg($tgl, $jKelamin, $wkt){
+		$tgl_ = date('Y-m-d', strtotime($tgl));
+		mysql_query("INSERT INTO j_pulang2 (id_periode, tanggal, j_kelamin, wkt_shalat) VALUES ((SELECT s.id_periode FROM shalat s WHERE s.tanggal = '$tgl_' GROUP BY s.id_periode), '$tgl_', '$jKelamin', '$wkt');");
+	}
+
 	function tampilPembina(){
 		$ambildata = mysql_query("SELECT p.*, COUNT(mb.id_mahasiswa) AS 'jml_binaan', u.* FROM pembina p LEFT JOIN m_binaan mb ON p.id_pembina = mb.id_pembina LEFT JOIN users u ON p.id_user = u.id_user GROUP BY p.nama ORDER BY p.nama") or die(mysql_error());
 		if (mysql_num_rows($ambildata) > 0) {
