@@ -397,10 +397,11 @@
 
 <script type="text/javascript">
     //Flat red color scheme for iCheck
-    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+/*    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
       checkboxClass: 'icheckbox_flat-blue',
       radioClass   : 'iradio_flat-green'
-    });  
+    });  */
+
 
     var triggeredByChild = false;
     var triggeredByChild2 = false;
@@ -452,6 +453,19 @@
             $('#check-all2').iCheck('check');
         }
     }); 
+
+    $(document).ready(function () {
+    $('input').iCheck({
+        checkboxClass: 'icheckbox_flat-blue',
+        radioClass: 'iradio_square-blue',
+        increaseArea: '20%' // optional
+    });
+    
+    //Test Radio iCheck on jplg with alert
+    $('.radiojk').on('ifChecked', function(event){
+      alert($(this).val());
+    });
+});
 </script>  
 
 <!-- Fungsi Validasi Password Confirm -->
