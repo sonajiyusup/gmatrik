@@ -397,10 +397,75 @@
 
 <script type="text/javascript">
     //Flat red color scheme for iCheck
-    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+/*    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
       checkboxClass: 'icheckbox_flat-blue',
       radioClass   : 'iradio_flat-green'
-    })  
+    });  */
+
+
+    var triggeredByChild = false;
+    var triggeredByChild2 = false;
+
+    // Hari 1 Jplg
+    $('#check-all1').on('ifChecked', function (event) {
+        $('.check').iCheck('check');
+        triggeredByChild = false;
+    });
+
+    $('#check-all1').on('ifUnchecked', function (event) {
+        if (!triggeredByChild) {
+            $('.check').iCheck('uncheck');
+        }
+        triggeredByChild = false;
+    });
+    // Removed the checked state from "All" if any checkbox is unchecked
+    $('.check').on('ifUnchecked', function (event) {
+        triggeredByChild = true;
+        $('#check-all1').iCheck('uncheck');
+    });
+
+    $('.check').on('ifChecked', function (event) {
+        if ($('.check').filter(':checked').length == $('.check').length) {
+            $('#check-all1').iCheck('check');
+        }
+    });    
+
+    // Hari 2 Jplg
+    $('#check-all2').on('ifChecked', function (event) {
+        $('.check2').iCheck('check');
+        triggeredByChild2 = false;
+    });
+
+    $('#check-all2').on('ifUnchecked', function (event) {
+        if (!triggeredByChild2) {
+            $('.check2').iCheck('uncheck');
+        }
+        triggeredByChild2 = false;
+    });
+    // Removed the checked state from "All" if any checkbox is unchecked
+    $('.check2').on('ifUnchecked', function (event) {
+        triggeredByChild2 = true;
+        $('#check-all2').iCheck('uncheck');
+    });
+
+    $('.check2').on('ifChecked', function (event) {
+        if ($('.check2').filter(':checked').length == $('.check2').length) {
+            $('#check-all2').iCheck('check');
+        }
+    }); 
+
+    $(document).ready(function () {
+    $('input').iCheck({
+        checkboxClass: 'icheckbox_flat-blue',
+        radioClass: 'iradio_square-blue',
+        increaseArea: '20%' // optional
+    });
+    
+    //Test Radio iCheck on jplg with alert
+    $('.radiojk').on('ifChecked', function(event){
+      alert($(this).val());
+    });
+});
 </script>  
 
 <!-- Fungsi Validasi Password Confirm -->
