@@ -1,4 +1,4 @@
-	<div class="row clearfix">
+<div class="row clearfix">
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                     <div class="card">
                         <div class="header">
@@ -20,11 +20,12 @@
                                       <!-- <div class="controls">     -->
                                         <!-- <div class="entry"> -->
                                           <input type="text" id="txt" class="datepicker form-control" name="tplg1" placeholder="Tanggal Pulang"/><br>
-                                          <input type="checkbox" class="flat-red" name="wkt1[]" value="shubuh">&nbsp;Shubuh&nbsp;&nbsp;
-                                          <input type="checkbox" class="flat-red" name="wkt1[]" value="dzuhur">&nbsp;Dzuhur&nbsp;&nbsp;
-                                          <input type="checkbox" class="flat-red" name="wkt1[]" value="ashar">&nbsp;Ashar&nbsp;&nbsp;
-                                          <input type="checkbox" class="flat-red" name="wkt1[]" value="maghrib">&nbsp;Maghrib&nbsp;&nbsp;
-                                          <input type="checkbox" class="flat-red" name="wkt1[]" value="isya">&nbsp;Isya
+                                          <input type="checkbox" class="flat-red" id="check-all1">&nbsp;Semua&nbsp;&nbsp;
+                                          <input type="checkbox" class="flat-red check" name="wkt1[]" value="shubuh">&nbsp;Shubuh&nbsp;&nbsp;
+                                          <input type="checkbox" class="flat-red check" name="wkt1[]" value="dzuhur">&nbsp;Dzuhur&nbsp;&nbsp;
+                                          <input type="checkbox" class="flat-red check" name="wkt1[]" value="ashar">&nbsp;Ashar&nbsp;&nbsp;
+                                          <input type="checkbox" class="flat-red check" name="wkt1[]" value="maghrib">&nbsp;Maghrib&nbsp;&nbsp;
+                                          <input type="checkbox" class="flat-red check" name="wkt1[]" value="isya">&nbsp;Isya
                                           <br>
                                           <!-- <button type="button" class="btn btn-xs btn-primary waves-effect btn-add">
                                               <i class="material-icons">add</i>
@@ -36,11 +37,12 @@
                                     <!-- </div>                           -->
                                     <label>Hari 2</label>&nbsp;
                                           <input type="text" id="txt" class="datepicker form-control" name="tplg2" placeholder="Tanggal Pulang"/><br>
-                                          <input type="checkbox" class="flat-red" name="wkt2[]" value="shubuh">&nbsp;Shubuh&nbsp;&nbsp;
-                                          <input type="checkbox" class="flat-red" name="wkt2[]" value="dzuhur">&nbsp;Dzuhur&nbsp;&nbsp;
-                                          <input type="checkbox" class="flat-red" name="wkt2[]" value="ashar">&nbsp;Ashar&nbsp;&nbsp;
-                                          <input type="checkbox" class="flat-red" name="wkt2[]" value="maghrib">&nbsp;Maghrib&nbsp;&nbsp;
-                                          <input type="checkbox" class="flat-red" name="wkt2[]" value="isya">&nbsp;Isya
+                                          <input type="checkbox" class="flat-red" id="check-all2">&nbsp;Semua&nbsp;&nbsp;
+                                          <input type="checkbox" class="flat-red check2" name="wkt2[]" value="shubuh">&nbsp;Shubuh&nbsp;&nbsp;
+                                          <input type="checkbox" class="flat-red check2" name="wkt2[]" value="dzuhur">&nbsp;Dzuhur&nbsp;&nbsp;
+                                          <input type="checkbox" class="flat-red check2" name="wkt2[]" value="ashar">&nbsp;Ashar&nbsp;&nbsp;
+                                          <input type="checkbox" class="flat-red check2" name="wkt2[]" value="maghrib">&nbsp;Maghrib&nbsp;&nbsp;
+                                          <input type="checkbox" class="flat-red check2" name="wkt2[]" value="isya">&nbsp;Isya
                                           <br>
                                           <br>
                                     <label>Hari 3</label>&nbsp;
