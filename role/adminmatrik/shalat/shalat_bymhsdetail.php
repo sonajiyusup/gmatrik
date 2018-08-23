@@ -68,7 +68,20 @@
                                               pointBorderColor: 'rgba(0, 188, 212, 0)',
                                               pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
                                               pointBorderWidth: 1
-                                          }]
+                                          }, {
+                                                  label: "Nilai Rata-rata Semua Mahasiswa",
+                                                  data: [<?php
+                                                      $dataTarget = shalatNilaiSemua();
+                                                      foreach ($dataTarget as $row){
+                                                       echo '"'.$row['nilai'].'",';
+                                                      }
+                                                  ?>],
+                                                  borderColor: 'rgba(233, 30, 99, 0.75)',
+                                                  backgroundColor: 'rgba(200, 30, 99, 0.3)',
+                                                  pointBorderColor: 'rgba(200, 30, 99, 0)',
+                                                  pointBackgroundColor: 'rgba(200, 30, 99, 0.9)',
+                                                  pointBorderWidth: 1
+                                              }]
                                       },
                                       options: {
                                           responsive: true,
