@@ -10,7 +10,29 @@
                     <div class="card">
                         <div class="header">
                             <h2>
-                              <a href="?page=shalatbpembina" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;GRAFIK NILAI PRESENSI MAHASISWA BERDASARKAN PEMBINA
+                              <a href="?page=shalatbpembina" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;GRAFIK NILAI PRESENSI MAHASISWA BERDASARKAN PEMBINA&nbsp;
+                              <?php 
+                                    
+                                      $percent = shalatByPembinaIdPercentage($idPembina);
+                                      foreach ($percent as $row){
+                                        if ($row['a'] > $row['b']) {
+                                          echo 
+                                          '<span class="label bg-red">
+                                            <i class="material-icons vertical-align-middle padding-bottom-3">trending_down</i>
+                                          '.$row['percent'].'% dibandingkan rata-rata semua pembina
+                                          </span>';
+                                        } else
+                                        if ($row['a'] < $row['b']) {
+                                          echo 
+                                          '<span class="label bg-green">
+                                            <i class="material-icons vertical-align-middle padding-bottom-3">trending_up</i>
+                                             +'.$row['percent'].'% dibandingkan rata-rata semua pembina
+                                          </span>';
+                                        } 
+                                      }
+                                    
+                                  ?>
+
                               <small>
                                 <div class="btn-group">
                                                     <button type="button" class="btn bg-cyan waves-effect dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

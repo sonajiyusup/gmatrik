@@ -1197,6 +1197,108 @@ WHERE t.id_pembina = 34
 GROUP BY sp.id_periode 
 ORDER BY sp.id_periode
 
+-- shalat by pembina detail percentage (WORK)
+SELECT a.nilai AS a, b.nilai AS b, 
+ROUND((((b.nilai-a.nilai)/a.nilai)*100),2) AS 'percent'
+FROM (
+    SELECT ROUND((SUM(a.nilai)/a.jml),2) AS nilai
+    FROM (
+        SELECT p.jml, ROUND(((COUNT(s.jws)/((j.jmlb*(r.jmltgl-pu.jplg)*5)-(IF(uz.jmlu IS NULL, 0, uz.jmlu))))*100),2) AS nilai 
+        FROM pembina p 
+        LEFT JOIN ( 
+            SELECT mb.id_pembina, sl.wkt_tapping AS jws 
+            FROM m_binaan mb 
+            LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa 
+            LEFT JOIN shalat sl ON m.id_mahasiswa = sl.id_mahasiswa 
+        ) s ON p.id_pembina = s.id_pembina 
+        LEFT JOIN ( 
+            SELECT p.id_pembina, COUNT(mb.id_mahasiswa) AS jmlb 
+            FROM m_binaan mb 
+            LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina 
+            GROUP BY p.id_pembina 
+        ) j ON p.id_pembina = j.id_pembina 
+        LEFT JOIN ( 
+            SELECT p.id_pembina, DATEDIFF(MAX(s.tanggal),MIN(s.tanggal))+1 AS jmltgl 
+            FROM pembina p 
+            LEFT JOIN m_binaan mb ON p.id_pembina = mb.id_pembina 
+            LEFT JOIN shalat s ON mb.id_mahasiswa = s.id_mahasiswa 
+            GROUP BY p.id_pembina 
+        ) r ON p.id_pembina = r.id_pembina 
+        LEFT JOIN ( 
+            SELECT p.id_pembina, COUNT(jp.tanggal) AS jplg 
+            FROM pembina p 
+            LEFT JOIN j_pulang jp ON p.j_kelamin = jp.j_kelamin 
+            GROUP BY p.id_pembina 
+        ) pu ON p.id_pembina = pu.id_pembina 
+        LEFT JOIN (
+            SELECT mb.id_pembina, u.jmlu
+            FROM m_binaan mb 
+            LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina
+            LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa
+            LEFT JOIN (
+                SELECT su.id_mahasiswa, COUNT(su.wkt_shalat) AS jmlu
+                FROM shalat_udzur2 su 
+                WHERE su.disetujui = 1
+                GROUP BY su.id_mahasiswa
+            ) u ON m.id_mahasiswa = u.id_mahasiswa
+            GROUP BY mb.id_pembina    
+        ) uz ON p.id_pembina = uz.id_pembina
+        JOIN (
+            SELECT COUNT(p.id_pembina) AS jml
+            FROM pembina p 
+        ) p
+        GROUP BY p.id_pembina
+    ) a
+) a 
+JOIN (
+    SELECT ROUND(((COUNT(s.jws)/((j.jmlb*(r.jmltgl-pu.jplg)*5)-(IF(uz.jmlu IS NULL, 0, uz.jmlu))))*100),2) AS nilai 
+    FROM pembina p 
+    LEFT JOIN ( 
+        SELECT mb.id_pembina, sl.wkt_tapping AS jws 
+        FROM m_binaan mb 
+        LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa 
+        LEFT JOIN shalat sl ON m.id_mahasiswa = sl.id_mahasiswa 
+    ) s ON p.id_pembina = s.id_pembina 
+    LEFT JOIN ( 
+        SELECT p.id_pembina, COUNT(mb.id_mahasiswa) AS jmlb 
+        FROM m_binaan mb 
+        LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina 
+        GROUP BY p.id_pembina 
+    ) j ON p.id_pembina = j.id_pembina 
+    LEFT JOIN ( 
+        SELECT p.id_pembina, DATEDIFF(MAX(s.tanggal),MIN(s.tanggal))+1 AS jmltgl 
+        FROM pembina p 
+        LEFT JOIN m_binaan mb ON p.id_pembina = mb.id_pembina 
+        LEFT JOIN shalat s ON mb.id_mahasiswa = s.id_mahasiswa 
+        GROUP BY p.id_pembina 
+    ) r ON p.id_pembina = r.id_pembina 
+    LEFT JOIN ( 
+        SELECT p.id_pembina, COUNT(jp.tanggal) AS jplg 
+        FROM pembina p 
+        LEFT JOIN j_pulang jp ON p.j_kelamin = jp.j_kelamin 
+        GROUP BY p.id_pembina 
+    ) pu ON p.id_pembina = pu.id_pembina 
+    LEFT JOIN (
+        SELECT mb.id_pembina, u.jmlu
+        FROM m_binaan mb 
+        LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina
+        LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa
+        LEFT JOIN (
+            SELECT su.id_mahasiswa, COUNT(su.wkt_shalat) AS jmlu
+            FROM shalat_udzur2 su 
+            WHERE su.disetujui = 1
+            GROUP BY su.id_mahasiswa
+        ) u ON m.id_mahasiswa = u.id_mahasiswa
+        GROUP BY mb.id_pembina    
+    ) uz ON p.id_pembina = uz.id_pembina
+    JOIN (
+        SELECT COUNT(p.id_pembina) AS jml
+        FROM pembina p 
+    ) p
+    WHERE P.id_pembina = 30
+    GROUP BY p.id_pembina
+) b
+
 
 -- shalat by pembina detail by period LENGKAP (WORK)
 SELECT sp.id_periode, s.tanggal, 

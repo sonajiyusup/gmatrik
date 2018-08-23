@@ -78,3 +78,9 @@ DOING
 		- table query DONE
 		- graph query
 		- percentage query DONE
+
+23/08/2018
+- Jadwal pulang
+	- add table of data jadwal pulang
+		- query DONE
+		- UI DONE
