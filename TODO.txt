@@ -82,5 +82,20 @@ DOING
 23/08/2018
 - Jadwal pulang
 	- add table of data jadwal pulang
-		- query DONE
+		- query
 		- UI DONE
+- shalat by pembina detail
+	- graph comparison 
+		- query
+		- UI
+- shalat by pembina detail by period
+	- graph comparison 
+		- query
+		- UI
+	- percentage
+		- query
+		- UI	
+- shalat by pembina detail by period by day
+	- graph comparison 
+		- query
+		- U	
