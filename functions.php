@@ -77,6 +77,17 @@
 		}		
 	}	
 
+	function tampilJplg(){
+		$ambildata = mysql_query("SELECT jp.id_periode, jp.tanggal, jp.j_kelamin, GROUP_CONCAT(jp.wkt_shalat SEPARATOR ',') AS wkt, COUNT(jp.wkt_shalat) AS jws FROM j_pulang2 jp GROUP BY jp.tanggal") or die(mysql_error());
+		if (mysql_num_rows($ambildata) > 0) {
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;
+		} else{
+			echo "Data Jadwal Pulang Mahasiswa Masih Kosong";
+		}			
+	}
+
 	function tampilMahasiswa(){
 		$ambildata = mysql_query("SELECT mahasiswa.*, users.* FROM users INNER JOIN mahasiswa ON mahasiswa.id_user = users.id_user ORDER BY nama") or die(mysql_error());
 		if (mysql_num_rows($ambildata) > 0) {

@@ -462,9 +462,9 @@
     });
     
     //Test Radio iCheck on jplg with alert
-    $('.radiojk').on('ifChecked', function(event){
+    /*$('.radiojk').on('ifChecked', function(event){
       alert($(this).val());
-    });
+    });*/
 });
 </script>  
 
