@@ -98,4 +98,13 @@ DOING
 - shalat by pembina detail by period by day
 	- graph comparison 
 		- query
-		- U	
+		- UI
+- shalat by mahasiswa detail
+	- percentage
+	- comparison graph
+- shalat by ikhwan/akhwat detail
+	- percentage
+	- comparison graph
+- shalat by waktu shalat detail
+	- percentage
+	- comparison graph
