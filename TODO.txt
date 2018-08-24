@@ -90,7 +90,7 @@ DOING
 	- graph comparison 
 		- query DONE (using shalatNilaiSemua() function)
 		- UI DONE 
-- shalat by pembina detail by period
+- shalat by pembina detail by period DONE
 	- graph comparison 
 		- query
 		- UI
