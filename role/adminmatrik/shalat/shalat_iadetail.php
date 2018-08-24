@@ -10,7 +10,36 @@
                         <div class="header">
                           <h2>
                           <a href="?page=shalatia" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;
-                          GRAFIK NILAI PRESENSI MAHASISWA <?php if($jKelamin == 'Akhwat'){echo 'AKHWAT';}else if($jKelamin == 'Ikhwan'){echo 'IKHWAN';} ?></h2>
+                          GRAFIK NILAI PRESENSI MAHASISWA <?php if($jKelamin == 'Akhwat'){echo 'AKHWAT';}else if($jKelamin == 'Ikhwan'){echo 'IKHWAN';} ?>
+                          &nbsp;
+                              <?php 
+                                      if($jKelamin == 'Ikhwan'){
+                                        $percent = shalatIAByDetailPercent('Akhwat', 'Ikhwan');
+                                      } else
+                                      if($jKelamin == 'Akhwat'){
+                                        $percent = shalatIAByDetailPercent('Ikhwan', 'Akhwat');
+                                      }
+
+                                      if($jKelamin == 'Akhwat'){$jkp = 'Ikhwan';}else if($jKelamin == 'Ikhwan'){$jkp = 'Akhwat';}
+                                      
+                                      foreach ($percent as $row){
+                                        if ($row['a'] > $row['b']) {
+                                          echo 
+                                          '<span class="label bg-red">
+                                            <i class="material-icons vertical-align-middle padding-bottom-3">trending_down</i>
+                                          '.$row['percent'].'% dibandingkan nilai '.$jkp.'
+                                          </span>';
+                                        } else
+                                        if ($row['a'] < $row['b']) {
+                                          echo 
+                                          '<span class="label bg-green">
+                                            <i class="material-icons vertical-align-middle padding-bottom-3">trending_up</i>
+                                             +'.$row['percent'].'% dibandingkan nilai '.$jkp.'
+                                          </span>';
+                                        } 
+                                      }
+                                    
+                                  ?>
                             <small>
                               Pilih Berdasarkan :
                               <div class="btn-group">
@@ -34,6 +63,7 @@
                                                     </ul>
                               </div>
                             </small>
+                          </h2>
                         </div>
                         <div class="body">
                             <canvas id="line_chart" height="70"></canvas>
@@ -154,7 +184,7 @@
                                   <td><?php echo $row['total']; ?></td>
                                   <td><?php echo $row['jplg']; ?></td>
                                   <td><?php echo $row['jmlu']; ?></td>
-                                  <td><?php echo $row['target_akhir']; ?></td>
+                                  <td><?php echo $row['target2']; ?></td>
                                   <td><?php echo $row['nilai']; ?></td>
                                 </tr>
                                 <?php } ?>
