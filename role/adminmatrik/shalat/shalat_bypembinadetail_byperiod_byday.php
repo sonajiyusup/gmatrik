@@ -111,6 +111,15 @@
                                                         }
                                                     ?>],
                                               backgroundColor: 'rgba(0, 188, 212, 0.8)'
+                                          }, {
+                                              label: "Jumlah Shalat Hari Sebelumnya",
+                                              data: [<?php
+                                                      $dataNilai = shalatByPembinaByDayGraph($idPembina, $tgl-1);
+                                                        foreach ($dataNilai as $row){
+                                                          echo '"'.$row['jml'].'",';
+                                                        }
+                                                    ?>],
+                                              backgroundColor: 'rgba(233, 30, 99, 0.8)'
                                           }]
                                       },
                                       options: {
