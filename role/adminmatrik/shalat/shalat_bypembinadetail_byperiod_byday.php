@@ -131,46 +131,23 @@
                           <h2>
                             <a href="?page=shalatbpembinabp&idP=<?php echo $idPembina; ?>&id=<?php echo $idPeriod; ?>" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;
                             DATA PRESENSI SHALAT MAHASISWA BINAAN &nbsp;
-                            <div class="btn-group">
-                                  <button type="button" class="btn bg-cyan waves-effect dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="label bg-cyan">
                                     <?php 
                                       $namaPembina = namaPembinaById($idPembina);
                                       foreach($namaPembina as $row){
                                         echo $row['nama'].' '.$row['gelar'];
                                       } 
-                                    ?>
-                                    <span class="caret"></span>
-                                  </button>
-                                  <ul class="dropdown-menu">
-                                    <?php
-                                      $dataPembina = tampilPembina();
-                                      foreach($dataPembina as $row){
-                                        ?>
-                                          <li><?php echo '<a href="?page=shalatbpembinabpday&idP='.$row['id_pembina'].'&p='.$idPeriod.'&t='.$tgl.'">'.$row['nama'].' '.$row['gelar'].'</a>'; ?></li>
-                                        <?php
-                                     }
-                                    ?>
-                                  </ul>
-                                </div>
-                            <small> Tanggal : &nbsp;
-                              <div class="btn-group">
-                                                    <button type="button" class="btn bg-orange waves-effect dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <?php 
-                                                          echo date('l - d M Y', strtotime($tgl));
-                                                        ?>
-                                            <span class="caret"></span>
-                                                    </button>
-                                                    <ul class="dropdown-menu">
-                                                        <?php
-                                                          $dataTgl = tampilListTglByPeriod($idPeriod);
-                                                          foreach($dataTgl as $row){
-                                                          ?>
-                                                            <li><?php echo '<a href="?page=shalatbpembinabpday&idP='.$idPembina.'&p='.$idPeriod.'&t='.date('Ymd', strtotime($row['tanggal'])).'">'.date('D - d M Y', strtotime($row['tanggal'])).'</a>'; ?></li>
-                                                          <?php
-                                                          }
-                                                        ?>
-                                                    </ul>
-                              </div>
+                                    ?> 
+                              </span>
+                            <small> Jumlah Binaan : &nbsp; 
+                                <span class="label bg-cyan label-lg">
+                                  <?php 
+                                    $jmlb = tampilJmlBinaan($idPembina);
+                                      foreach($jmlb as $row){
+                                        echo $row['jmlb'];
+                                      } 
+                                  ?>
+                                </span>
                             </small>
                             <?php 
                                   /*$dataTglJPulang = tampilTglJPulang();

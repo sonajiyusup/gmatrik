@@ -152,13 +152,15 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                          <h2>DATA NILAI RATA-RATA PRESENSI SHALAT MAHASISWA BINAAN <span class="label bg-cyan">
+                          <h2>DATA NILAI RATA-RATA PRESENSI SHALAT MAHASISWA BINAAN 
+                              <span class="label bg-cyan">
                                     <?php 
                                       $namaPembina = namaPembinaById($idPembina);
                                       foreach($namaPembina as $row){
                                         echo $row['nama'].' '.$row['gelar'];
                                       } 
-                                    ?> </span>
+                                    ?> 
+                              </span>
                             <small> Jumlah Binaan : &nbsp; 
                                 <span class="label bg-cyan label-lg">
                                   <?php 
