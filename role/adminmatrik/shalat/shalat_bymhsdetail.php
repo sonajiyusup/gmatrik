@@ -10,7 +10,29 @@
                         <div class="header">
                           <h2>
                           <a href="?page=shalatm" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;
-                          GRAFIK NILAI PRESENSI SHALAT MAHASISWA</h2>
+                          GRAFIK NILAI PRESENSI SHALAT MAHASISWA&nbsp;
+                              <?php 
+                                    
+                                      $percent = shalatMhsDetailPercent($idMhs);
+                                      foreach ($percent as $row){
+                                        if ($row['a'] > $row['b']) {
+                                          echo 
+                                          '<span class="label bg-red">
+                                            <i class="material-icons vertical-align-middle padding-bottom-3">trending_down</i>
+                                          '.$row['percent'].'% dibandingkan rata-rata semua mahasiswa
+                                          </span>';
+                                        } else
+                                        if ($row['a'] < $row['b']) {
+                                          echo 
+                                          '<span class="label bg-green">
+                                            <i class="material-icons vertical-align-middle padding-bottom-3">trending_up</i>
+                                             +'.$row['percent'].'% dibandingkan rata-rata semua mahasiswa
+                                          </span>';
+                                        } 
+                                      }
+                                    
+                                  ?>
+                              </h2>
                           <small>
                                 <div class="btn-group">
                                                     <button type="button" class="btn bg-cyan waves-effect dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -56,7 +78,7 @@
                                                     }
                                                   ?>],
                                           datasets: [{
-                                              label: "Rata-rata Nilai Shalat",
+                                              label: "Nilai Rata-rata Shalat",
                                               data: [<?php
                                                     $dataNilai = shalatMhsDetail($idMhs);
                                                     foreach ($dataNilai as $row){
@@ -69,7 +91,7 @@
                                               pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
                                               pointBorderWidth: 1
                                           }, {
-                                                  label: "Nilai Rata-rata Semua Mahasiswa",
+                                                  label: "Nilai Shalat Rata-rata Semua Mahasiswa",
                                                   data: [<?php
                                                       $dataTarget = shalatNilaiSemua();
                                                       foreach ($dataTarget as $row){
