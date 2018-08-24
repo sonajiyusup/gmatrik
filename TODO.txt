@@ -88,8 +88,8 @@ DOING
 24/08/2018
 - shalat by pembina detail
 	- graph comparison 
-		- query
-		- UI
+		- query DONE (using shalatNilaiSemua() function)
+		- UI DONE 
 - shalat by pembina detail by period
 	- graph comparison 
 		- query

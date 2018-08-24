@@ -11,7 +11,7 @@
                     <div class="card">
                         <div class="header">
                             <h2>
-                              <a href="?page=shalatbpembinadetail&id=<?php echo $idPembina; ?>" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;GRAFIK NILAI RATA-RATA PRESENSI SHALAT MAHASISWA BINAAN &nbsp;
+                              <a href="?page=shalatbpembinadetail&id=<?php echo $idPembina; ?>" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;GRAFIK NILAI PRESENSI SHALAT MAHASISWA BINAAN &nbsp;
                                 <div class="btn-group">
                                   <button type="button" class="btn bg-cyan waves-effect dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <?php 
@@ -33,14 +33,27 @@
                                     ?>
                                   </ul>
                                 </div>
-                                <span class="label bg-cyan label-lg">
-                                  <?php 
-                                    $jmlb = tampilJmlBinaan($idPembina);
-                                      foreach($jmlb as $row){
-                                        echo $row['jmlb'];
-                                      } 
+                                <?php 
+                                    if($idPeriod != 1){
+                                      $percent = shalatByPembinaByPeriodPercent($idPembina, ($idPeriod-1), $idPeriod);
+                                      foreach ($percent as $row){
+                                        if ($row['a'] > $row['b']) {
+                                          echo 
+                                          '<span class="label bg-red">
+                                            <i class="material-icons vertical-align-middle padding-bottom-3">trending_down</i>
+                                          '.$row['percent'].'% dibandingkan periode sebelumnya
+                                          </span>';
+                                        } else
+                                        if ($row['a'] < $row['b']) {
+                                          echo 
+                                          '<span class="label bg-green">
+                                            <i class="material-icons vertical-align-middle padding-bottom-3">trending_up</i>
+                                             +'.$row['percent'].'% dibandingkan periode sebelumnya
+                                          </span>';
+                                        } 
+                                      }
+                                    }
                                   ?>
-                                </span>
 
                               <small> Periode : &nbsp;
                                 <div class="btn-group">
@@ -100,7 +113,29 @@
                                               pointBorderColor: 'rgba(0, 188, 212, 0)',
                                               pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
                                               pointBorderWidth: 1
-                                          }]
+                                          }, {
+                                                  label: "Nilai Rata-rata Hari Yang Sama Pada Periode Sebelumnya",
+                                                  data: [<?php
+
+                                                    if($idPeriod != 1){
+                                                      $dataTarget = shalatByPembinaByPeriod($idPembina, ($idPeriod-1));
+                                                      foreach ($dataTarget as $row){
+                                                       echo '"'.$row['nilai'].'",';
+                                                      }
+                                                    } else
+                                                    if($idPeriod == 1){
+                                                      $dataTarget = shalatByPembinaByPeriod($idPembina, $idPeriod);
+                                                      foreach ($dataTarget as $row){
+                                                       echo '"'.$row['nilai'].'",';
+                                                      }
+                                                    }
+                                                  ?>],
+                                                  borderColor: 'rgba(233, 30, 99, 0.75)',
+                                                  backgroundColor: 'rgba(200, 30, 99, 0.3)',
+                                                  pointBorderColor: 'rgba(200, 30, 99, 0)',
+                                                  pointBackgroundColor: 'rgba(200, 30, 99, 0.9)',
+                                                  pointBorderWidth: 1
+                                              }]
                                       },
                                       options: {
                                           responsive: true,
@@ -124,22 +159,15 @@
                                         echo $row['nama'].' '.$row['gelar'];
                                       } 
                                     ?> </span>
-                                    <span class="label bg-cyan">(
-                                      <?php 
-                                        $jmlb = tampilJmlBinaan($idPembina);
-                                          foreach($jmlb as $row){
-                                            echo $row['jmlb'];
-                                          } 
-                                      ?>&nbsp;)
-                                    </span>
-
-                            <small> Periode : &nbsp; <span class="label bg-orange">
-                              <?php $dataPresensi = tampilTglPeriodeById($idPeriod);
-                                foreach($dataPresensi as $row){
-                                  echo date('d M Y', strtotime($row['tanggal_dari']))." - ".date('d M Y', strtotime($row['tanggal_sampai']));
-                                } 
-                              ?>
-                              </span>
+                            <small> Jumlah Binaan : &nbsp; 
+                                <span class="label bg-cyan label-lg">
+                                  <?php 
+                                    $jmlb = tampilJmlBinaan($idPembina);
+                                      foreach($jmlb as $row){
+                                        echo $row['jmlb'];
+                                      } 
+                                  ?>
+                                </span>
                             </small>
                           </h2>
                         </div>
