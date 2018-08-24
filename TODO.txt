@@ -84,6 +84,8 @@ DOING
 	- add table of data jadwal pulang
 		- query
 		- UI DONE
+
+24/08/2018
 - shalat by pembina detail
 	- graph comparison 
 		- query
