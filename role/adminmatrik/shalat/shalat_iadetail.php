@@ -57,29 +57,60 @@
                                                     }
                                                   ?>],
                                           datasets: [{
-                                              label: "Rata-rata Nilai Shalat",
+                                              label: "Rata-rata Nilai Shalat <?php echo $jKelamin; ?>",
                                               data: [<?php
                                                     $dataNilai = shalatIAByDetail($jKelamin);
                                                     foreach ($dataNilai as $row){
                                                      echo '"'.$row['nilai'].'",';
                                                     }
                                                   ?>],
-                                              <?php 
-                                                if($jKelamin == 'Ikhwan'){
-                                                  echo "borderColor: 'rgba(0, 188, 212, 0.75)',
-                                                        backgroundColor: 'rgba(0, 188, 212, 0.3)',
-                                                        pointBorderColor: 'rgba(0, 188, 212, 0)',
-                                                        pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',";
-                                                } else
-                                                if($jKelamin == 'Akhwat'){
-                                                  echo "borderColor: 'rgba(233, 30, 99, 0.75)',
-                                                        backgroundColor: 'rgba(200, 30, 99, 0.3)',
-                                                        pointBorderColor: 'rgba(200, 30, 99, 0)',
-                                                        pointBackgroundColor: 'rgba(200, 30, 99, 0.9)',";
-                                                }
-                                               ?>
-                                              pointBorderWidth: 1
-                                          }]
+                                                  <?php 
+                                                    if($jKelamin == 'Ikhwan'){
+                                                      echo "borderColor: 'rgba(0, 188, 212, 0.75)',
+                                                            backgroundColor: 'rgba(0, 188, 212, 0.3)',
+                                                            pointBorderColor: 'rgba(0, 188, 212, 0)',
+                                                            pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',";
+                                                    } else
+                                                    if($jKelamin == 'Akhwat'){
+                                                      echo "borderColor: 'rgba(233, 30, 99, 0.75)',
+                                                            backgroundColor: 'rgba(200, 30, 99, 0.3)',
+                                                            pointBorderColor: 'rgba(200, 30, 99, 0)',
+                                                            pointBackgroundColor: 'rgba(200, 30, 99, 0.9)',";
+                                                    }
+                                                   ?>
+                                                        pointBorderWidth: 1
+                                                    }, {
+                                              label: "Rata-rata Nilai Shalat <?php if($jKelamin == 'Ikhwan'){echo 'Akhwat';}else if($jKelamin == 'Akhwat'){echo 'Ikhwan';} ?>",
+                                              data: [<?php
+                                                      if($jKelamin == 'Ikhwan'){
+                                                        $jk = 'Akhwat';
+                                                        $dataNilai = shalatIAByDetail($jk);
+                                                      } else
+                                                      if($jKelamin == 'Akhwat'){
+                                                        $jk = 'Ikhwan';
+                                                        $dataNilai = shalatIAByDetail($jk);
+                                                      }
+
+                                                    foreach ($dataNilai as $row){
+                                                     echo '"'.$row['nilai'].'",';
+                                                    }
+                                                  ?>],
+                                                  <?php 
+                                                    if($jKelamin == 'Akhwat'){
+                                                      echo "borderColor: 'rgba(0, 188, 212, 0.75)',
+                                                            backgroundColor: 'rgba(0, 188, 212, 0.3)',
+                                                            pointBorderColor: 'rgba(0, 188, 212, 0)',
+                                                            pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',";
+                                                    } else
+                                                    if($jKelamin == 'Ikhwan'){
+                                                      echo "borderColor: 'rgba(233, 30, 99, 0.75)',
+                                                            backgroundColor: 'rgba(200, 30, 99, 0.3)',
+                                                            pointBorderColor: 'rgba(200, 30, 99, 0)',
+                                                            pointBackgroundColor: 'rgba(200, 30, 99, 0.9)',";
+                                                    }
+                                                   ?>
+                                                        pointBorderWidth: 1
+                                                    }]
                                       },
                                       options: {
                                           responsive: true,
