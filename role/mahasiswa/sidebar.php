@@ -32,6 +32,92 @@
                             <span>Dashboard</span>
                         </a>
                     </li>
+                    <li class="header">PROGRAM PEMBINAAN</li>
+                    <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'shalat' || $_GET['page'] == 'shalatia' || $_GET['page'] == 'shalatbpembina' || $_GET['page'] == 'shalatpdetail' || $_GET['page'] == 'shalatbpembinadetail' || $_GET['page'] == 'shalatbpembinabp' || $_GET['page'] == 'shalatbpembinabpday' || $_GET['page'] == 'shalatbyday' || $_GET['page'] == 'shalatiadetail' || $_GET['page'] == 'shalatiabyperiod' || $_GET['page'] == 'shalatiabyday' || $_GET['page'] == 'shalatm'|| $_GET['page'] == 'shalatmdetail' || $_GET['page'] == 'shalatmbyperiod' || $_GET['page'] == 'shalatmbyday' || $_GET['page'] == 'shalatw' || $_GET['page'] == 'shalatwdetail' || $_GET['page'] == 'shalatwperiod' || $_GET['page'] == 'shalatwbday' || $_GET['page'] == 'importshalat' || $_GET['page'] == 'jplg') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            >
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">watch_later</i>
+                            <span>Shalat Wajib</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'shalat' || $_GET['page'] == 'shalatpdetail'  || $_GET['page'] == 'shalatbyday') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            ><a href="?page=shalat">Ikhtisar</a>
+                            </li>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'shalatm'|| $_GET['page'] == 'shalatmdetail' || $_GET['page'] == 'shalatmbyperiod' || $_GET['page'] == 'shalatmbyday') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                              ><a href="?page=shalatm">Berdasar Mahasiswa</a>
+                            </li>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'shalatw' || $_GET['page'] == 'shalatwdetail' || $_GET['page'] == 'shalatwperiod' || $_GET['page'] == 'shalatwbday') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                              ><a href="?page=shalatw">Berdasar Waktu Shalat</a>
+                            </li>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'udzur') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                              ><a href="?page=udzur">Udzur</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">import_contacts</i>
+                            <span>Tahsin/Tahfidz</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="pages/forms/basic-form-elements.html">Ikhtisar</a>
+                            </li>
+                            <li>
+                                <a href="pages/forms/advanced-form-elements.html">...</a>
+                            </li>
+                            <li>
+                                <a href="pages/forms/form-examples.html">...</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">assignment</i>
+                            <span>Ta'lim</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="pages/tables/normal-tables.html">Ikhtisar</a>
+                            </li>
+                            <li>
+                                <a href="pages/tables/jquery-datatable.html">...</a>
+                            </li>
+                            <li>
+                                <a href="pages/tables/editable-table.html">...</a>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="header">KOMISI DISIPLIN</li>
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
