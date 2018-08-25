@@ -4,6 +4,57 @@
   $idMahasiswa = $_SESSION['id_mahasiswa'];
   $jKelamin = $_SESSION['jKelamin'];
  ?>
+
+ <script type="text/javascript">
+ // Referensi : https://bootsnipp.com/snippets/featured/multiple-fields
+
+    (function ($) {
+        $(function () {
+
+            var addFormGroup = function (event) {
+                event.preventDefault();
+
+                var $formGroup = $(this).closest('.form-group');
+                var $multipleFormGroup = $formGroup.closest('.multiple-form-group');
+                var $formGroupClone = $formGroup.clone();
+
+                $(this)
+                    .toggleClass('btn-default btn-add btn-danger btn-remove')
+                    .html('–');
+
+                $formGroupClone.find('input').val('');
+                $formGroupClone.insertAfter($formGroup);
+
+                var $lastFormGroupLast = $multipleFormGroup.find('.form-group:last');
+                if ($multipleFormGroup.data('max') <= countFormGroup($multipleFormGroup)) {
+                    $lastFormGroupLast.find('.btn-add').attr('disabled', true);
+                }
+            };
+
+            var removeFormGroup = function (event) {
+                event.preventDefault();
+
+                var $formGroup = $(this).closest('.form-group');
+                var $multipleFormGroup = $formGroup.closest('.multiple-form-group');
+
+                var $lastFormGroupLast = $multipleFormGroup.find('.form-group:last');
+                if ($multipleFormGroup.data('max') >= countFormGroup($multipleFormGroup)) {
+                    $lastFormGroupLast.find('.btn-add').attr('disabled', false);
+                }
+
+                $formGroup.remove();
+            };
+
+            var countFormGroup = function ($form) {
+                return $form.find('.form-group').length;
+            };
+
+            $(document).on('click', '.btn-add', addFormGroup);
+            $(document).on('click', '.btn-remove', removeFormGroup);
+
+        });
+    })(jQuery);   
+ </script>
 <div class="row clearfix">
 
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -70,8 +121,8 @@
                                 <label for="radio_32">HAID</label>';
                                   }
                                 ?>
-                                <br><br>                        
-                                    <label>Hari 1</label>&nbsp;
+                                <br><br>              
+                                <div class="form-group multiple-form-group">          
                                     <!-- <label class="switch">
                                       <input type="checkbox" name="opt" id="opt" value="Y" onclick="toggle('.myClass', this)">
                                       <span class="slider round"></span><br>
@@ -80,13 +131,13 @@
                                     <!-- <div class="showhide">   -->
                                       <!-- <div class="controls">     -->
                                         <!-- <div class="entry"> -->
-                                          <input type="text" id="txt" class="datepicker form-control" name="tplg1" placeholder="Tanggal Udzur"/><br>
-                                          <input type="checkbox" class="flat-red" id="check-all1">&nbsp;Semua&nbsp;&nbsp;
-                                          <input type="checkbox" class="flat-red check" name="wkt1" value="shubuh">&nbsp;Shubuh&nbsp;&nbsp;
-                                          <input type="checkbox" class="flat-red check" name="wkt1" value="dzuhur">&nbsp;Dzuhur&nbsp;&nbsp;
-                                          <input type="checkbox" class="flat-red check" name="wkt1" value="ashar">&nbsp;Ashar&nbsp;&nbsp;
-                                          <input type="checkbox" class="flat-red check" name="wkt1" value="maghrib">&nbsp;Maghrib&nbsp;&nbsp;
-                                          <input type="checkbox" class="flat-red check" name="wkt1" value="isya">&nbsp;Isya
+                                          <input type="text" id="txt" class="form-control datepicker" name="tudzur[]" placeholder="Tanggal Udzur"/><br>
+                                          <!-- <input type="checkbox" class="flat-red" id="check-all1">&nbsp;Semua&nbsp;&nbsp; -->
+                                          <input type="checkbox" class="flat-red check" name="shubuh[]" value="shubuh">&nbsp;Shubuh&nbsp;&nbsp;
+                                          <input type="checkbox" class="flat-red check" name="dzuhur[]" value="dzuhur">&nbsp;Dzuhur&nbsp;&nbsp;
+                                          <input type="checkbox" class="flat-red check" name="ashar[]" value="ashar">&nbsp;Ashar&nbsp;&nbsp;
+                                          <input type="checkbox" class="flat-red check" name="maghrib[]" value="maghrib">&nbsp;Maghrib&nbsp;&nbsp;
+                                          <input type="checkbox" class="flat-red check" name="isya[]" value="isya">&nbsp;Isya
                                           <br><br><br>
                                           <button type="button" class="btn btn-xs btn-link waves-effect btn-add" title="Tambah Hari">
                                               <i class="material-icons">add</i>
@@ -95,7 +146,8 @@
                                           <br>
                                         <!-- </div> -->
                                       <!-- </div> -->
-                                    <!-- </div>                           -->
+                                    <!-- </div>   -->
+                                </div>
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary waves-effect" name="submitJplg">SUBMIT</button>

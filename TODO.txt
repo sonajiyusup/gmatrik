@@ -110,3 +110,21 @@ DOING
 - shalat by waktu shalat detail
 	- percentage
 	- comparison graph
+
+25/08/2018
+- add request udzur shalat page on mahasiswa role
+	*Table :Hari/Tanggal, Periode, Waktu shalat, Keterangan, Status (disetujui/tidak)
+	*Modal :radio button (sakit, haid[akhwat only], hujan deras, lain-lain)
+		Text area (keterangan)
+		dynamic UI elements (Hari -> Label, datepicker, checkbox wkt shalat)
+		add button, remove button
+		submit
+
+
+Akhwat (Udzur):
+17104002
+s7s766DRGB
+
+Ikhwan :
+17101003
+VGA52j6y2L
