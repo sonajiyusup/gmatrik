@@ -161,6 +161,7 @@ if(isset($_POST['login'])){
         $_SESSION['role'] = 'pembina';
         $_SESSION['rolename'] = 'Mahasiswa';
         $_SESSION['username'] = $user; 
+        $_SESSION['jKelamin'] = $gender;
 
       $_SESSION['role'] = 'mahasiswa';
       //$_SESSION['nama'] = $row['nama'];

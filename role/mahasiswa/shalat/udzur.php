@@ -2,6 +2,7 @@
   include 'functions2.php';
 
   $idMahasiswa = $_SESSION['id_mahasiswa'];
+  $jKelamin = $_SESSION['jKelamin'];
  ?>
 <div class="row clearfix">
 
@@ -52,7 +53,7 @@
 </div>
 </div>
 
-            <div class="modal fade" id="tambahJplg" tabindex="-1" role="dialog">
+            <div class="modal fade" id="tambahUdzur" tabindex="-1" role="dialog">
                 <div class="modal-dialog">
                   <form method="POST" name="formJplg" id="formJplg">
                     <div class="modal-content">
@@ -64,8 +65,13 @@
                                 <label for="radio_30">SAKIT</label>&nbsp;
                                 <input name="group1" type="radio" id="radio_31" class="radiojk" name="radiojk" id="rda" value="hujan"/>
                                 <label for="radio_31">HUJAN DERAS</label>
-                                <input name="group1" type="radio" id="radio_31" class="radiojk" name="radiojk" id="rda" value="haid"/>
-                                <label for="radio_31">HAID</label><br><br>                        
+                                <?php 
+                                  if($jKelamin == 'Akhwat'){
+                                    echo '<input name="group1" type="radio" id="radio_31" class="radiojk" name="radiojk" id="rda" value="haid"/>
+                                <label for="radio_31">HAID</label>';
+                                  } 
+                                ?>
+                                <br><br>                        
                                     <label>Hari 1</label>&nbsp;
                                     <!-- <label class="switch">
                                       <input type="checkbox" name="opt" id="opt" value="Y" onclick="toggle('.myClass', this)">
