@@ -15,7 +15,7 @@
                         </div>
                         <div class="body">                               
                           <div class="table-responsive">
-                            <table id="tableJplg" class="table table-hover table-condensed">
+                            <table id="tableUdzur" class="table table-hover table-condensed">
                               <thead>
                                 <tr>
                                   <th>Periode</th>
@@ -43,7 +43,6 @@
                                   <td><?php echo $row['jml']; ?></td>
                                   <td><?php if($row['keterangan'] == NULL){echo '-';}else{echo $row['keterangan'];} ?></td>
                                   <td><?php if($row['disetujui'] == 0){echo 'Belum di Review';}else if($row['disetujui'] == 1){echo 'Disetujui';}else if($row['disetujui'] == 2){echo 'Ditolak';} ?></td>
-                                  <td></td>
                                 </tr>
                                 <?php } } ?>
                               </tbody> 
@@ -61,15 +60,15 @@
                         <h4 class="modal-title" id="smallModalLabel">INPUT PERMINTAAN UDZUR SHALAT</h4>
                         </div>
                         <div class="modal-body">
-                                <input name="group1" type="radio" id="radio_30" class="radiojk" name="radiojk" id="rdi" value="sakit"/>
-                                <label for="radio_30">SAKIT</label>&nbsp;
-                                <input name="group1" type="radio" id="radio_31" class="radiojk" name="radiojk" id="rda" value="hujan"/>
-                                <label for="radio_31">HUJAN DERAS</label>
+                                <input name="group1" type="radio" id="radio_30" class="radiojk" name="radiojk" id="sakit" value="sakit"/>
+                                <label for="radio_30">SAKIT</label>&nbsp;&nbsp;
+                                <input name="group1" type="radio" id="radio_31" class="radiojk" name="radiojk" id="hujan" value="hujan"/>
+                                <label for="radio_31">HUJAN DERAS</label>&nbsp;&nbsp;
                                 <?php 
                                   if($jKelamin == 'Akhwat'){
-                                    echo '<input name="group1" type="radio" id="radio_31" class="radiojk" name="radiojk" id="rda" value="haid"/>
-                                <label for="radio_31">HAID</label>';
-                                  } 
+                                    echo '<input name="group1" type="radio" id="radio_32" class="radiojk" name="radiojk" id="haid" value="haid"/>
+                                <label for="radio_32">HAID</label>';
+                                  }
                                 ?>
                                 <br><br>                        
                                     <label>Hari 1</label>&nbsp;
@@ -81,39 +80,22 @@
                                     <!-- <div class="showhide">   -->
                                       <!-- <div class="controls">     -->
                                         <!-- <div class="entry"> -->
-                                          <input type="text" id="txt" class="datepicker form-control" name="tplg1" placeholder="Tanggal Pulang"/><br>
+                                          <input type="text" id="txt" class="datepicker form-control" name="tplg1" placeholder="Tanggal Udzur"/><br>
                                           <input type="checkbox" class="flat-red" id="check-all1">&nbsp;Semua&nbsp;&nbsp;
                                           <input type="checkbox" class="flat-red check" name="wkt1" value="shubuh">&nbsp;Shubuh&nbsp;&nbsp;
                                           <input type="checkbox" class="flat-red check" name="wkt1" value="dzuhur">&nbsp;Dzuhur&nbsp;&nbsp;
                                           <input type="checkbox" class="flat-red check" name="wkt1" value="ashar">&nbsp;Ashar&nbsp;&nbsp;
                                           <input type="checkbox" class="flat-red check" name="wkt1" value="maghrib">&nbsp;Maghrib&nbsp;&nbsp;
                                           <input type="checkbox" class="flat-red check" name="wkt1" value="isya">&nbsp;Isya
-                                          <br>
-                                          <!-- <button type="button" class="btn btn-xs btn-primary waves-effect btn-add">
+                                          <br><br><br>
+                                          <button type="button" class="btn btn-xs btn-link waves-effect btn-add" title="Tambah Hari">
                                               <i class="material-icons">add</i>
-                                          </button> -->
+                                          </button>
                                           <!-- <button class="hapus"></button> -->
                                           <br>
                                         <!-- </div> -->
                                       <!-- </div> -->
                                     <!-- </div>                           -->
-                                    <label>Hari 2</label>&nbsp;
-                                          <input type="text" id="txt" class="datepicker form-control" name="tplg2" placeholder="Tanggal Pulang"/><br>
-                                          <input type="checkbox" class="flat-red" id="check-all2">&nbsp;Semua&nbsp;&nbsp;
-                                          <input type="checkbox" class="flat-red check2" name="wkt2[]" value="shubuh">&nbsp;Shubuh&nbsp;&nbsp;
-                                          <input type="checkbox" class="flat-red check2" name="wkt2[]" value="dzuhur">&nbsp;Dzuhur&nbsp;&nbsp;
-                                          <input type="checkbox" class="flat-red check2" name="wkt2[]" value="ashar">&nbsp;Ashar&nbsp;&nbsp;
-                                          <input type="checkbox" class="flat-red check2" name="wkt2[]" value="maghrib">&nbsp;Maghrib&nbsp;&nbsp;
-                                          <input type="checkbox" class="flat-red check2" name="wkt2[]" value="isya">&nbsp;Isya
-                                          <br>
-                                          <br>
-                                    <label>Hari 3</label>&nbsp;
-                                          <input type="text" id="txt" class="datepicker form-control" name="tplg3" placeholder="Tanggal Pulang"/><br>
-                                          <input type="checkbox" class="flat-red" name="wkt3[]" value="shubuh">&nbsp;Shubuh&nbsp;&nbsp;
-                                          <input type="checkbox" class="flat-red" name="wkt3[]" value="dzuhur">&nbsp;Dzuhur&nbsp;&nbsp;
-                                          <input type="checkbox" class="flat-red" name="wkt3[]" value="ashar">&nbsp;Ashar&nbsp;&nbsp;
-                                          <input type="checkbox" class="flat-red" name="wkt3[]" value="maghrib">&nbsp;Maghrib&nbsp;&nbsp;
-                                          <input type="checkbox" class="flat-red" name="wkt3[]" value="isya">&nbsp;Isya
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary waves-effect" name="submitJplg">SUBMIT</button>
@@ -127,7 +109,7 @@
 
     <script>
     $(document).ready(function() {
-      var t = $('#tableJplg').DataTable({});
+      var t = $('#tableUdzur').DataTable({});
     } );
     </script> 
 
@@ -153,7 +135,7 @@
   }
 ?>
     <script>
-    $('input').on('ifChecked', function(event){
+    /*$('input').on('ifChecked', function(event){
       var s = $(this).val();
       $('#formJplg').append(
         $('<input>')
@@ -167,14 +149,14 @@
     $('input').on('ifUnchecked', function(event){
       var s = $(this).val();
       document.getElementById("input"+s).remove();
-    });
+    });*/
 
     //j_kelamin radiobutton on Jplg
-    $('#rdi').on('ifChecked', function (event) {
+    /*$('#rdi').on('ifChecked', function (event) {
         $('#rdi').val('Ikhwan');
     });
 
     $('#rda').on('ifChecked', function (event) {
         $('#rda').val('Akhwat');
-    });
+    });*/
     </script>
