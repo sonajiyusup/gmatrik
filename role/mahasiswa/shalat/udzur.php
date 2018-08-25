@@ -1,6 +1,7 @@
 <?php 
-  include 'functions.php';
   include 'functions2.php';
+
+  $idMahasiswa = $_SESSION['id_mahasiswa'];
  ?>
 <div class="row clearfix">
 
@@ -18,6 +19,7 @@
                                 <tr>
                                   <th>Periode</th>
                                   <th>Hari - Tanggal</th>
+                                  <th>Udzur</th>
                                   <th>Waktu Shalat</th>
                                   <th>Jumlah Waktu Shalat</th>
                                   <th>Keterangan</th>
@@ -26,19 +28,23 @@
                               </thead>
                               <tbody>
                                 <?php 
-                                  $no = 1;
-                                  $dataPresensi = tampilJplg();
-                                  foreach($dataPresensi as $row){
+                                  
+                                  $dataUdzur = tampilUdzurShalatRoleMhs($idMahasiswa);
+
+                                  if (is_array($dataUdzur) || is_object($dataUdzur)){
+                                    foreach($dataUdzur as $row){
                                  ?>
                                 <tr>
                                   <td><?php echo $row['id_periode']; ?></td>
                                   <td><?php echo date('l - d M Y', strtotime($row['tanggal'])); ?></td>
-                                  <td><?php echo $row['j_kelamin']; ?></td>
+                                  <td><?php echo $row['udzur']; ?></td>
                                   <td><?php echo $row['wkt']; ?></td>
-                                  <td><?php echo $row['jws']; ?></td>
+                                  <td><?php echo $row['jml']; ?></td>
+                                  <td><?php if($row['keterangan'] == NULL){echo '-';}else{echo $row['keterangan'];} ?></td>
+                                  <td><?php if($row['disetujui'] == 0){echo 'Belum di Review';}else if($row['disetujui'] == 1){echo 'Disetujui';}else if($row['disetujui'] == 2){echo 'Ditolak';} ?></td>
                                   <td></td>
                                 </tr>
-                                <?php $no++; } ?>
+                                <?php } } ?>
                               </tbody> 
                             </table>
                           </div>                        
