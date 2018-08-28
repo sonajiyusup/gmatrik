@@ -10,7 +10,29 @@
                         <div class="header">
                           <h2>
                           <a href="?page=shalatw" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;
-                          GRAFIK NILAI PRESENSI SHALAT MAHASISWA</h2>
+                          GRAFIK NILAI PRESENSI SHALAT MAHASISWA&nbsp;
+                              <?php 
+                                    
+                                      $percent = shalatByWktDetailPercent($wkt);
+                                      foreach ($percent as $row){
+                                        if ($row['a'] > $row['b']) {
+                                          echo 
+                                          '<span class="label bg-red">
+                                            <i class="material-icons vertical-align-middle padding-bottom-3">trending_down</i>
+                                          '.$row['percent'].'% dibandingkan rata-rata semua waktu shalat
+                                          </span>';
+                                        } else
+                                        if ($row['a'] < $row['b']) {
+                                          echo 
+                                          '<span class="label bg-green">
+                                            <i class="material-icons vertical-align-middle padding-bottom-3">trending_up</i>
+                                             +'.$row['percent'].'% dibandingkan rata-rata semua waktu shalat
+                                          </span>';
+                                        } 
+                                      }
+                                    
+                                  ?>
+                                  </h2>
                           <small>
                           Berdasarkan Waktu Shalat : 
                                 <div class="btn-group">
@@ -49,20 +71,33 @@
                                                      echo '"'.$row['id_periode'].'",';
                                                     }
                                                   ?>],
-                                          datasets: [{
-                                              label: "Rata-rata Nilai Shalat",
-                                              data: [<?php
-                                                    $dataNilai = shalatByWktDetail($wkt);
-                                                    foreach ($dataNilai as $row){
-                                                     echo '"'.$row['nilai'].'",';
-                                                    }
+                                                  datasets: [{
+                                                      label: "Nilai Rata-rata Waktu Shalat <?php echo $wkt; ?>",
+                                                      data: [<?php
+                                                            $dataNilai = shalatByWktDetail($wkt);
+                                                            foreach ($dataNilai as $row){
+                                                             echo '"'.$row['nilai'].'",';
+                                                            }
+                                                          ?>],
+                                                      borderColor: 'rgba(0, 188, 212, 0.75)',
+                                                      backgroundColor: 'rgba(0, 188, 212, 0.3)',
+                                                      pointBorderColor: 'rgba(0, 188, 212, 0)',
+                                                      pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
+                                                      pointBorderWidth: 1
+                                                  }, {
+                                                  label: "Nilai Rata-rata Semua Waktu Shalat",
+                                                  data: [<?php
+                                                      $dataTarget = shalatNilaiSemua();
+                                                      foreach ($dataTarget as $row){
+                                                       echo '"'.$row['nilai'].'",';
+                                                      }
                                                   ?>],
-                                              borderColor: 'rgba(0, 188, 212, 0.75)',
-                                              backgroundColor: 'rgba(0, 188, 212, 0.3)',
-                                              pointBorderColor: 'rgba(0, 188, 212, 0)',
-                                              pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
-                                              pointBorderWidth: 1
-                                          }]
+                                                  borderColor: 'rgba(233, 30, 99, 0.75)',
+                                                  backgroundColor: 'rgba(200, 30, 99, 0.3)',
+                                                  pointBorderColor: 'rgba(200, 30, 99, 0)',
+                                                  pointBackgroundColor: 'rgba(200, 30, 99, 0.9)',
+                                                  pointBorderWidth: 1
+                                              }]
                                       },
                                       options: {
                                           responsive: true,

@@ -1984,6 +1984,108 @@ LEFT JOIN (
 WHERE s.id_periode = 8 AND s.wkt_shalat = 'shubuh'
 GROUP BY s.tanggal
 
+-- shalat by waktu shalat detail percentage (WORK)
+SELECT a.nilai AS a, b.nilai AS b, 
+ROUND((((b.nilai-a.nilai)/a.nilai)*100),2) AS 'percent'
+FROM (
+    SELECT ROUND((SUM(a.nilai)/p.jml),2) AS nilai
+    FROM (
+        SELECT ROUND((((sh.total)/((d.jhari*mh.jmhs*5)-((IF(p.id_periode IS NULL, 0, (CASE WHEN p.j_kelamin = 'Akhwat' THEN a.plg ELSE i.plg END)))*(IF(j.jplg IS NULL, 0, j.jplg)))-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai
+        FROM shalat_periode sp
+        LEFT JOIN (
+            SELECT sp.id_periode, DATEDIFF(sp.tanggal_sampai, sp.tanggal_dari)+1 AS jhari
+            FROM shalat_periode sp
+        ) d ON sp.id_periode = d.id_periode
+        LEFT JOIN (
+            SELECT s.id_periode, COUNT(s.wkt_tapping) AS total
+            FROM shalat s
+            GROUP BY s.id_periode
+        ) sh ON sp.id_periode = sh.id_periode
+        JOIN (
+            SELECT COUNT(m.id_mahasiswa) AS jmhs
+            FROM mahasiswa m 
+        ) mh
+        LEFT JOIN (
+            SELECT jp.id_periode, jp.j_kelamin
+            FROM j_pulang2 jp 
+            GROUP BY jp.id_periode
+        ) p ON sp.id_periode = p.id_periode
+        JOIN (
+            SELECT COUNT(m.id_mahasiswa) AS plg
+            FROM mahasiswa m
+            WHERE m.j_kelamin = 'Akhwat'
+        ) a
+        JOIN (
+            SELECT COUNT(m.id_mahasiswa) AS plg
+            FROM mahasiswa m
+            WHERE m.j_kelamin = 'Ikhwan'
+        ) i
+        LEFT JOIN (
+            SELECT jp.id_periode, COUNT(jp.wkt_shalat) AS jplg
+            FROM j_pulang2 jp
+            GROUP BY jp.id_periode
+        ) j ON sp.id_periode = j.id_periode
+        LEFT JOIN (
+            SELECT su.id_periode, COUNT(su.wkt_shalat) AS jmlu
+            FROM shalat_udzur2 su
+            WHERE su.disetujui = 1
+            GROUP BY su.id_periode
+        ) u ON sp.id_periode = u.id_periode    
+    ) a
+    JOIN (
+        SELECT COUNT(sp.id_periode) AS jml
+        FROM shalat_periode sp
+    ) p
+) a 
+JOIN (
+    SELECT ROUND((SUM(b.nilai)/p.jml),2) AS nilai
+    FROM (
+        SELECT ROUND((((sh.total)/(((DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*h.jmhs)-((IF(p.id_periode IS NULL, 0, (CASE WHEN p.j_kelamin = 'Akhwat' THEN a.plg ELSE i.plg END)))*IF(j.jplg IS NULL, 0, j.jplg))-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai
+        FROM shalat_periode sp
+        LEFT JOIN (
+            SELECT s.id_periode, COUNT(s.wkt_tapping) AS total
+            FROM shalat s
+            WHERE s.wkt_shalat = 'dzuhur'
+            GROUP BY s.id_periode
+        ) sh ON sp.id_periode = sh.id_periode
+        JOIN (
+            SELECT COUNT(m.id_mahasiswa) AS jmhs
+            FROM mahasiswa m 
+        ) h
+        LEFT JOIN (
+            SELECT jp.id_periode, jp.j_kelamin
+            FROM j_pulang2 jp 
+            GROUP BY jp.id_periode
+        ) p ON sp.id_periode = p.id_periode
+        JOIN (
+            SELECT COUNT(m.id_mahasiswa) AS plg
+            FROM mahasiswa m
+            WHERE m.j_kelamin = 'Akhwat'
+        ) a
+        JOIN (
+            SELECT COUNT(m.id_mahasiswa) AS plg
+            FROM mahasiswa m
+            WHERE m.j_kelamin = 'Ikhwan'
+        ) i
+        LEFT JOIN (
+            SELECT jp.id_periode, COUNT(jp.wkt_shalat) AS jplg
+            FROM j_pulang2 jp
+            WHERE jp.wkt_shalat = 'dzuhur'
+            GROUP BY jp.id_periode
+        ) j ON sp.id_periode = j.id_periode
+        LEFT JOIN (
+            SELECT su.id_periode, COUNT(su.wkt_shalat) AS jmlu
+            FROM shalat_udzur2 su
+            WHERE su.wkt_shalat = 'dzuhur' AND su.disetujui = 1
+            GROUP BY su.id_periode
+        ) u ON sp.id_periode = u.id_periode    
+    ) b
+    JOIN (
+        SELECT COUNT(sp.id_periode) AS jml
+        FROM shalat_periode sp
+    ) p
+) b
+
 -- shalat by waktu shalat by period percentage (WORK)
 SELECT a.jml AS a, b.jml AS b, 
 ROUND((((b.jml-a.jml)/a.jml)*100),2) AS 'percent'
