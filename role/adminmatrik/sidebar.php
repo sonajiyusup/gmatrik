@@ -274,7 +274,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="header">PROFIL</li>
+                    <li class="header">AKUN SAYA</li>
                     <li <?php 
                           if (isset($_GET['page'])) {
                             if ($_GET['page'] == 'profil' || $_GET['page'] == 'editprofil') {
