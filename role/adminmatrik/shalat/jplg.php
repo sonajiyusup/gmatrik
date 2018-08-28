@@ -56,7 +56,29 @@
                           <input name="group1" type="radio" id="radio_30" class="radiojk" name="radiojk" id="rdi" value="Ikhwan"/>
                                 <label for="radio_30">IKHWAN</label>&nbsp;
                                 <input name="group1" type="radio" id="radio_31" class="radiojk" name="radiojk" id="rda" value="Akhwat"/>
-                                <label for="radio_31">AKHWAT</label><br><br>                        
+                                <label for="radio_31">AKHWAT</label><br><br>   
+                                Periode :&nbsp;
+                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-default waves-effect dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <?php $dataPresensi = tampilMaxTglPeriodeById();
+                                                          foreach($dataPresensi as $row){
+                                                            echo $row['id_periode'].'. '.date('d M Y', strtotime($row['tanggal_dari']))." - ".date('d M Y', strtotime($row['tanggal_sampai']));
+                                                          } 
+                                                        ?>
+                                            <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <?php
+                                                          $dataPeriode = tampilPeriodeShalat();
+                                                          foreach($dataPeriode as $row){
+                                                          ?>
+                                                            <li><a href=""><?php echo $row['id_periode'].'. '.date('d M Y', strtotime($row['tanggal_dari'])).' - '.date('d M Y', strtotime($row['tanggal_sampai'])); ?></a></li>
+                                                          <?php
+                                                          }
+                                                        ?>
+                                                    </ul>
+                                                </div>         
+                                    <br><br>            
                                     <label>Hari 1</label>&nbsp;
                                     <!-- <label class="switch">
                                       <input type="checkbox" name="opt" id="opt" value="Y" onclick="toggle('.myClass', this)">
