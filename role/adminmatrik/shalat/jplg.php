@@ -32,7 +32,7 @@
                                 <tr>
                                   <td><?php echo $row['id_periode']; ?></td>
                                   <td><?php echo date('l - d M Y', strtotime($row['tanggal'])); ?></td>
-                                  <td><?php echo $row['j_kelamin']; ?></td>
+                                  <td><?php if($row['j_kelamin'] == 'Ikhwan' || $row['j_kelamin'] == 'Laki-laki'){echo '<span class="label bg-light-blue">Ikhwan</span>';} else if($row['j_kelamin'] == 'Akhwat' || $row['j_kelamin'] == 'Perempuan'){echo '<span class="label bg-pink">Akhwat</span>';} ?></td>
                                   <td><?php echo $row['wkt']; ?></td>
                                   <td><?php echo $row['jws']; ?></td>
                                   <td></td>
@@ -57,27 +57,21 @@
                                 <label for="radio_30">IKHWAN</label>&nbsp;
                                 <input name="group1" type="radio" id="radio_31" class="radiojk" name="radiojk" id="rda" value="Akhwat"/>
                                 <label for="radio_31">AKHWAT</label><br><br>   
-                                Periode :&nbsp;
-                                <div class="btn-group">
-                                                    <button type="button" class="btn btn-default waves-effect dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <?php $dataPresensi = tampilMaxTglPeriodeById();
+                                <label>Periode</label>&nbsp;
+                                <select class="form-control show-tick" name="gender" required>
+                                  <?php $dataPresensi = tampilMaxTglPeriodeById();
                                                           foreach($dataPresensi as $row){
-                                                            echo $row['id_periode'].'. '.date('d M Y', strtotime($row['tanggal_dari']))." - ".date('d M Y', strtotime($row['tanggal_sampai']));
+                                                            echo "<option selected='selected' value=''>".$row['id_periode'].". ".date('d M Y', strtotime($row['tanggal_dari']))." - ".date('d M Y', strtotime($row['tanggal_sampai']))."</option>";
                                                           } 
                                                         ?>
-                                            <span class="caret"></span>
-                                                    </button>
-                                                    <ul class="dropdown-menu">
-                                                        <?php
-                                                          $dataPeriode = tampilPeriodeShalat();
-                                                          foreach($dataPeriode as $row){
-                                                          ?>
-                                                            <li><a href=""><?php echo $row['id_periode'].'. '.date('d M Y', strtotime($row['tanggal_dari'])).' - '.date('d M Y', strtotime($row['tanggal_sampai'])); ?></a></li>
-                                                          <?php
-                                                          }
+
+                                  <?php $dataPresensi = tampilPeriodeShalat();
+                                                          foreach($dataPresensi as $row){
+                                                            echo "<option value='".$row['id_periode']."'>".$row['id_periode'].". ".date('d M Y', strtotime($row['tanggal_dari']))." - ".date('d M Y', strtotime($row['tanggal_sampai']))."</option>";
+                                                          } 
                                                         ?>
-                                                    </ul>
-                                                </div>         
+                                          
+                                        </select> 
                                     <br><br>            
                                     <label>Hari 1</label>&nbsp;
                                     <!-- <label class="switch">
