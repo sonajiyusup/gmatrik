@@ -57,7 +57,7 @@
                     <div class="card">
                         <div class="header">
                           <h2>IMPORT DATABASE PRESENSI TA'LIM MAHASISWA
-                          <small>Ta'lim massal untuk presensi fingerprint</small>
+                          <small>Ta'lim massal presensi fingerprint</small>
                           </h2>
                         </div>
                         <form method="POST">
