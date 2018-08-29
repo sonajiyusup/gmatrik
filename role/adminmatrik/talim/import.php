@@ -61,8 +61,13 @@
                           </h2>
                         </div>
                         <form method="POST">
-                        <div class="body">                                
-                                    <div class="input-group">
+                        <div class="body">      
+
+                                <input name="group0" type="radio" id="radio_1" class="radiojk" name="radiojk" id="rdi" value="Ikhwan"/>
+                                <label for="radio_1">IKHWAN</label>&nbsp;
+                                <input name="group0" type="radio" id="radio_2" class="radiojk" name="radiojk" id="rda" value="Akhwat"/>
+                                <label for="radio_2">AKHWAT</label><br><br>
+
                                       <label>Periode :</label>
                                       &nbsp;
                                       <select class="form-control show-tick" name="gender" required>
@@ -80,11 +85,15 @@
                                                 
                                       </select> 
                                 <br><br><br><br>
+                                <label>Jenis Ta'lim :</label>
+                                &nbsp;
                                 <div class="form-group multiple-form-group">          
-                                <input name="group1" type="radio" id="radio_30" class="radiojk" name="radiojk" id="sakit" value="reguler"/>
-                                <label for="radio_30">TA'LIM KEPALA MATRIKULASI</label>&nbsp;&nbsp;
-                                <input name="group1" type="radio" id="radio_31" class="radiojk" name="radiojk" id="hujan" value="skb"/>
-                                <label for="radio_31">TA'LIM SKB</label>&nbsp;&nbsp;
+                                <input name="group1" type="radio" id="radio_30" class="radiojk" name="radiojk" id="reguler" value="reguler"/>
+                                <label for="radio_30">Ta'lim Kepala Matrikulasi</label>&nbsp;&nbsp;
+                                <input name="group1" type="radio" id="radio_31" class="radiojk" name="radiojk" id="skb" value="skb"/>
+                                <label for="radio_31">Ta'lim SKB</label>&nbsp;&nbsp;
+                                <input name="group1" type="radio" id="radio_32" class="radiojk" name="radiojk" id="lain" value="lain"/>
+                                <label for="radio_32">Ta'lim Lainnya</label>&nbsp;&nbsp;
                                 <br><br>
                                     <!-- <label class="switch">
                                       <input type="checkbox" name="opt" id="opt" value="Y" onclick="toggle('.myClass', this)">
@@ -97,7 +106,7 @@
                                           <label>Tanggal Ta'lim :</label>
                                           <div class="form-line">
                                             <input type="text" class="form-control datepicker" placeholder="Pilih tanggal" />
-                                          </div><br><br>
+                                          </div><br>
                                           
                                             <div class="bootstrap-timepicker">
                                                 <label>Waktu Ta'lim :</label>
@@ -129,7 +138,7 @@
                                   
                                     
                                   <button type="submit" class="btn btn-primary btn-block waves-effect" name="importPresensiShalat">IMPORT</button>
-                        </div>
+                        
 
                         </form>
 </div>

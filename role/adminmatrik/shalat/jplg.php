@@ -53,7 +53,7 @@
                         <h4 class="modal-title" id="smallModalLabel">INPUT JADWAL PULANG MAHASISWA</h4>
                         </div>
                         <div class="modal-body">
-                          <input name="group1" type="radio" id="radio_30" class="radiojk" name="radiojk" id="rdi" value="Ikhwan"/>
+                                <input name="group1" type="radio" id="radio_30" class="radiojk" name="radiojk" id="rdi" value="Ikhwan"/>
                                 <label for="radio_30">IKHWAN</label>&nbsp;
                                 <input name="group1" type="radio" id="radio_31" class="radiojk" name="radiojk" id="rda" value="Akhwat"/>
                                 <label for="radio_31">AKHWAT</label><br><br>   
