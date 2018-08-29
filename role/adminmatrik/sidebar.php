@@ -102,7 +102,14 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'importtalim') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            >
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">assignment</i>
                             <span>Ta'lim</span>
@@ -386,6 +393,8 @@
               include 'shalat/shalat_bywktdetail_byperiod_byday.php';
             } else if ($_GET['page'] == 'importshalat') {
               include 'shalat/import.php';
+            } else if ($_GET['page'] == 'importtalim') {
+              include 'talim/import.php';
             } else if ($_GET['page'] == 'jplg') {
               include 'shalat/jplg.php';
             } else if ($_GET['page'] == 'pbentuk') {
