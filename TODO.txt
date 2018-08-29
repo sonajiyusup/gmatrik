@@ -101,10 +101,10 @@ DOING
 	- graph comparison 
 		- query
 		- UI
-- shalat by mahasiswa detail
+- shalat by mahasiswa detail DONE
 	- percentage
 	- comparison graph
-- shalat by ikhwan/akhwat detail
+- shalat by ikhwan/akhwat detail DONE
 	- percentage
 	- comparison graph
 - shalat by waktu shalat detail
