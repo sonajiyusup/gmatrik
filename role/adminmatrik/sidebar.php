@@ -104,6 +104,30 @@
                     </li>
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">assignment</i>
+                            <span>Ta'lim</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="pages/tables/normal-tables.html">Ikhtisar</a>
+                            </li>
+                            <li>
+                                <a href="pages/tables/jquery-datatable.html">...</a>
+                            </li>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'importtalim') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                              ><a href="?page=importtalim">Import DB Presensi</a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">import_contacts</i>
                             <span>Tahsin/Tahfidz</span>
                         </a>
@@ -116,23 +140,6 @@
                             </li>
                             <li>
                                 <a href="pages/forms/form-examples.html">...</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">assignment</i>
-                            <span>Ta'lim</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li>
-                                <a href="pages/tables/normal-tables.html">Ikhtisar</a>
-                            </li>
-                            <li>
-                                <a href="pages/tables/jquery-datatable.html">...</a>
-                            </li>
-                            <li>
-                                <a href="pages/tables/editable-table.html">...</a>
                             </li>
                         </ul>
                     </li>
