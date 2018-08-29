@@ -4,7 +4,6 @@
 
  <script type="text/javascript">
  // Referensi : https://bootsnipp.com/snippets/featured/multiple-fields
-
     (function ($) {
         $(function () {
 
@@ -99,7 +98,6 @@
                                       <input type="checkbox" name="opt" id="opt" value="Y" onclick="toggle('.myClass', this)">
                                       <span class="slider round"></span><br>
                                     </label>  --> 
-
                                     <!-- <div class="showhide">   -->
                                       <!-- <div class="controls">     -->
                                         <!-- <div class="entry"> -->
@@ -107,39 +105,27 @@
                                           <div class="form-line">
                                             <input type="text" class="form-control datepicker" placeholder="Pilih tanggal" />
                                           </div><br>
-                                          
                                             <div class="bootstrap-timepicker">
                                                 <label>Waktu Ta'lim :</label>
                                               <br>
-                                              
                                                 <div class="form-line">
                                                   <input type="text" name="shubuhFrom" id="shubuh_dari" class="timepicker form-control" placeholder="Dari">
                                                 </div>
-                                            
-                                             
                                                 <div class="form-line">
                                                   <input type="text" name="shubuhTo" id="shubuh_sampai" class="timepicker form-control" placeholder="Sampai">
                                                 </div>
-                                              
-                                              
                                             </div>
-                                          
                                           <br><br>
                                             <button type="button" class="btn btn-xs btn-link waves-effect btn-add" title="Tambah Ta'lim">
                                                 <i class="material-icons">add</i>
                                             </button>
-                                          
                                           <!-- <button class="hapus"></button> -->
                                           <br>
                                         <!-- </div> -->
                                       <!-- </div> -->
                                     <!-- </div>   -->
                                 </div>
-                                  
-                                    
                                   <button type="submit" class="btn btn-primary btn-block waves-effect" name="importPresensiShalat">IMPORT</button>
-                        
-
                         </form>
 </div>
 </div>
