@@ -2208,3 +2208,9 @@ JOIN (
     WHERE s.tanggal = '2018-03-05' AND s.wkt_shalat = 'shubuh'
     GROUP BY s.tanggal 
 ) b
+
+----------------------------------------------------------------------------------- J_talim and shalat 
+SELECT s.id_mahasiswa, s.id_periode, s.tanggal, s.wkt_tapping, s.wkt_shalat
+FROM shalat s
+WHERE s.tanggal IN (SELECT jt.tanggal FROM j_talim jt)
+AND s.wkt_shalat IN (SELECT jt.talim FROM j_talim jt)
