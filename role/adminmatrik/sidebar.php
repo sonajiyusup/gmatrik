@@ -104,7 +104,7 @@
                     </li>
                     <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'importtalim') {
+                                    if ($_GET['page'] == 'importtalim' || $_GET['page'] == 'jtalim') {
                                       echo "class='active'";
                                     }
                                   }
@@ -120,6 +120,15 @@
                             </li>
                             <li>
                                 <a href="pages/tables/jquery-datatable.html">...</a>
+                            </li>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'jtalim') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                              ><a href="?page=jtalim">Jadwal Ta'lim</a>
                             </li>
                             <li <?php 
                                   if (isset($_GET['page'])) {
@@ -395,6 +404,8 @@
               include 'shalat/import.php';
             } else if ($_GET['page'] == 'importtalim') {
               include 'talim/import.php';
+            } else if ($_GET['page'] == 'jtalim') {
+              include 'talim/jtalim.php';
             } else if ($_GET['page'] == 'jplg') {
               include 'shalat/jplg.php';
             } else if ($_GET['page'] == 'pbentuk') {

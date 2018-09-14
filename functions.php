@@ -88,6 +88,17 @@
 		}			
 	}
 
+	function tampilJtalim(){
+		$ambildata = mysql_query("SELECT * FROM j_talim") or die(mysql_error());
+		if (mysql_num_rows($ambildata) > 0) {
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;
+		} else{
+			echo "Data Jadwal Ta'lim Mahasiswa Masih Kosong";
+		}			
+	}	
+
 	function tampilMahasiswa(){
 		$ambildata = mysql_query("SELECT mahasiswa.*, users.* FROM users INNER JOIN mahasiswa ON mahasiswa.id_user = users.id_user ORDER BY nama") or die(mysql_error());
 		if (mysql_num_rows($ambildata) > 0) {
