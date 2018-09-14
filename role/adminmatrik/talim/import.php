@@ -62,14 +62,9 @@
                         <form method="POST">
                         <div class="body">      
 
-                                <input name="group0" type="radio" id="radio_1" class="radiojk" name="radiojk" id="rdi" value="Ikhwan"/>
-                                <label for="radio_1">IKHWAN</label>&nbsp;
-                                <input name="group0" type="radio" id="radio_2" class="radiojk" name="radiojk" id="rda" value="Akhwat"/>
-                                <label for="radio_2">AKHWAT</label><br><br>
-
                                       <label>Periode :</label>
                                       &nbsp;
-                                      <select class="form-control show-tick" name="gender" required>
+                                      <select class="form-control show-tick" name="period" required>
                                         <?php $dataPresensi = tampilMaxTglPeriodeById();
                                                                 foreach($dataPresensi as $row){
                                                                   echo "<option selected='selected' value=''>".$row['id_periode'].". ".date('d M Y', strtotime($row['tanggal_dari']))." - ".date('d M Y', strtotime($row['tanggal_sampai']))."</option>";
