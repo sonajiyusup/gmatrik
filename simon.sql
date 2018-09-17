@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 30, 2018 at 03:21 AM
+-- Generation Time: Sep 17, 2018 at 09:08 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -202,6 +202,31 @@ INSERT INTO `j_pulang2` (`id_periode`, `tanggal`, `j_kelamin`, `wkt_shalat`) VAL
 (9, '2018-04-29', 'Akhwat', 'maghrib'),
 (9, '2018-04-29', 'Akhwat', 'isya'),
 (9, '2018-04-30', 'Akhwat', 'shubuh');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `j_talim`
+--
+
+CREATE TABLE `j_talim` (
+  `id_periode` int(11) NOT NULL,
+  `tanggal` date DEFAULT NULL,
+  `j_kelamin` varchar(6) NOT NULL,
+  `talim` varchar(12) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `j_talim`
+--
+
+INSERT INTO `j_talim` (`id_periode`, `tanggal`, `j_kelamin`, `talim`) VALUES
+(1, '2018-03-03', 'Ikhwan', 'shubuh'),
+(1, '2018-03-04', 'Akhwat', 'shubuh'),
+(1, '2018-03-05', 'Ikhwan', 'isya'),
+(1, '2018-03-06', 'Akhwat', 'isya'),
+(1, '2018-03-07', 'Ikhwan', 'skb'),
+(1, '2018-03-07', 'Akhwat', 'skb');
 
 -- --------------------------------------------------------
 
@@ -70701,6 +70726,30 @@ INSERT INTO `shalat_udzur2` (`id_udzur`, `id_periode`, `id_mahasiswa`, `tanggal`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `talim`
+--
+
+CREATE TABLE `talim` (
+  `id_mahasiswa` int(11) NOT NULL,
+  `id_periode` int(11) NOT NULL,
+  `tanggal` date NOT NULL,
+  `wkt_talim` time NOT NULL,
+  `talim` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `talim`
+--
+
+INSERT INTO `talim` (`id_mahasiswa`, `id_periode`, `tanggal`, `wkt_talim`, `talim`) VALUES
+(1179, 1, '2018-03-07', '12:43:12', 'skb'),
+(1388, 1, '2018-03-07', '12:35:21', 'skb'),
+(1174, 1, '2018-03-07', '12:25:48', 'skb'),
+(1175, 1, '2018-03-07', '12:36:11', 'skb');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -70719,7 +70768,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id_user`, `username`, `password`, `password_default`, `level`, `last_login`) VALUES
 (1, 'admin', 'admin', 0, 0, '2018-04-24 08:58:28'),
-(2, 'derry', 'bismillah', 0, 2, '2018-07-29 21:34:07'),
+(2, 'derry', 'bismillah', 0, 2, '2018-09-17 10:19:36'),
 (21, 'bintang', 'bintang123', 0, 3, '2018-03-12 08:11:09'),
 (23, 'hasan', 'hasan123', 0, 2, '2017-11-30 17:06:08'),
 (24, 'rizky@tazkia.ac.id', 'rizy123', 0, 3, '0000-00-00 00:00:00'),
@@ -70734,7 +70783,7 @@ INSERT INTO `users` (`id_user`, `username`, `password`, `password_default`, `lev
 (35, '17101004', 'ZSw0YK4jt8', 1, 4, '0000-00-00 00:00:00'),
 (36, '17101005', 'D558xQ0U22', 1, 4, '0000-00-00 00:00:00'),
 (37, '17102003', '014g8N7zT6', 1, 4, '0000-00-00 00:00:00'),
-(38, '17104002', 's7s766DRGB', 1, 4, '0000-00-00 00:00:00'),
+(38, '17104002', 's7s766DRGB', 1, 4, '2018-08-29 09:08:09'),
 (39, '17101006', '3F07jK7zmw', 1, 4, '0000-00-00 00:00:00'),
 (40, '17101007', 'eHRZfG1T25', 1, 4, '0000-00-00 00:00:00'),
 (41, '17101008', '55kihAhUQ9', 1, 4, '0000-00-00 00:00:00'),
@@ -71186,6 +71235,12 @@ ALTER TABLE `j_pulang2`
   ADD KEY `id_periode` (`id_periode`);
 
 --
+-- Indexes for table `j_talim`
+--
+ALTER TABLE `j_talim`
+  ADD KEY `id_periode` (`id_periode`);
+
+--
 -- Indexes for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
@@ -71284,6 +71339,13 @@ ALTER TABLE `shalat_udzur`
 --
 ALTER TABLE `shalat_udzur2`
   ADD PRIMARY KEY (`id_udzur`),
+  ADD KEY `id_mahasiswa` (`id_mahasiswa`),
+  ADD KEY `id_periode` (`id_periode`);
+
+--
+-- Indexes for table `talim`
+--
+ALTER TABLE `talim`
   ADD KEY `id_mahasiswa` (`id_mahasiswa`),
   ADD KEY `id_periode` (`id_periode`);
 
@@ -71402,6 +71464,12 @@ ALTER TABLE `j_pulang2`
   ADD CONSTRAINT `j_pulang2_ibfk_1` FOREIGN KEY (`id_periode`) REFERENCES `shalat_periode` (`id_periode`);
 
 --
+-- Constraints for table `j_talim`
+--
+ALTER TABLE `j_talim`
+  ADD CONSTRAINT `j_talim_ibfk_1` FOREIGN KEY (`id_periode`) REFERENCES `shalat_periode` (`id_periode`);
+
+--
 -- Constraints for table `m_binaan`
 --
 ALTER TABLE `m_binaan`
@@ -71463,6 +71531,13 @@ ALTER TABLE `shalat_udzur`
 ALTER TABLE `shalat_udzur2`
   ADD CONSTRAINT `shalat_udzur2_ibfk_1` FOREIGN KEY (`id_mahasiswa`) REFERENCES `mahasiswa` (`id_mahasiswa`),
   ADD CONSTRAINT `shalat_udzur2_ibfk_2` FOREIGN KEY (`id_periode`) REFERENCES `shalat_periode` (`id_periode`);
+
+--
+-- Constraints for table `talim`
+--
+ALTER TABLE `talim`
+  ADD CONSTRAINT `talim_ibfk_1` FOREIGN KEY (`id_mahasiswa`) REFERENCES `mahasiswa` (`id_mahasiswa`),
+  ADD CONSTRAINT `talim_ibfk_2` FOREIGN KEY (`id_periode`) REFERENCES `shalat_periode` (`id_periode`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
