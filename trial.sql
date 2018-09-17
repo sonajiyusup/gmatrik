@@ -2245,7 +2245,7 @@ UNION ALL
 
 
 -- Nilai Ta'lim by Mahasiswa (WORK)
-SELECT b.id_mahasiswa, m.nama, b.j_kelamin, COUNT(b.talim) AS total, c.target,
+SELECT m.id_mahasiswa, m.nama, b.j_kelamin, COUNT(b.talim) AS total, c.target,
 ROUND((((COUNT(b.talim))/c.target)*100),2) AS nilai
 FROM mahasiswa m
 LEFT JOIN (
@@ -2271,5 +2271,5 @@ LEFT JOIN (
     SELECT jt.j_kelamin, COUNT(jt.talim) AS target
     FROM j_talim jt
     GROUP BY jt.j_kelamin    
-) c ON b.j_kelamin = c.j_kelamin
+) c ON m.j_kelamin = c.j_kelamin
 GROUP BY b.id_mahasiswa
