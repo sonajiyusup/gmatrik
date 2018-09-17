@@ -120,11 +120,6 @@ DOING
 		add button, remove button
 		submit
 
-
-Akhwat (Udzur):
-17104002
-s7s766DRGB
-
-Ikhwan :
-17101003
-VGA52j6y2L
+17/09/2018
+- fixing talimMhs() to show all mahasiswa (count : 372)
+- add udzur calculation
