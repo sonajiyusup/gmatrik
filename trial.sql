@@ -2222,3 +2222,23 @@ FROM (
 ) a
 INNER JOIN j_talim jt ON a.j_kelamin = jt.j_kelamin AND a.tanggal = jt.tanggal AND a.talim = jt.talim
 ORDER BY a.id_mahasiswa, a.tanggal
+
+
+-- Ta'lim j_talim UNION talim = Ta'lim DB (WORK)
+( 
+    SELECT a.tanggal, a.id_periode, a.id_mahasiswa, a.j_kelamin, a.wkt_tapping, a.talim 
+    FROM ( 
+        SELECT s.id_mahasiswa, m.j_kelamin, s.id_periode, s.tanggal, s.wkt_tapping, s.wkt_shalat AS talim 
+        FROM shalat s 
+        LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa
+        WHERE s.tanggal IN (SELECT jt.tanggal FROM j_talim jt) AND s.wkt_shalat IN (SELECT jt.talim FROM j_talim jt) 
+    ) a 
+    INNER JOIN j_talim jt ON a.j_kelamin = jt.j_kelamin AND a.tanggal = jt.tanggal AND a.talim = jt.talim 
+    ORDER BY a.id_mahasiswa, a.tanggal 
+) 
+UNION ALL 
+( 
+    SELECT t.tanggal, t.id_periode, t.id_mahasiswa, m.j_kelamin, t.wkt_talim AS wkt_tapping, t.talim 
+    FROM talim t 
+    LEFT JOIN mahasiswa m ON t.id_mahasiswa = m.id_mahasiswa 
+)
