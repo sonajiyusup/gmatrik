@@ -2210,7 +2210,15 @@ JOIN (
 ) b
 
 ----------------------------------------------------------------------------------- J_talim and shalat 
-SELECT s.id_mahasiswa, s.id_periode, s.tanggal, s.wkt_tapping, s.wkt_shalat
-FROM shalat s
-WHERE s.tanggal IN (SELECT jt.tanggal FROM j_talim jt)
-AND s.wkt_shalat IN (SELECT jt.talim FROM j_talim jt)
+
+-- Ta'lim WORK
+SELECT a.id_mahasiswa, a.j_kelamin, a.id_periode, a.tanggal, a.wkt_tapping, a.talim
+FROM (
+    SELECT s.id_mahasiswa, m.j_kelamin, s.id_periode, s.tanggal, s.wkt_tapping, s.wkt_shalat AS talim
+    FROM shalat s
+    LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa
+    WHERE s.tanggal IN (SELECT jt.tanggal FROM j_talim jt)
+    AND s.wkt_shalat IN (SELECT jt.talim FROM j_talim jt)    
+) a
+INNER JOIN j_talim jt ON a.j_kelamin = jt.j_kelamin AND a.tanggal = jt.tanggal AND a.talim = jt.talim
+ORDER BY a.id_mahasiswa, a.tanggal
