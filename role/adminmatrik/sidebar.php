@@ -415,6 +415,8 @@
               include 'talim/import.php';
             } else if ($_GET['page'] == 'jtalim') {
               include 'talim/jtalim.php';
+            } else if ($_GET['page'] == 'talimm') {
+              include 'talim/talim_bymhs.php';
             } else if ($_GET['page'] == 'jplg') {
               include 'shalat/jplg.php';
             } else if ($_GET['page'] == 'pbentuk') {
