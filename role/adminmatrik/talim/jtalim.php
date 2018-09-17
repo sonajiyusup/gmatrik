@@ -18,7 +18,7 @@
                                   <th>Periode</th>
                                   <th>Hari - Tanggal</th>
                                   <th>Ikhwan/Akhwat</th>
-                                  <th>Jenis Ta'lim</th>
+                                  <th>Ta'lim</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -33,7 +33,7 @@
                                   <td><?php echo $row['id_periode']; ?></td>
                                   <td><?php echo date('l - d M Y', strtotime($row['tanggal'])); ?></td>
                                   <td><?php if($row['j_kelamin'] == 'Ikhwan' || $row['j_kelamin'] == 'Laki-laki'){echo '<span class="label bg-light-blue">Ikhwan</span>';} else if($row['j_kelamin'] == 'Akhwat' || $row['j_kelamin'] == 'Perempuan'){echo '<span class="label bg-pink">Akhwat</span>';} ?></td>
-                                  <td><?php echo $row['talim']; ?></td>
+                                  <td><?php if($row['talim'] == 'shubuh'){echo "Ba'da Shubuh";}else if($row['talim'] == 'isya'){echo "Ba'da Isya";}else if($row['talim'] == 'skb'){echo "Kajian Bulanan SKB";} ?></td>
                                 </tr>
                                 <?php $no++; } } ?>
                               </tbody> 
