@@ -104,7 +104,7 @@
                     </li>
                     <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'importtalim' || $_GET['page'] == 'jtalim') {
+                                    if ($_GET['page'] == 'importtalim' || $_GET['page'] == 'jtalim' || $_GET['page'] == 'talimm') {
                                       echo "class='active'";
                                     }
                                   }
@@ -117,6 +117,15 @@
                         <ul class="ml-menu">
                             <li>
                                 <a href="pages/tables/normal-tables.html">Ikhtisar</a>
+                            </li>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'talimm') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                              ><a href="?page=talimm">Berdasar Mahasiswa</a>
                             </li>
                             <li>
                                 <a href="pages/tables/jquery-datatable.html">...</a>
