@@ -123,3 +123,8 @@ DOING
 17/09/2018
 - fixing talimMhs() to show all mahasiswa (count : 372)
 - add udzur calculation
+
+18/09/2018
+- create Ta'lim by Ikhwan/Akhwat
+- create Ta'lim by Pembina
+- create Ta'lim by Ta'lim
