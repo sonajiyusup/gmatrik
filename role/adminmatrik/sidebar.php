@@ -104,7 +104,7 @@
                     </li>
                     <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'importtalim' || $_GET['page'] == 'jtalim' || $_GET['page'] == 'talimm') {
+                                    if ($_GET['page'] == 'importtalim' || $_GET['page'] == 'jtalim' || $_GET['page'] == 'talimm' || $_GET['page'] == 'talimia') {
                                       echo "class='active'";
                                     }
                                   }
@@ -126,6 +126,15 @@
                                   }
                                 ?>
                               ><a href="?page=talimm">Berdasar Mahasiswa</a>
+                            </li>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'talimia') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                              ><a href="?page=talimia">Berdasar Ikhwan/Akhwat</a>
                             </li>
                             <li>
                                 <a href="pages/tables/jquery-datatable.html">...</a>
@@ -417,6 +426,8 @@
               include 'talim/jtalim.php';
             } else if ($_GET['page'] == 'talimm') {
               include 'talim/talim_bymhs.php';
+            } else if ($_GET['page'] == 'talimia') {
+              include 'talim/talim_byIA.php';
             } else if ($_GET['page'] == 'jplg') {
               include 'shalat/jplg.php';
             } else if ($_GET['page'] == 'pbentuk') {
