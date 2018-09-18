@@ -71,7 +71,7 @@
                                   <th>Ikhwan/Akhwat</th>
                                   <th>Total</th>
                                   <!-- <th>Dispensasi</th> -->
-                                  <!-- <th>Jml Udzur</th> -->
+                                  <th>Jml Udzur</th>
                                   <th>Target</th>
                                   <th>Nilai</th>
                                 </tr>
@@ -88,8 +88,8 @@
                                   <td><?php echo $row['j_kelamin']; ?></td>
                                   <td><?php echo $row['total']; ?></td>
                                   <!-- <td><?php echo $row['jplg']; ?></td> -->
-                                  <!-- <td><?php echo $row['jmlu']; ?></td> -->
-                                  <td><?php echo $row['target']; ?></td>
+                                  <td><?php echo $row['jmlu']; ?></td>
+                                  <td><?php echo $row['target2']; ?></td>
                                   <td><?php echo $row['nilai']; ?></td>
                                 </tr>
                                 <?php $no++; } ?>

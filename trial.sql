@@ -2244,9 +2244,11 @@ UNION ALL
 )
 
 
--- Nilai Ta'lim by Mahasiswa (WORK)
-SELECT m.id_mahasiswa, m.nama, m.j_kelamin, COUNT(b.talim) AS total, c.target,
-ROUND((((COUNT(b.talim))/c.target)*100),2) AS nilai
+-- Nilai Ta'lim by Mahasiswa with Jumlah Udzur (WORK)
+SELECT m.id_mahasiswa, m.nama, m.j_kelamin, COUNT(b.talim) AS total, c.target, 
+IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
+c.target-IF(u.jmlu IS NULL, 0, u.jmlu) AS target2,
+ROUND((((COUNT(b.talim))/(c.target-IF(u.jmlu IS NULL, 0, u.jmlu)))*100),2) AS nilai
 FROM (
     SELECT m.id_mahasiswa, m.nama, m.j_kelamin
     FROM mahasiswa m 
@@ -2275,4 +2277,10 @@ LEFT JOIN (
     FROM j_talim jt
     GROUP BY jt.j_kelamin    
 ) c ON m.j_kelamin = c.j_kelamin
+LEFT JOIN (
+    SELECT tu.id_mahasiswa, COUNT(tu.udzur) AS jmlu
+    FROM talim_udzur tu
+    GROUP BY tu.id_mahasiswa
+) u ON m.id_mahasiswa = u.id_mahasiswa
 GROUP BY b.id_mahasiswa 
+ORDER BY m.nama
