@@ -2290,7 +2290,7 @@ ORDER BY m.nama
 SELECT m.j_kelamin, COUNT(b.talim) AS total,
 (CASE WHEN m.j_kelamin = 'Akhwat' THEN a.jml ELSE i.jml END) AS jmhs,
 (CASE WHEN m.j_kelamin = 'Akhwat' THEN a.jml ELSE i.jml END)*c.target AS target,
-u.jmlu,
+IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
 ((CASE WHEN m.j_kelamin = 'Akhwat' THEN a.jml ELSE i.jml END)*c.target)-(u.jmlu) AS target2,
 ROUND((((COUNT(b.talim))/(((CASE WHEN m.j_kelamin = 'Akhwat' THEN a.jml ELSE i.jml END)*c.target)-(u.jmlu)))*100),2) AS nilai
 FROM (
