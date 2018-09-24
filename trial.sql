@@ -2397,3 +2397,27 @@ LEFT JOIN (
     GROUP BY mb.id_pembina    
 ) uz ON p.id_pembina = uz.id_pembina
 GROUP BY p.id_pembina
+
+
+-- Nilai Ta'lim by Talim INCOMPLETE
+SELECT v.talim, COUNT(v.wkt_tapping) AS total
+FROM (
+    ( 
+        SELECT a.tanggal, a.id_periode, a.id_mahasiswa, a.j_kelamin, a.wkt_tapping, a.talim 
+        FROM ( 
+            SELECT s.id_mahasiswa, m.j_kelamin, s.id_periode, s.tanggal, s.wkt_tapping, s.wkt_shalat AS talim 
+            FROM shalat s 
+            LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa
+            WHERE s.tanggal IN (SELECT jt.tanggal FROM j_talim jt) AND s.wkt_shalat IN (SELECT jt.talim FROM j_talim jt) 
+        ) a 
+        INNER JOIN j_talim jt ON a.j_kelamin = jt.j_kelamin AND a.tanggal = jt.tanggal AND a.talim = jt.talim 
+        ORDER BY a.id_mahasiswa, a.tanggal 
+    ) 
+    UNION ALL 
+    ( 
+        SELECT t.tanggal, t.id_periode, t.id_mahasiswa, m.j_kelamin, t.wkt_talim AS wkt_tapping, t.talim 
+        FROM talim t 
+        LEFT JOIN mahasiswa m ON t.id_mahasiswa = m.id_mahasiswa 
+    )    
+) v
+GROUP BY v.talim
