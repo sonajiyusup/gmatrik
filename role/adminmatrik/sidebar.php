@@ -104,7 +104,7 @@
                     </li>
                     <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'importtalim' || $_GET['page'] == 'jtalim' || $_GET['page'] == 'talimm' || $_GET['page'] == 'talimia' || $_GET['page'] == 'talimp') {
+                                    if ($_GET['page'] == 'importtalim' || $_GET['page'] == 'jtalim' || $_GET['page'] == 'talimm' || $_GET['page'] == 'talimia' || $_GET['page'] == 'talimp' || $_GET['page'] == 'talimt') {
                                       echo "class='active'";
                                     }
                                   }
@@ -145,8 +145,14 @@
                                 ?>
                               ><a href="?page=talimp">Berdasar Pembina</a>
                             </li>
-                            <li>
-                                <a href="pages/tables/jquery-datatable.html">...</a>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'talimt') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                              ><a href="?page=talimt">Berdasar Jenis Ta'lim</a>
                             </li>
                             <li <?php 
                                   if (isset($_GET['page'])) {
@@ -439,6 +445,8 @@
               include 'talim/talim_byIA.php';
             } else if ($_GET['page'] == 'talimp') {
               include 'talim/talim_bypembina.php';
+            } else if ($_GET['page'] == 'talimt') {
+              include 'talim/talim_bytalim.php';
             } else if ($_GET['page'] == 'jplg') {
               include 'shalat/jplg.php';
             } else if ($_GET['page'] == 'pbentuk') {

@@ -2243,6 +2243,7 @@ UNION ALL
     LEFT JOIN mahasiswa m ON t.id_mahasiswa = m.id_mahasiswa 
 )
 
+------------------------------------------------------------- TALIM BY MAHASISWA ------------------------------------------------------------
 
 -- Nilai Ta'lim by Mahasiswa with Jumlah Udzur (WORK)
 SELECT m.id_mahasiswa, m.nama, m.j_kelamin, COUNT(b.talim) AS total, c.target, 
@@ -2285,6 +2286,7 @@ LEFT JOIN (
 GROUP BY b.id_mahasiswa 
 ORDER BY m.nama
 
+------------------------------------------------------------- TALIM BY IKHWAN/AKHWAT ------------------------------------------------------------
 
 -- Nilai Ta'lim by Ikhwan/Akhwat (WORK)
 SELECT m.j_kelamin, COUNT(b.talim) AS total,
@@ -2342,6 +2344,7 @@ LEFT JOIN (
 GROUP BY m.j_kelamin 
 ORDER BY m.nama
 
+------------------------------------------------------------- TALIM BY PEMBINA ------------------------------------------------------------
 
 -- Nilai Ta'lim by Pembina (WORK)
 SELECT p.id_pembina, p.nama, p.j_kelamin, o.total, b.jmlb, j.jmlt, 
@@ -2398,9 +2401,20 @@ LEFT JOIN (
 ) uz ON p.id_pembina = uz.id_pembina
 GROUP BY p.id_pembina
 
+------------------------------------------------------------- TALIM BY JENIS TALIM ------------------------------------------------------------
+
+-- Jumlah Talim By Talim (WORK)
+SELECT d.talim, COUNT(d.talim) AS jmlt
+FROM (
+    SELECT jt.tanggal, jt.talim, IF(jt.talim <> 'skb', jt.j_kelamin, (GROUP_CONCAT(jt.j_kelamin SEPARATOR ' '))) AS j_kelamin
+    FROM j_talim jt
+    GROUP BY jt.tanggal    
+) d
+GROUP BY d.talim
+
 
 -- Nilai Ta'lim by Talim INCOMPLETE
-SELECT v.talim, COUNT(v.wkt_tapping) AS total
+SELECT v.talim, COUNT(v.wkt_tapping) AS total, j.jmlt
 FROM (
     ( 
         SELECT a.tanggal, a.id_periode, a.id_mahasiswa, a.j_kelamin, a.wkt_tapping, a.talim 
@@ -2420,4 +2434,13 @@ FROM (
         LEFT JOIN mahasiswa m ON t.id_mahasiswa = m.id_mahasiswa 
     )    
 ) v
+LEFT JOIN (
+    SELECT d.talim, COUNT(d.talim) AS jmlt
+    FROM (
+        SELECT jt.tanggal, jt.talim, IF(jt.talim <> 'skb', jt.j_kelamin, (GROUP_CONCAT(jt.j_kelamin SEPARATOR ' '))) AS j_kelamin
+        FROM j_talim jt
+        GROUP BY jt.tanggal    
+    ) d
+    GROUP BY d.talim    
+) j ON v.talim = j.talim
 GROUP BY v.talim
