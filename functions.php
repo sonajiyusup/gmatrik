@@ -551,10 +551,10 @@
 		}
 	}
 
-	function importShalat($angkatan, $from, $to, $jmlWktShalat){
+	function importShalat($angkatan, $from, $to){
 
 		// Periode shalat table
-		mysql_query("INSERT INTO shalat_periode (tanggal_dari, tanggal_sampai, jml_wkt_shalat) VALUES ('$from','$to', '$jmlWktShalat')");
+		mysql_query("INSERT INTO shalat_periode (tanggal_dari, tanggal_sampai) VALUES ('$from','$to')");
 
 
 		$koneksi_mdb = odbc_connect( 'att2000', "", "");
