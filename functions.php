@@ -36,7 +36,7 @@
 		$row = mysql_fetch_assoc($sql);
 		$id_user = $row['id_user'];
 
-		if (mysql_num_rows($row) == 0) {
+		if (mysql_num_rows($row) == 1) {
 			echo "<script>document.location='?page=pembina&alert=duplicateusername'</script>";
 		} else{
 			mysql_query("INSERT INTO pembina (nama, j_kelamin, tgl_lahir, gelar, asalkota, email, telp, id_user) VALUES ('$nama', '$j_kelamin', '$tgl_lahir', '$gelar', '$asalkota', '$email', '$telp', '$id_user')");
@@ -545,7 +545,7 @@
 				$name = mysql_real_escape_string($row_mdb['Name']);
 				$lname = strtolower($name);
 
-				$mysql_insert_mhs = "INSERT INTO mahasiswa (id_mahasiswa, nim, nama, id_user) VALUES ('".$row_mdb['USERID']."', '".$row_mdb['Badgenumber']."', '".ucfirst($lname)."', '$id_user')";
+				$mysql_insert_mhs = "INSERT INTO mahasiswa (id_mahasiswa, nim, nama, id_user) VALUES ('".$row_mdb['USERID']."', '".$row_mdb['Badgenumber']."', '".ucwords($lname)."', '$id_user')";
 				mysql_query($mysql_insert_mhs);
 				//echo $row_mdb['Name']." Berhasil diinput <br>";
 			//}
