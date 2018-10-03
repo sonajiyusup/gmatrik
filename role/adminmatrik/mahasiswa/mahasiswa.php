@@ -63,6 +63,7 @@
 		                        	<label>Pilih Tahun Angkatan</label>
 		                          <select class="form-control show-tick" name="angkatan" required>
 		                            <option value="17">17</option>
+                                    <option value="18">18</option>
 		                          </select> 
 		                        </div>
 	                      	</div>

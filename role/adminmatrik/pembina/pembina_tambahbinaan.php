@@ -11,7 +11,7 @@
                     <div class="card">
                         <div class="header">
                           <h2><a href="?page=pembinadetails&id=<?php foreach($ip as $idP){ echo $idP; }?>&idP=<?php echo $idPembina; ?>" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;TAMBAH MAHASISWA BINAAN 
-                          <small><?php foreach($np as $namaP){ echo $namaP['nama'].' '.$namaP['gelar']; }?></small>
+                            <small><?php foreach($np as $namaP){ echo $namaP['nama'].' '.$namaP['gelar']; }?></small>
                           </h2>
                         </div>
                         <div class="body ">
@@ -56,26 +56,28 @@
                 </div>
             </div>
 
-
-
-
     <?php 
-
       foreach($ip as $idP){
         if (isset($_POST['submitBinaanMahasiswa'])) {
 
-        if(!empty($_POST['idMahasiswa'])) {
-          foreach($_POST['idMahasiswa'] as $idMhs) {
-            tambahMhsBinaan($idPembina, $idMhs);
+          if(!empty($_POST['idMahasiswa'])) {
+            foreach($_POST['idMahasiswa'] as $idMhs) {
+              tambahMhsBinaan($idPembina, $idMhs);
+            }
           }
-        }
 
-        echo "<script>document.location='index.php?page=pembinadetails&id=$idP'</script>";
+        echo "<script>document.location='index.php?page=pembinadetails&id=".$idP."&idP=".$idPembina."'</script>";
       }
     }
     ?>
 
     <script>
+    //Flat red color scheme for iCheck
+    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+      checkboxClass: 'icheckbox_flat-blue',
+      radioClass   : 'iradio_flat-green'
+    })
+
     $('input').on('ifChecked', function(event){
       var idMhs = $(this).val();
       $('#formBinaan').append(

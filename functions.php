@@ -36,7 +36,7 @@
 		$row = mysql_fetch_assoc($sql);
 		$id_user = $row['id_user'];
 
-		if (mysql_num_rows($row) == 0) {
+		if (mysql_num_rows($row) == 1) {
 			echo "<script>document.location='?page=pembina&alert=duplicateusername'</script>";
 		} else{
 			mysql_query("INSERT INTO pembina (nama, j_kelamin, tgl_lahir, gelar, asalkota, email, telp, id_user) VALUES ('$nama', '$j_kelamin', '$tgl_lahir', '$gelar', '$asalkota', '$email', '$telp', '$id_user')");
@@ -543,18 +543,19 @@
 				$id_user = $row['id_user'];
 
 				$name = mysql_real_escape_string($row_mdb['Name']);
+				$lname = strtolower($name);
 
-				$mysql_insert_mhs = "INSERT INTO mahasiswa (id_mahasiswa, nim, nama, id_user) VALUES ('".$row_mdb['USERID']."', '".$row_mdb['Badgenumber']."', '".$name."', '$id_user')";
+				$mysql_insert_mhs = "INSERT INTO mahasiswa (id_mahasiswa, nim, nama, id_user) VALUES ('".$row_mdb['USERID']."', '".$row_mdb['Badgenumber']."', '".ucwords($lname)."', '$id_user')";
 				mysql_query($mysql_insert_mhs);
 				//echo $row_mdb['Name']." Berhasil diinput <br>";
 			//}
 		}
 	}
 
-	function importShalat($angkatan, $from, $to, $jmlWktShalat){
+	function importShalat($angkatan, $from, $to){
 
 		// Periode shalat table
-		mysql_query("INSERT INTO shalat_periode (tanggal_dari, tanggal_sampai, jml_wkt_shalat) VALUES ('$from','$to', '$jmlWktShalat')");
+		mysql_query("INSERT INTO shalat_periode (tanggal_dari, tanggal_sampai) VALUES ('$from','$to')");
 
 
 		$koneksi_mdb = odbc_connect( 'att2000', "", "");

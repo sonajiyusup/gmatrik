@@ -1,45 +1,6 @@
-        <script type="text/javascript">
-
-        $(document).ready(function() {
-           $('.showhide').hide();
-        });
-        
-          function toggle(className, obj) {
-              var $input = $(obj);
-              if ($input.prop('checked')) 
-                $('.showhide').show()
-              else 
-                $('.showhide').hide();
-          }                 
-        </script>  
-
-<script type="text/javascript">
-  $(function()
-  {
-      $(document).on('click', '.btn-add', function(e)
-      {
-          e.preventDefault();
-
-          var controlForm = $('.controls:first'),
-              currentEntry = $(this).parents('.entry:first'),
-              newEntry = $(currentEntry.clone()).appendTo(controlForm);
-
-          newEntry.find('input').val('');
-          controlForm.find('.hapus')
-            .addClass('btn-remove')
-            .addClass('bg-red')
-            .addClass('btn-xs')
-            .html('<i class="material-icons">clear</i>');          
-          
-      }).on('click', '.btn-remove', function(e)
-      {
-      $(this).parents('.entry:first').remove();
-
-      e.preventDefault();
-      return false;
-    });
-  });   
-</script>
+<?php 
+  include 'functions.php';
+ ?>
 
 	<div class="row clearfix">
 
@@ -98,33 +59,6 @@
                                         </div>
                                       </div>
                                     </div>
-                                                       
-                                  
-                                    <label>Jadwal Pulang ?</label>&nbsp;
-                                    <label class="switch">
-                                      <input type="checkbox" name="opt" id="opt" value="Y" onclick="toggle('.myClass', this)">
-                                      <span class="slider round"></span><br>
-                                    </label>  
-
-                                    <div class="showhide">  
-                                      <div class="controls">    
-                                        <div class="entry">
-                                          <input type="text" id="txt" class="datepicker form-control" name="tplg[]" placeholder="Tanggal Pulang"/><br>
-                                          <input type="checkbox" name="tplgw[]" class="flat-red" value="">&nbsp;Shubuh&nbsp;&nbsp;
-                                          <input type="checkbox" name="tplgw[]" class="flat-red" value="">&nbsp;Dzuhur&nbsp;&nbsp;
-                                          <input type="checkbox" name="tplgw[]" class="flat-red" value="">&nbsp;Ashar&nbsp;&nbsp;
-                                          <input type="checkbox" name="tplgw[]" class="flat-red" value="">&nbsp;Maghrib&nbsp;&nbsp;
-                                          <input type="checkbox" name="tplgw[]" class="flat-red" value="">&nbsp;Isya
-                                          <br><br>
-                                          <button type="button" class="btn btn-xs btn-primary waves-effect btn-add">
-                                              <i class="material-icons">add</i>
-                                          </button>&nbsp; 
-                                          <!-- <button class="hapus"></button> -->
-                                          <br><br>       
-                                        </div>
-                                      </div>
-                                    </div>                          
-                                    <br><br><br>
                                   <button type="submit" class="btn btn-primary btn-block waves-effect" name="importPresensiShalat">IMPORT</button>
                         </div>
 
@@ -140,7 +74,7 @@
         $from = $tgl[0];
         $to = $tgl[1];
 
-        $jmlWktShalat = $_POST['jmlWktShalat'];
+        // $jmlWktShalat = $_POST['jmlWktShalat'];
 
         $datefrom = date('Y-m-d', strtotime($from));
         $dateto = date('Y-m-d',strtotime($to));
@@ -161,7 +95,7 @@
         $isyaTo = $_POST['isyaTo'];
 
         updateTimeSetup($from, $to, $shubuhFrom, $shubuhTo, $dzuhurFrom, $dzuhurTo, $asharFrom, $asharTo, $maghribFrom, $maghribTo, $isyaFrom, $isyaTo);
-        importShalat('17', $datefrom, $dateto, $jmlWktShalat);
+        importShalat('18', $datefrom, $dateto);
 
         echo "<script>document.location='?page=shalat'</script>";
       }
