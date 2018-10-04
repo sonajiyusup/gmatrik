@@ -59,7 +59,7 @@
                                             <i class="material-icons">today</i>
                                         </span>
                                         <div class="form-line">
-                                            <input type="text" class="datepicker form-control" name="tgl_lahir" placeholder="Tanggal Lahir" value="<?php echo $row['tgl_lahir']; ?>" required>
+                                            <input type="text" class="datepicker form-control" name="tgl_lahir" placeholder="Tanggal Lahir" value="<?php echo $row['tgl_lahir']; ?>">
                                         </div>
                                   </div>
                                   <div class="input-group">

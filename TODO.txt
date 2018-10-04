@@ -1,0 +1,130 @@
+- add jadwal pulang on shalat ikhtisar table OK
+- add jadwal pulang on shalat period table OK
+- create shalat detail by day ikhtisar page
+
+- create jml shalat per waktu graph on shalatbyday
+
+DOING
+- redesign query and page shalatia
+	- table
+	- graph
+- create query and page shalatiadetail
+	- table
+	-> graph
+	-> percentage
+
+- create query and page shalatiabyday
+	- table
+	- graph
+	- percentage
+
+03/08/2018
+- continue design query for shalat by mahasiswa by period
+	- graph
+	- percentage
+- create design query for shalat by mahasiswa by period by day
+	- graph
+	- percentage
+- fixing query design shalat by pembina by period 
+	- fixing graph
+	- add percentage
+	- change sequent of column table
+- continue design query for pembina detail by day
+	- graph
+	- percentage
+
+06/08/2018
+- create shalat wajib by mahasiswa modul
+	- add sidebar option
+	- create page
+
+
+07/08/2018
+- shalatmbyperiod
+	- add comparison graph
+	- add percentage
+- shalatmbyday 
+	- add bar chart
+	- add percentage
+
+12/08/2018
+- shalat by pembina by day
+	- add graph
+		- query DONE
+		- UI DONE
+	- percentage comparison
+		- query DONE
+		- UI DONE
+	- change badge hari/tanggal to nama pembina, jumlah binaan
+- shalat by pembina by period
+	- add graph comparison
+	- add percentage comparison
+- shalat by mahasiswa by day
+	- change badge hari/tanggal to nama mahasiswa, pembina
+
+13/08/2018
+- shalat by waktu shalat
+	- ikhtisar (ref : shalat by mahasiswa)
+		- table query DONE
+		- graph query -> from 'nilai' result
+	- detail (ref : shalat by mahasiswa detail)
+		- table query DONE
+		- graph query -> from 'nilai' result
+	- by period (ref : shalat by mahasiswa detail by period)
+		- table query DONE
+		- graph query
+		- percentage query DONE
+	- by day (ref : shalat by mahasiswa detail by day)
+		- table query DONE
+		- graph query
+		- percentage query DONE
+
+23/08/2018
+- Jadwal pulang
+	- add table of data jadwal pulang
+		- query
+		- UI DONE
+
+24/08/2018
+- shalat by pembina detail
+	- graph comparison 
+		- query DONE (using shalatNilaiSemua() function)
+		- UI DONE 
+- shalat by pembina detail by period DONE
+	- graph comparison 
+		- query
+		- UI
+	- percentage
+		- query
+		- UI	
+- shalat by pembina detail by period by day
+	- graph comparison 
+		- query
+		- UI
+- shalat by mahasiswa detail DONE
+	- percentage
+	- comparison graph
+- shalat by ikhwan/akhwat detail DONE
+	- percentage
+	- comparison graph
+- shalat by waktu shalat detail
+	- percentage
+	- comparison graph
+
+25/08/2018
+- add request udzur shalat page on mahasiswa role
+	*Table :Hari/Tanggal, Periode, Waktu shalat, Keterangan, Status (disetujui/tidak)
+	*Modal :radio button (sakit, haid[akhwat only], hujan deras, lain-lain)
+		Text area (keterangan)
+		dynamic UI elements (Hari -> Label, datepicker, checkbox wkt shalat)
+		add button, remove button
+		submit
+
+17/09/2018
+- fixing talimMhs() to show all mahasiswa (count : 372)
+- add udzur calculation
+
+18/09/2018
+- create Ta'lim by Ikhwan/Akhwat
+- create Ta'lim by Pembina
+- create Ta'lim by Jenis Ta'lim

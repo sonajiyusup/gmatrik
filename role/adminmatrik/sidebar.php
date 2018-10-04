@@ -35,7 +35,7 @@
                     <li class="header">PROGRAM PEMBINAAN</li>
                     <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'shalat') {
+                                    if ($_GET['page'] == 'shalat' || $_GET['page'] == 'shalatia' || $_GET['page'] == 'shalatbpembina' || $_GET['page'] == 'shalatpdetail' || $_GET['page'] == 'shalatbpembinadetail' || $_GET['page'] == 'shalatbpembinabp' || $_GET['page'] == 'shalatbpembinabpday' || $_GET['page'] == 'shalatbyday' || $_GET['page'] == 'shalatiadetail' || $_GET['page'] == 'shalatiabyperiod' || $_GET['page'] == 'shalatiabyday' || $_GET['page'] == 'shalatm'|| $_GET['page'] == 'shalatmdetail' || $_GET['page'] == 'shalatmbyperiod' || $_GET['page'] == 'shalatmbyday' || $_GET['page'] == 'shalatw' || $_GET['page'] == 'shalatwdetail' || $_GET['page'] == 'shalatwperiod' || $_GET['page'] == 'shalatwbday' || $_GET['page'] == 'importshalat') {
                                       echo "class='active'";
                                     }
                                   }
@@ -48,19 +48,131 @@
                         <ul class="ml-menu">
                             <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'shalat') {
+                                    if ($_GET['page'] == 'shalat' || $_GET['page'] == 'shalatpdetail'  || $_GET['page'] == 'shalatbyday') {
                                       echo "class='active'";
                                     }
                                   }
                                 ?>
                             ><a href="?page=shalat">Ikhtisar</a>
                             </li>
-                            <li>
-                                <a href="pages/ui/animations.html">...</a>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'shalatm'|| $_GET['page'] == 'shalatmdetail' || $_GET['page'] == 'shalatmbyperiod' || $_GET['page'] == 'shalatmbyday') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                              ><a href="?page=shalatm">Berdasar Mahasiswa</a>
                             </li>
-                            <li>
-                                <a href="pages/ui/badges.html">...</a>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'shalatia'|| $_GET['page'] == 'shalatiadetail' || $_GET['page'] == 'shalatiabyperiod' || $_GET['page'] == 'shalatiabyday') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                              ><a href="?page=shalatia">Berdasar Ikhwan/Akhwat</a>
                             </li>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'shalatbpembina' || $_GET['page'] == 'shalatbpembinadetail' || $_GET['page'] == 'shalatbpembinabp' || $_GET['page'] == 'shalatbpembinabpday') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                              ><a href="?page=shalatbpembina">Berdasar Pembina</a>
+                            </li>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'shalatw' || $_GET['page'] == 'shalatwdetail' || $_GET['page'] == 'shalatwperiod' || $_GET['page'] == 'shalatwbday') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                              ><a href="?page=shalatw">Berdasar Waktu Shalat</a>
+                            </li>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'importshalat') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                              ><a href="?page=importshalat">Import DB Presensi</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'importtalim' || $_GET['page'] == 'jtalim' || $_GET['page'] == 'talimm' || $_GET['page'] == 'talimia' || $_GET['page'] == 'talimp' || $_GET['page'] == 'talimt') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            >
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">assignment</i>
+                            <span>Ta'lim</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="pages/tables/normal-tables.html">Ikhtisar</a>
+                            </li>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'talimm') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                              ><a href="?page=talimm">Berdasar Mahasiswa</a>
+                            </li>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'talimia') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                              ><a href="?page=talimia">Berdasar Ikhwan/Akhwat</a>
+                            </li>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'talimp') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                              ><a href="?page=talimp">Berdasar Pembina</a>
+                            </li>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'talimt') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                              ><a href="?page=talimt">Berdasar Jenis Ta'lim</a>
+                            </li>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'jtalim') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                              ><a href="?page=jtalim">Jadwal Ta'lim</a>
+                            </li>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'importtalim') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                              ><a href="?page=importtalim">Import DB Presensi</a>
+                            </li>
+
                         </ul>
                     </li>
                     <li>
@@ -80,20 +192,29 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <li <?php 
+                          if (isset($_GET['page'])) {
+                              if ($_GET['page'] == 'jplg') {
+                                echo "class='active'";
+                              } else{
+                                echo '';
+                              }
+                            }
+                          ?>
+                        >
                         <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">assignment</i>
-                            <span>Ta'lim</span>
+                            <i class="material-icons">card_travel</i>
+                            <span>Jadwal Kepulangan</span>
                         </a>
                         <ul class="ml-menu">
-                            <li>
-                                <a href="pages/tables/normal-tables.html">Ikhtisar</a>
-                            </li>
-                            <li>
-                                <a href="pages/tables/jquery-datatable.html">...</a>
-                            </li>
-                            <li>
-                                <a href="pages/tables/editable-table.html">...</a>
+                            <li  <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'jplg') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                              ><a href="?page=jplg">Data Jadwal Pulang</a>
                             </li>
                         </ul>
                     </li>
@@ -209,7 +330,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="header">PROFIL</li>
+                    <li class="header">AKUN SAYA</li>
                     <li <?php 
                           if (isset($_GET['page'])) {
                             if ($_GET['page'] == 'profil' || $_GET['page'] == 'editprofil') {
@@ -218,7 +339,7 @@
                           }
                         ?>
                     ><a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">supervisor_account</i>
+                            <i class="material-icons">person</i>
                             <span>Profil</span>
                         </a>
                         <ul class="ml-menu">
@@ -276,6 +397,58 @@
               include 'pembina/pembina_tambahbinaan.php';
             } else if ($_GET['page'] == 'shalat') {
               include 'shalat/shalat.php';
+            } else if ($_GET['page'] == 'shalatpdetail') {
+              include 'shalat/shalat_periode.php';
+            } else if ($_GET['page'] == 'shalatbyday') {
+              include 'shalat/shalat_byday.php';
+            } else if ($_GET['page'] == 'shalatia') {
+              include 'shalat/shalat_ikwan_akhwat.php';
+            } else if ($_GET['page'] == 'shalatiadetail') {
+              include 'shalat/shalat_iadetail.php';
+            } else if ($_GET['page'] == 'shalatiabyperiod') {
+              include 'shalat/shalat_iadetail_byperiod.php';
+            } else if ($_GET['page'] == 'shalatiabyday') {
+              include 'shalat/shalat_iadetail_byday.php';
+            } else if ($_GET['page'] == 'shalatm') {
+              include 'shalat/shalat_bymhs.php';
+            } else if ($_GET['page'] == 'shalatmdetail') {
+              include 'shalat/shalat_bymhsdetail.php';
+            } else if ($_GET['page'] == 'shalatmbyperiod') {
+              include 'shalat/shalat_bymhsdetail_byperiod.php';
+            } else if ($_GET['page'] == 'shalatmbyday') {
+              include 'shalat/shalat_bymhsdetail_byperiod_byday.php';
+            } else if ($_GET['page'] == 'shalatbpembina') {
+              include 'shalat/shalat_bypembina.php';
+            } else if ($_GET['page'] == 'shalatbpembinadetail') {
+              include 'shalat/shalat_bypembinadetail.php';
+            } else if ($_GET['page'] == 'shalatbpembinabp') {
+              include 'shalat/shalat_bypembinadetail_byperiod.php';
+            } else if ($_GET['page'] == 'shalatbpembinabpday') {
+              include 'shalat/shalat_bypembinadetail_byperiod_byday.php';
+            } else if ($_GET['page'] == 'shalatw') {
+              include 'shalat/shalat_bywkt.php';
+            } else if ($_GET['page'] == 'shalatwdetail') {
+              include 'shalat/shalat_bywktdetail.php';
+            } else if ($_GET['page'] == 'shalatwperiod') {
+              include 'shalat/shalat_bywktdetail_byperiod.php';
+            } else if ($_GET['page'] == 'shalatwbday') {
+              include 'shalat/shalat_bywktdetail_byperiod_byday.php';
+            } else if ($_GET['page'] == 'importshalat') {
+              include 'shalat/import.php';
+            } else if ($_GET['page'] == 'importtalim') {
+              include 'talim/import.php';
+            } else if ($_GET['page'] == 'jtalim') {
+              include 'talim/jtalim.php';
+            } else if ($_GET['page'] == 'talimm') {
+              include 'talim/talim_bymhs.php';
+            } else if ($_GET['page'] == 'talimia') {
+              include 'talim/talim_byIA.php';
+            } else if ($_GET['page'] == 'talimp') {
+              include 'talim/talim_bypembina.php';
+            } else if ($_GET['page'] == 'talimt') {
+              include 'talim/talim_bytalim.php';
+            } else if ($_GET['page'] == 'jplg') {
+              include 'shalat/jplg.php';
             } else if ($_GET['page'] == 'pbentuk') {
               include 'pelanggaran/pbentuk.php';
             } else if ($_GET['page'] == 'paksi') {
@@ -285,18 +458,18 @@
             } else if ($_GET['page'] == 'planjut') {
               include 'pelanggaran/planjut.php';
             } else if ($_GET['page'] == 'pikhtisar') {
-            include 'pelanggaran/pikhtisar.php';
-          } else if ($_GET['page'] == 'pmaindetail') {
-            include 'pelanggaran/pikhtisar_detail.php';
-          } else if ($_GET['page'] == 'pbentukdetail') {
-            include 'pelanggaran/pbentuk_detail.php';
-          } else if ($_GET['page'] == 'paksidetail') {
-            include 'pelanggaran/paksi_detail.php';
-          } else if ($_GET['page'] == 'psanksidetail') {
-            include 'pelanggaran/psanksi_detail.php';
-          } else if ($_GET['page'] == 'planjutdetail') {
-            include 'pelanggaran/planjut_detail.php';
-          } 
+              include 'pelanggaran/pikhtisar.php';
+            } else if ($_GET['page'] == 'pmaindetail') {
+              include 'pelanggaran/pikhtisar_detail.php';
+            } else if ($_GET['page'] == 'pbentukdetail') {
+              include 'pelanggaran/pbentuk_detail.php';
+            } else if ($_GET['page'] == 'paksidetail') {
+              include 'pelanggaran/paksi_detail.php';
+            } else if ($_GET['page'] == 'psanksidetail') {
+              include 'pelanggaran/psanksi_detail.php';
+            } else if ($_GET['page'] == 'planjutdetail') {
+              include 'pelanggaran/planjut_detail.php';
+            } 
         } else{
             include 'dashboard.php';
         }

@@ -25,17 +25,25 @@
     <!-- Bootstrap Core Css -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
 
+    <!-- Custom Toogle Button Css -->
+    <link href="assets/css/toogle.css" rel="stylesheet">
+
     <!-- Waves Effect Css -->
     <link href="assets/css/waves.css" rel="stylesheet" />
 
     <!-- Animation Css -->
     <link href="assets/css/animate.css" rel="stylesheet" />
 
+    <!-- Bootstrap Spinner Css -->
+    <link href="assets/css/bootstrap-spinner.css" rel="stylesheet">
+
     <!-- Bootstrap Material Datetime Picker Css -->
     <link href="assets/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
 
     <!-- Date Picker -->
     <link rel="stylesheet" href="assets/css/bootstrap-datepicker.min.css">
+
+    <link href='assets/css/select2.min.css' rel='stylesheet'>
 
     <!-- iCheck for checkboxes and radio inputs -->
     <link rel="stylesheet" href="assets/css/iCheck/all.css">
@@ -52,8 +60,19 @@
     <!-- JQuery DataTable Css -->
     <link href="assets/css/dataTables.bootstrap.min.css" rel="stylesheet">
 
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
     <!-- Custom Css -->
     <link href="assets/css/style.css" rel="stylesheet">
+    <style type="text/css">
+      /*customize align material design icons*/
+        .vertical-align-middle { 
+            vertical-align: middle; 
+        }
+        .padding-bottom-3 {
+            padding-bottom: 3px;
+        }        
+    </style>
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="assets/css/all-themes.css" rel="stylesheet" />
@@ -65,12 +84,16 @@
 
     <script>
     $(function() {
-      $( "#npamamhs" ).autocomplete({
+      $( "#daftarMhs" ).autocomplete({
         source: 'action/cari.php'
       });
     });
     </script>    
 
+    <!-- <script src='assets/js/select2.min.js'></script> -->
+
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    
     <!-- Bootstrap Core Js -->
     <script src="assets/js/bootstrap.js"></script>
 
@@ -80,6 +103,9 @@
     <!-- Slimscroll Plugin Js -->
     <script src="assets/js/jquery.slimscroll.js"></script>
 
+    <!-- Jquery Spinner Plugin Js -->
+    <script src="assets/js/jquery.spinner.js"></script>
+
     <!-- iCheck 1.0.1 -->
     <script src="assets/js/icheck.min.js"></script>
 
@@ -88,6 +114,11 @@
 
     <!-- Waves Effect Plugin Js -->
     <script src="assets/js/waves.js"></script>
+
+    <!-- Chart Plugins Js -->
+    <script src="assets/js/Chart.bundle.min.js"></script>
+
+    <script src="assets/js/jquery.sparkline.js"></script>
 
     <!-- Autosize Plugin Js -->
     <script src="assets/js/autosize.js"></script>
@@ -121,6 +152,8 @@
     <script src="assets/js/jquery-datatable.js"></script>
     <script src="assets/js/basic-form-elements.js"></script>
     <script src="assets/js/notifications.js"></script>
+    <script src="assets/js/sparkline.js"></script>
+    <!-- <script src="assets/js/chartjs.js"></script> -->
 
     <!-- Demo Js -->
     <script src="assets/js/demo.js"></script>
@@ -364,10 +397,75 @@
 
 <script type="text/javascript">
     //Flat red color scheme for iCheck
-    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+/*    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
       checkboxClass: 'icheckbox_flat-blue',
       radioClass   : 'iradio_flat-green'
-    })  
+    });  */
+
+    $(document).ready(function () {
+    $('input').iCheck({
+        checkboxClass: 'icheckbox_flat-blue',
+        radioClass: 'iradio_square-blue',
+        increaseArea: '20%' // optional
+    });    
+
+
+    var triggeredByChild = false;
+    var triggeredByChild2 = false;
+
+    // Hari 1 Jplg
+    $('#check-all1').on('ifChecked', function (event) {
+        $('.check').iCheck('check');
+        triggeredByChild = false;
+    });
+
+    $('#check-all1').on('ifUnchecked', function (event) {
+        if (!triggeredByChild) {
+            $('.check').iCheck('uncheck');
+        }
+        triggeredByChild = false;
+    });
+    // Removed the checked state from "All" if any checkbox is unchecked
+    $('.check').on('ifUnchecked', function (event) {
+        triggeredByChild = true;
+        $('#check-all1').iCheck('uncheck');
+    });
+
+    $('.check').on('ifChecked', function (event) {
+        if ($('.check').filter(':checked').length == $('.check').length) {
+            $('#check-all1').iCheck('check');
+        }
+    });    
+
+    // Hari 2 Jplg
+    $('#check-all2').on('ifChecked', function (event) {
+        $('.check2').iCheck('check');
+        triggeredByChild2 = false;
+    });
+
+    $('#check-all2').on('ifUnchecked', function (event) {
+        if (!triggeredByChild2) {
+            $('.check2').iCheck('uncheck');
+        }
+        triggeredByChild2 = false;
+    });
+    // Removed the checked state from "All" if any checkbox is unchecked
+    $('.check2').on('ifUnchecked', function (event) {
+        triggeredByChild2 = true;
+        $('#check-all2').iCheck('uncheck');
+    });
+
+    $('.check2').on('ifChecked', function (event) {
+        if ($('.check2').filter(':checked').length == $('.check2').length) {
+            $('#check-all2').iCheck('check');
+        }
+    }); 
+    
+    //Test Radio iCheck on jplg with alert
+    /*$('.radiojk').on('ifChecked', function(event){
+      alert($(this).val());
+    });*/
+});
 </script>  
 
 <!-- Fungsi Validasi Password Confirm -->

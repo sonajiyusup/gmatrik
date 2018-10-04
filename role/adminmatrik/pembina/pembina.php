@@ -5,6 +5,16 @@
 
 	<div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	<?php 
+              if (isset($_GET['alert'])) {
+                if ($_GET['alert'] == 'duplicateusername') {
+                	echo "<div class='alert bg-red alert-dismissible' role='alert'>
+                                <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+                                <strong>Tambah Pembina Gagal !</strong> Username tidak boleh sama
+                            </div>";
+                }
+              }
+             ?>                  
                     <div class="card">
                         <div class="header">
                           <h2>DAFTAR PEMBINA MAHASISWA 
@@ -35,7 +45,7 @@
 						                   ?>
 						                <tr>
 						                  <td><b><?php echo $no ?></b></td>  
-						                  <td><?php echo "<a href='index.php?page=pembinadetails&id=".$row['id_user']."' style='text-decoration:none'>".$row['nama']."</a>" ?></td>
+						                  <td><?php echo "<a href='index.php?page=pembinadetails&id=".$row['id_user']."&idP=".$row['id_pembina']."' style='text-decoration:none'>".$row['nama']."</a>" ?></td>
 						                  <td><?php echo $row['jml_binaan'] ?></td>
 						                  <td><?php if($row['j_kelamin'] == 'Ikhwan' || $row['j_kelamin'] == 'Laki-laki'){echo '<span class="label bg-light-blue">Ikhwan</span>';} else if($row['j_kelamin'] == 'Akhwat' || $row['j_kelamin'] == 'Perempuan'){echo '<span class="label bg-pink">Akhwat</span>';} ?></td>
 						                  <td><?php echo $row['telp'] ?></td>
@@ -130,8 +140,15 @@
                                         </span>
                                         <select class="form-control show-tick" name="gelar" >
 	                                        <option value="">-- Pilih Gelar --</option>
-	                                        <option value="S.Ei">S.Ei</option>
+                                          <option value="Lc">Lc</option>
+	                                        <option value="S.E.I">S.E.I</option>
+                                          <option value="S.E">S.E</option>
+                                          <option value="S.Pd">S.Pd</option>
+                                          <option value="S.Akun">S.Akun</option>
+                                          <option value="S.Si">S.Si</option>
+                                          <option value="S.H">S.H</option>
 	                                        <option value="M.Ei">M.Ei</option>
+                                          <option value="M.Si">M.Si</option>
                                     		</select>                                            
                                     </div>
                                 </div>
@@ -200,7 +217,7 @@
       if (isset($_POST['tambahPembina'])) {
         tambahPembina($_POST['nama'], $_POST['gender'], date("Y-m-d", strtotime($_POST['tgl_lahir'])), $_POST['gelar'], $_POST['asalkota'], $_POST['email'], $_POST['telp'], $_POST['username'], $_POST['password']);
         
-        echo "<script>document.location='?page=pembina'</script>";
+        //echo "<script>document.location='?page=pembina'</script>";
       }
     ?> 
 

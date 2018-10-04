@@ -12,21 +12,22 @@
                         <div class="body ">
                         	<div class="row clearfix">
                                 <div class="col-sm-12">
-                                    <div class="input-group">
+                                  <div class="input-group">
                                         <span class="input-group-addon">
-                                            <i class="material-icons" style="font-size: 24px">assignment_ind</i>
+                                            <i class="material-icons" style="font-size: 24px">streetview</i>
                                         </span>
-                                        <div class="form-line">
-                                            <input id="npamamhs" class="form-control" name="nama" placeholder="Nama Mahasiswa" required>
-                                        </div>
+<<<<<<< HEAD
+                                        <input type="text" name="" class="form-control" id="daftarMhs" placeholder="Nama Mahasiswa">
                                     </div>
-                                </div>
+                                  </div>
                                 
                                 <div class="col-sm-12">
                                   <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="material-icons" style="font-size: 24px">streetview</i>
                                         </span>
+=======
+>>>>>>> 3975af3886a58f692a5995e0ce5d8cdbb54d2d56
                                         <select class="form-control show-tick" id="pbentuk" name="pbentuk">
 	                                        <option value="">-- Bentuk Pelanggaran --</option>
                                             <?php
@@ -131,10 +132,10 @@
             </div>
 
 <script>
-  $(function () {
+  /*$(function () {
     //Date picker
     $('#datepicker_plgr').datepicker({
       autoclose: true
     })
-  })
+  })*/
 </script>

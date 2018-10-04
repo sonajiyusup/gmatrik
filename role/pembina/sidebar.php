@@ -35,7 +35,7 @@
                     <li class="header">PROGRAM PEMBINAAN</li>
                     <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'shalat') {
+                                    if ($_GET['page'] == 'shalat' || $_GET['page'] == 'udzurslt' || $_GET['page'] == 'udzursltrev') {
                                       echo "class='active'";
                                     }
                                   }
@@ -60,6 +60,15 @@
                             </li>
                             <li>
                                 <a href="pages/ui/badges.html">...</a>
+                            </li>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'udzurslt' || $_GET['page'] == 'udzursltrev') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            ><a href="?page=udzurslt">Udzur</a>
                             </li>
                         </ul>
                     </li>
@@ -250,6 +259,10 @@
               include 'pembina/pembina_tambahbinaan.php';
             } else if ($_GET['page'] == 'shalat') {
               include 'shalat/shalat.php';
+            } else if ($_GET['page'] == 'udzurslt') {
+              include 'shalat/udzur.php';
+            } else if ($_GET['page'] == 'udzursltrev') {
+              include 'shalat/udzur_review.php';
             } else if ($_GET['page'] == 'pbentuk') {
               include 'pelanggaran/pbentuk.php';
             } else if ($_GET['page'] == 'paksi') {

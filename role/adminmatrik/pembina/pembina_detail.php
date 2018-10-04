@@ -3,11 +3,10 @@
   include 'functions.php';
 
     $id = $_GET['id'];
-      $dataPembina = pembinaDetails($id);
-      foreach($dataPembina as $row){  
+    $idPembina = $_GET['idP'];
 
         //$np = namaPembinaById($row['id_pembina']);
-        $idPembina = $row['id_pembina'];
+        
  ?>
 
 <div class="container-fluid">
@@ -17,9 +16,37 @@
                         <div class="header">
                             <h2>
                                 <a href="?page=pembina" class="btn btn-sm btn-link waves-effect" style="width: 10%;" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;DATA PEMBINA
+                                <small>
+                                  <div class="btn-group">
+                                                    <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <?php 
+                                                          $namaPembina = namaPembinaById($idPembina);
+                                                          foreach($namaPembina as $row){
+                                                            echo $row['nama'].' '.$row['gelar'];
+                                                          } 
+                                                        ?>
+                                            <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <?php
+                                                          $dataPembina = tampilPembina();
+                                                          foreach($dataPembina as $row){
+                                                          ?>
+                                                            <li><?php echo '<a href="?page=pembinadetails&id='.$row['id_user'].'&idP='.$row['id_pembina'].'">'.$row['nama'].' '.$row['gelar'].'</a>'; ?></li>
+                                                          <?php
+                                                          }
+                                                        ?>
+                                                    </ul>
+                                                </div>
+                                </small>
                             </h2>
                         </div>
                         <div class="body table-responsive">
+                        <?php 
+                          $dataPembina = pembinaDetails($id);
+                          foreach($dataPembina as $row){  
+                            $idPembina = $row['id_pembina'];
+                         ?>
                             <table id="tablePelanggaran" class="table table-condensed">
                             <col width="170">
                             <col width="20">
