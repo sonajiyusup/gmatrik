@@ -41,7 +41,7 @@
                                   <td><?php echo $row['udzur']; ?></td>
                                   <td><?php echo $row['jml']; ?></td>
                                   <td><?php if($row['direview'] == 0){echo '<label class="badge bg-orange">Belum di Review<label>';}else if($row['direview'] == 1){echo '<label class="badge bg-green">Sudah di Review<label>';}?></td>
-                                  <td><a href="" class="btn btn-xs">Review</a></td>
+                                  <td><a href="?page=udzursltrev&m=<?php echo $row['id_mahasiswa']; ?>&t=<?php echo $row['tanggal']; ?>" class="btn btn-xs">Review</a></td>
                                 </tr>
                                 <?php $no++; } } ?>
                               </tbody> 
@@ -49,6 +49,7 @@
                           </div>                        
                         </div>
           </div>
+
       </div>
 </div>      
 
