@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 03, 2018 at 03:45 PM
+-- Generation Time: Oct 04, 2018 at 02:44 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -306,7 +306,6 @@ INSERT INTO `mahasiswa` (`id_mahasiswa`, `nim`, `nama`, `angkatan`, `j_kelamin`,
 (2210, 18101181, 'Farras Nurkamal', NULL, 'Ikhwan', NULL, NULL, NULL, NULL, NULL, 74),
 (2211, 18101172, 'Robby Habib Mulyawan Lu', NULL, 'Ikhwan', NULL, NULL, NULL, NULL, NULL, 75),
 (2212, 18101183, 'Ammar Fariqi Syafitra', NULL, 'Ikhwan', NULL, NULL, NULL, NULL, NULL, 76),
-(2213, 18101177, 'Gede Dimas Harikusuma', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 77),
 (2214, 18101144, 'Ahmad Zulhamsyah', NULL, 'Ikhwan', NULL, NULL, NULL, NULL, NULL, 78),
 (2215, 18104003, 'Abdullah Az Zahid', NULL, 'Ikhwan', '', '', '', NULL, '2018-10-02', 79),
 (2216, 18101167, 'Aldi Gunawan', NULL, 'Ikhwan', NULL, NULL, NULL, NULL, NULL, 80),
@@ -332,7 +331,7 @@ INSERT INTO `mahasiswa` (`id_mahasiswa`, `nim`, `nama`, `angkatan`, `j_kelamin`,
 (2236, 18101161, 'Febrian Andira Bakti', NULL, 'Ikhwan', '', '', '', NULL, '1970-01-01', 152),
 (2237, 18101157, 'Lalu Mifta Respati R', NULL, 'Ikhwan', NULL, NULL, NULL, NULL, NULL, 153),
 (2238, 18108005, 'Rifaldi S Kandar', NULL, 'Ikhwan', NULL, NULL, NULL, NULL, NULL, 154),
-(2239, 18104007, 'Muhammad Raihan Naufal', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 155),
+(2239, 18104007, 'Muhammad Raihan Naufal', NULL, 'Ikhwan', '', '', '', NULL, '1970-01-01', 155),
 (2240, 18108007, 'Darwin Iriwanas', NULL, 'Ikhwan', NULL, NULL, NULL, NULL, NULL, 156),
 (2241, 18101139, 'M Habibullah Harahap', NULL, 'Ikhwan', NULL, NULL, NULL, NULL, NULL, 157),
 (2242, 18102055, 'Naufal Rizqullah Al B', NULL, 'Ikhwan', NULL, NULL, NULL, NULL, NULL, 158),
@@ -10737,13 +10736,6 @@ INSERT INTO `shalat` (`id_mahasiswa`, `id_periode`, `tanggal`, `wkt_tapping`, `w
 (2212, 1, '2018-09-27', '15:27:05', 'ashar  '),
 (2212, 1, '2018-09-27', '18:11:08', 'maghrib'),
 (2212, 1, '2018-09-27', '20:00:48', 'isya   '),
-(2213, 1, '2018-09-12', '05:01:47', 'shubuh '),
-(2213, 1, '2018-09-12', '12:16:24', 'dzuhur '),
-(2213, 1, '2018-09-12', '15:30:03', 'ashar  '),
-(2213, 1, '2018-09-12', '18:17:53', 'maghrib'),
-(2213, 1, '2018-09-12', '19:31:40', 'isya   '),
-(2213, 1, '2018-09-13', '05:00:32', 'shubuh '),
-(2213, 1, '2018-09-13', '12:14:08', 'dzuhur '),
 (2214, 1, '2018-09-12', '05:03:25', 'shubuh '),
 (2214, 1, '2018-09-12', '12:21:07', 'dzuhur '),
 (2214, 1, '2018-09-12', '15:36:36', 'ashar  '),
@@ -10888,15 +10880,15 @@ INSERT INTO `shalat` (`id_mahasiswa`, `id_periode`, `tanggal`, `wkt_tapping`, `w
 (2215, 1, '2018-09-25', '12:15:15', 'dzuhur '),
 (2215, 1, '2018-09-25', '15:14:52', 'ashar  '),
 (2215, 1, '2018-09-25', '18:15:48', 'maghrib'),
-(2215, 1, '2018-09-25', '19:31:19', 'isya   ');
-INSERT INTO `shalat` (`id_mahasiswa`, `id_periode`, `tanggal`, `wkt_tapping`, `wkt_shalat`) VALUES
+(2215, 1, '2018-09-25', '19:31:19', 'isya   '),
 (2215, 1, '2018-09-26', '04:50:55', 'shubuh '),
 (2215, 1, '2018-09-26', '12:15:46', 'dzuhur '),
 (2215, 1, '2018-09-26', '15:29:01', 'ashar  '),
 (2215, 1, '2018-09-26', '18:11:54', 'maghrib'),
 (2215, 1, '2018-09-26', '19:32:07', 'isya   '),
 (2215, 1, '2018-09-27', '04:57:24', 'shubuh '),
-(2215, 1, '2018-09-27', '12:13:34', 'dzuhur '),
+(2215, 1, '2018-09-27', '12:13:34', 'dzuhur ');
+INSERT INTO `shalat` (`id_mahasiswa`, `id_periode`, `tanggal`, `wkt_tapping`, `wkt_shalat`) VALUES
 (2215, 1, '2018-09-27', '15:19:02', 'ashar  '),
 (2215, 1, '2018-09-27', '18:14:08', 'maghrib'),
 (2215, 1, '2018-09-27', '20:01:13', 'isya   '),
@@ -11973,15 +11965,15 @@ INSERT INTO `shalat` (`id_mahasiswa`, `id_periode`, `tanggal`, `wkt_tapping`, `w
 (2230, 1, '2018-09-21', '19:27:08', 'isya   '),
 (2230, 1, '2018-09-22', '12:17:26', 'dzuhur '),
 (2230, 1, '2018-09-22', '15:24:16', 'ashar  '),
-(2230, 1, '2018-09-22', '18:19:20', 'maghrib');
-INSERT INTO `shalat` (`id_mahasiswa`, `id_periode`, `tanggal`, `wkt_tapping`, `wkt_shalat`) VALUES
+(2230, 1, '2018-09-22', '18:19:20', 'maghrib'),
 (2230, 1, '2018-09-22', '19:35:19', 'isya   '),
 (2230, 1, '2018-09-23', '05:00:19', 'shubuh '),
 (2230, 1, '2018-09-23', '15:22:41', 'ashar  '),
 (2230, 1, '2018-09-23', '18:19:49', 'maghrib'),
 (2230, 1, '2018-09-23', '19:35:01', 'isya   '),
 (2230, 1, '2018-09-24', '05:04:12', 'shubuh '),
-(2230, 1, '2018-09-24', '12:09:48', 'dzuhur '),
+(2230, 1, '2018-09-24', '12:09:48', 'dzuhur ');
+INSERT INTO `shalat` (`id_mahasiswa`, `id_periode`, `tanggal`, `wkt_tapping`, `wkt_shalat`) VALUES
 (2230, 1, '2018-09-24', '15:26:31', 'ashar  '),
 (2230, 1, '2018-09-24', '18:16:51', 'maghrib'),
 (2230, 1, '2018-09-24', '20:04:26', 'isya   '),
@@ -13058,15 +13050,15 @@ INSERT INTO `shalat` (`id_mahasiswa`, `id_periode`, `tanggal`, `wkt_tapping`, `w
 (2245, 1, '2018-09-15', '12:16:14', 'dzuhur '),
 (2245, 1, '2018-09-15', '15:31:36', 'ashar  '),
 (2245, 1, '2018-09-15', '18:15:50', 'maghrib'),
-(2245, 1, '2018-09-15', '19:31:16', 'isya   ');
-INSERT INTO `shalat` (`id_mahasiswa`, `id_periode`, `tanggal`, `wkt_tapping`, `wkt_shalat`) VALUES
+(2245, 1, '2018-09-15', '19:31:16', 'isya   '),
 (2245, 1, '2018-09-16', '05:03:21', 'shubuh '),
 (2245, 1, '2018-09-16', '12:19:04', 'dzuhur '),
 (2245, 1, '2018-09-16', '15:32:34', 'ashar  '),
 (2245, 1, '2018-09-16', '18:18:16', 'maghrib'),
 (2245, 1, '2018-09-16', '19:33:43', 'isya   '),
 (2245, 1, '2018-09-17', '05:00:53', 'shubuh '),
-(2245, 1, '2018-09-17', '12:19:31', 'dzuhur '),
+(2245, 1, '2018-09-17', '12:19:31', 'dzuhur ');
+INSERT INTO `shalat` (`id_mahasiswa`, `id_periode`, `tanggal`, `wkt_tapping`, `wkt_shalat`) VALUES
 (2245, 1, '2018-09-17', '15:29:37', 'ashar  '),
 (2245, 1, '2018-09-17', '18:18:43', 'maghrib'),
 (2245, 1, '2018-09-17', '19:34:40', 'isya   '),
@@ -14143,15 +14135,15 @@ INSERT INTO `shalat` (`id_mahasiswa`, `id_periode`, `tanggal`, `wkt_tapping`, `w
 (2266, 1, '2018-09-14', '16:32:28', 'ashar  '),
 (2266, 1, '2018-09-14', '19:28:10', 'isya   '),
 (2266, 1, '2018-09-15', '06:06:13', 'shubuh '),
-(2266, 1, '2018-09-15', '13:19:10', 'dzuhur ');
-INSERT INTO `shalat` (`id_mahasiswa`, `id_periode`, `tanggal`, `wkt_tapping`, `wkt_shalat`) VALUES
+(2266, 1, '2018-09-15', '13:19:10', 'dzuhur '),
 (2266, 1, '2018-09-15', '16:38:38', 'ashar  '),
 (2266, 1, '2018-09-15', '18:32:56', 'maghrib'),
 (2266, 1, '2018-09-15', '20:46:25', 'isya   '),
 (2266, 1, '2018-09-16', '05:12:20', 'shubuh '),
 (2266, 1, '2018-09-16', '15:41:00', 'ashar  '),
 (2266, 1, '2018-09-16', '18:25:10', 'maghrib'),
-(2266, 1, '2018-09-16', '20:35:56', 'isya   '),
+(2266, 1, '2018-09-16', '20:35:56', 'isya   ');
+INSERT INTO `shalat` (`id_mahasiswa`, `id_periode`, `tanggal`, `wkt_tapping`, `wkt_shalat`) VALUES
 (2266, 1, '2018-09-17', '06:03:19', 'shubuh '),
 (2266, 1, '2018-09-17', '13:22:29', 'dzuhur '),
 (2266, 1, '2018-09-17', '16:35:44', 'ashar  '),
@@ -15228,15 +15220,15 @@ INSERT INTO `shalat` (`id_mahasiswa`, `id_periode`, `tanggal`, `wkt_tapping`, `w
 (2292, 1, '2018-09-17', '12:27:02', 'dzuhur '),
 (2292, 1, '2018-09-17', '15:41:25', 'ashar  '),
 (2292, 1, '2018-09-17', '18:27:07', 'maghrib'),
-(2292, 1, '2018-09-17', '19:34:07', 'isya   ');
-INSERT INTO `shalat` (`id_mahasiswa`, `id_periode`, `tanggal`, `wkt_tapping`, `wkt_shalat`) VALUES
+(2292, 1, '2018-09-17', '19:34:07', 'isya   '),
 (2292, 1, '2018-09-18', '05:08:22', 'shubuh '),
 (2292, 1, '2018-09-18', '13:26:37', 'dzuhur '),
 (2292, 1, '2018-09-18', '15:37:58', 'ashar  '),
 (2292, 1, '2018-09-18', '19:24:59', 'isya   '),
 (2292, 1, '2018-09-19', '06:01:02', 'shubuh '),
 (2292, 1, '2018-09-19', '12:26:40', 'dzuhur '),
-(2292, 1, '2018-09-19', '16:42:08', 'ashar  '),
+(2292, 1, '2018-09-19', '16:42:08', 'ashar  ');
+INSERT INTO `shalat` (`id_mahasiswa`, `id_periode`, `tanggal`, `wkt_tapping`, `wkt_shalat`) VALUES
 (2292, 1, '2018-09-19', '18:27:56', 'maghrib'),
 (2292, 1, '2018-09-19', '20:35:10', 'isya   '),
 (2292, 1, '2018-09-20', '06:03:53', 'shubuh '),
@@ -16313,15 +16305,15 @@ INSERT INTO `shalat` (`id_mahasiswa`, `id_periode`, `tanggal`, `wkt_tapping`, `w
 (2317, 1, '2018-09-16', '05:14:22', 'shubuh '),
 (2317, 1, '2018-09-16', '15:37:51', 'ashar  '),
 (2317, 1, '2018-09-16', '18:27:59', 'maghrib'),
-(2317, 1, '2018-09-16', '19:34:37', 'isya   ');
-INSERT INTO `shalat` (`id_mahasiswa`, `id_periode`, `tanggal`, `wkt_tapping`, `wkt_shalat`) VALUES
+(2317, 1, '2018-09-16', '19:34:37', 'isya   '),
 (2317, 1, '2018-09-17', '05:07:48', 'shubuh '),
 (2317, 1, '2018-09-17', '12:22:16', 'dzuhur '),
 (2317, 1, '2018-09-17', '15:36:13', 'ashar  '),
 (2317, 1, '2018-09-17', '18:25:18', 'maghrib'),
 (2317, 1, '2018-09-17', '19:33:02', 'isya   '),
 (2317, 1, '2018-09-18', '05:05:56', 'shubuh '),
-(2317, 1, '2018-09-18', '12:24:49', 'dzuhur '),
+(2317, 1, '2018-09-18', '12:24:49', 'dzuhur ');
+INSERT INTO `shalat` (`id_mahasiswa`, `id_periode`, `tanggal`, `wkt_tapping`, `wkt_shalat`) VALUES
 (2317, 1, '2018-09-18', '15:39:56', 'ashar  '),
 (2317, 1, '2018-09-18', '19:21:29', 'isya   '),
 (2317, 1, '2018-09-19', '06:03:55', 'shubuh '),
@@ -17398,15 +17390,15 @@ INSERT INTO `shalat` (`id_mahasiswa`, `id_periode`, `tanggal`, `wkt_tapping`, `w
 (2347, 1, '2018-09-27', '19:27:08', 'isya   '),
 (2348, 1, '2018-09-13', '16:34:52', 'ashar  '),
 (2348, 1, '2018-09-13', '19:24:54', 'isya   '),
-(2348, 1, '2018-09-14', '06:04:31', 'shubuh ');
-INSERT INTO `shalat` (`id_mahasiswa`, `id_periode`, `tanggal`, `wkt_tapping`, `wkt_shalat`) VALUES
+(2348, 1, '2018-09-14', '06:04:31', 'shubuh '),
 (2348, 1, '2018-09-14', '13:38:43', 'dzuhur '),
 (2348, 1, '2018-09-14', '15:39:04', 'ashar  '),
 (2348, 1, '2018-09-14', '18:30:07', 'maghrib'),
 (2348, 1, '2018-09-14', '19:48:08', 'isya   '),
 (2348, 1, '2018-09-15', '06:07:07', 'shubuh '),
 (2348, 1, '2018-09-15', '12:19:58', 'dzuhur '),
-(2348, 1, '2018-09-15', '16:35:03', 'ashar  '),
+(2348, 1, '2018-09-15', '16:35:03', 'ashar  ');
+INSERT INTO `shalat` (`id_mahasiswa`, `id_periode`, `tanggal`, `wkt_tapping`, `wkt_shalat`) VALUES
 (2348, 1, '2018-09-15', '18:27:24', 'maghrib'),
 (2348, 1, '2018-09-15', '20:45:49', 'isya   '),
 (2348, 1, '2018-09-16', '06:12:58', 'shubuh '),
@@ -18483,15 +18475,15 @@ INSERT INTO `shalat` (`id_mahasiswa`, `id_periode`, `tanggal`, `wkt_tapping`, `w
 (2375, 1, '2018-09-16', '16:39:14', 'ashar  '),
 (2375, 1, '2018-09-16', '19:28:44', 'isya   '),
 (2375, 1, '2018-09-17', '13:24:33', 'dzuhur '),
-(2375, 1, '2018-09-18', '13:30:07', 'dzuhur ');
-INSERT INTO `shalat` (`id_mahasiswa`, `id_periode`, `tanggal`, `wkt_tapping`, `wkt_shalat`) VALUES
+(2375, 1, '2018-09-18', '13:30:07', 'dzuhur '),
 (2375, 1, '2018-09-18', '16:43:04', 'ashar  '),
 (2375, 1, '2018-09-18', '19:27:04', 'isya   '),
 (2375, 1, '2018-09-19', '13:24:15', 'dzuhur '),
 (2375, 1, '2018-09-19', '18:26:47', 'maghrib'),
 (2375, 1, '2018-09-19', '19:31:28', 'isya   '),
 (2375, 1, '2018-09-20', '06:06:11', 'shubuh '),
-(2375, 1, '2018-09-20', '13:31:48', 'dzuhur '),
+(2375, 1, '2018-09-20', '13:31:48', 'dzuhur ');
+INSERT INTO `shalat` (`id_mahasiswa`, `id_periode`, `tanggal`, `wkt_tapping`, `wkt_shalat`) VALUES
 (2375, 1, '2018-09-20', '16:37:53', 'ashar  '),
 (2375, 1, '2018-09-20', '18:33:21', 'maghrib'),
 (2375, 1, '2018-09-20', '19:33:57', 'isya   '),
@@ -19568,15 +19560,15 @@ INSERT INTO `shalat` (`id_mahasiswa`, `id_periode`, `tanggal`, `wkt_tapping`, `w
 (2401, 1, '2018-09-14', '06:14:07', 'shubuh '),
 (2401, 1, '2018-09-14', '13:32:28', 'dzuhur '),
 (2401, 1, '2018-09-14', '16:43:24', 'ashar  '),
-(2401, 1, '2018-09-14', '19:36:32', 'isya   ');
-INSERT INTO `shalat` (`id_mahasiswa`, `id_periode`, `tanggal`, `wkt_tapping`, `wkt_shalat`) VALUES
+(2401, 1, '2018-09-14', '19:36:32', 'isya   '),
 (2401, 1, '2018-09-15', '06:10:44', 'shubuh '),
 (2401, 1, '2018-09-15', '13:24:25', 'dzuhur '),
 (2401, 1, '2018-09-15', '16:43:07', 'ashar  '),
 (2401, 1, '2018-09-15', '19:36:24', 'isya   '),
 (2401, 1, '2018-09-16', '16:40:12', 'ashar  '),
 (2401, 1, '2018-09-16', '18:25:22', 'maghrib'),
-(2401, 1, '2018-09-16', '20:39:46', 'isya   '),
+(2401, 1, '2018-09-16', '20:39:46', 'isya   ');
+INSERT INTO `shalat` (`id_mahasiswa`, `id_periode`, `tanggal`, `wkt_tapping`, `wkt_shalat`) VALUES
 (2401, 1, '2018-09-17', '06:08:07', 'shubuh '),
 (2401, 1, '2018-09-17', '13:29:08', 'dzuhur '),
 (2401, 1, '2018-09-17', '16:42:55', 'ashar  '),
@@ -20653,15 +20645,15 @@ INSERT INTO `shalat` (`id_mahasiswa`, `id_periode`, `tanggal`, `wkt_tapping`, `w
 (2437, 1, '2018-09-24', '06:01:24', 'shubuh '),
 (2437, 1, '2018-09-24', '13:19:46', 'dzuhur '),
 (2437, 1, '2018-09-24', '19:15:57', 'isya   '),
-(2437, 1, '2018-09-25', '04:58:24', 'shubuh ');
-INSERT INTO `shalat` (`id_mahasiswa`, `id_periode`, `tanggal`, `wkt_tapping`, `wkt_shalat`) VALUES
+(2437, 1, '2018-09-25', '04:58:24', 'shubuh '),
 (2437, 1, '2018-09-25', '13:15:04', 'dzuhur '),
 (2437, 1, '2018-09-25', '16:26:53', 'ashar  '),
 (2437, 1, '2018-09-25', '18:16:27', 'maghrib'),
 (2437, 1, '2018-09-25', '20:30:54', 'isya   '),
 (2437, 1, '2018-09-26', '06:09:21', 'shubuh '),
 (2437, 1, '2018-09-26', '12:28:49', 'dzuhur '),
-(2437, 1, '2018-09-26', '16:28:23', 'ashar  '),
+(2437, 1, '2018-09-26', '16:28:23', 'ashar  ');
+INSERT INTO `shalat` (`id_mahasiswa`, `id_periode`, `tanggal`, `wkt_tapping`, `wkt_shalat`) VALUES
 (2437, 1, '2018-09-26', '18:26:00', 'maghrib'),
 (2437, 1, '2018-09-26', '20:34:32', 'isya   '),
 (2437, 1, '2018-09-27', '05:57:47', 'shubuh '),
@@ -21074,8 +21066,22 @@ CREATE TABLE `shalat_udzur2` (
   `wkt_shalat` varchar(7) NOT NULL,
   `udzur` varchar(10) NOT NULL,
   `keterangan` varchar(100) DEFAULT NULL,
-  `disetujui` int(1) NOT NULL
+  `diajukan` datetime DEFAULT NULL,
+  `disetujui` int(1) NOT NULL,
+  `direview` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `shalat_udzur2`
+--
+
+INSERT INTO `shalat_udzur2` (`id_udzur`, `id_periode`, `id_mahasiswa`, `tanggal`, `wkt_shalat`, `udzur`, `keterangan`, `diajukan`, `disetujui`, `direview`) VALUES
+(1, 1, 2379, '2018-09-15', 'shubuh', 'Haid', NULL, '2018-09-15 21:30:00', 0, 0),
+(2, 1, 2379, '2018-09-15', 'dzuhur', 'Haid', NULL, '2018-09-15 21:30:00', 0, 0),
+(3, 1, 2379, '2018-09-15', 'ashar', 'Haid', NULL, '2018-09-15 21:30:00', 0, 0),
+(4, 1, 2379, '2018-09-15', 'maghrib', 'Haid', NULL, '2018-09-15 21:30:00', 0, 0),
+(5, 1, 2379, '2018-09-15', 'isya', 'Haid', NULL, '2018-09-15 21:30:00', 0, 0),
+(6, 1, 2316, '2018-09-17', 'ashar', 'Hujan', 'Hujan Deras', '2018-09-17 17:45:54', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -21129,7 +21135,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id_user`, `username`, `password`, `password_default`, `level`, `last_login`) VALUES
 (1, 'admin', 'admin', 0, 0, '2018-04-24 08:58:28'),
-(2, 'derry', 'bismillah', 0, 2, '2018-10-03 19:44:21'),
+(2, 'derry', 'bismillah', 0, 2, '2018-10-04 16:25:28'),
 (3, '18103001', 'p5J7cj5C8i', 1, 4, '0000-00-00 00:00:00'),
 (4, '18101002', 'q6C7f142W6', 1, 4, '0000-00-00 00:00:00'),
 (5, '18101004', 'pV73n8MB4F', 1, 4, '0000-00-00 00:00:00'),
@@ -21204,7 +21210,6 @@ INSERT INTO `users` (`id_user`, `username`, `password`, `password_default`, `lev
 (74, '18101181', 'SsTmCjJ8Xp', 1, 4, '0000-00-00 00:00:00'),
 (75, '18101172', 'pHpcA7q0F0', 1, 4, '0000-00-00 00:00:00'),
 (76, '18101183', 'S12G82C7xn', 1, 4, '0000-00-00 00:00:00'),
-(77, '18101177', 'jj1344QZJn', 1, 4, '0000-00-00 00:00:00'),
 (78, '18101144', '24o234ORsp', 1, 4, '0000-00-00 00:00:00'),
 (79, '18104003', '4lDH4902h8', 1, 4, '0000-00-00 00:00:00'),
 (80, '18101167', '78D9o4cv6U', 1, 4, '0000-00-00 00:00:00'),
@@ -21359,7 +21364,7 @@ INSERT INTO `users` (`id_user`, `username`, `password`, `password_default`, `lev
 (229, '18108002', 'mpTgf69lO1', 1, 4, '0000-00-00 00:00:00'),
 (230, '18101079', 'ZW1zLPnJuY', 1, 4, '0000-00-00 00:00:00'),
 (231, '18101084', 'AdQ7vM5d5T', 1, 4, '0000-00-00 00:00:00'),
-(232, '18103023', 'T5UM8d8A9M', 1, 4, '0000-00-00 00:00:00'),
+(232, '18103023', 'T5UM8d8A9M', 1, 4, '2018-10-04 16:11:29'),
 (233, '18101077', 'M9705mus2B', 1, 4, '0000-00-00 00:00:00'),
 (234, '18101100', 'y5x26933e9', 1, 4, '0000-00-00 00:00:00'),
 (235, '18101096', 'c78j1x5Dh3', 1, 4, '0000-00-00 00:00:00'),
@@ -21422,7 +21427,7 @@ INSERT INTO `users` (`id_user`, `username`, `password`, `password_default`, `lev
 (292, '18102046', '4Zaf3u7Z9g', 1, 4, '0000-00-00 00:00:00'),
 (293, '18101108', '9aZ3keiWQ6', 1, 4, '0000-00-00 00:00:00'),
 (294, '18102044', 'o54iMcyl18', 1, 4, '0000-00-00 00:00:00'),
-(295, '18103033', '429g8Fvkrq', 1, 4, '0000-00-00 00:00:00'),
+(295, '18103033', '429g8Fvkrq', 1, 4, '2018-10-04 19:33:00'),
 (296, '18101178', 'It59T6L67m', 1, 4, '0000-00-00 00:00:00'),
 (297, '18104013', 'aNwoc9X7w2', 1, 4, '0000-00-00 00:00:00'),
 (298, '18101182', '5s5cS9t0H1', 1, 4, '0000-00-00 00:00:00'),
@@ -21503,16 +21508,16 @@ INSERT INTO `users` (`id_user`, `username`, `password`, `password_default`, `lev
 (378, 'dzikrina', 'dzikrina123', 0, 3, '0000-00-00 00:00:00'),
 (379, 'ismi', 'ismi123', 0, 3, '0000-00-00 00:00:00'),
 (380, 'arfin', 'arfin123', 0, 3, '0000-00-00 00:00:00'),
-(382, 'lilik', 'lilik123', 0, 3, '0000-00-00 00:00:00'),
+(382, 'lilik', 'lilik123', 0, 3, '2018-10-04 16:06:09'),
 (383, 'fahmi', 'fahmi123', 0, 3, '0000-00-00 00:00:00'),
 (384, 'putri', 'putri123', 0, 3, '0000-00-00 00:00:00'),
 (385, 'sirril', 'sirril123', 0, 3, '0000-00-00 00:00:00'),
 (386, 'sheila', 'sheila123', 0, 3, '0000-00-00 00:00:00'),
 (387, 'sitty', 'sitty123', 0, 3, '0000-00-00 00:00:00'),
 (388, 'bintang', 'bintang123', 0, 3, '0000-00-00 00:00:00'),
-(389, 'rizki', 'rizki123', 0, 3, '0000-00-00 00:00:00'),
+(389, 'rizki', 'rizki123', 0, 3, '2018-10-04 16:05:47'),
 (390, 'rian', 'rian123', 0, 3, '0000-00-00 00:00:00'),
-(391, 'riyan', 'riyan123', 0, 3, '0000-00-00 00:00:00');
+(391, 'riyan', 'riyan123', 0, 3, '2018-10-04 14:06:38');
 
 -- --------------------------------------------------------
 
@@ -21775,7 +21780,7 @@ ALTER TABLE `shalat_udzur`
 -- AUTO_INCREMENT for table `shalat_udzur2`
 --
 ALTER TABLE `shalat_udzur2`
-  MODIFY `id_udzur` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_udzur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `users`
 --
