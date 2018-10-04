@@ -9,17 +9,18 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                          <h2>DAFTAR UDZUR SHALAT MAHASISWA BINAAN</h2>
+                          <h2>DAFTAR UDZUR SHALAT MAHASISWA BINAAN<br>
+                          <small>Berdasarkan Tanggal</small></h2>
                         </div>
                         <div class="body">                               
                           <div class="table-responsive">
                             <table id="tableUdzur" class="table table-hover table-condensed">
                               <thead>
                                 <tr>
-                                  <th>Periode</th>
+                                  <th>#</th>
+                                  <th>Nama Mahasiswa</th>
                                   <th>Hari - Tanggal</th>
                                   <th>Udzur</th>
-                                  <th>Waktu Shalat</th>
                                   <th>Jumlah Waktu Shalat</th>
                                   <th>Status</th>
                                   <th>Aksi</th>
@@ -29,20 +30,20 @@
                                 <?php 
                                   
                                   $dataUdzur = tampilUdzurShalatRolePembina($idPembina);
-
+                                  $no = 1;
                                   if (is_array($dataUdzur) || is_object($dataUdzur)){
                                     foreach($dataUdzur as $row){
                                  ?>
                                 <tr>
-                                  <td><?php echo $row['id_periode']; ?></td>
+                                  <td><?php echo $no; ?></td>
+                                  <td><?php echo $row['nama']; ?></td>
                                   <td><?php echo date('l - d M Y', strtotime($row['tanggal'])); ?></td>
                                   <td><?php echo $row['udzur']; ?></td>
-                                  <td><?php echo $row['wkt']; ?></td>
                                   <td><?php echo $row['jml']; ?></td>
-                                  <td><?php if($row['disetujui'] == 0){echo 'Belum di Review';}else if($row['disetujui'] == 1){echo 'Disetujui';}else if($row['disetujui'] == 2){echo 'Ditolak';} ?></td>
+                                  <td><?php if($row['direview'] == 0){echo '<label class="badge bg-orange">Belum di Review<label>';}else if($row['direview'] == 1){echo '<label class="badge bg-green">Sudah di Review<label>';}?></td>
                                   <td><a href="" class="btn btn-xs">Review</a></td>
                                 </tr>
-                                <?php } } ?>
+                                <?php $no++; } } ?>
                               </tbody> 
                             </table>
                           </div>                        
