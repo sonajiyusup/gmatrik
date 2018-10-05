@@ -24,7 +24,7 @@
                               <thead>
                                 <tr>
                                   <th>#</th>
-                                  <th>Waktu Shalat</th>
+                                  <th>Waktu Shalat2</th>
                                   <th>Udzur</th>
                                   <th>Keterangan</th>
                                   <th>Setujui ?</th>
@@ -41,9 +41,9 @@
                                   <td><?php echo ucwords($row['wkt_shalat']); ?></td>
                                   <td><?php echo $row['udzur']; ?></td>
                                   <td><?php echo $row['keterangan']; ?></td>
-                                  <td><input name="groupv[]" type="radio" id="radio_1" class="radiojk" name="disetujui[]" value="1"/>
+                                  <td><input type="radio" class="radiojk" name="disetujui_<?php echo $row['wkt_shalat']; ?>[]" value="1"/>
                                       <label for="radio_1">Ya</label>&nbsp;
-                                      <input name="groupv[]" type="radio" id="radio_2" class="radiojk" name="disetujui[]" value="2"/>
+                                      <input type="radio" class="radiojk" name="disetujui_<?php echo $row['wkt_shalat']; ?>[]" value="2"/>
                                       <label for="radio_2">Tidak</label></td>
                                 </tr>
                                 <?php $no++; } ?>
