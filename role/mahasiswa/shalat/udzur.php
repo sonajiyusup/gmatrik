@@ -5,7 +5,7 @@
   $jKelamin = $_SESSION['jKelamin'];
  ?>
 
- <script type="text/javascript">
+ <!-- <script type="text/javascript">
  // Referensi : https://bootsnipp.com/snippets/featured/multiple-fields
 
     (function ($) {
@@ -54,7 +54,37 @@
 
         });
     })(jQuery);   
- </script>
+ </script> -->
+<script type="text/javascript">
+function makeid() {
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+  for (var i = 0; i < 5; i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+  return text;
+}
+
+function deleteFormGroup(formId) {
+  document.getElementById('formUdzur_'+formId).innerHTML = "";
+}
+
+var addFormGroup  = function (event) {
+    event.preventDefault();
+    var r = makeid();
+    var addElement = '<div class="form-group multiple-form-group" id="formUdzur_'+r+'"><div class="row"><div class="col-xs-8"><input type="text" class="form-control datepicker" name="tudzur[]" placeholder="Tanggal Udzur"/></div><div class="col-xs-4"><button type="button" class="btn btn-xs btn-link waves-effect btn-delete" title="Hapus Hari" onclick="deleteFormGroup(\''+r+'\');"> <i class="material-icons">delete</i> </button></div></div><br><input type="checkbox" class="flat-red check" name="shubuh[]" value="shubuh">&nbsp;Shubuh&nbsp;&nbsp; <input type="checkbox" class="flat-red check" name="dzuhur[]" value="dzuhur">&nbsp;Dzuhur&nbsp;&nbsp; <input type="checkbox" class="flat-red check" name="ashar[]" value="ashar">&nbsp;Ashar&nbsp;&nbsp; <input type="checkbox" class="flat-red check" name="maghrib[]" value="maghrib">&nbsp;Maghrib&nbsp;&nbsp; <input type="checkbox" class="flat-red check" name="isya[]" value="isya">&nbsp;Isya <br><br> </div>';
+    $("#defaultForm").append(addElement);
+    $('input').iCheck({
+        checkboxClass: 'icheckbox_flat-blue',
+        radioClass: 'iradio_square-blue',
+        increaseArea: '20%' // optional
+    }); 
+};
+
+$(document).on('click', '.btn-add', addFormGroup);
+
+</script>
 <div class="row clearfix">
 
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -122,7 +152,7 @@
                                   }
                                 ?>
                                 <br><br>              
-                                <div class="form-group multiple-form-group">          
+                                <div class="form-group multiple-form-group" id="defaultForm">          
                                     <!-- <label class="switch">
                                       <input type="checkbox" name="opt" id="opt" value="Y" onclick="toggle('.myClass', this)">
                                       <span class="slider round"></span><br>
@@ -131,23 +161,23 @@
                                     <!-- <div class="showhide">   -->
                                       <!-- <div class="controls">     -->
                                         <!-- <div class="entry"> -->
-                                          <input type="text" id="txt" class="form-control datepicker" name="tudzur[]" placeholder="Tanggal Udzur"/><br>
+                                          <input type="text" class="form-control datepicker" name="tudzur[]" placeholder="Tanggal Udzur"/><br>
                                           <!-- <input type="checkbox" class="flat-red" id="check-all1">&nbsp;Semua&nbsp;&nbsp; -->
                                           <input type="checkbox" class="flat-red check" name="shubuh[]" value="shubuh">&nbsp;Shubuh&nbsp;&nbsp;
                                           <input type="checkbox" class="flat-red check" name="dzuhur[]" value="dzuhur">&nbsp;Dzuhur&nbsp;&nbsp;
                                           <input type="checkbox" class="flat-red check" name="ashar[]" value="ashar">&nbsp;Ashar&nbsp;&nbsp;
                                           <input type="checkbox" class="flat-red check" name="maghrib[]" value="maghrib">&nbsp;Maghrib&nbsp;&nbsp;
                                           <input type="checkbox" class="flat-red check" name="isya[]" value="isya">&nbsp;Isya
-                                          <br><br><br>
-                                          <button type="button" class="btn btn-xs btn-link waves-effect btn-add" title="Tambah Hari">
-                                              <i class="material-icons">add</i>
-                                          </button>
+                                          <br><br>
                                           <!-- <button class="hapus"></button> -->
                                           <br>
                                         <!-- </div> -->
                                       <!-- </div> -->
                                     <!-- </div>   -->
                                 </div>
+                                <button type="button" class="btn btn-xs btn-link waves-effect btn-add" title="Tambah Hari">
+                                              <i class="material-icons">add</i>
+                                          </button>
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary waves-effect" name="submitJplg">SUBMIT</button>
@@ -159,9 +189,12 @@
             </div> 
 </div>      
 
-    <script>
+    <script type="text/javascript">
     $(document).ready(function() {
       var t = $('#tableUdzur').DataTable({});
+      $(document).on('focus', '.datepicker',function(){
+          $(this).bootstrapMaterialDatePicker({ weekStart : 0, time: false })
+      });
     } );
     </script> 
 
