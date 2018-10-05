@@ -26,35 +26,35 @@
                                           <div class="form-group">
                                             <label>Shubuh :</label>
                                               <input type="text" name="shubuhFrom" id="shubuh_dari" class="timepicker form-control" placeholder="Dari" value="04:00">
-                                              <input type="text" name="shubuhTo" id="shubuh_sampai" class="timepicker form-control" placeholder="Sampai" value="06:00">
+                                              <input type="text" name="shubuhTo" id="shubuh_sampai" class="timepicker form-control" placeholder="Sampai" value="07:00">
                                           </div>
                                         </div>
                                         <div class="col-md-3 nopadding">
                                           <div class="form-group">
                                             <label>Dzuhur :</label>
                                               <input type="text" name="dzuhurFrom" id="dzuhur_dari" class="timepicker form-control" placeholder="Dari" value="12:00">
-                                              <input type="text" name="dzuhurTo" id="dzuhur_sampai" class="timepicker form-control" placeholder="Sampai" value="13:00">
+                                              <input type="text" name="dzuhurTo" id="dzuhur_sampai" class="timepicker form-control" placeholder="Sampai" value="14:00">
                                           </div>
                                         </div>
                                         <div class="col-md-3 nopadding">
                                           <div class="form-group">
                                             <label>Ashar :</label>
                                               <input type="text" name="asharFrom" id="ashar_dari" class="timepicker form-control" placeholder="Dari" value="15:00">
-                                              <input type="text" name="asharTo" id="ashar_sampai" class="timepicker form-control" placeholder="Sampai" value="16:00">
+                                              <input type="text" name="asharTo" id="ashar_sampai" class="timepicker form-control" placeholder="Sampai" value="17:35">
                                           </div>
                                         </div>
                                         <div class="col-md-3 nopadding">
                                           <div class="form-group">
                                             <label>Maghrib :</label>
                                               <input type="text" name="maghribFrom" id="maghrib_dari" class="timepicker form-control" placeholder="Dari" value="18:00">
-                                              <input type="text" name="maghribTo" id="maghrib_sampai" class="timepicker form-control" placeholder="Sampai" value="18:35">
+                                              <input type="text" name="maghribTo" id="maghrib_sampai" class="timepicker form-control" placeholder="Sampai" value="18:45">
                                           </div>
                                         </div>
                                         <div class="col-md-3 nopadding">
                                           <div class="form-group">
                                             <label>Isya :</label>
                                               <input type="text" name="isyaFrom" id="isya_dari" class="timepicker form-control" placeholder="Dari" value="19:00">
-                                              <input type="text" name="isyaTo" id="isya_sampai" class="timepicker form-control" placeholder="Sampai" value="21:00">
+                                              <input type="text" name="isyaTo" id="isya_sampai" class="timepicker form-control" placeholder="Sampai" value="21:45">
                                           </div>
                                         </div>
                                       </div>
