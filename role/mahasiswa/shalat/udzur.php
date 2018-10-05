@@ -91,7 +91,7 @@ $(document).on('click', '.btn-add', addFormGroup);
                     <div class="card">
                         <div class="header">
                           <h2>DAFTAR UDZUR SHALAT &nbsp;&nbsp;&nbsp;
-                            <button class="btn btn-sm btn-default waves-effect" data-toggle="modal" data-target="#tambahUdzur" title="Input Permintaan Udzur Shalat"><i class="material-icons">playlist_add</i><span>TAMBAH DATA</span></button>
+                            <button class="btn btn-sm btn-default waves-effect" data-toggle="modal" data-target="#tambahUdzur" title="Input Permintaan Udzur Shalat"><i class="material-icons">playlist_add</i><span>TAMBAH PERMINTAAN UDZUR</span></button>
                           </h2>
                         </div>
                         <div class="body">                               

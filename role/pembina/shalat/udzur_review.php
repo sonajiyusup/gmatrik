@@ -24,7 +24,7 @@
                               <thead>
                                 <tr>
                                   <th>#</th>
-                                  <th>Waktu Shalat2</th>
+                                  <th>Waktu Shalat</th>
                                   <th>Udzur</th>
                                   <th>Keterangan</th>
                                   <th>Setujui ?</th>
@@ -56,6 +56,5 @@
                         </div>
                     </div>
                 </div>
-                             
   </div>
 </div>         
