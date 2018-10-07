@@ -117,7 +117,7 @@ $(document).on('click', '.btn-add', addFormGroup);
                                  ?>
                                 <tr>
                                   <td><?php echo $row['id_periode']; ?></td>
-                                  <td><?php echo date('l - d M Y', strtotime($row['tanggal'])); ?></td>
+                                  <td><a href="udzursltdetail&m=<?php echo $idMahasiswa; ?>&t=<?php echo $row['tanggal']; ?>"><?php echo date('l - d M Y', strtotime($row['tanggal'])); ?></a></td>
                                   <td><?php echo $row['udzur']; ?></td>
                                   <td><?php echo $row['jml']; ?></td>
                                   <td><?php if($row['keterangan'] == NULL){echo '-';}else{echo $row['keterangan'];} ?></td>
