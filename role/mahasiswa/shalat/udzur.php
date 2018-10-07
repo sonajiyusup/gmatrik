@@ -117,11 +117,11 @@ $(document).on('click', '.btn-add', addFormGroup);
                                  ?>
                                 <tr>
                                   <td><?php echo $row['id_periode']; ?></td>
-                                  <td><a href="udzursltdetail&m=<?php echo $idMahasiswa; ?>&t=<?php echo $row['tanggal']; ?>"><?php echo date('l - d M Y', strtotime($row['tanggal'])); ?></a></td>
+                                  <td><a href="?page=udzursltdetail&m=<?php echo $idMahasiswa; ?>&t=<?php echo $row['tanggal']; ?>"><?php echo date('l - d M Y', strtotime($row['tanggal'])); ?></a></td>
                                   <td><?php echo $row['udzur']; ?></td>
                                   <td><?php echo $row['jml']; ?></td>
                                   <td><?php if($row['keterangan'] == NULL){echo '-';}else{echo $row['keterangan'];} ?></td>
-                                  <td><?php if($row['disetujui'] == 0){echo 'Belum di Review';}else if($row['disetujui'] == 1){echo 'Disetujui';}else if($row['disetujui'] == 2){echo 'Ditolak';} ?></td>
+                                  <td><?php if($row['direview'] == 0){echo '<label class="badge bg-orange">Belum di Review<label>';}else if($row['direview'] == 1){echo '<label class="badge bg-green">Sudah di Review<label>';}?></td>
                                 </tr>
                                 <?php } } ?>
                               </tbody> 

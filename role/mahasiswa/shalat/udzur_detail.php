@@ -3,8 +3,6 @@
   include 'functions2.php';
   
   $idMahasiswa = $_GET['m'];
-  $namaMhs = tampilNamaMhs($idMahasiswa);
-
   $tgl = $_GET['t'];
  ?>
 
@@ -15,8 +13,8 @@
                         <div class="header">
                             <h2>
                               <a href="?page=udzurslt" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;
-                                PERMINTAAN UDZUR SHALAT MAHASISWA
-                                <small>Nama : <?php foreach($namaMhs as $row){ echo $row['nama']; }?><br>Tanggal : <?php echo date('d F Y', strtotime($tgl)); ?></small>
+                                PERMINTAAN UDZUR SHALAT
+                                <small>Tanggal : <?php echo date('d F Y', strtotime($tgl)); ?></small>
                             </h2>
                         </div>
                         <form method="POST" id="formReviewUdzur">
@@ -29,7 +27,7 @@
                                     <th>Waktu Shalat</th>
                                     <th>Udzur</th>
                                     <th>Keterangan</th>
-                                    <th>Setujui ?</th>
+                                    <th>Status</th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -44,39 +42,14 @@
                                     <td><?php echo ucwords($row['wkt_shalat']); ?></td>
                                     <td><?php echo $row['udzur']; ?></td>
                                     <td><?php echo $row['keterangan']; ?></td>
-                                    <td><input type="radio" class="radiojk" name="disetujui_<?php echo $row['wkt_shalat']; ?>[]" value="1"/>
-                                        <label for="radio_1">Ya</label>&nbsp;
-                                        <input type="radio" class="radiojk" name="disetujui_<?php echo $row['wkt_shalat']; ?>[]" value="2"/>
-                                        <label for="radio_2">Tidak</label></td>
+                                    <td><?php if($row['disetujui'] == 0){echo '<label class="badge bg-orange">Belum disetujui<label>';}else if($row['disetujui'] == 1){echo '<label class="badge bg-green">Disetujui<label>';}else if($row['disetujui'] == 2){echo '<label class="badge bg-red">Ditolak<label>';}?></td>
                                   </tr>
                                   <?php $no++; } ?>
                                 </tbody> 
                               </table>                          
-                              <br>
-
-                            <button type="submit" name="submitReviewUdzur" class=" btn btn-primary">SIMPAN</button>&nbsp;
-                            <a href="?page=udzurslt" class=" btn btn-link">BATAL</a>
                           </div>
                         </form>
                     </div>
                 </div>
   </div>
 </div>         
-
-<?php 
-        if (isset($_POST['submitReviewUdzur'])) {
-
-          $dataUdzur = tampilUdzurShalatDetailByMhsByDay($idMahasiswa, $tgl);
-          foreach($_POST['disetujui_'.$row['wkt_shalat']] as $wkt){
-            reviewUdzurShalat($_POST['id_udzur'], $_POST['disetujui_'.$wkt]);
-          }
-
-          /*if(!empty($_POST['idMahasiswa'])) {
-            foreach($_POST['idMahasiswa'] as $idMhs) {
-              tambahMhsBinaan($idPembina, $idMhs);
-            }
-          }*/
-
-        echo "<script>document.location='index.php?page=pembinadetails&id=".$idP."&idP=".$idPembina."'</script>";
-      }
- ?>
