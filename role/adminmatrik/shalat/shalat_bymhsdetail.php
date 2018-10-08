@@ -34,8 +34,8 @@
                                   ?>
                               </h2>
                           <small>
-                                <div class="btn-group">
-                                                    <button type="button" class="btn bg-cyan waves-effect dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <!-- <div class="btn-group">
+                                                    <button type="button" class="btn bg-cyan waves-effect dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-live-search="true">
                                                         <?php $namaMhs = tampilMahasiswaById($idMhs);
                                                           foreach($namaMhs as $row){
                                                             echo $row['nama'];
@@ -53,7 +53,22 @@
                                                           }
                                                         ?>
                                                     </ul>
-                                                </div>                            
+                                                </div>   -->
+                              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                    <select class="form-control show-tick" data-live-search="true" onchange="location = this.value;">
+                                                        <?php $namaMhs = tampilMahasiswaById($idMhs);
+                                                          foreach($namaMhs as $row){
+                                                            echo '<option selected>'.$row['nama'].'</option>';
+                                                          } 
+                                                        ?>
+                                                        <?php $namaMhs = tampilMahasiswa();
+                                                          foreach($namaMhs as $row){
+                                                            echo '<option value="?page=shalatmdetail&id='.$row['id_mahasiswa'].'">'.$row['nim'].' - '.$row['nama'].'</option>';
+                                                          } 
+                                                        ?>
+                                    </select>  
+                              </div> 
+                              <br>                       
                           </small>
                         </div>
                         <div class="body">

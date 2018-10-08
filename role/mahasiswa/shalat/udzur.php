@@ -229,6 +229,6 @@ $(document).on('click', '.btn-add', addFormGroup);
             }
           }
 
-        echo "<script>document.location='index.php?page=udzur'</script>";
+        echo "<script>document.location='index.php?page=udzurslt'</script>";
       }
     ?>
