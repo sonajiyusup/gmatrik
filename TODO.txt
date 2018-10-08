@@ -128,3 +128,8 @@ DOING
 - create Ta'lim by Ikhwan/Akhwat
 - create Ta'lim by Pembina
 - create Ta'lim by Jenis Ta'lim
+
+08/10/2018
+- change dropdown to select shalatbpembinadetail
+- add Udzur syar'i radiobutton on input udzur shalat role mahasiswa
+- create delete/batalkan feature on udzur detail role mahasiswa
