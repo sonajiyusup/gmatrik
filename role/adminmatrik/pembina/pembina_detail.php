@@ -158,8 +158,6 @@
                               <td><?php echo "<span class='badge bg-green'>".$row['nim']."</span>" ?></td>
                               <td><a href="index.php?page=mahasiswadetails&id=<?php echo $row['uid_mahasiswa']; ?>" style='text-decoration:none'><?php echo $row['nama_mahasiswa']?></a></td>
                               <td>
-                                
-
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="material-icons" style="font-size: 14px">settings</i>&nbsp;<span class="caret"></span>

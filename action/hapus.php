@@ -25,5 +25,11 @@ include '../functions.php';
 
 	    hapusMhsBinaan($idMahasiswa);
 	    header('location:/gmatrik/index.php?page=pembinadetails&id='.$idPembina); 
+	} else
+	if(isset($_GET['id_udzur'])){
+		$idUdzur = $_GET['id_udzur'];
+
+	    hapusUdzurShalat($idUdzur);
+	    header('location:/gmatrik/index.php?page=udzurslt'); 
 	}
  ?>

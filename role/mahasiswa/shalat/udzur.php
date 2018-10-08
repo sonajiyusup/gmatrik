@@ -103,7 +103,7 @@ $(document).on('click', '.btn-add', addFormGroup);
                                   <th>Hari - Tanggal</th>
                                   <th>Udzur</th>
                                   <th>Jumlah Waktu Shalat</th>
-                                  <th>Keterangan</th>
+                                  <th>Waktu Pengajuan</th>
                                   <th>Status</th>
                                 </tr>
                               </thead>
@@ -120,7 +120,7 @@ $(document).on('click', '.btn-add', addFormGroup);
                                   <td><a href="?page=udzursltdetail&m=<?php echo $idMahasiswa; ?>&t=<?php echo $row['tanggal']; ?>"><?php echo date('l - d M Y', strtotime($row['tanggal'])); ?></a></td>
                                   <td><?php echo $row['udzur']; ?></td>
                                   <td><?php echo $row['jml']; ?></td>
-                                  <td><?php if($row['keterangan'] == NULL){echo '-';}else{echo $row['keterangan'];} ?></td>
+                                  <td><?php echo $row['diajukan']; ?></td>
                                   <td><?php if($row['direview'] == 0){echo '<label class="badge bg-orange">Belum di Review<label>';}else if($row['direview'] == 1){echo '<label class="badge bg-green">Sudah di Review<label>';}?></td>
                                 </tr>
                                 <?php } } ?>
