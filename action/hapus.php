@@ -1,6 +1,7 @@
 <?php 
 
 include '../functions.php';
+include '../functions2.php';
 
 	if (isset($_GET['idpembina'])) {
 		$idPembina = $_GET['idpembina'];
@@ -26,8 +27,8 @@ include '../functions.php';
 	    hapusMhsBinaan($idMahasiswa);
 	    header('location:/gmatrik/index.php?page=pembinadetails&id='.$idPembina); 
 	} else
-	if(isset($_GET['id_udzur'])){
-		$idUdzur = $_GET['id_udzur'];
+	if(isset($_GET['idudzur'])){
+		$idUdzur = $_GET['idudzur'];
 
 	    hapusUdzurShalat($idUdzur);
 	    header('location:/gmatrik/index.php?page=udzurslt'); 
