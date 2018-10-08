@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 05, 2018 at 09:12 AM
+-- Generation Time: Oct 08, 2018 at 04:14 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -29723,12 +29723,17 @@ CREATE TABLE `shalat_udzur2` (
 --
 
 INSERT INTO `shalat_udzur2` (`id_udzur`, `id_periode`, `id_mahasiswa`, `tanggal`, `wkt_shalat`, `udzur`, `keterangan`, `diajukan`, `disetujui`, `direview`) VALUES
-(1, 1, 2379, '2018-09-15', 'shubuh', 'Haid', NULL, '2018-09-15 21:30:00', 0, 0),
-(2, 1, 2379, '2018-09-15', 'dzuhur', 'Haid', NULL, '2018-09-15 21:30:00', 0, 0),
-(3, 1, 2379, '2018-09-15', 'ashar', 'Haid', NULL, '2018-09-15 21:30:00', 0, 0),
-(4, 1, 2379, '2018-09-15', 'maghrib', 'Haid', NULL, '2018-09-15 21:30:00', 0, 0),
-(5, 1, 2379, '2018-09-15', 'isya', 'Haid', NULL, '2018-09-15 21:30:00', 0, 0),
-(6, 1, 2316, '2018-09-17', 'ashar', 'Hujan', 'Hujan Deras', '2018-09-17 17:45:54', 0, 0);
+(1, 1, 2379, '2018-09-15', 'shubuh', 'Haid', NULL, '2018-09-15 21:30:00', 1, 1),
+(2, 1, 2379, '2018-09-15', 'dzuhur', 'Haid', NULL, '2018-09-15 21:30:00', 1, 1),
+(3, 1, 2379, '2018-09-15', 'ashar', 'Haid', NULL, '2018-09-15 21:30:00', 1, 1),
+(4, 1, 2379, '2018-09-15', 'maghrib', 'Haid', NULL, '2018-09-15 21:30:00', 1, 1),
+(5, 1, 2379, '2018-09-15', 'isya', 'Haid', NULL, '2018-09-15 21:30:00', 1, 1),
+(6, 1, 2316, '2018-09-17', 'ashar', 'Hujan', 'Hujan Deras', '2018-09-17 17:45:54', 0, 0),
+(7, 1, 2379, '2018-09-20', 'ashar', 'Hujan', 'aku shalat di kamar kak', '2018-10-07 14:42:43', 0, 0),
+(8, 1, 2379, '2018-09-13', 'shubuh', 'Sakit', 'Aku sakit demam kak', '2018-10-07 14:44:53', 0, 0),
+(9, 1, 2379, '2018-09-13', 'isya', 'Sakit', 'Aku sakit demam kak', '2018-10-07 14:44:53', 0, 0),
+(10, 1, 2379, '2018-09-22', 'ashar', 'Hujan', 'aku shalat di kamar', '2018-10-07 15:04:34', 0, 0),
+(11, 1, 2379, '2018-09-22', 'maghrib', 'Hujan', 'aku shalat di kamar', '2018-10-07 15:04:35', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -29782,7 +29787,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id_user`, `username`, `password`, `password_default`, `level`, `last_login`) VALUES
 (1, 'admin', 'admin', 0, 0, '2018-04-24 08:58:28'),
-(2, 'derry', 'bismillah', 0, 2, '2018-10-05 13:37:04'),
+(2, 'derry', 'bismillah', 0, 2, '2018-10-07 19:34:53'),
 (3, '18103001', 'p5J7cj5C8i', 1, 4, '0000-00-00 00:00:00'),
 (4, '18101002', 'q6C7f142W6', 1, 4, '0000-00-00 00:00:00'),
 (5, '18101004', 'pV73n8MB4F', 1, 4, '0000-00-00 00:00:00'),
@@ -30074,7 +30079,7 @@ INSERT INTO `users` (`id_user`, `username`, `password`, `password_default`, `lev
 (292, '18102046', '4Zaf3u7Z9g', 1, 4, '0000-00-00 00:00:00'),
 (293, '18101108', '9aZ3keiWQ6', 1, 4, '0000-00-00 00:00:00'),
 (294, '18102044', 'o54iMcyl18', 1, 4, '0000-00-00 00:00:00'),
-(295, '18103033', '429g8Fvkrq', 1, 4, '2018-10-05 14:04:22'),
+(295, '18103033', 'adenurul123', 0, 4, '2018-10-07 12:51:57'),
 (296, '18101178', 'It59T6L67m', 1, 4, '0000-00-00 00:00:00'),
 (297, '18104013', 'aNwoc9X7w2', 1, 4, '0000-00-00 00:00:00'),
 (298, '18101182', '5s5cS9t0H1', 1, 4, '0000-00-00 00:00:00'),
@@ -30155,7 +30160,7 @@ INSERT INTO `users` (`id_user`, `username`, `password`, `password_default`, `lev
 (378, 'dzikrina', 'dzikrina123', 0, 3, '0000-00-00 00:00:00'),
 (379, 'ismi', 'ismi123', 0, 3, '0000-00-00 00:00:00'),
 (380, 'arfin', 'arfin123', 0, 3, '0000-00-00 00:00:00'),
-(382, 'lilik', 'lilik123', 0, 3, '2018-10-05 14:05:35'),
+(382, 'lilik', 'lilik123', 0, 3, '2018-10-07 12:53:25'),
 (383, 'fahmi', 'fahmi123', 0, 3, '0000-00-00 00:00:00'),
 (384, 'putri', 'putri123', 0, 3, '0000-00-00 00:00:00'),
 (385, 'sirril', 'sirril123', 0, 3, '0000-00-00 00:00:00'),
@@ -30427,7 +30432,7 @@ ALTER TABLE `shalat_udzur`
 -- AUTO_INCREMENT for table `shalat_udzur2`
 --
 ALTER TABLE `shalat_udzur2`
-  MODIFY `id_udzur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_udzur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `users`
 --
