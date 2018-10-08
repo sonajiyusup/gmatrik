@@ -131,5 +131,6 @@ DOING
 
 08/10/2018
 - change dropdown to select shalatbpembinadetail
-- add Udzur syar'i radiobutton on input udzur shalat role mahasiswa
+- add izin syar'i radiobutton on input udzur shalat role mahasiswa
 - create delete/batalkan feature on udzur detail role mahasiswa
+- add permintaan presensi shalat manual feature
