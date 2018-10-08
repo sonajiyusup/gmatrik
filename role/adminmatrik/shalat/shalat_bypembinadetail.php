@@ -33,7 +33,8 @@
                                     
                                   ?>
 
-                              <small>
+                              <!-- <small>
+                              Dropdown button
                                 <div class="btn-group">
                                                     <button type="button" class="btn bg-cyan waves-effect dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         <?php $namaPembina = namaPembinaById($idPembina);
@@ -54,8 +55,23 @@
                                                         ?>
                                                     </ul>
                                                 </div>
-                              </small>
+                              </small> -->
                             </h2>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                    <select class="form-control show-tick" data-live-search="true" onchange="location = this.value;">
+                                                        <?php $namaPembina = namaPembinaById($idPembina);
+                                                          foreach($namaPembina as $row){
+                                                            echo '<option selected>'.$row['nama'].' '.$row['gelar'].'</option>';
+                                                          } 
+                                                        ?>
+                                                        <?php $namaPembina = tampilPembina();
+                                                          foreach($namaPembina as $row){
+                                                            echo '<option value="?page=shalatbpembinadetail&id='.$row['id_pembina'].'">'.$row['nama'].' '.$row['gelar'].'</option>';
+                                                          } 
+                                                        ?>
+                                    </select>  
+                              </div> 
+                              <br> 
                         </div>
                         <div class="body">
                             <canvas id="line_chart" height="70"></canvas>

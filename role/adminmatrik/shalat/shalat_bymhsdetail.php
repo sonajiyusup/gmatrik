@@ -33,7 +33,6 @@
                                     
                                   ?>
                               </h2>
-                          <small>
                                 <!-- <div class="btn-group">
                                                     <button type="button" class="btn bg-cyan waves-effect dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-live-search="true">
                                                         <?php $namaMhs = tampilMahasiswaById($idMhs);
@@ -69,7 +68,6 @@
                                     </select>  
                               </div> 
                               <br>                       
-                          </small>
                         </div>
                         <div class="body">
                             <canvas id="line_chart" height="70"></canvas>
