@@ -394,6 +394,13 @@
                 $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
             });
         });    
+
+        //Modal Hapus Data Presensi manual Shalat Role Mahasiswa
+        $(document).ready(function() {
+            $('#ModalHapusManualSlt').on('show.bs.modal', function(e) {
+                $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+            });
+        });  
       </script>
 
 <script>

@@ -29,10 +29,16 @@ include '../functions.php';
 	} else
 	if(isset($_GET['idudzur'])){
 		$idUdzur = $_GET['idudzur'];
-		$idMahasiswa = $_GET['m'];
 		$tgl = $_GET['t'];
 
 	    hapusUdzurShalat($idUdzur);
-	    header('location:/gmatrik/index.php?page=udzursltdetail&m='.$idMahasiswa.'&t='.$tgl.''); 
+	    header('location:/gmatrik/index.php?page=udzursltdetail&t='.$tgl.''); 
+	} else
+	if(isset($_GET['idmanualslt'])){
+		$idManualSlt = $_GET['idmanualslt'];
+		$tgl = $_GET['t'];
+
+	    hapusShalatManual($idManualSlt);
+	    header('location:/gmatrik/index.php?page=manualsltdetail&t='.$tgl.''); 
 	}
  ?>

@@ -434,6 +434,10 @@
 		mysql_query("DELETE FROM shalat_udzur2 WHERE id_udzur = $idUdzur");
 	}			
 
+	function hapusShalatManual($idManual){
+		mysql_query("DELETE FROM shalat_manual WHERE id_manual = $idManual");
+	}			
+
 	function editPembina($idUser, $nama, $j_kelamin, $tgl_lahir, $gelar, $asalkota, $email, $telp){
 		mysql_query("UPDATE pembina SET nama = '$nama', j_kelamin = '$j_kelamin', tgl_lahir = '$tgl_lahir', gelar = '$gelar', asalkota = '$asalkota', email = '$email', telp = '$telp' WHERE id_user = $idUser ");
 	}

@@ -42,7 +42,7 @@
                                     <td><?php echo ucwords($row['wkt_shalat']); ?></td>
                                     <td><?php echo $row['keterangan']; ?></td>
                                     <td><?php if($row['disetujui'] == 0){echo '<label class="badge bg-orange">Belum disetujui<label>';}else if($row['disetujui'] == 1){echo '<label class="badge bg-green">Disetujui<label>';}else if($row['disetujui'] == 2){echo '<label class="badge bg-red">Ditolak<label>';}?></td>
-                                    <td><?php if($row['disetujui'] == 0){echo "<a title='Hapus' style='color:#DD4B39;' href='#ModalHapusUdzur' class='dropdown-item' data-toggle='modal' data-href='action/hapus.php?idmanualslt=".$row['id_manual']."' aria-hidden='true'><i class='material-icons' style='font-size: 20px'>cancel</i></a>";}else if($row['disetujui'] == 1){echo "";} ?></td>
+                                    <td><?php if($row['disetujui'] == 0){echo "<a title='Hapus' style='color:#DD4B39;' href='#ModalHapusManualSlt' class='dropdown-item' data-toggle='modal' data-href='action/hapus.php?idmanualslt=".$row['id_manual']."&t=".$tgl."' aria-hidden='true'><i class='material-icons' style='font-size: 20px'>cancel</i></a>";}else if($row['disetujui'] == 1){echo "";} ?></td>
                                   </tr>
                                   <?php $no++; } } ?>
                                 </tbody> 
@@ -54,7 +54,7 @@
   </div>
 </div>          
             <!-- Small Size -->
-            <div class="modal fade" id="ModalHapusUdzur" tabindex="-1" role="dialog">
+            <div class="modal fade" id="ModalHapusManualSlt" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-sm" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
