@@ -40,7 +40,12 @@
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
 				return $data;
-		} 	
+		} else{
+			echo "<div class='alert alert-warning alert-dismissibl' role='alert'>
+							<button type='button' class='close' data-dismiss='alert' aria-label='Close'></button>
+							Tidak Ada Pengajuan Udzur Shalat Pada Hari ".date('l - d M Y', strtotime($tgl_))."
+						</div>";
+		}		
 	}
 
 	function tambahUdzurShalat($idMahasiswa, $tgl, $wkt, $udzur, $ket){
@@ -69,6 +74,11 @@
 							Belum Ada Data Pengajuan Presensi Shalat Manual
 						</div>";
 		}		
+	}		
+
+	function tambahShalatManual($idMahasiswa, $tgl, $wkt, $ket){
+		$tgl_ = date('Y-m-d', strtotime($tgl));
+		mysql_query("INSERT INTO shalat_manual (id_mahasiswa, tanggal, wkt_shalat, keterangan, diajukan, disetujui, direview) VALUES ($idMahasiswa, '$tgl_', '$wkt', '$ket', now(), 0, 0);") or die(mysql_error());
 	}		
 
 	function talimMhs(){

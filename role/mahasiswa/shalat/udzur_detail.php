@@ -35,7 +35,7 @@
                                     $dataUdzur = tampilUdzurShalatDetailByMhsByDay($idMahasiswa, $tgl);
                                     $no = 1;
 
-                                    if (is_array($dataUdzur) || is_object($dataByPembina)){
+                                    if (is_array($dataUdzur) || is_object($dataUdzur)){
                                				foreach($dataUdzur as $row){
                                    ?>
                                   <tr>
