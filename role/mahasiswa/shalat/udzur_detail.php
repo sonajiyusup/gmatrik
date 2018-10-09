@@ -2,7 +2,7 @@
 
   include 'functions2.php';
   
-  $idMahasiswa = $_GET['m'];
+  $idMahasiswa = $_SESSION['id_mahasiswa'];
   $tgl = $_GET['t'];
  ?>
 
