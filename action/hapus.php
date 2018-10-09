@@ -2,6 +2,8 @@
 
 include '../functions.php';
 
+$idMahasiswa = $_SESSION['id_mahasiswa'];
+
 	if (isset($_GET['idpembina'])) {
 		$idPembina = $_GET['idpembina'];
 		$idUser = $_GET['iduser'];
