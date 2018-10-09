@@ -28,8 +28,10 @@ include '../functions.php';
 	} else
 	if(isset($_GET['idudzur'])){
 		$idUdzur = $_GET['idudzur'];
+		$idMahasiswa = $_GET['m'];
+		$tgl = $_GET['t'];
 
 	    hapusUdzurShalat($idUdzur);
-	    header('location:/gmatrik/index.php?page=udzurslt'); 
+	    header('location:/gmatrik/index.php?page=udzursltdetail&m='.$idMahasiswa.'&t='.$tgl.''); 
 	}
  ?>

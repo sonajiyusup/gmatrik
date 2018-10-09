@@ -23,7 +23,6 @@
                                 <thead>
                                   <tr>
                                     <th>#</th>
-                                    <!-- <th>ID Udzur</th> -->
                                     <th>Waktu Shalat</th>
                                     <th>Udzur</th>
                                     <th>Keterangan</th>
@@ -35,19 +34,20 @@
                                   <?php 
                                     $dataUdzur = tampilUdzurShalatDetailByMhsByDay($idMahasiswa, $tgl);
                                     $no = 1;
-                                    foreach($dataUdzur as $row){
+
+                                    if (is_array($dataUdzur) || is_object($dataByPembina)){
+                               				foreach($dataUdzur as $row){
                                    ?>
                                   <tr>
                                     <td><?php echo $no; ?></td>
-                                    <!-- <td><?php echo $row['id_udzur']; ?></td> -->
                                     <td><?php echo ucwords($row['wkt_shalat']); ?></td>
                                     <td><?php echo $row['udzur']; ?></td>
                                     <td><?php echo $row['keterangan']; ?></td>
                                     <td><?php if($row['disetujui'] == 0){echo '<label class="badge bg-orange">Belum disetujui<label>';}else if($row['disetujui'] == 1){echo '<label class="badge bg-green">Disetujui<label>';}else if($row['disetujui'] == 2){echo '<label class="badge bg-red">Ditolak<label>';}?></td>
-                                    <td><?php if($row['disetujui'] == 0){echo "<a title='Hapus' style='color:#DD4B39;' href='#ModalHapusUdzur' class='dropdown-item' data-toggle='modal' data-href='action/hapus.php?idudzur=".$row['id_udzur']."' aria-hidden='true'><i class='material-icons' style='font-size: 20px'>cancel</i></a>";}else if($row['disetujui'] == 1){echo "";} ?></td>
+                                    <td><?php if($row['disetujui'] == 0){echo "<a title='Hapus' style='color:#DD4B39;' href='#ModalHapusUdzur' class='dropdown-item' data-toggle='modal' data-href='action/hapus.php?idudzur=".$row['id_udzur']."&m=".$idMahasiswa."&t=".$tgl."' aria-hidden='true'><i class='material-icons' style='font-size: 20px'>cancel</i></a>";}else if($row['disetujui'] == 1){echo "";} ?></td>
                                     
                                   </tr>
-                                  <?php $no++; } ?>
+                                  <?php $no++; } } ?>
                                 </tbody> 
                               </table>                          
                           </div>
