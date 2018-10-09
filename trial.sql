@@ -1198,17 +1198,11 @@ LEFT JOIN (
     GROUP BY p.id_pembina 
 ) pu ON p.id_pembina = pu.id_pembina 
 LEFT JOIN (
-    SELECT mb.id_pembina, u.jmlu
-    FROM m_binaan mb 
-    LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina
-    LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa
-    LEFT JOIN (
-        SELECT su.id_mahasiswa, COUNT(su.wkt_shalat) AS jmlu
-        FROM shalat_udzur2 su 
-        WHERE su.disetujui = 1
-        GROUP BY su.id_mahasiswa
-    ) u ON m.id_mahasiswa = u.id_mahasiswa
-    GROUP BY mb.id_pembina    
+    SELECT mb.id_pembina, COUNT(su.wkt_shalat) AS jmlu
+    FROM m_binaan mb
+    LEFT JOIN shalat_udzur2 su ON mb.id_mahasiswa = su.id_mahasiswa
+    WHERE su.disetujui = 1
+    GROUP BY mb.id_pembina 
 ) uz ON p.id_pembina = uz.id_pembina
 GROUP BY p.nama
 
