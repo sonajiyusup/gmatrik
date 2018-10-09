@@ -134,3 +134,22 @@ DOING
 - add izin syar'i radiobutton on input udzur shalat role mahasiswa
 - create delete/batalkan feature on udzur detail role mahasiswa
 - add permintaan presensi shalat manual feature
+
+- create presensi manual page on role pembina
+- add presensi manual on shalat calculation query
+	- by mahasiswa
+		- detail
+		- by period
+		- by day
+	- by ikhwan/akhwat
+		- detail
+		- by period
+		- by day
+	- by pembina
+		- detail
+		- by period
+		- by day
+	- by waktu shalat
+		- detail
+		- by period
+		- by day
