@@ -181,10 +181,6 @@
                 <!-- #END# Color Variations -->                
   </div>
 </div>
-
-<?php echo "<a title='Hapus' style='color:#DD4B39;' href='#ModalHapusPembina' class='dropdown-item' data-toggle='modal' data-href='action/hapus.php?idudzur=".$row['id_udzur']."' aria-hidden='true'><i class='material-icons' style='font-size: 20px'>cancel</i></a>"; ?>
-
-
             <!-- Small Size -->
             <div class="modal fade" id="ModalHapusPembina" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-sm" role="document">
