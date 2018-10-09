@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 08, 2018 at 11:58 AM
+-- Generation Time: Oct 09, 2018 at 09:24 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -29642,6 +29642,23 @@ INSERT INTO `shalat` (`id_mahasiswa`, `id_periode`, `tanggal`, `wkt_tapping`, `w
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `shalat_manual`
+--
+
+CREATE TABLE `shalat_manual` (
+  `id_manual` int(11) NOT NULL,
+  `id_mahasiswa` int(11) NOT NULL,
+  `tanggal` date NOT NULL,
+  `wkt_shalat` varchar(7) NOT NULL,
+  `keterangan` varchar(100) DEFAULT NULL,
+  `diajukan` datetime DEFAULT NULL,
+  `disetujui` int(1) DEFAULT NULL,
+  `direview` int(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `shalat_m_udzur`
 --
 
@@ -31113,8 +31130,7 @@ INSERT INTO `shalat_udzur2` (`id_udzur`, `id_periode`, `id_mahasiswa`, `tanggal`
 (1397, 2, 2276, '2018-10-03', 'dzuhur', 'Haid', '', '2018-10-08 13:18:11', 0, 0),
 (1398, 2, 2276, '2018-10-03', 'ashar', 'Haid', '', '2018-10-08 13:18:11', 0, 0),
 (1399, 2, 2276, '2018-10-03', 'maghrib', 'Haid', '', '2018-10-08 13:18:12', 0, 0),
-(1400, 2, 2276, '2018-10-03', 'isya', 'Haid', '', '2018-10-08 13:18:12', 0, 0),
-(1403, NULL, 2379, '2018-10-07', 'shubuh', 'Sakit', '', '2018-10-08 16:19:48', 0, 0);
+(1400, 2, 2276, '2018-10-03', 'isya', 'Haid', '', '2018-10-08 13:18:12', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -31168,7 +31184,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id_user`, `username`, `password`, `password_default`, `level`, `last_login`) VALUES
 (1, 'admin', 'admin', 0, 0, '2018-04-24 08:58:28'),
-(2, 'derry', 'bismillah', 0, 2, '2018-10-08 15:45:56'),
+(2, 'derry', 'bismillah', 0, 2, '2018-10-09 11:25:05'),
 (3, '18103001', 'p5J7cj5C8i', 1, 4, '0000-00-00 00:00:00'),
 (4, '18101002', 'q6C7f142W6', 1, 4, '0000-00-00 00:00:00'),
 (5, '18101004', 'pV73n8MB4F', 1, 4, '0000-00-00 00:00:00'),
@@ -31358,7 +31374,7 @@ INSERT INTO `users` (`id_user`, `username`, `password`, `password_default`, `lev
 (190, '18103009', 'BLE8e3fu10', 1, 4, '0000-00-00 00:00:00'),
 (191, '18102009', 'i2H00Kf730', 1, 4, '0000-00-00 00:00:00'),
 (192, '18102013', '2f9BnEoJW2', 1, 4, '2018-10-08 13:16:58'),
-(193, '18102015', '441sEYEzhy', 1, 4, '2018-10-08 09:41:04'),
+(193, '18102015', '441sEYEzhy', 1, 4, '2018-10-09 11:02:01'),
 (194, '18101061', 'xyOsv2Z42z', 1, 4, '0000-00-00 00:00:00'),
 (195, '18103008', 'p5x0WM8bC4', 1, 4, '2018-10-08 13:01:11'),
 (196, '18103010', 'WcBt0FbeAE', 1, 4, '0000-00-00 00:00:00'),
@@ -31460,7 +31476,7 @@ INSERT INTO `users` (`id_user`, `username`, `password`, `password_default`, `lev
 (292, '18102046', '4Zaf3u7Z9g', 1, 4, '2018-10-08 10:46:54'),
 (293, '18101108', '9aZ3keiWQ6', 1, 4, '0000-00-00 00:00:00'),
 (294, '18102044', 'o54iMcyl18', 1, 4, '2018-10-08 10:49:18'),
-(295, '18103033', 'adenurul123', 0, 4, '2018-10-08 16:07:30'),
+(295, '18103033', 'adenurul123', 0, 4, '2018-10-09 10:19:56'),
 (296, '18101178', 'It59T6L67m', 1, 4, '2018-10-08 10:23:35'),
 (297, '18104013', 'aNwoc9X7w2', 1, 4, '2018-10-08 09:50:01'),
 (298, '18101182', '5s5cS9t0H1', 1, 4, '0000-00-00 00:00:00'),
@@ -31690,6 +31706,13 @@ ALTER TABLE `shalat`
   ADD KEY `id_periode` (`id_periode`);
 
 --
+-- Indexes for table `shalat_manual`
+--
+ALTER TABLE `shalat_manual`
+  ADD PRIMARY KEY (`id_manual`),
+  ADD KEY `id_mahasiswa` (`id_mahasiswa`);
+
+--
 -- Indexes for table `shalat_m_udzur`
 --
 ALTER TABLE `shalat_m_udzur`
@@ -31778,7 +31801,7 @@ ALTER TABLE `pbentuk`
 -- AUTO_INCREMENT for table `pembina`
 --
 ALTER TABLE `pembina`
-  MODIFY `id_pembina` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_pembina` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `planjut`
 --
@@ -31794,6 +31817,11 @@ ALTER TABLE `pmain`
 --
 ALTER TABLE `psanksi`
   MODIFY `id_psanksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `shalat_manual`
+--
+ALTER TABLE `shalat_manual`
+  MODIFY `id_manual` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `shalat_m_udzur`
 --
@@ -31813,12 +31841,12 @@ ALTER TABLE `shalat_udzur`
 -- AUTO_INCREMENT for table `shalat_udzur2`
 --
 ALTER TABLE `shalat_udzur2`
-  MODIFY `id_udzur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1404;
+  MODIFY `id_udzur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1406;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=393;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=392;
 --
 -- Constraints for dumped tables
 --
@@ -31900,6 +31928,12 @@ ALTER TABLE `pmain`
 ALTER TABLE `shalat`
   ADD CONSTRAINT `shalat_ibfk_1` FOREIGN KEY (`id_mahasiswa`) REFERENCES `mahasiswa` (`id_mahasiswa`),
   ADD CONSTRAINT `shalat_ibfk_2` FOREIGN KEY (`id_periode`) REFERENCES `shalat_periode` (`id_periode`);
+
+--
+-- Constraints for table `shalat_manual`
+--
+ALTER TABLE `shalat_manual`
+  ADD CONSTRAINT `shalat_manual_ibfk_1` FOREIGN KEY (`id_mahasiswa`) REFERENCES `mahasiswa` (`id_mahasiswa`);
 
 --
 -- Constraints for table `shalat_udzur`

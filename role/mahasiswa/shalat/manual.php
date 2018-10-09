@@ -134,7 +134,7 @@ $(document).on('click', '.btn-add', addFormGroup);
                   <form method="POST" name="formUdzur" id="formJplg">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h4 class="modal-title" id="smallModalLabel">INPUT PENGAJUAN PRESENSI MANUAL SHALAT WAJIB</h4>
+                        <h4 class="modal-title" id="smallModalLabel">INPUT PENGAJUAN PRESENSI SHALAT WAJIB MANUAL</h4>
                         </div>
                         <div class="modal-body">             
                                 <div class="form-group multiple-form-group" id="defaultForm">          
