@@ -32,9 +32,7 @@
 	}	
 
 	function tampilUdzurShalatDetailByMhsByDay($idMahasiswa, $tgl){
-
 		$tgl_ = date('Y-m-d', strtotime($tgl));
-
 		$ambildata = mysql_query("SELECT su.id_udzur, su.id_mahasiswa, su.tanggal, su.wkt_shalat, su.udzur, su.keterangan, su.disetujui FROM shalat_udzur2 su WHERE su.id_mahasiswa = $idMahasiswa AND su.tanggal = '$tgl_' ORDER BY su.diajukan DESC") or die(mysql_error());
 		if (mysql_num_rows($ambildata) > 0) {
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
@@ -47,6 +45,21 @@
 						</div>";
 		}		
 	}
+
+	function tampilShalatManualDetailByMhsByDay($idMahasiswa, $tgl){
+		$tgl_ = date('Y-m-d', strtotime($tgl));
+		$ambildata = mysql_query("SELECT sm.id_manual, sm.id_mahasiswa, sm.tanggal, sm.wkt_shalat, sm.keterangan, sm.disetujui FROM shalat_manual sm WHERE sm.id_mahasiswa = $idMahasiswa AND sm.tanggal = '$tgl_' ORDER BY sm.diajukan DESC") or die(mysql_error());
+		if (mysql_num_rows($ambildata) > 0) {
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;
+		} else{
+			echo "<div class='alert alert-warning alert-dismissibl' role='alert'>
+							<button type='button' class='close' data-dismiss='alert' aria-label='Close'></button>
+							Tidak Ada Pengajuan Presensi Manual Shalat Wajib Pada Hari ".date('l - d M Y', strtotime($tgl_))."
+						</div>";
+		}		
+	}	
 
 	function tambahUdzurShalat($idMahasiswa, $tgl, $wkt, $udzur, $ket){
 		$tgl_ = date('Y-m-d', strtotime($tgl));

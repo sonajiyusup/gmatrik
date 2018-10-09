@@ -116,7 +116,7 @@ $(document).on('click', '.btn-add', addFormGroup);
                                  ?>
                                 <tr>
                                   <td><?php echo $no; ?></td>
-                                  <td><a href="?page=udzursltdetail&m=<?php echo $idMahasiswa; ?>&t=<?php echo $row['tanggal']; ?>"><?php echo date('l - d M Y', strtotime($row['tanggal'])); ?></a></td>
+                                  <td><a href="?page=manualsltdetail&m=<?php echo $idMahasiswa; ?>&t=<?php echo $row['tanggal']; ?>"><?php echo date('l - d M Y', strtotime($row['tanggal'])); ?></a></td>
                                   <td><?php echo $row['jml']; ?></td>
                                   <td><?php echo $row['diajukan']; ?></td>
                                   <td><?php if($row['direview'] == 0){echo '<label class="badge bg-orange">Belum di Review<label>';}else if($row['direview'] == 1){echo '<label class="badge bg-green">Sudah di Review<label>';}?></td>
