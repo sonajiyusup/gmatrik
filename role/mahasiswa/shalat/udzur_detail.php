@@ -44,16 +44,7 @@
                                     <td><?php echo $row['udzur']; ?></td>
                                     <td><?php echo $row['keterangan']; ?></td>
                                     <td><?php if($row['disetujui'] == 0){echo '<label class="badge bg-orange">Belum disetujui<label>';}else if($row['disetujui'] == 1){echo '<label class="badge bg-green">Disetujui<label>';}else if($row['disetujui'] == 2){echo '<label class="badge bg-red">Ditolak<label>';}?></td>
-                                    <td>
-			                                <div class="btn-group">
-			                                    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			                                        <i class="material-icons" style="font-size: 14px">settings</i>&nbsp;<span class="caret"></span>
-			                                    </button>
-			                                    <ul class="dropdown-menu">
-			                                      <li><?php echo "<a title='Hapus' style='color:#DD4B39;' href='#ModalHapusUdzur' class='dropdown-item' data-toggle='modal' data-href='action/hapus.php?idudzur=".$row['id_udzur']."' aria-hidden='true'><i class='material-icons' style='font-size: 20px'>cancel</i></a>"; ?></li>
-			                                    </ul>
-			                                </div>
-			                              </td>
+                                    <td><?php echo "<a title='Hapus' style='color:#DD4B39;' href='#ModalHapusUdzur' class='dropdown-item' data-toggle='modal' data-href='action/hapus.php?idudzur=".$row['id_udzur']."' aria-hidden='true'><i class='material-icons' style='font-size: 20px'>cancel</i></a>"; ?></td>
                                     
                                   </tr>
                                   <?php $no++; } ?>
@@ -65,9 +56,6 @@
                 </div>
   </div>
 </div>          
-
-<?php echo "<a title='Hapus' style='color:#DD4B39;' href='#ModalHapusUdzur' class='dropdown-item' data-toggle='modal' data-href='action/hapus.php?idudzur=".$row['id_udzur']."' aria-hidden='true'><i class='material-icons' style='font-size: 20px'>cancel</i></a>"; ?>
-
             <!-- Small Size -->
             <div class="modal fade" id="ModalHapusUdzur" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-sm" role="document">

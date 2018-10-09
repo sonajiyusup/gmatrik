@@ -387,6 +387,13 @@
                 $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
             });
         });    
+
+        //Modal Hapus Data Udzur Shalat Role Mahasiswa
+        $(document).ready(function() {
+            $('#ModalHapusUdzur').on('show.bs.modal', function(e) {
+                $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+            });
+        });    
       </script>
 
 <script>

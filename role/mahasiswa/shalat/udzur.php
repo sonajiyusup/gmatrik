@@ -99,8 +99,9 @@ $(document).on('click', '.btn-add', addFormGroup);
                             <table id="tableUdzur" class="table table-hover table-condensed">
                               <thead>
                                 <tr>
-                                  <th>Periode</th>
+                                  <th>#</th>
                                   <th>Hari - Tanggal</th>
+                                  <th>Periode</th>
                                   <th>Udzur</th>
                                   <th>Jumlah Waktu Shalat</th>
                                   <th>Waktu Pengajuan</th>
@@ -111,19 +112,20 @@ $(document).on('click', '.btn-add', addFormGroup);
                                 <?php 
                                   
                                   $dataUdzur = tampilUdzurShalatRoleMhs($idMahasiswa);
-
+                                  $no = 1;
                                   if (is_array($dataUdzur) || is_object($dataUdzur)){
                                     foreach($dataUdzur as $row){
                                  ?>
                                 <tr>
-                                  <td><?php echo $row['id_periode']; ?></td>
+                                  <td><?php echo $no; ?></td>
                                   <td><a href="?page=udzursltdetail&m=<?php echo $idMahasiswa; ?>&t=<?php echo $row['tanggal']; ?>"><?php echo date('l - d M Y', strtotime($row['tanggal'])); ?></a></td>
+                                  <td><?php echo $row['id_periode']; ?></td>
                                   <td><?php echo $row['udzur']; ?></td>
                                   <td><?php echo $row['jml']; ?></td>
                                   <td><?php echo $row['diajukan']; ?></td>
                                   <td><?php if($row['direview'] == 0){echo '<label class="badge bg-orange">Belum di Review<label>';}else if($row['direview'] == 1){echo '<label class="badge bg-green">Sudah di Review<label>';}?></td>
                                 </tr>
-                                <?php } } ?>
+                                <?php $no++; } } ?>
                               </tbody> 
                             </table>
                           </div>                        
@@ -192,7 +194,11 @@ $(document).on('click', '.btn-add', addFormGroup);
 
     <script type="text/javascript">
     $(document).ready(function() {
-      var t = $('#tableUdzur').DataTable({});
+      var t = $('#tableUdzur').DataTable({
+            "columnDefs": [
+              { "searchable": false, "orderable": false, "targets": [0]}
+            ]
+        });
       $(document).on('focus', '.datepicker',function(){
           $(this).bootstrapMaterialDatePicker({ weekStart : 0, time: false })
       });

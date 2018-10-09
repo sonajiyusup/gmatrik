@@ -1,7 +1,6 @@
 <?php 
 
 include '../functions.php';
-include '../functions2.php';
 
 	if (isset($_GET['idpembina'])) {
 		$idPembina = $_GET['idpembina'];
