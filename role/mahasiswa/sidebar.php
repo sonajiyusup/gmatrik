@@ -216,6 +216,8 @@
               include 'shalat/udzur.php';
             } else if ($_GET['page'] == 'udzursltdetail') {
               include 'shalat/udzur_detail.php';
+            } else if ($_GET['page'] == 'manualslt') {
+              include 'shalat/manual.php';
             } else if ($_GET['page'] == 'pbentuk') {
               include 'pelanggaran/pbentuk.php';
             } else if ($_GET['page'] == 'paksi') {

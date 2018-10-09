@@ -90,8 +90,8 @@ $(document).on('click', '.btn-add', addFormGroup);
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                          <h2>DAFTAR UDZUR SHALAT &nbsp;&nbsp;&nbsp;
-                            <button class="btn btn-sm btn-default waves-effect" data-toggle="modal" data-target="#tambahUdzur" title="Input Pengajuan Udzur Shalat"><i class="material-icons">playlist_add</i><span>TAMBAH PENGAJUAN UDZUR</span></button>
+                          <h2>DAFTAR PRESENSI MANUAL SHALAT WAJIB&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-sm btn-default waves-effect" data-toggle="modal" data-target="#tambahUdzur" title="Input Permintaan Udzur Shalat"><i class="material-icons">playlist_add</i><span>TAMBAH PENGAJUAN PRESENSI MANUAL</span></button>
                           </h2>
                         </div>
                         <div class="body">                               
@@ -101,7 +101,6 @@ $(document).on('click', '.btn-add', addFormGroup);
                                 <tr>
                                   <th>#</th>
                                   <th>Hari - Tanggal</th>
-                                  <th>Periode</th>
                                   <th>Jumlah Waktu Shalat</th>
                                   <th>Waktu Pengajuan</th>
                                   <th>Status</th>
@@ -110,15 +109,14 @@ $(document).on('click', '.btn-add', addFormGroup);
                               <tbody>
                                 <?php 
                                   
-                                  $dataUdzur = tampilUdzurShalatRoleMhs($idMahasiswa);
+                                  $dataManual = tampilShalatManualMhs($idMahasiswa);
                                   $no = 1;
-                                  if (is_array($dataUdzur) || is_object($dataUdzur)){
-                                    foreach($dataUdzur as $row){
+                                  if (is_array($dataManual) || is_object($dataManual)){
+                                    foreach($dataManual as $row){
                                  ?>
                                 <tr>
                                   <td><?php echo $no; ?></td>
                                   <td><a href="?page=udzursltdetail&m=<?php echo $idMahasiswa; ?>&t=<?php echo $row['tanggal']; ?>"><?php echo date('l - d M Y', strtotime($row['tanggal'])); ?></a></td>
-                                  <td><?php echo $row['id_periode']; ?></td>
                                   <td><?php echo $row['jml']; ?></td>
                                   <td><?php echo $row['diajukan']; ?></td>
                                   <td><?php if($row['direview'] == 0){echo '<label class="badge bg-orange">Belum di Review<label>';}else if($row['direview'] == 1){echo '<label class="badge bg-green">Sudah di Review<label>';}?></td>
@@ -136,7 +134,7 @@ $(document).on('click', '.btn-add', addFormGroup);
                   <form method="POST" name="formUdzur" id="formJplg">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h4 class="modal-title" id="smallModalLabel">INPUT PERMINTAAN UDZUR SHALAT</h4>
+                        <h4 class="modal-title" id="smallModalLabel">INPUT PRESENSI MANUAL SHALAT WAJIB</h4>
                         </div>
                         <div class="modal-body">
 
