@@ -18,7 +18,7 @@
 	}
 
 	function tampilUdzurShalatRolePembina($idPembina){
-		$ambildata = mysql_query("SELECT m.id_mahasiswa, m.nama, su.id_periode, su.tanggal, su.udzur, COUNT(su.wkt_shalat) AS jml, su.keterangan, su.direview FROM shalat_udzur2 su LEFT JOIN m_binaan mb ON su.id_mahasiswa = mb.id_mahasiswa LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa WHERE mb.id_pembina = $idPembina GROUP BY su.tanggal ORDER BY diajukan DESC") or die(mysql_error());
+		$ambildata = mysql_query("SELECT m.id_mahasiswa, m.nama, su.id_periode, su.tanggal, su.udzur, COUNT(su.wkt_shalat) AS jml, su.keterangan, su.direview FROM shalat_udzur2 su LEFT JOIN m_binaan mb ON su.id_mahasiswa = mb.id_mahasiswa LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa WHERE mb.id_pembina = $idPembina GROUP BY su.id_mahasiswa, su.tanggal, su.udzur ORDER BY diajukan DESC") or die(mysql_error());
 		if (mysql_num_rows($ambildata) > 0) {
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
