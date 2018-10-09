@@ -35,7 +35,7 @@
                     <li class="header">PROGRAM PEMBINAAN</li>
                     <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'udzurslt' || $_GET['page'] == 'udzursltdetail') {
+                                    if ($_GET['page'] == 'udzurslt' || $_GET['page'] == 'udzursltdetail' || $_GET['page'] == 'manualslt') {
                                       echo "class='active'";
                                     }
                                   }
@@ -81,6 +81,15 @@
                                   }
                                 ?>
                               ><a href="?page=udzurslt">Udzur</a>
+                            </li>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'manualslt') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                              ><a href="?page=manualslt">Presensi Manual</a>
                             </li>
                         </ul>
                     </li>

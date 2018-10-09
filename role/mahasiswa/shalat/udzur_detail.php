@@ -44,7 +44,7 @@
                                     <td><?php echo $row['udzur']; ?></td>
                                     <td><?php echo $row['keterangan']; ?></td>
                                     <td><?php if($row['disetujui'] == 0){echo '<label class="badge bg-orange">Belum disetujui<label>';}else if($row['disetujui'] == 1){echo '<label class="badge bg-green">Disetujui<label>';}else if($row['disetujui'] == 2){echo '<label class="badge bg-red">Ditolak<label>';}?></td>
-                                    <td><?php echo "<a title='Hapus' style='color:#DD4B39;' href='#ModalHapusUdzur' class='dropdown-item' data-toggle='modal' data-href='action/hapus.php?idudzur=".$row['id_udzur']."' aria-hidden='true'><i class='material-icons' style='font-size: 20px'>cancel</i></a>"; ?></td>
+                                    <td><?php if($row['disetujui'] == 0){echo "<a title='Hapus' style='color:#DD4B39;' href='#ModalHapusUdzur' class='dropdown-item' data-toggle='modal' data-href='action/hapus.php?idudzur=".$row['id_udzur']."' aria-hidden='true'><i class='material-icons' style='font-size: 20px'>cancel</i></a>";}else if($row['disetujui'] == 1){echo "";} ?></td>
                                     
                                   </tr>
                                   <?php $no++; } ?>
@@ -64,8 +64,8 @@
                             <h4 class="modal-title" id="smallModalLabel">Batalkan Permintaan Udzur Shalat ?</h4>
                         </div>
                         <div class="modal-footer">
-                            <a type="button" class="btn btn-danger btn-ok waves-effect">HAPUS</a>
-                            <button class="btn btn-link waves-effect" data-dismiss="modal">BATAL</button>
+                            <a type="button" class="btn btn-danger btn-ok waves-effect">YA</a>
+                            <button class="btn btn-link waves-effect" data-dismiss="modal">TIDAK</button>
                         </div>
                     </div>
                 </div>
