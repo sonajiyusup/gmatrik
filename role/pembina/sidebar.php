@@ -35,7 +35,7 @@
                     <li class="header">PROGRAM PEMBINAAN</li>
                     <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'shalat' || $_GET['page'] == 'udzurslt' || $_GET['page'] == 'udzursltrev') {
+                                    if ($_GET['page'] == 'shalat' || $_GET['page'] == 'udzurslt' || $_GET['page'] == 'udzursltrev' || $_GET['page'] == 'manualslt') {
                                       echo "class='active'";
                                     }
                                   }
@@ -69,6 +69,15 @@
                                   }
                                 ?>
                             ><a href="?page=udzurslt">Udzur</a>
+                            </li>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'manualslt') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            ><a href="?page=manualslt">Presensi Manual</a>
                             </li>
                         </ul>
                     </li>
@@ -261,6 +270,8 @@
               include 'shalat/shalat.php';
             } else if ($_GET['page'] == 'udzurslt') {
               include 'shalat/udzur.php';
+            } else if ($_GET['page'] == 'manualslt') {
+              include 'shalat/manual.php';
             } else if ($_GET['page'] == 'udzursltrev') {
               include 'shalat/udzur_review.php';
             } else if ($_GET['page'] == 'pbentuk') {

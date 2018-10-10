@@ -89,6 +89,20 @@
 		}		
 	}		
 
+	function tampilShalatManualMhsRolePembina($idPembina){
+		$ambildata = mysql_query("SELECT sm.tanggal, sm.id_mahasiswa, m.nama, COUNT(sm.wkt_shalat) AS jml, sm.keterangan, sm.direview, sm.diajukan, sm.disetujui FROM shalat_manual sm LEFT JOIN m_binaan mb ON sm.id_mahasiswa = mb.id_mahasiswa LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa WHERE mb.id_pembina = $idPembina GROUP BY sm.tanggal, sm.id_mahasiswa ORDER BY sm.diajukan DESC") or die(mysql_error());
+		if (mysql_num_rows($ambildata) > 0) {
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;
+		} else{
+			echo "<div class='alert alert-warning alert-dismissibl' role='alert'>
+							<button type='button' class='close' data-dismiss='alert' aria-label='Close'></button>
+							Belum Ada Data Pengajuan Presensi Shalat Manual
+						</div>";
+		}		
+	}			
+
 	function tambahShalatManual($idMahasiswa, $tgl, $wkt, $ket){
 		$tgl_ = date('Y-m-d', strtotime($tgl));
 		mysql_query("INSERT INTO shalat_manual (id_mahasiswa, tanggal, wkt_shalat, keterangan, diajukan, disetujui, direview) VALUES ($idMahasiswa, '$tgl_', '$wkt', '$ket', now(), 0, 0);") or die(mysql_error());

@@ -10,7 +10,7 @@
                     <div class="card">
                         <div class="header">
                           <h2>DAFTAR UDZUR SHALAT MAHASISWA BINAAN<br>
-                          <small>Berdasarkan Tanggal</small></h2>
+                          <small>Berdasarkan Tanggal & Mahasiswa</small></h2>
                         </div>
                         <div class="body">                               
                           <div class="table-responsive">
@@ -18,8 +18,8 @@
                               <thead>
                                 <tr>
                                   <th>#</th>
-                                  <th>Nama Mahasiswa</th>
                                   <th>Hari - Tanggal</th>
+                                  <th>Nama Mahasiswa</th>
                                   <th>Udzur</th>
                                   <th>Jumlah Waktu Shalat</th>
                                   <th>Status</th>
@@ -36,8 +36,8 @@
                                  ?>
                                 <tr>
                                   <td><?php echo $no; ?></td>
-                                  <td><?php echo $row['nama']; ?></td>
                                   <td><?php echo date('l - d M Y', strtotime($row['tanggal'])); ?></td>
+                                  <td><?php echo $row['nama']; ?></td>
                                   <td><?php echo $row['udzur']; ?></td>
                                   <td><?php echo $row['jml']; ?></td>
                                   <td><?php if($row['direview'] == 0){echo '<label class="badge bg-orange">Belum di Review<label>';}else if($row['direview'] == 1){echo '<label class="badge bg-green">Sudah di Review<label>';}?></td>
