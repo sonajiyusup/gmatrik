@@ -31,6 +31,21 @@
 		}		
 	}	
 
+	function tampilJplgDetail($tgl){
+		$tgl_ = date('Y-m-d', strtotime($tgl));
+		$ambildata = mysql_query("SELECT jp.tanggal, jp.id_periode, jp.j_kelamin, jp.wkt_shalat FROM j_pulang2 jp WHERE jp.tanggal = '$tgl_'") or die(mysql_error());
+		if (mysql_num_rows($ambildata) > 0) {
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;
+		} else{
+			echo "<div class='alert alert-warning alert-dismissibl' role='alert'>
+							<button type='button' class='close' data-dismiss='alert' aria-label='Close'></button>
+							Tidak Ada Jadwal Kepulangan Mahasiswa Pada ".date('l - d M Y', strtotime($tgl_))."
+						</div>";
+		}		
+	}	
+
 	function tampilUdzurShalatDetailByMhsByDay($idMahasiswa, $tgl){
 		$tgl_ = date('Y-m-d', strtotime($tgl));
 		$ambildata = mysql_query("SELECT su.id_udzur, su.id_mahasiswa, su.tanggal, su.wkt_shalat, su.udzur, su.keterangan, su.disetujui FROM shalat_udzur2 su WHERE su.id_mahasiswa = $idMahasiswa AND su.tanggal = '$tgl_' ORDER BY su.diajukan DESC") or die(mysql_error());

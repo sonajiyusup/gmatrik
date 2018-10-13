@@ -15,12 +15,11 @@
                             <table id="tableJplg" class="table table-hover table-condensed">
                               <thead>
                                 <tr>
-                                  <th>Periode</th>
+                                  <th>#</th>
                                   <th>Hari - Tanggal</th>
+                                  <th>Periode</th>
                                   <th>Ikhwan/Akhwat</th>
-                                  <th>Waktu Shalat</th>
                                   <th>Jumlah Waktu Shalat</th>
-                                  <th>Aksi</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -30,12 +29,11 @@
                                   foreach($dataPresensi as $row){
                                  ?>
                                 <tr>
+                                  <td><?php echo $no; ?></td>
+                                  <td><?php echo "<a href='?page=jplgdetail&t=".$row['tanggal']."'>".date('l - d M Y', strtotime($row['tanggal']))."</a>" ?></td>
                                   <td><?php echo $row['id_periode']; ?></td>
-                                  <td><?php echo date('l - d M Y', strtotime($row['tanggal'])); ?></td>
                                   <td><?php if($row['j_kelamin'] == 'Ikhwan' || $row['j_kelamin'] == 'Laki-laki'){echo '<span class="label bg-light-blue">Ikhwan</span>';} else if($row['j_kelamin'] == 'Akhwat' || $row['j_kelamin'] == 'Perempuan'){echo '<span class="label bg-pink">Akhwat</span>';} ?></td>
-                                  <td><?php echo $row['wkt']; ?></td>
                                   <td><?php echo $row['jws']; ?></td>
-                                  <td></td>
                                 </tr>
                                 <?php $no++; } ?>
                               </tbody> 

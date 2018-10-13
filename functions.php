@@ -78,7 +78,7 @@
 	}	
 
 	function tampilJplg(){
-		$ambildata = mysql_query("SELECT jp.id_periode, jp.tanggal, jp.j_kelamin, GROUP_CONCAT(jp.wkt_shalat SEPARATOR ',') AS wkt, COUNT(jp.wkt_shalat) AS jws FROM j_pulang2 jp GROUP BY jp.tanggal") or die(mysql_error());
+		$ambildata = mysql_query("SELECT jp.id_periode, jp.tanggal, jp.j_kelamin, GROUP_CONCAT(jp.wkt_shalat SEPARATOR ',') AS wkt, COUNT(jp.wkt_shalat) AS jws FROM j_pulang2 jp GROUP BY jp.tanggal ORDER BY jp.tanggal DESC") or die(mysql_error());
 		if (mysql_num_rows($ambildata) > 0) {
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;

@@ -194,7 +194,7 @@
                     </li>
                     <li <?php 
                           if (isset($_GET['page'])) {
-                              if ($_GET['page'] == 'jplg') {
+                              if ($_GET['page'] == 'jplg' || $_GET['page'] == 'jplgdetail') {
                                 echo "class='active'";
                               } else{
                                 echo '';
@@ -209,7 +209,7 @@
                         <ul class="ml-menu">
                             <li  <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'jplg') {
+                                    if ($_GET['page'] == 'jplg' || $_GET['page'] == 'jplgdetail') {
                                       echo "class='active'";
                                     }
                                   }
@@ -449,6 +449,8 @@
               include 'talim/talim_bytalim.php';
             } else if ($_GET['page'] == 'jplg') {
               include 'shalat/jplg.php';
+            } else if ($_GET['page'] == 'jplgdetail') {
+              include 'shalat/jplg_detail.php';
             } else if ($_GET['page'] == 'pbentuk') {
               include 'pelanggaran/pbentuk.php';
             } else if ($_GET['page'] == 'paksi') {
