@@ -153,3 +153,4 @@ DOING
 		- detail
 		- by period
 		- by day
+- add id column on each table simon.sql
