@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 15, 2018 at 06:11 AM
+-- Generation Time: Oct 15, 2018 at 10:20 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -153,7 +153,14 @@ INSERT INTO `j_pulang2` (`id_periode`, `tanggal`, `j_kelamin`, `wkt_shalat`) VAL
 (2, '2018-09-30', 'Ikhwan', 'shubuh'),
 (2, '2018-09-30', 'Ikhwan', 'dzuhur'),
 (2, '2018-09-30', 'Ikhwan', 'ashar'),
-(2, '2018-09-30', 'Ikhwan', 'maghrib');
+(2, '2018-09-30', 'Ikhwan', 'maghrib'),
+(3, '2018-10-06', 'Akhwat', 'ashar'),
+(3, '2018-10-06', 'Akhwat', 'maghrib'),
+(3, '2018-10-06', 'Akhwat', 'isya'),
+(3, '2018-10-07', 'Akhwat', 'shubuh'),
+(3, '2018-10-07', 'Akhwat', 'dzuhur'),
+(3, '2018-10-07', 'Akhwat', 'ashar'),
+(3, '2018-10-07', 'Akhwat', 'maghrib');
 
 -- --------------------------------------------------------
 
@@ -40589,7 +40596,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id_user`, `username`, `password`, `password_default`, `level`, `last_login`) VALUES
 (1, 'admin', 'admin', 0, 0, '2018-04-24 08:58:28'),
-(2, 'derry', 'bismillah', 0, 2, '2018-10-15 11:11:14'),
+(2, 'derry', 'bismillah', 0, 2, '2018-10-15 11:24:27'),
 (3, '18103001', 'p5J7cj5C8i', 1, 4, '0000-00-00 00:00:00'),
 (4, '18101002', 'q6C7f142W6', 1, 4, '0000-00-00 00:00:00'),
 (5, '18101004', 'pV73n8MB4F', 1, 4, '0000-00-00 00:00:00'),
