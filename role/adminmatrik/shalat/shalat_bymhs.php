@@ -71,8 +71,8 @@
                                   <th>Ikhwan/Akhwat</th>
                                   <th>Total</th>
                                   <th>Dispensasi</th>
-                                  <th>Jml Udzur</th>
-                                  <th>Max Jml Shalat</th>
+                                  <th>Udzur</th>
+                                  <th>Target</th>
                                   <th>Nilai</th>
                                 </tr>
                               </thead>
