@@ -118,6 +118,14 @@
 		}		
 	}			
 
+	function udzurGraphPembina($idPembina){
+		$ambildata = mysql_query("SELECT mb.id_pembina, su.id_mahasiswa, m.nama, COUNT(su.wkt_shalat) AS jmlu FROM shalat_udzur2 su LEFT JOIN m_binaan mb ON su.id_mahasiswa = mb.id_mahasiswa LEFT JOIN mahasiswa m ON su.id_mahasiswa = m.id_mahasiswa WHERE mb.id_pembina = $idPembina AND su.disetujui = 1 GROUP BY su.id_mahasiswa ORDER BY COUNT(su.wkt_shalat) DESC") or die(mysql_error());
+
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;			
+	}		
+
 	function tambahShalatManual($idMahasiswa, $tgl, $wkt, $ket){
 		$tgl_ = date('Y-m-d', strtotime($tgl));
 		mysql_query("INSERT INTO shalat_manual (id_mahasiswa, tanggal, wkt_shalat, keterangan, diajukan, disetujui, direview) VALUES ($idMahasiswa, '$tgl_', '$wkt', '$ket', now(), 0, 0);") or die(mysql_error());
