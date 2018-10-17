@@ -44,10 +44,12 @@
                                     <td><?php echo ucwords($row['wkt_shalat']); ?></td>
                                     <td><?php echo $row['udzur']; ?></td>
                                     <td><?php echo $row['keterangan']; ?></td>
-                                    <td><input type="radio" class="radiojk" name="disetujui_<?php echo $row['wkt_shalat']; ?>[]" value="1"/>
+                                    <td>
+                                    <?php if($row['disetujui'] == 0){echo '<input type="radio" class="radiojk" name="disetujui_'.$row['wkt_shalat'].'[]" value="1"/>
                                         <label for="radio_1">Ya</label>&nbsp;
-                                        <input type="radio" class="radiojk" name="disetujui_<?php echo $row['wkt_shalat']; ?>[]" value="2"/>
-                                        <label for="radio_2">Tidak</label></td>
+                                        <input type="radio" class="radiojk" name="disetujui_'.$row['wkt_shalat'].'[]" value="2"/>
+                                        <label for="radio_2">Tidak</label>';}else if($row['disetujui'] == 1){echo '<label class="badge bg-green">Sudah di Setujui<label>';}else if($row['disetujui'] == 2){echo '<label class="badge bg-red">Sudah di Tolak<label>';} ?>
+                                    	</td>
                                   </tr>
                                   <?php $no++; } ?>
                                 </tbody> 
