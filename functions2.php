@@ -83,6 +83,28 @@
 				return $data;			
 	}	
 
+	function shalatUdzurDetailByMhsAdminmatrikGraph($idMahasiswa){
+		$ambildata = mysql_query("SELECT su.udzur, IF(s.jmlu IS NULL, 0, s.jmlu) AS jmlu FROM shalat_udzur2 su LEFT JOIN ( SELECT sh.udzur, COUNT(sh.udzur) AS jmlu FROM shalat_udzur2 sh WHERE sh.id_mahasiswa = $idMahasiswa GROUP BY sh.udzur ) s ON su.udzur = s.udzur GROUP BY su.udzur ORDER BY s.jmlu DESC") or die(mysql_error());
+
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;			
+	}		
+
+	function tampilUdzurShalatDetailByMhsAdminmatrik($idMahasiswa){
+		$ambildata = mysql_query("SELECT su.tanggal, su.id_periode, su.wkt_shalat, su.udzur, su.keterangan, su.diajukan, su.disetujui FROM shalat_udzur2 su WHERE su.id_mahasiswa = $idMahasiswa ORDER BY su.diajukan DESC") or die(mysql_error());
+		if (mysql_num_rows($ambildata) > 0) {
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;
+		} else{
+			echo "<div class='alert alert-warning alert-dismissibl' role='alert'>
+							<button type='button' class='close' data-dismiss='alert' aria-label='Close'></button>
+							Belum Ada Pengajuan Udzur Shalat
+						</div>";
+		}		
+	}		
+
 	function tampilShalatManualAdminmatrik(){
 		$ambildata = mysql_query("SELECT m.id_mahasiswa, m.nama, COUNT(sm.wkt_shalat) AS jmlm FROM mahasiswa m LEFT JOIN shalat_manual sm ON m.id_mahasiswa = sm.id_mahasiswa GROUP BY m.id_mahasiswa ORDER BY m.nama") or die(mysql_error());
 		if (mysql_num_rows($ambildata) > 0) {
