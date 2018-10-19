@@ -97,7 +97,7 @@
         updateTimeSetup($from, $to, $shubuhFrom, $shubuhTo, $dzuhurFrom, $dzuhurTo, $asharFrom, $asharTo, $maghribFrom, $maghribTo, $isyaFrom, $isyaTo);
         importShalat('18', $datefrom, $dateto);
 
-        // echo "<script>document.location='?page=shalat'</script>";
+        echo "<script>document.location='?page=shalat'</script>";
       }
 ?>
 
