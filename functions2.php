@@ -62,7 +62,7 @@
 	}
 
 	function tampilUdzurShalatAdminmatrik(){
-		$ambildata = mysql_query("SELECT m.id_mahasiswa, m.nama, COUNT(su.wkt_shalat) AS jmlu FROM mahasiswa m LEFT JOIN shalat_udzur2 su ON m.id_mahasiswa = su.id_mahasiswa GROUP BY m.id_mahasiswa ORDER BY m.nama") or die(mysql_error());
+		$ambildata = mysql_query("SELECT m.id_mahasiswa, m.nama, p.nama AS pembina, COUNT(su.wkt_shalat) AS jmlu FROM mahasiswa m LEFT JOIN shalat_udzur2 su ON m.id_mahasiswa = su.id_mahasiswa LEFT JOIN m_binaan mb ON m.id_mahasiswa = mb.id_mahasiswa LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina GROUP BY m.id_mahasiswa ORDER BY m.nama") or die(mysql_error());
 		if (mysql_num_rows($ambildata) > 0) {
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
@@ -105,8 +105,30 @@
 		}		
 	}		
 
+	function shalatManualDetailByMhsAdminmatrikGraph($idMahasiswa){
+		$ambildata = mysql_query("SELECT sm.wkt_shalat, IF(s.jmlm IS NULL, 0, s.jmlm) AS jmlm FROM shalat sm LEFT JOIN ( SELECT sl.wkt_shalat, COUNT(sl.wkt_shalat) AS jmlm FROM shalat_manual sl WHERE sl.id_mahasiswa = $idMahasiswa GROUP BY sl.wkt_shalat ) s ON sm.wkt_shalat = s.wkt_shalat GROUP BY sm.wkt_shalat ORDER BY sm.wkt_tapping") or die(mysql_error());
+
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;			
+	}			
+
 	function tampilShalatManualAdminmatrik(){
-		$ambildata = mysql_query("SELECT m.id_mahasiswa, m.nama, COUNT(sm.wkt_shalat) AS jmlm FROM mahasiswa m LEFT JOIN shalat_manual sm ON m.id_mahasiswa = sm.id_mahasiswa GROUP BY m.id_mahasiswa ORDER BY m.nama") or die(mysql_error());
+		$ambildata = mysql_query("SELECT m.id_mahasiswa, m.nama, p.nama AS pembina, COUNT(sm.wkt_shalat) AS jmlm FROM mahasiswa m LEFT JOIN shalat_manual sm ON m.id_mahasiswa = sm.id_mahasiswa LEFT JOIN m_binaan mb ON m.id_mahasiswa = mb.id_mahasiswa LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina GROUP BY m.id_mahasiswa ORDER BY m.nama") or die(mysql_error());
+		if (mysql_num_rows($ambildata) > 0) {
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;
+		} else{
+			echo "<div class='alert alert-warning alert-dismissibl' role='alert'>
+							<button type='button' class='close' data-dismiss='alert' aria-label='Close'></button>
+							Belum Ada Pengajuan Presensi Shalat Manual
+						</div>";
+		}		
+	}		
+
+	function tampilShalatManualDetailByMhsAdminmatrik($idMahasiswa){
+		$ambildata = mysql_query("SELECT sm.tanggal, sm.wkt_shalat, sm.keterangan, sm.diajukan, sm.disetujui FROM shalat_manual sm WHERE sm.id_mahasiswa = $idMahasiswa ORDER BY sm.diajukan DESC") or die(mysql_error());
 		if (mysql_num_rows($ambildata) > 0) {
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;

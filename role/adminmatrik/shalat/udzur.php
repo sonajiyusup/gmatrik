@@ -68,6 +68,7 @@
                                 <tr>
                                   <th>#</th>
                                   <th>Nama Mahasiswa</th>
+                                  <th>Pembina</th>
                                   <th>Jumlah Udzur</th>
                                 </tr>
                               </thead>
@@ -82,6 +83,7 @@
                                 <tr>
                                   <td><?php echo $no; ?></td>
                                   <td><?php echo '<a href="?page=udzursltdetail&m='.$row['id_mahasiswa'].'">'.$row['nama'].'</a>' ?></td>
+                                  <td><?php echo $row['pembina']; ?></td>
                                   <td><?php echo $row['jmlu']; ?></td>
                                 </tr>
                                 <?php $no++; } } ?>

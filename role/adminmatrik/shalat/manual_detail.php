@@ -1,5 +1,7 @@
 <?php 
   include 'functions2.php';  
+  $idMahasiswa = $_GET['m'];
+  $namaMhs = tampilNamaMhs($idMahasiswa);
  ?>
 
 <div class="row clearfix">
@@ -7,8 +9,10 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <h2>GRAFIK JUMLAH PRESENSI MANUAL SHALAT WAJIB MAHASISWA
-                              <small>Berdasarkan 5 Mahasiswa dengan Jumlah Presensi Manual Tertinggi</small>
+                            <h2>
+                              <a href="?page=manualslt" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;
+                            GRAFIK JUMLAH PRESENSI MANUAL SHALAT WAJIB MAHASISWA
+                              <small>Berdasarkan Jenis Udzur</small>
                             </h2>
                         </div>
                         <div class="body">
@@ -27,15 +31,15 @@
                                       type: 'bar',
                                       data: {
                                           labels: [<?php
-                                                    $data = shalatManualAdminmatrikGraph();
+                                                    $data = shalatManualDetailByMhsAdminmatrikGraph($idMahasiswa);
                                                     foreach ($data as $row){
-                                                     echo '"'.$row['nama'].'",';
+                                                     echo '"'.ucwords($row['wkt_shalat']).'",';
                                                     }
                                                   ?>],
                                           datasets: [{
-                                              label: "Jumlah Presensi Manual",
+                                              label: "Jumlah Udzur",
                                               data: [<?php
-                                                    $dataNilai = shalatManualAdminmatrikGraph();
+                                                    $dataNilai = shalatManualDetailByMhsAdminmatrikGraph($idMahasiswa);
                                                     foreach ($dataNilai as $row){
                                                      echo '"'.$row['jmlm'].'",';
                                                     }
@@ -58,33 +62,37 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                          <h2>DAFTAR PRESENSI MANUAL SHALAT WAJIB MAHASISWA<br>
-                          <small>Berdasarkan Mahasiswa</small></h2>
+                          <h2>DAFTAR JUMLAH PRESENSI MANUAL SHALAT WAJIB MAHASISWA<br>
+                          <small>Mahasiswa : <?php foreach($namaMhs as $row){ echo $row['nama']; }?></small></h2>
                         </div>
                         <div class="body">                               
                           <div class="table-responsive">
-                            <table id="tableManual" class="table table-hover table-condensed">
+                            <table id="tableManualDetail" class="table table-hover table-condensed">
                               <thead>
                                 <tr>
                                   <th>#</th>
-                                  <th>Nama Mahasiswa</th>
-                                  <th>Pembina</th>
-                                  <th>Jumlah Presensi Manual Shalat Wajib</th>
+                                  <th>Hari/Tanggal</th>
+                                  <th>Waktu Shalat</th>
+                                  <th>Keterangan</th>
+                                  <th>Diajukan</th>
+                                  <th>Status</th>
                                 </tr>
                               </thead>
                               <tbody>
                                 <?php 
                                   
-                                  $dataManual = tampilShalatManualAdminmatrik();
+                                  $dataManual = tampilShalatManualDetailByMhsAdminmatrik($idMahasiswa);
                                   $no = 1;
                                   if (is_array($dataManual) || is_object($dataManual)){
                                     foreach($dataManual as $row){
                                  ?>
                                 <tr>
                                   <td><?php echo $no; ?></td>
-                                  <td><?php echo '<a href="?page=manualsltdetail&m='.$row['id_mahasiswa'].'">'.$row['nama'].'</a>' ?></td>
-                                  <td><?php echo $row['pembina']; ?></td>
-                                  <td><?php echo $row['jmlm']; ?></td>
+                                  <td><?php echo $row['tanggal']; ?></td>
+                                  <td><?php echo ucwords($row['wkt_shalat']); ?></td>
+                                  <td><?php echo $row['keterangan']; ?></td>
+                                  <td><?php echo $row['diajukan']; ?></td>
+                                  <td><?php echo $row['disetujui']; ?></td>
                                 </tr>
                                 <?php $no++; } } ?>
                               </tbody> 
@@ -98,6 +106,6 @@
 
     <script>
     $(document).ready(function() {
-      var t = $('#tableManual').DataTable({});
+      var t = $('#tableManualDetail').DataTable({});
     } );
     </script> 
