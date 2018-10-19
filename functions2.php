@@ -61,6 +61,42 @@
 		}		
 	}
 
+	function tampilUdzurShalatAdminmatrik(){
+		$ambildata = mysql_query("SELECT m.id_mahasiswa, m.nama, COUNT(su.wkt_shalat) AS jmlu FROM mahasiswa m LEFT JOIN shalat_udzur2 su ON m.id_mahasiswa = su.id_mahasiswa GROUP BY m.id_mahasiswa ORDER BY m.nama") or die(mysql_error());
+		if (mysql_num_rows($ambildata) > 0) {
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;
+		} else{
+			echo "<div class='alert alert-warning alert-dismissibl' role='alert'>
+							<button type='button' class='close' data-dismiss='alert' aria-label='Close'></button>
+							Belum Ada Pengajuan Udzur Shalat
+						</div>";
+		}		
+	}	
+
+	function shalatUdzurAdminmatrikGraph(){
+		$ambildata = mysql_query("SELECT m.id_mahasiswa, m.nama, COUNT(su.wkt_shalat) AS jmlu FROM mahasiswa m LEFT JOIN shalat_udzur2 su ON m.id_mahasiswa = su.id_mahasiswa GROUP BY m.id_mahasiswa ORDER BY jmlu DESC LIMIT 5") or die(mysql_error());
+
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;			
+	}	
+
+	function tampilShalatManualAdminmatrik(){
+		$ambildata = mysql_query("SELECT m.id_mahasiswa, m.nama, COUNT(sm.wkt_shalat) AS jmlm FROM mahasiswa m LEFT JOIN shalat_manual sm ON m.id_mahasiswa = sm.id_mahasiswa GROUP BY m.id_mahasiswa") or die(mysql_error());
+		if (mysql_num_rows($ambildata) > 0) {
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;
+		} else{
+			echo "<div class='alert alert-warning alert-dismissibl' role='alert'>
+							<button type='button' class='close' data-dismiss='alert' aria-label='Close'></button>
+							Belum Ada Pengajuan Presensi Shalat Manual
+						</div>";
+		}		
+	}		
+
 	function tampilShalatManualDetailByMhsByDay($idMahasiswa, $tgl){
 		$tgl_ = date('Y-m-d', strtotime($tgl));
 		$ambildata = mysql_query("SELECT sm.id_manual, sm.id_mahasiswa, sm.tanggal, sm.wkt_shalat, sm.keterangan, sm.disetujui FROM shalat_manual sm WHERE sm.id_mahasiswa = $idMahasiswa AND sm.tanggal = '$tgl_' ORDER BY sm.diajukan DESC") or die(mysql_error());
