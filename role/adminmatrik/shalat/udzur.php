@@ -81,7 +81,7 @@
                                  ?>
                                 <tr>
                                   <td><?php echo $no; ?></td>
-                                  <td><?php echo $row['nama']; ?></td>
+                                  <td><?php echo '<a href="?page=udzursltdetail&m='.$row['id_mahasiswa'].'">'.$row['nama'].'</a>' ?></td>
                                   <td><?php echo $row['jmlu']; ?></td>
                                 </tr>
                                 <?php $no++; } } ?>
