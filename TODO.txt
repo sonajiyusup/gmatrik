@@ -137,19 +137,19 @@ DOING
 
 - create presensi manual page on role pembina
 - add presensi manual on shalat calculation query
-	- by mahasiswa
+	- by mahasiswa DONE
 		- detail
 		- by period
 		- by day
-	- by ikhwan/akhwat
+	- by ikhwan/akhwat DONE
 		- detail
 		- by period
 		- by day
-	- by pembina
+	- by pembina DONE
 		- detail
 		- by period
 		- by day
-	- by waktu shalat
+	- by waktu shalat DONE
 		- detail
 		- by period
 		- by day
