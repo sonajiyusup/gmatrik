@@ -92,7 +92,7 @@
                                   <td><?php echo ucwords($row['wkt_shalat']); ?></td>
                                   <td><?php echo $row['keterangan']; ?></td>
                                   <td><?php echo date('d/m/Y g:i a', strtotime($row['diajukan'])); ?></td>
-                                  <td><?php if($row['disetujui'] == 1){echo '<label class="badge bg-green">Sudah di Setujui<label>'; }else if($row['disetujui'] == 2){echo '<label class="badge bg-red">di Tolak<label>';} ?></td>
+                                  <td><?php if($row['disetujui'] == 1){echo '<label class="badge bg-green">Sudah di Setujui Pembina<label>'; }else if($row['disetujui'] == 2){echo '<label class="badge bg-red">di Tolak Pembina<label>';} ?></td>
                                 </tr>
                                 <?php $no++; } } ?>
                               </tbody> 
