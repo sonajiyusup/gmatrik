@@ -63,10 +63,13 @@
                                 <tr>
                                   <th>#</th>
                                   <th>Waktu Shalat</th>
+                                  <th>Fingerprint</th>
+                                  <th>Manual</th>
                                   <th>Total</th>
-                                  <th>Dispensasi</th>
-                                  <th>Jml Udzur</th>
-                                  <th>Max Jml Shalat</th>
+                                  <th>Jml Hari</th>
+                                  <th>Dispensasi Pulang</th>
+                                  <th>Udzur</th>
+                                  <th>Target</th>
                                   <th>Nilai</th>
                                 </tr>
                               </thead>
@@ -79,7 +82,10 @@
                                 <tr>
                                   <td><?php echo $no; ?></td>
                                   <td><?php echo '<a href="?page=shalatwdetail&w='.$row['wkt_shalat'].'">'.ucfirst($row['wkt_shalat']).'</a>' ?></td>
+                                  <td><?php echo $row['fingerprint']; ?></td>
+                                  <td><?php echo $row['manual']; ?></td>
                                   <td><?php echo $row['total']; ?></td>
+                                  <td><?php echo $row['jtgl']; ?></td>
                                   <td><?php echo $row['jplg']; ?></td>
                                   <td><?php echo $row['jmlu']; ?></td>
                                   <td><?php echo $row['target2']; ?></td>

@@ -1883,12 +1883,16 @@ JOIN (
 
 
 -- shalat by waktu shalat ikhtisar (WORK)
-SELECT s.wkt_shalat, COUNT(s.wkt_tapping) AS total, t.jtgl, h.jmhs,
+SELECT s.wkt_shalat, 
+COUNT(s.wkt_tapping) AS fingerprint, 
+IF(ma.jmlm IS NULL, 0, ma.jmlm) AS manual,
+COUNT(s.wkt_tapping)+IF(ma.jmlm IS NULL, 0, ma.jmlm) AS total,
+t.jtgl, h.jmhs,
 (t.jtgl*h.jmhs) AS target1,
 (p.jplg*h.jmhs) AS jplg,
 u.jmlu,
 (t.jtgl*h.jmhs)-(p.jplg*h.jmhs)-u.jmlu AS target2,
-ROUND(((((COUNT(s.wkt_tapping))/((t.jtgl*h.jmhs)-(p.jplg*h.jmhs)-u.jmlu))*100)),2) AS nilai
+ROUND((((((COUNT(s.wkt_tapping)+IF(ma.jmlm IS NULL, 0, ma.jmlm)))/((t.jtgl*h.jmhs)-(p.jplg*h.jmhs)-u.jmlu))*100)),2) AS nilai
 FROM shalat s
 JOIN (
     SELECT DATEDIFF(MAX(s.tanggal),MIN(s.tanggal))+1 AS jtgl
@@ -1909,6 +1913,12 @@ LEFT JOIN (
     WHERE su.disetujui = 1
     GROUP BY su.wkt_shalat
 ) u ON s.wkt_shalat = u.wkt_shalat
+LEFT JOIN (
+    SELECT sm.wkt_shalat, COUNT(sm.wkt_shalat) AS jmlm
+    FROM shalat_manual sm 
+    WHERE sm.disetujui = 1
+    GROUP BY sm.wkt_shalat
+) ma ON s.wkt_shalat = ma.wkt_shalat
 GROUP BY s.wkt_shalat
 ORDER BY s.wkt_tapping
 
