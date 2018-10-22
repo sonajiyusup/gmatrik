@@ -1512,7 +1512,7 @@ t.jtgl*5 As target1,
 p.jplg, 
 IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
 (t.jtgl*5)-(p.jplg+IF(u.jmlu IS NULL, 0, u.jmlu)) AS target2,
-ROUND(((sh.total/((t.jtgl*5)-(p.jplg+IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai
+ROUND((((sh.total+IF(sm.jmlm IS NULL, 0, sm.jmlm))/((t.jtgl*5)-(p.jplg+IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai
 FROM mahasiswa m
 LEFT JOIN (
     SELECT s.id_mahasiswa, COUNT(s.wkt_tapping) AS total

@@ -69,9 +69,9 @@
                                   <th>Ikhwan/Akhwat</th>
                                   <th>Total</th>
                                   <th>Jml Mahasiswa</th>
-                                  <th>Jml Udzur</th>
-                                  <th>Dispensasi</th>
-                                  <th>Maks Jml Shalat</th>
+                                  <th>Udzur</th>
+                                  <th>Dispensasi Pulang</th>
+                                  <th>Target</th>
                                   <th>Nilai</th>
                                 </tr>
                               </thead>
