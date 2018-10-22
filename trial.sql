@@ -1505,7 +1505,9 @@ JOIN (
 ------------------------------------------------------------- SHALAT BY MAHASISWA ------------------------------------------------------------
 
 -- shalat by mahasiswa NEW (WORK)
-SELECT m.nama, m.j_kelamin, sh.total, t.jtgl, 
+SELECT m.nama, m.j_kelamin, sh.total, 
+IF(sm.jmlm IS NULL, 0, sm.jmlm) AS manual,
+t.jtgl, 
 t.jtgl*5 As target1, 
 p.jplg, 
 IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
@@ -1532,6 +1534,12 @@ LEFT JOIN (
     WHERE su.disetujui = 1
     GROUP BY su.id_mahasiswa
 ) u ON m.id_mahasiswa = u.id_mahasiswa
+LEFT JOIN (
+    SELECT sm.id_mahasiswa, COUNT(sm.wkt_shalat) AS jmlm
+    FROM shalat_manual sm 
+    WHERE sm.disetujui = 1
+    GROUP BY sm.id_mahasiswa
+) sm ON m.id_mahasiswa = sm.id_mahasiswa
 ORDER BY m.nama
 
 -- BEST 5 halat by mahasiswa NEW GRAPH (WORK)

@@ -70,7 +70,8 @@
                                   <th>Nama</th>
                                   <th>Ikhwan/Akhwat</th>
                                   <th>Total</th>
-                                  <th>Dispensasi</th>
+                                  <th>Manual</th>
+                                  <th>Dispensasi Pulang</th>
                                   <th>Udzur</th>
                                   <th>Target</th>
                                   <th>Nilai</th>
@@ -84,9 +85,10 @@
                                  ?>
                                 <tr>
                                   <td><?php echo $no; ?></td>
-                                  <td><?php echo '<a href="?page=shalatmdetail&id='.$row['id_mahasiswa'].'">'.$row['nama'].'</a>' ?></td>
+                                  <td><?php echo '<a href="?page=shalatmdetail&id='.$row['id_mahasiswa'].'">'.$row['nama'].'</a>'; ?></td>
                                   <td><?php echo $row['j_kelamin']; ?></td>
                                   <td><?php echo $row['total']; ?></td>
+                                  <td><?php echo $row['manual']; ?></td>
                                   <td><?php echo $row['jplg']; ?></td>
                                   <td><?php echo $row['jmlu']; ?></td>
                                   <td><?php echo $row['target2']; ?></td>
