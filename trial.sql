@@ -571,13 +571,17 @@ GROUP BY su.id_mahasiswa
 
 
 -- shalat wajib berdasarkan ikhwan/akhwat versi j_pulang2 + shalat_udzur2 (WORK !, LIGHTER)
-SELECT m.j_kelamin, COUNT(s.wkt_tapping) AS total, h.jmhs, d.jhari,
-h.jmhs*d.jhari*5 AS target_awal,
+SELECT m.j_kelamin, h.jmhs, 
+COUNT(s.wkt_tapping) AS fingerprint, 
+mn.manual, 
+COUNT(s.wkt_tapping)+mn.manual AS total,
+d.jhari,
+h.jmhs*d.jhari*5 AS target1,
 j.jwsp*h.jmhs AS jplg,
 IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
-(j.jwsp*h.jmhs)+(IF(u.jmlu IS NULL, 0, u.jmlu)) AS total_dispen,
-(h.jmhs*d.jhari*5)-((j.jwsp*h.jmhs)+(IF(u.jmlu IS NULL, 0, u.jmlu))) AS target_akhir,
-ROUND(((COUNT(s.wkt_tapping)/((h.jmhs*d.jhari*5)-((j.jwsp*h.jmhs)+(IF(u.jmlu IS NULL, 0, u.jmlu)))))*100),2) AS nilai
+(j.jwsp*h.jmhs)+(IF(u.jmlu IS NULL, 0, u.jmlu)) AS totalu,
+(h.jmhs*d.jhari*5)-((j.jwsp*h.jmhs)+(IF(u.jmlu IS NULL, 0, u.jmlu))) AS target2,
+ROUND((((COUNT(s.wkt_tapping)+mn.manual)/((h.jmhs*d.jhari*5)-((j.jwsp*h.jmhs)+(IF(u.jmlu IS NULL, 0, u.jmlu)))))*100),2) AS nilai
 FROM mahasiswa m
 LEFT JOIN shalat s ON m.id_mahasiswa = s.id_mahasiswa
 LEFT JOIN (
@@ -600,6 +604,18 @@ LEFT JOIN (
     LEFT JOIN mahasiswa m ON su.id_mahasiswa = m.id_mahasiswa
     WHERE su.disetujui = 1
 ) u ON m.j_kelamin = u.j_kelamin
+LEFT JOIN (
+    SELECT m.j_kelamin, IF(ma.jmlm IS NULL, 0, ma.jmlm) AS manual
+    FROM mahasiswa m 
+    LEFT JOIN (
+        SELECT m.j_kelamin, COUNT(sm.wkt_shalat) AS jmlm
+        FROM mahasiswa m 
+        LEFT JOIN shalat_manual sm ON m.id_mahasiswa = sm.id_mahasiswa
+        WHERE sm.disetujui = 1
+        GROUP BY m.j_kelamin
+    ) ma ON m.j_kelamin = ma.j_kelamin
+    GROUP BY m.j_kelamin    
+) mn ON m.j_kelamin = mn.j_kelamin
 GROUP BY m.j_kelamin
 
 
