@@ -88,11 +88,11 @@
                                  ?>
                                 <tr>
                                   <td><?php echo $no; ?></td>
-                                  <td><?php echo $row['tanggal']; ?></td>
+                                  <td><?php echo date('l - d M Y', strtotime($row['tanggal'])); ?></td>
                                   <td><?php echo ucwords($row['wkt_shalat']); ?></td>
                                   <td><?php echo $row['keterangan']; ?></td>
-                                  <td><?php echo $row['diajukan']; ?></td>
-                                  <td><?php echo $row['disetujui']; ?></td>
+                                  <td><?php echo date('d/m/Y g:i a', strtotime($row['diajukan'])); ?></td>
+                                  <td><?php if($row['disetujui'] == 1){echo '<label class="badge bg-green">Sudah di Setujui<label>'; }else if($row['disetujui'] == 2){echo '<label class="badge bg-red">di Tolak<label>';} ?></td>
                                 </tr>
                                 <?php $no++; } } ?>
                               </tbody> 
