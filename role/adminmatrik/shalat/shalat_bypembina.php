@@ -71,10 +71,14 @@
                                   <th>#</th>
                                   <th>Nama Pembina</th>
                                   <th>Ikhwan/Akhwat</th>
-                                  <th>Total</th>
                                   <th>Jml Binaan</th>
-                                  <th>Jml Udzur</th>
-                                  <th>Maks</th>
+                                  <th>Fingerprint</th>
+                                  <th>Manual</th>
+                                  <th>Total</th>
+                                  <th>Jml Hari</th>
+                                  <th>Udzur</th>
+                                  <th>Dispensasi Pulang</th>
+                                  <th>Target</th>
                                   <th>Nilai</th>
                                 </tr>
                               </thead>
@@ -86,11 +90,15 @@
                                  ?>
                                 <tr>
                                   <td><?php echo $no; ?></td>
-                                  <td><?php echo '<a href="?page=shalatbpembinadetail&id='.$row['id_pembina'].'">'.$row['pembina'].'</a>';  ?></td>
+                                  <td><?php echo '<a href="?page=shalatbpembinadetail&id='.$row['id_pembina'].'">'.$row['nama'].'</a>';  ?></td>
                                   <td><?php if($row['j_kelamin'] == 'Ikhwan' || $row['j_kelamin'] == 'Laki-laki'){echo '<span class="label bg-light-blue">Ikhwan</span>';} else if($row['j_kelamin'] == 'Akhwat' || $row['j_kelamin'] == 'Perempuan'){echo '<span class="label bg-pink">Akhwat</span>';} ?></td>
-                                  <td><?php echo $row['total']; ?></td>
                                   <td><?php echo $row['jmlb']; ?></td>
+                                  <td><?php echo $row['fingerprint']; ?></td>
+                                  <td><?php echo $row['manual']; ?></td>
+                                  <td><?php echo $row['total']; ?></td>
+                                  <td><?php echo $row['jhari']; ?></td>
                                   <td><?php echo $row['jmlu']; ?></td>
+                                  <td><?php echo $row['jplg']; ?></td>
                                   <td><?php echo $row['target2']; ?></td>
                                   <td><?php echo $row['nilai']; ?></td>
                                 </tr>
