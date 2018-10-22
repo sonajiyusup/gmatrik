@@ -1505,7 +1505,7 @@ JOIN (
 ------------------------------------------------------------- SHALAT BY MAHASISWA ------------------------------------------------------------
 
 -- shalat by mahasiswa NEW (WORK)
-SELECT m.nama, m.j_kelamin, sh.total, 
+SELECT m.id_mahasiswa, m.nama, m.j_kelamin, sh.total, 
 IF(sm.jmlm IS NULL, 0, sm.jmlm) AS manual,
 t.jtgl, 
 t.jtgl*5 As target1, 
