@@ -1242,17 +1242,18 @@ LEFT JOIN (
 ) uz ON p.id_pembina = uz.id_pembina
 GROUP BY p.id_pembina
 
--- shalat by pembina detail LENGKAP (WORK)
+-- shalat by pembina detail LENGKAP With Manual (WORK)
 SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, 
 d.jhari, t.j_kelamin,
-COUNT(s.wkt_shalat) AS 'total', 
+COUNT(s.wkt_shalat) AS fingerprint, 
+IF(ma.jmlm IS NULL, 0, ma.jmlm) AS manual,
+COUNT(s.wkt_shalat)+IF(ma.jmlm IS NULL, 0, ma.jmlm) AS total,
 j.jmlb,
 j.jmlb*d.jhari*5 AS target1,
-(COUNT(s.wkt_shalat)/(j.jmlb*d.jhari*5))*100 AS nilai1,
 j.jmlb*(CASE WHEN t.j_kelamin = 'Akhwat' THEN (IF(a.jplg IS NULL, 0, a.jplg)) ELSE (IF(i.jplg IS NULL, 0, i.jplg)) END) AS jplg,
 IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
 (j.jmlb*d.jhari*5)-((j.jmlb*(CASE WHEN t.j_kelamin = 'Akhwat' THEN (IF(a.jplg IS NULL, 0, a.jplg)) ELSE (IF(i.jplg IS NULL, 0, i.jplg)) END))+IF(u.jmlu IS NULL, 0, u.jmlu)) AS target2,
-ROUND(((COUNT(s.wkt_shalat)/((j.jmlb*d.jhari*5)-((j.jmlb*(CASE WHEN t.j_kelamin = 'Akhwat' THEN (IF(a.jplg IS NULL, 0, a.jplg)) ELSE (IF(i.jplg IS NULL, 0, i.jplg)) END))+IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai
+ROUND((((COUNT(s.wkt_shalat)+IF(ma.jmlm IS NULL, 0, ma.jmlm))/((j.jmlb*d.jhari*5)-((j.jmlb*(CASE WHEN t.j_kelamin = 'Akhwat' THEN (IF(a.jplg IS NULL, 0, a.jplg)) ELSE (IF(i.jplg IS NULL, 0, i.jplg)) END))+IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai
 FROM shalat_periode sp 
 LEFT JOIN shalat s ON sp.id_periode = s.id_periode 
 LEFT JOIN ( 
@@ -1266,7 +1267,7 @@ LEFT JOIN (
     FROM m_binaan mb 
     LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa 
     LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina 
-    WHERE mb.id_pembina = 34 
+    WHERE mb.id_pembina = 16
     GROUP BY p.nama 
 ) j ON t.id_pembina = j.id_pembina 
 LEFT JOIN (
@@ -1293,10 +1294,18 @@ LEFT JOIN (
     LEFT JOIN mahasiswa m ON su.id_mahasiswa = m.id_mahasiswa
     LEFT JOIN m_binaan mb ON m.id_mahasiswa = mb.id_mahasiswa
     LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina
-    WHERE p.id_pembina = 34 AND su.disetujui = 1
+    WHERE p.id_pembina = 16 AND su.disetujui = 1
     GROUP BY su.id_periode    
 ) u ON sp.id_periode = u.id_periode
-WHERE t.id_pembina = 34 
+LEFT JOIN (
+    SELECT sp.id_periode, COUNT(sm.wkt_shalat) AS jmlm
+    FROM shalat_manual sm
+    LEFT JOIN shalat_periode sp ON sm.tanggal BETWEEN sp.tanggal_dari AND sp.tanggal_sampai
+    LEFT JOIN m_binaan mb ON sm.id_mahasiswa = mb.id_mahasiswa
+    WHERE mb.id_pembina = 16 AND sm.disetujui = 1
+    GROUP BY sp.id_periode    
+) ma ON sp.id_periode = ma.id_periode
+WHERE t.id_pembina = 16
 GROUP BY sp.id_periode 
 ORDER BY sp.id_periode
 
