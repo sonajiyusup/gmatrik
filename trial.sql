@@ -1529,7 +1529,7 @@ JOIN (
 
 ------------------------------------------------------------- SHALAT BY MAHASISWA ------------------------------------------------------------
 
--- shalat by mahasiswa NEW (WORK)
+-- shalat by mahasiswa NEW With Manual (WORK)
 SELECT m.id_mahasiswa, m.nama, m.j_kelamin, sh.total AS fingerprint, 
 IF(sm.jmlm IS NULL, 0, sm.jmlm) AS manual,
 sh.total+IF(sm.jmlm IS NULL, 0, sm.jmlm) AS total,
@@ -1603,21 +1603,23 @@ FROM (
 ) a
 
 
--- shalat by mahasiswa detail NEW (WORK)
+-- shalat by mahasiswa detail NEW With Manual (WORK)
 SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, 
-sh.total,
+sh.total AS fingerprint,
+IF(ma.jmlm IS NULL, 0, ma.jmlm) AS manual,
+sh.total+IF(ma.jmlm IS NULL, 0, ma.jmlm) AS total,
 DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1 AS jtgl,
 (DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*5 AS target1,
 IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)) AS jplg,
 IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
 ((DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*5)-(IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)))-(IF(u.jmlu IS NULL, 0, u.jmlu)) AS target2,
-ROUND((((sh.total)/(((DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*5)-(IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)))-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai
+ROUND(((((sh.total+IF(ma.jmlm IS NULL, 0, ma.jmlm)))/(((DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*5)-(IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)))-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai
 FROM shalat_periode sp
 LEFT JOIN (
     SELECT s.id_periode, COUNT(s.wkt_tapping) AS total, m.j_kelamin, m.id_mahasiswa
     FROM shalat s
     LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa
-    WHERE m.id_mahasiswa = 1432
+    WHERE m.id_mahasiswa = 2345
     GROUP BY s.id_periode
 ) sh ON sp.id_periode = sh.id_periode
 LEFT JOIN (
@@ -1635,9 +1637,16 @@ LEFT JOIN (
 LEFT JOIN (
     SELECT su.id_periode, COUNT(su.wkt_shalat) AS jmlu
     FROM shalat_udzur2 su 
-    WHERE su.disetujui = 1 AND su.id_mahasiswa = 1432
+    WHERE su.disetujui = 1 AND su.id_mahasiswa = 2345
     GROUP BY su.id_periode
 ) u ON sh.id_periode = u.id_periode
+LEFT JOIN (
+    SELECT sp.id_periode, COUNT(sm.wkt_shalat) AS jmlm
+    FROM shalat_manual sm
+    LEFT JOIN shalat_periode sp ON sm.tanggal BETWEEN sp.tanggal_dari AND sp.tanggal_sampai
+    WHERE sm.id_mahasiswa = 2345
+    GROUP BY sp.id_periode    
+) ma ON sp.id_periode = ma.id_periode
 
 -- shalat by mahasiswa detail percentage (WORK)
 SELECT a.nilai AS a, b.nilai AS b, 
