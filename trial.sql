@@ -619,14 +619,17 @@ LEFT JOIN (
 GROUP BY m.j_kelamin
 
 
--- shalat wajib berdasarkan ikhwan/akhwat detail (WORK)
-SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, d.jhari, m.jml, sh.total,
+-- shalat wajib berdasarkan ikhwan/akhwat detail With Shalat Manual (WORK)
+SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, d.jhari, m.jml AS jmhs, 
+sh.total AS fingerprint,
+IF(ma.jmlm IS NULL, 0, ma.jmlm) AS manual,
+sh.total+IF(ma.jmlm IS NULL, 0, ma.jmlm) AS total,
 d.jhari*m.jml*5 AS target1,
 IF(j.jplg IS NULL, 0, j.jplg) AS jplg,
 m.jml*(IF(j.jplg IS NULL, 0, j.jplg)) AS total_jplg,
 IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
 (d.jhari*m.jml*5)-(m.jml*(IF(j.jplg IS NULL, 0, j.jplg)))-(IF(u.jmlu IS NULL, 0, u.jmlu)) AS target2,
-ROUND((((sh.total)/((d.jhari*m.jml*5)-(m.jml*(IF(j.jplg IS NULL, 0, j.jplg)))-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai
+ROUND(((((sh.total+IF(ma.jmlm IS NULL, 0, ma.jmlm)))/((d.jhari*m.jml*5)-(m.jml*(IF(j.jplg IS NULL, 0, j.jplg)))-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai
 FROM shalat_periode sp
 LEFT JOIN (
     SELECT sp.id_periode, DATEDIFF(sp.tanggal_sampai, sp.tanggal_dari)+1 AS jhari
@@ -657,6 +660,14 @@ LEFT JOIN (
     WHERE su.disetujui = 1 AND m.j_kelamin = 'Akhwat'
     GROUP BY su.id_periode
 ) u ON sp.id_periode = u.id_periode
+LEFT JOIN (
+    SELECT sp.id_periode, COUNT(sm.wkt_shalat) AS jmlm
+    FROM shalat_manual sm
+    LEFT JOIN shalat_periode sp ON sm.tanggal BETWEEN sp.tanggal_dari AND sp.tanggal_sampai
+    LEFT JOIN mahasiswa m ON sm.id_mahasiswa = m.id_mahasiswa
+    WHERE m.j_kelamin = 'Akhwat' AND sm.disetujui = 1
+    GROUP BY sp.id_periode
+) ma ON sp.id_periode = ma.id_periode
 
 
 -- shalat wajib berdasarkan ikhwan/akhwat detail percentage (WORK)
