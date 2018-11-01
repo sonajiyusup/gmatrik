@@ -160,10 +160,12 @@
                                 <tr>
                                   <th>ID</th>
                                   <th>Periode</th>
+                                  <th>Fingerprint</th>
+                                  <th>Manual</th>
                                   <th>Total</th>
-                                  <th>Dispensasi</th>
-                                  <th>Jml Udzur</th>
-                                  <th>Maks Jml Shalat</th>
+                                  <th>Dispensasi Pulang</th>
+                                  <th>Udzur</th>
+                                  <th>Target</th>
                                   <th>Nilai</th>
                                 </tr>
                               </thead>
@@ -175,6 +177,8 @@
                                 <tr>
                                   <td><?php echo $row['id_periode']; ?></td>
                                   <td><?php echo '<a href="?page=shalatmbyperiod&p='.$row['id_periode'].'&m='.$idMhs.'">'.date('d M Y', strtotime($row['tanggal_dari']))." - ".date('d M Y', strtotime($row['tanggal_sampai'])).'</a>'; ?></td>
+                                  <td><?php echo $row['fingerprint']; ?></td>
+                                  <td><?php echo $row['manual']; ?></td>
                                   <td><?php echo $row['total']; ?></td>
                                   <td><?php echo $row['jplg']; ?></td>
                                   <td><?php echo $row['jmlu']; ?></td>
