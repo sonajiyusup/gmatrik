@@ -1911,7 +1911,7 @@ JOIN (
 ------------------------------------------------------------- SHALAT BY WAKTU SHALAT ------------------------------------------------------------
 
 
--- shalat by waktu shalat ikhtisar (WORK)
+-- shalat by waktu shalat ikhtisar with Manual (WORK)
 SELECT s.wkt_shalat, 
 COUNT(s.wkt_tapping) AS fingerprint, 
 IF(ma.jmlm IS NULL, 0, ma.jmlm) AS manual,
@@ -1952,9 +1952,11 @@ GROUP BY s.wkt_shalat
 ORDER BY s.wkt_tapping
 
 
--- shalat by waktu shalat detail (WORK)
+-- shalat by waktu shalat detail With Manual (WORK)
 SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, 
-sh.total,
+sh.total AS fingerprint,
+IF(ma.jmlm IS NULL, 0, ma.jmlm) AS manual,
+sh.total+IF(ma.jmlm IS NULL, 0, ma.jmlm) AS total,
 DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1 AS jtgl,
 h.jmhs,
 (DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*h.jmhs As target1,
@@ -1964,7 +1966,7 @@ IF(j.jplg IS NULL, 0, j.jplg) AS jplg,
 (IF(p.id_periode IS NULL, 0, (CASE WHEN p.j_kelamin = 'Akhwat' THEN a.plg ELSE i.plg END)))*IF(j.jplg IS NULL, 0, j.jplg) AS total_jplg,
 IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
 (((DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*h.jmhs)-((IF(p.id_periode IS NULL, 0, (CASE WHEN p.j_kelamin = 'Akhwat' THEN a.plg ELSE i.plg END)))*IF(j.jplg IS NULL, 0, j.jplg))-(IF(u.jmlu IS NULL, 0, u.jmlu))) AS target2,
-ROUND((((sh.total)/(((DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*h.jmhs)-((IF(p.id_periode IS NULL, 0, (CASE WHEN p.j_kelamin = 'Akhwat' THEN a.plg ELSE i.plg END)))*IF(j.jplg IS NULL, 0, j.jplg))-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai
+ROUND(((((sh.total+IF(ma.jmlm IS NULL, 0, ma.jmlm)))/(((DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*h.jmhs)-((IF(p.id_periode IS NULL, 0, (CASE WHEN p.j_kelamin = 'Akhwat' THEN a.plg ELSE i.plg END)))*IF(j.jplg IS NULL, 0, j.jplg))-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai
 FROM shalat_periode sp
 LEFT JOIN (
     SELECT s.id_periode, COUNT(s.wkt_tapping) AS total
@@ -2003,6 +2005,13 @@ LEFT JOIN (
     WHERE su.wkt_shalat = 'dzuhur' AND su.disetujui = 1
     GROUP BY su.id_periode
 ) u ON sp.id_periode = u.id_periode
+LEFT JOIN (
+    SELECT sp.id_periode, COUNT(sm.wkt_shalat) AS jmlm
+    FROM shalat_manual sm
+    LEFT JOIN shalat_periode sp ON sm.tanggal BETWEEN sp.tanggal_dari AND sp.tanggal_sampai
+    WHERE sm.wkt_shalat = 'dzuhur' AND sm.disetujui = 1
+    GROUP BY sp.id_periode    
+) ma ON sp.id_periode = ma.id_periode
 
 -- shalat by waktu shalat detail percentage (WORK)
 SELECT a.nilai AS a, b.nilai AS b, 

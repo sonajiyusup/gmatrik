@@ -150,7 +150,7 @@ DOING
 		- by period
 		- by day
 	- by waktu shalat DONE
-		- detail
+		- detail DONE
 		- by period
 		- by day
 - add id column on each table simon.sql
