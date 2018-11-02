@@ -1783,20 +1783,22 @@ WHERE s.id_periode = 7 AND s.id_mahasiswa = 1179
 GROUP BY s.tanggal
 
 
--- shalat by mahasiswa detail by period (UNSOLVED MISS DATE)
+-- shalat by mahasiswa detail by period With Manual (WORK)
 SELECT s.tanggal, 
-IF(sh.total IS NULL, 0, sh.total) AS total, 
+IF(sh.total IS NULL, 0, sh.total) AS fingerprint, 
+IF(ma.jmlm IS NULL, 0, ma.jmlm) AS manual,
+IF(sh.total IS NULL, 0, sh.total)+IF(ma.jmlm IS NULL, 0, ma.jmlm) AS total,
 5 AS target1,
 IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)) AS jplg,
 IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
 ((5-(IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)))-(IF(u.jmlu IS NULL, 0, u.jmlu)))) AS target2,
-ROUND(((IF(sh.total IS NULL, 0, sh.total)/((5-(IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)))-(IF(u.jmlu IS NULL, 0, u.jmlu)))))*100),2) AS nilai
+ROUND((((IF(sh.total IS NULL, 0, sh.total)+IF(ma.jmlm IS NULL, 0, ma.jmlm))/((5-(IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)))-(IF(u.jmlu IS NULL, 0, u.jmlu)))))*100),2) AS nilai
 FROM shalat s
 LEFT JOIN (
     SELECT s.tanggal, COUNT(s.wkt_tapping) AS total, m.j_kelamin, m.id_mahasiswa
     FROM shalat s
     LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa
-    WHERE m.id_mahasiswa = 1179
+    WHERE m.id_mahasiswa = 2345
     GROUP BY s.tanggal
 ) sh ON s.tanggal = sh.tanggal
 LEFT JOIN (
@@ -1814,10 +1816,16 @@ LEFT JOIN (
 LEFT JOIN (
     SELECT su.tanggal, COUNT(su.wkt_shalat) AS jmlu
     FROM shalat_udzur2 su
-    WHERE su.id_mahasiswa = 1179 AND su.disetujui = 1
+    WHERE su.id_mahasiswa = 2345 AND su.disetujui = 1
     GROUP BY su.tanggal
 ) u ON s.tanggal = u.tanggal
-WHERE s.id_periode = 8
+LEFT JOIN (
+    SELECT sm.tanggal, COUNT(sm.wkt_shalat) AS jmlm
+    FROM shalat_manual sm 
+    WHERE sm.id_mahasiswa = 2345 AND sm.disetujui = 1
+    GROUP BY sm.tanggal
+) ma ON s.tanggal = ma.tanggal
+WHERE s.id_periode = 5
 GROUP BY s.tanggal
 
 
