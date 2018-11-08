@@ -174,8 +174,8 @@
                                   <th>Tanggal</th>
                                   <th>Fingerprint</th>
                                   <th>Manual</th>
-                                  <th>Dispensasi Pulang</th>
                                   <th>Total</th>
+                                  <th>Dispensasi Pulang</th>
                                   <th>Udzur</th>
                                   <th>Target</th>
                                   <th>Nilai</th>
