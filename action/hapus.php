@@ -40,5 +40,14 @@ include '../functions.php';
 
 	    hapusShalatManual($idManualSlt);
 	    header('location:/gmatrik/index.php?page=manualsltdetail&t='.$tgl.''); 
+	} else
+	if(isset($_GET['tjplg'])){
+		$wkt = $_GET['w'];
+		$tgl = $_GET['tjplg'];
+		$jKelamin = $_GET['j'];
+		$idPeriod = $_GET['p'];
+
+	    hapusjplgDetail($tgl, $wkt, $jKelamin);
+	    header('location:/gmatrik/index.php?page=jplgdetail&p='.$idPeriod.''); 
 	}
  ?>

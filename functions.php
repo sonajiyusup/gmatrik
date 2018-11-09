@@ -78,7 +78,7 @@
 	}	
 
 	function tampilJplg(){
-		$ambildata = mysql_query("SELECT jp.id_periode, jp.tanggal, jp.j_kelamin, GROUP_CONCAT(jp.wkt_shalat SEPARATOR ',') AS wkt, COUNT(jp.wkt_shalat) AS jws FROM j_pulang2 jp GROUP BY jp.tanggal ORDER BY jp.tanggal DESC") or die(mysql_error());
+		$ambildata = mysql_query("SELECT jp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, jp.j_kelamin, COUNT(jp.wkt_shalat) AS jws FROM j_pulang2 jp LEFT JOIN shalat_periode sp ON jp.id_periode = sp.id_periode GROUP BY jp.id_periode ORDER BY jp.id_periode DESC") or die(mysql_error());
 		if (mysql_num_rows($ambildata) > 0) {
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
@@ -437,6 +437,11 @@
 	function hapusShalatManual($idManual){
 		mysql_query("DELETE FROM shalat_manual WHERE id_manual = $idManual");
 	}			
+
+	function hapusjplgDetail($tgl, $wkt, $jKelamin){
+		$tgl_ = date('Y-m-d', strtotime($tgl));
+		mysql_query("DELETE FROM j_pulang2 WHERE tanggal = '$tgl_' AND wkt_shalat = '$wkt' AND j_kelamin = '$jKelamin'");
+	}		
 
 	function editPembina($idUser, $nama, $j_kelamin, $tgl_lahir, $gelar, $asalkota, $email, $telp){
 		mysql_query("UPDATE pembina SET nama = '$nama', j_kelamin = '$j_kelamin', tgl_lahir = '$tgl_lahir', gelar = '$gelar', asalkota = '$asalkota', email = '$email', telp = '$telp' WHERE id_user = $idUser ");

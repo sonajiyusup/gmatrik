@@ -16,10 +16,10 @@
                               <thead>
                                 <tr>
                                   <th>#</th>
-                                  <th>Hari - Tanggal</th>
+                                  <th>ID Periode</th>
                                   <th>Periode</th>
                                   <th>Ikhwan/Akhwat</th>
-                                  <th>Jumlah Waktu Shalat</th>
+                                  <th>Jumlah Dispensasi Waktu Shalat</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -30,7 +30,7 @@
                                  ?>
                                 <tr>
                                   <td><?php echo $no; ?></td>
-                                  <td><?php echo "<a href='?page=jplgdetail&t=".$row['tanggal']."'>".date('l - d M Y', strtotime($row['tanggal']))."</a>" ?></td>
+                                  <td><?php echo '<a href="?page=jplgdetail&p='.$row['id_periode'].'">'.date('d M Y', strtotime($row['tanggal_dari']))." - ".date('d M Y', strtotime($row['tanggal_sampai'])).'</a>'; ?></td>
                                   <td><?php echo $row['id_periode']; ?></td>
                                   <td><?php if($row['j_kelamin'] == 'Ikhwan' || $row['j_kelamin'] == 'Laki-laki'){echo '<span class="label bg-light-blue">Ikhwan</span>';} else if($row['j_kelamin'] == 'Akhwat' || $row['j_kelamin'] == 'Perempuan'){echo '<span class="label bg-pink">Akhwat</span>';} ?></td>
                                   <td><?php echo $row['jws']; ?></td>
@@ -51,7 +51,7 @@
                         <h4 class="modal-title" id="smallModalLabel">INPUT JADWAL PULANG MAHASISWA</h4>
                         </div>
                         <div class="modal-body">
-                                <input type="radio" id="radio_30" class="radiojk" name="gender" id="rdi" value="Ikhwan"/>
+                                <input type="radio" id="radio_30" class="radiojk" name="gender" id="rdi" value="Ikhwan" required />
                                 <label for="radio_30">IKHWAN</label>&nbsp;
                                 <input type="radio" id="radio_31" class="radiojk" name="gender" id="rda" value="Akhwat"/>
                                 <label for="radio_31">AKHWAT</label><br><br>   

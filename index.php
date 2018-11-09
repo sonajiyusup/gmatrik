@@ -401,6 +401,14 @@
                 $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
             });
         });  
+
+        //Modal Hapus Data Jadwal Pulang Detail
+        $(document).ready(function() {
+            $('#ModalHapusJplg').on('show.bs.modal', function(e) {
+                $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+            });
+        });
+
       </script>
 
 <script>

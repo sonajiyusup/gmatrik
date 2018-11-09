@@ -31,9 +31,8 @@
 		}		
 	}	
 
-	function tampilJplgDetail($tgl){
-		$tgl_ = date('Y-m-d', strtotime($tgl));
-		$ambildata = mysql_query("SELECT jp.tanggal, jp.id_periode, jp.j_kelamin, jp.wkt_shalat FROM j_pulang2 jp WHERE jp.tanggal = '$tgl_'") or die(mysql_error());
+	function tampilJplgDetail($idPeriod){
+		$ambildata = mysql_query("SELECT jp.tanggal, jp.id_periode, jp.j_kelamin, jp.wkt_shalat FROM j_pulang2 jp WHERE jp.id_periode = $idPeriod") or die(mysql_error());
 		if (mysql_num_rows($ambildata) > 0) {
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
