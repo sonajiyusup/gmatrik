@@ -83,23 +83,6 @@
                     </li>
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">import_contacts</i>
-                            <span>Tahsin/Tahfidz</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li>
-                                <a href="pages/forms/basic-form-elements.html">Ikhtisar</a>
-                            </li>
-                            <li>
-                                <a href="pages/forms/advanced-form-elements.html">...</a>
-                            </li>
-                            <li>
-                                <a href="pages/forms/form-examples.html">...</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">assignment</i>
                             <span>Ta'lim</span>
                         </a>
@@ -112,6 +95,75 @@
                             </li>
                             <li>
                                 <a href="pages/tables/editable-table.html">...</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">import_contacts</i>
+                            <span>Tahsin/Tahfidz</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="javascript:void(0);"><span>Ikhtisar</span></a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);"><span>Berdasar Mahasiswa</span></a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);"><span>Berdasar Tahsin</span></a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" class="menu-toggle">
+                                    <span>Hafalan Quran</span>
+                                </a>
+                                <ul class="ml-menu">
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <span>Berdasar Mahasiswa</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <span>Berdasar Juz</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <span>Berdasar Surah</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <span>Berdasar Jumlah Ayat</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" class="menu-toggle">
+                                    <span>Udzur</span>
+                                </a>
+                                <ul class="ml-menu">
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <span>Berdasar Mahasiswa</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <span>Berdasar Tahsin</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <span>Berdasar Udzur</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);"><span>Input Presensi Mahasiswa</span></a>
                             </li>
                         </ul>
                     </li>

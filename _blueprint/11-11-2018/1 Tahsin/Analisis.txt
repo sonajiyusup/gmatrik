@@ -1,3 +1,17 @@
-Presensi tahsin di-input oleh Pembina
-Jadwal Tahsin = Rutin tanpa harus dibuat oleh Admin Matrikulasi (Need to Confirm -> Adminmatrik)
-Nilai Tahsin berdasar jumlah presensi kehadiran
+- Jadwal Tahsin = Rutin tanpa harus dibuat oleh Admin Matrikulasi (Need to Confirm -> Adminmatrik)
+- Presensi tahsin di-input oleh Pembina
+- Standar Target minimal jumlah tahsin per-pekan adalah 10x (2x perhari -> Ba'da shubuh dan ba'da ashar)
+- Target bisa berkurang (karena Pembina udzur) dan bisa bertambah (tahsin tambahan/pengganti)
+- Nilai Tahsin berdasar jumlah presensi kehadiran
+
+- Jenis Tahsin : 
+1. Ba'da Shubuh
+2. Ba'da Ashar
+3. Tambahan/Pengganti
+
+- Level Tahsin (Khusus Akhwat) :
+1. Tahsin A (dibimbing oleh pembina tahsin A)
+2. Tahsin B (dibimbing oleh pembina tahsin B)
+3. Tahsin C (dibimbing oleh pembina tahsin C)
+
+Sedangkan untuk Ikhwan tidak ada level tahsin, mahasiswa tahsin dibimbing oleh pembina masing2
