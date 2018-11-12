@@ -1,0 +1,15 @@
+*Create 'quran' table Master
+- id
+- juz
+- surah
+- nama_surah
+- jumlah_ayat
+
+*Create 'quran_setor_hafalan' table
+- id
+- id_mahasiswa
+- id_quran
+- tanggal
+- setor_jumlah_ayat
+- kualitas hafalan
+- keterangan

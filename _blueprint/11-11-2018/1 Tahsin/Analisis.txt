@@ -1,0 +1,3 @@
+Presensi tahsin di-input oleh Pembina
+Jadwal Tahsin = Rutin tanpa harus dibuat oleh Admin Matrikulasi (Need to Confirm -> Adminmatrik)
+Nilai Tahsin berdasar jumlah presensi kehadiran

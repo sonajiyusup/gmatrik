@@ -1,0 +1,45 @@
+*Add sidebar submenu on Tahsin/Tahfidz Menu on Pembina :
+	- Berdasar Mahasiswa
+		- Detail
+			- By Period
+				- By Day
+	- Berdasar Tahsin
+		- Detail
+			- By Period
+				- By Day
+	- Hafalan Quran/Tahfidz
+		- Berdasar Mahasiswa (Add Progress Bar By Target)
+		- Berdasar Juz
+		- Berdasar Surah
+		- Berdasar Jumlah Ayat
+	- Udzur
+		- Detail
+			- By Period
+				- By Day
+	- Input Presensi Mahasiswa
+
+**Input Presensi Mahasiswa
+	- Single card page
+	- Detail page element is on telegram/phone gallery with name 'Form input Presensi Tahsin Mahasiswa'
+
+**Berdasar Mahasiswa
+	- 2 Cards :
+		- Grafik nilai rata-rata presensi tahsin mahasiswa, small : Berdasar nilai tertinggi ke terendah
+		- Tabel Data nilai presensi tahsin mahasiswa
+			Column : #, Nama, Total, Udzur, Target, Nilai
+
+**Berdasar Tahsin
+	- 2 Cards :
+		- Grafik nilai rata-rata presensi tahsin mahasiswa, small : Berdasar Tahsin
+		- Tabel Data nilai presensi tahsin mahasiswa
+			Column : #, Tahsin, Total, Udzur, Target, Nilai	
+
+**Hafalan Quran
+	[discussed on self-note]
+
+
+**Udzur
+	- 2 Cards :
+		- Grafik jumlah udzur mahasiswa, small : Berdasarkan Jumlah udzur tertinggi 
+		- Tabel Data nilai presensi tahsin mahasiswa
+			Column : #, Nama Mahasiswa, Jumlah Udzur

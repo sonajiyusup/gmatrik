@@ -1,0 +1,20 @@
+*Create Table :
+	- tahsin
+	- tahsin_udzur
+
+**Column of 'tahsin' table :
+- id (PK)
+- id_mahasiswa (FK)
+- tanggal
+- tahsin
+
+**Column of 'tahsin_udzur' table :
+- id (PK)
+- id_mahasiswa (FK)
+- tanggal
+- tahsin
+- udzur
+- keterangan
+- diajukan
+- disetujui
+- direview
