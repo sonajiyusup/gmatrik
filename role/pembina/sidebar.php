@@ -98,8 +98,14 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
+                    <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'inputtahsin') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                      ><a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">import_contacts</i>
                             <span>Tahsin/Tahfidz</span>
                         </a>
@@ -162,8 +168,14 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li>
-                                <a href="javascript:void(0);"><span>Input Presensi Mahasiswa</span></a>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'inputtahsin') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            ><a href="?page=inputtahsin"><span>Input Presensi Mahasiswa</span></a>
                             </li>
                         </ul>
                     </li>
@@ -350,7 +362,9 @@
               include 'pelanggaran/planjut_detail.php';
             } else if ($_GET['page'] == 'tambahpelanggaran') {
               include 'pelanggaran/tambah.php';
-            } 
+            } else if ($_GET['page'] == 'inputtahsin') {
+              include 'tahsin/input_presensi.php';
+            }
         } else{
             include 'dashboard.php';
         }

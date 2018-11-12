@@ -258,4 +258,23 @@
 				return $data;			
 	}			
 
+	function tampilDaftarBinaanTahsin($idPembina){
+		$ambildata = mysql_query("SELECT mb.id_mahasiswa, m.nim, m.nama FROM m_binaan mb LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa WHERE mb.id_pembina = $idPembina ORDER BY m.nama") or die(mysql_error());
+		if (mysql_num_rows($ambildata) > 0) {
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;
+		} else{
+			echo "<div class='alert alert-warning alert-dismissibl' role='alert'>
+							<button type='button' class='close' data-dismiss='alert' aria-label='Close'></button>
+							Belum ada daftar binaan tahsin
+						</div>";
+		}
+	}		
+
+	function inputPresensiTahsin($idMahasiswa, $tgl, $tahsin){
+		$tgl_ = date('Y-m-d', strtotime($tgl));
+		mysql_query("INSERT INTO tahsin(`id_mahasiswa`, `tanggal`, `tahsin`) VALUES ($idMahasiswa, '$tgl_', '$tahsin');");
+	}	
+
 ?>

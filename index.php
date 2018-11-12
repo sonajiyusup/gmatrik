@@ -482,6 +482,30 @@
             $('#check-all2').iCheck('check');
         }
     }); 
+
+    //Input Presensi Tahsin Role Pembina
+    $('#check-all-tahsin').on('ifChecked', function (event) {
+        $('.checktahsin').iCheck('check');
+        triggeredByChild = false;
+    });
+
+    $('#check-all-tahsin').on('ifUnchecked', function (event) {
+        if (!triggeredByChild) {
+            $('.checktahsin').iCheck('uncheck');
+        }
+        triggeredByChild = false;
+    });
+    // Removed the checked state from "All" if any checkbox is unchecked
+    $('.checktahsin').on('ifUnchecked', function (event) {
+        triggeredByChild = true;
+        $('#check-all-tahsin').iCheck('uncheck');
+    });
+
+    $('.checktahsin').on('ifChecked', function (event) {
+        if ($('.checktahsin').filter(':checked').length == $('.checktahsin').length) {
+            $('#check-all-tahsin').iCheck('check');
+        }
+    });     
     
     //Test Radio iCheck on jplg with alert
     /*$('.radiojk').on('ifChecked', function(event){
