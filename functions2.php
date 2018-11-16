@@ -272,9 +272,14 @@
 		}
 	}		
 
-	function inputPresensiTahsin($idMahasiswa, $tgl, $tahsin){
+	function inputTahsin($idPembina, $tgl, $tahsin, $ket){
 		$tgl_ = date('Y-m-d', strtotime($tgl));
-		mysql_query("INSERT INTO tahsin(`id_mahasiswa`, `tanggal`, `tahsin`) VALUES ($idMahasiswa, '$tgl_', '$tahsin');");
+		mysql_query("INSERT INTO tahsin(`id_pembina`, `tanggal`, `tahsin`, `waktu_input`, `keterangan`) VALUES ($idPembina, '$tgl_', '$tahsin', now(), '$ket');");
+	}		
+
+	function inputTahsinPresensi($idMahasiswa, $idPembina, $tgl, $tahsin){
+		$tgl_ = date('Y-m-d', strtotime($tgl));
+		mysql_query("INSERT INTO tahsin_presensi (id_tahsin, id_mahasiswa) VALUES ((SELECT t.id FROM tahsin t WHERE t.id_pembina = $idPembina AND t.tanggal = '$tgl_' AND t.tahsin = '$tahsin'), $idMahasiswa)");
 	}	
 
 ?>
