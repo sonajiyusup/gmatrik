@@ -18,7 +18,7 @@
 				- By Day
 	- Input Presensi Mahasiswa
 
-**Input Presensi Mahasiswa -DONE (12/11/2018) -> Daftar Mahasiswa ditampilkan baru berdasar mhs binaan masing2 pembina, belum termasuk logic level tahsin abc
+**Input Presensi Mahasiswa -DONE (12/11/2018) -> Daftar Mahasiswa ditampilkan baru berdasar mhs binaan masing2 pembina, 
 	- Single card page
 	- Detail page element is on telegram/phone gallery with name 'Form input Presensi Tahsin Mahasiswa'
 
