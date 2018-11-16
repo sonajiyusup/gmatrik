@@ -88,16 +88,14 @@
      
         if (isset($_POST['submitPresensiTahsin'])) {
           inputTahsin($idPembina, $_POST['tgltahsin'], $_POST['namatahsin'], $_POST['keterangan']);
-          
+
           if(!empty($_POST['idMahasiswa'])) {
             foreach($_POST['idMahasiswa'] as $idMhs) {
               inputTahsinPresensi($idMhs, $idPembina, $_POST['tgltahsin'], $_POST['namatahsin']);
             }
           }
-
         //echo "<script>document.location='index.php'</script>";
         }
-     
     ?>
 
 
