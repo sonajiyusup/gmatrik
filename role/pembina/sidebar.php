@@ -100,7 +100,7 @@
                     </li>
                     <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'inputtahsin') {
+                                    if ($_GET['page'] == 'inputtahsin' || $_GET['page'] == 'tahsinm') {
                                       echo "class='active'";
                                     }
                                   }
@@ -113,8 +113,14 @@
                             <li>
                                 <a href="javascript:void(0);"><span>Ikhtisar</span></a>
                             </li>
-                            <li>
-                                <a href="javascript:void(0);"><span>Berdasar Mahasiswa</span></a>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'tahsinm') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            ><a href="?page=tahsinm"><span>Berdasar Mahasiswa</span></a>
                             </li>
                             <li>
                                 <a href="javascript:void(0);"><span>Berdasar Tahsin</span></a>
@@ -364,6 +370,8 @@
               include 'pelanggaran/tambah.php';
             } else if ($_GET['page'] == 'inputtahsin') {
               include 'tahsin/input_presensi.php';
+            } else if ($_GET['page'] == 'tahsinm') {
+              include 'tahsin/tahsin_bymhs.php';
             }
         } else{
             include 'dashboard.php';

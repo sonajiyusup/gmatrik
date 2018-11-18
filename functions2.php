@@ -282,4 +282,12 @@
 		mysql_query("INSERT INTO tahsin_presensi (id_tahsin, id_mahasiswa) VALUES ((SELECT t.id FROM tahsin t WHERE t.id_pembina = $idPembina AND t.tanggal = '$tgl_' AND t.tahsin = '$tahsin'), $idMahasiswa)");
 	}	
 
+	function tahsinByMhsRolePembina($idPembina){
+		$ambildata = mysql_query("SELECT mb.id_mahasiswa, m.nama, ms.jmlt AS total, IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu, t.target AS target1, t.target-IF(u.jmlu IS NULL, 0, u.jmlu) AS target2, ROUND(((ms.jmlt/(t.target-IF(u.jmlu IS NULL, 0, u.jmlu)))*100),2) AS nilai FROM m_binaan mb LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa LEFT JOIN ( SELECT tp.id_mahasiswa, COUNT(tp.id_tahsin) AS jmlt FROM tahsin_presensi tp GROUP BY tp.id_mahasiswa ) ms ON mb.id_mahasiswa = ms.id_mahasiswa LEFT JOIN ( SELECT tu.id_mahasiswa, COUNT(tu.udzur) AS jmlu FROM tahsin_udzur tu WHERE tu.disetujui = 1 GROUP BY tu.id_mahasiswa ) u ON mb.id_mahasiswa = u.id_mahasiswa JOIN ( SELECT COUNT(t.tahsin) AS target FROM tahsin t WHERE t.id_pembina = $idPembina GROUP BY t.id_pembina ) t WHERE mb.id_pembina = $idPembina ORDER BY nilai DESC") or die(mysql_error());
+
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;			
+	}		
+
 ?>

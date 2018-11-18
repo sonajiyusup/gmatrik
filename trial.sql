@@ -2569,6 +2569,7 @@ JOIN (
     GROUP BY t.id_pembina
 ) t
 WHERE mb.id_pembina = 1
+ORDER BY nilai DESC
 
 -- Tahsin by Tahsin role Pembina
 SELECT t.tahsin, 
