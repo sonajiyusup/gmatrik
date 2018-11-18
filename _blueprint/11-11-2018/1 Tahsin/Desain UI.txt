@@ -22,7 +22,7 @@
 	- Single card page
 	- Detail page element is on telegram/phone gallery with name 'Form input Presensi Tahsin Mahasiswa'
 
-**Berdasar Mahasiswa
+**Berdasar Mahasiswa (DB Done)
 	- 2 Cards :
 		- Grafik nilai rata-rata presensi tahsin mahasiswa, small : Berdasar nilai tertinggi ke terendah
 		- Tabel Data nilai presensi tahsin mahasiswa

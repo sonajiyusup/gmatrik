@@ -2539,3 +2539,33 @@ LEFT JOIN (
     GROUP BY d.talim    
 ) j ON v.talim = j.talim
 GROUP BY v.talim
+
+
+---------------------------------------------------------------- TAHSIN -------------------------------------------------------
+-- Tahsin by Mahasiswa on Role Pembina (WORK)
+SELECT mb.id_mahasiswa, m.nama, 
+ms.jmlt AS total, 
+IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
+t.target AS target1,
+t.target-IF(u.jmlu IS NULL, 0, u.jmlu) AS target2,
+ROUND(((ms.jmlt/(t.target-IF(u.jmlu IS NULL, 0, u.jmlu)))*100),2) AS nilai
+FROM m_binaan mb
+LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa
+LEFT JOIN (
+    SELECT tp.id_mahasiswa, COUNT(tp.id_tahsin) AS jmlt
+    FROM tahsin_presensi tp
+    GROUP BY tp.id_mahasiswa
+) ms ON mb.id_mahasiswa = ms.id_mahasiswa
+LEFT JOIN (
+    SELECT tu.id_mahasiswa, COUNT(tu.udzur) AS jmlu
+    FROM tahsin_udzur tu 
+    WHERE tu.disetujui = 1
+    GROUP BY tu.id_mahasiswa
+) u ON mb.id_mahasiswa = u.id_mahasiswa
+JOIN (
+    SELECT COUNT(t.tahsin) AS target
+    FROM tahsin t
+    WHERE t.id_pembina = 1
+    GROUP BY t.id_pembina
+) t
+WHERE mb.id_pembina = 1
