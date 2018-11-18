@@ -28,7 +28,7 @@
 		- Tabel Data nilai presensi tahsin mahasiswa
 			Column : #, Nama, Total, Udzur, Target, Nilai
 
-**Berdasar Tahsin
+**Berdasar Tahsin (DB Done)
 	- 2 Cards :
 		- Grafik nilai rata-rata presensi tahsin mahasiswa, small : Berdasar Tahsin
 		- Tabel Data nilai presensi tahsin mahasiswa

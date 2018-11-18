@@ -2569,3 +2569,40 @@ JOIN (
     GROUP BY t.id_pembina
 ) t
 WHERE mb.id_pembina = 1
+
+-- Tahsin by Tahsin role Pembina
+SELECT t.tahsin, 
+IF(p.pertemuan IS NULL, 0, p.pertemuan) AS pertemuan,
+jb.jmlb,
+IF(tl.total IS NULL, 0, tl.total) AS total,
+IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
+IF(p.pertemuan IS NULL, 0, p.pertemuan)*jb.jmlb AS target1,
+(IF(p.pertemuan IS NULL, 0, p.pertemuan)*jb.jmlb)-(IF(u.jmlu IS NULL, 0, u.jmlu)) AS target2,
+ROUND((((IF(tl.total IS NULL, 0, tl.total))/((IF(p.pertemuan IS NULL, 0, p.pertemuan)*jb.jmlb)-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai
+FROM tahsin t
+LEFT JOIN (
+    SELECT t.tahsin, COUNT(tp.id_mahasiswa) AS total
+    FROM tahsin t
+    LEFT JOIN tahsin_presensi tp ON t.id = tp.id_tahsin
+    WHERE t.id_pembina = 6
+    GROUP BY t.tahsin
+) tl ON t.tahsin = tl.tahsin
+JOIN (
+    SELECT COUNT(mb.id_mahasiswa) AS jmlb
+    FROM m_binaan mb
+    WHERE mb.id_pembina = 6
+    GROUP BY mb.id_pembina
+) jb
+LEFT JOIN (
+    SELECT t.tahsin, COUNT(tu.udzur) AS jmlu
+    FROM tahsin_udzur tu 
+    LEFT JOIN tahsin t ON tu.id_tahsin = t.id
+    WHERE t.id_pembina = 6
+) u ON t.tahsin = u.tahsin
+LEFT JOIN (
+    SELECT t.tahsin, COUNT(t.tanggal) AS pertemuan
+    FROM tahsin t 
+    WHERE t.id_pembina = 6
+    GROUP BY t.tahsin
+) p ON t.tahsin = p.tahsin
+GROUP BY t.tahsin
