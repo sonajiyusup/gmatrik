@@ -2571,7 +2571,7 @@ JOIN (
 WHERE mb.id_pembina = 1
 ORDER BY nilai DESC
 
--- Tahsin by Tahsin role Pembina
+-- Tahsin by Tahsin role Pembina (WORK)
 SELECT t.tahsin, 
 IF(p.pertemuan IS NULL, 0, p.pertemuan) AS pertemuan,
 jb.jmlb,
