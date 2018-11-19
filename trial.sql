@@ -2623,3 +2623,105 @@ LEFT JOIN (
 LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa
 WHERE mb.id_pembina = 1
 ORDER BY jmlu DESC
+
+-- Tahsin By Mahasiswa on Role Adminmatrik (WORK)
+SELECT m.id_mahasiswa, m.nim, m.nama,
+IF(ms.jmlt IS NULL, 0, ms.jmlt) AS total,
+IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
+IF(ta.target IS NULL, 0, ta.target) AS target1,
+IF(ta.target IS NULL, 0, ta.target)-IF(u.jmlu IS NULL, 0, u.jmlu) AS target2,
+ROUND((((IF(ms.jmlt IS NULL, 0, ms.jmlt))/(IF(ta.target IS NULL, 0, ta.target)-IF(u.jmlu IS NULL, 0, u.jmlu)))*100),2) AS nilai
+FROM mahasiswa m 
+LEFT JOIN (
+    SELECT tp.id_mahasiswa, COUNT(tp.id_tahsin) AS jmlt
+    FROM tahsin_presensi tp
+    GROUP BY tp.id_mahasiswa
+) ms ON m.id_mahasiswa = ms.id_mahasiswa
+LEFT JOIN (
+    SELECT tu.id_mahasiswa, COUNT(tu.udzur) AS jmlu
+    FROM tahsin_udzur tu 
+    WHERE tu.disetujui = 1
+    GROUP BY tu.id_mahasiswa
+) u ON m.id_mahasiswa = u.id_mahasiswa
+LEFT JOIN (
+    SELECT m.id_mahasiswa, m.nama, tl.target
+    FROM mahasiswa m 
+    LEFT JOIN (
+        SELECT mb.id_mahasiswa, COUNT(t.id_pembina) AS target
+        FROM tahsin t 
+        LEFT JOIN m_binaan mb ON t.id_pembina = mb.id_pembina
+        GROUP BY t.id_pembina, mb.id_mahasiswa
+    ) tl ON m.id_mahasiswa = tl.id_mahasiswa  
+) ta ON m.id_mahasiswa = ta.id_mahasiswa
+
+
+-- tahsin by ikhwan/akhwat on role adminmatrik
+SELECT p.j_kelamin, 
+IF(tl.total IS NULL, 0, tl.total) AS total,
+IF(ta.target1 IS NULL, 0, ta.target1) AS target1,
+IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
+IF(ta.target1 IS NULL, 0, ta.target1)-IF(u.jmlu IS NULL, 0, u.jmlu) AS target2,
+ROUND((((IF(tl.total IS NULL, 0, tl.total))/(IF(ta.target1 IS NULL, 0, ta.target1)-IF(u.jmlu IS NULL, 0, u.jmlu)))*100),2) AS nilai
+FROM pembina p 
+LEFT JOIN (
+    SELECT m.j_kelamin, COUNT(tp.id_tahsin) AS total
+    FROM tahsin_presensi tp
+    LEFT JOIN mahasiswa m ON tp.id_mahasiswa = m.id_mahasiswa
+    GROUP BY m.j_kelamin
+) tl ON p.j_kelamin = tl.j_kelamin
+LEFT JOIN (
+    SELECT a.j_kelamin, SUM(a.target) AS target1
+    FROM (
+        SELECT p.j_kelamin, t.id_pembina, j.jmlb, pr.pertemuan, 
+        j.jmlb*pr.pertemuan AS target
+        FROM tahsin t 
+        LEFT JOIN pembina p ON t.id_pembina = p.id_pembina
+        LEFT JOIN (
+            SELECT mb.id_pembina, COUNT(mb.id_mahasiswa) AS jmlb
+            FROM m_binaan mb 
+            GROUP BY mb.id_pembina
+        ) j ON t.id_pembina = j.id_pembina
+        LEFT JOIN (
+            SELECT t.id_pembina, COUNT(t.id_pembina) AS pertemuan
+            FROM tahsin t 
+            GROUP BY t.id_pembina
+        ) pr ON t.id_pembina = pr.id_pembina
+        GROUP BY t.id_pembina    
+    ) a 
+) ta ON p.j_kelamin = ta.j_kelamin
+LEFT JOIN (
+    SELECT m.j_kelamin, COUNT(tu.udzur) AS jmlu
+    FROM tahsin_udzur tu 
+    LEFT JOIN mahasiswa m ON tu.id_mahasiswa = m.id_mahasiswa
+    GROUP BY m.j_kelamin
+) u ON p.j_kelamin = u.j_kelamin
+GROUP BY p.j_kelamin
+
+--tahsin by pembina on role adminmatrik
+SELECT p.id_pembina, p.nama, j.jmlb,
+COUNT(t.id_pembina) AS pertemuan, 
+IF(tl.total IS NULL, 0, tl.total) AS total,
+COUNT(t.id_pembina)*j.jmlb AS target1,
+IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
+(COUNT(t.id_pembina)*j.jmlb)-(IF(u.jmlu IS NULL, 0, u.jmlu)) AS target2,
+ROUND((((IF(tl.total IS NULL, 0, tl.total))/((COUNT(t.id_pembina)*j.jmlb)-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai
+FROM pembina p 
+LEFT JOIN tahsin t ON p.id_pembina = t.id_pembina
+LEFT JOIN (
+    SELECT t.id_pembina, COUNT(tp.id_mahasiswa) AS total
+    FROM tahsin t 
+    LEFT JOIN tahsin_presensi tp ON t.id = tp.id_tahsin
+    GROUP BY t.id_pembina
+) tl ON p.id_pembina = tl.id_pembina
+LEFT JOIN (
+    SELECT mb.id_pembina, COUNT(mb.id_mahasiswa) AS jmlb
+    FROM m_binaan mb 
+    GROUP BY mb.id_pembina
+) j ON p.id_pembina = j.id_pembina
+LEFT JOIN (
+    SELECT t.id_pembina, COUNT(tu.id_mahasiswa) AS jmlu
+    FROM tahsin t 
+    LEFT JOIN tahsin_udzur tu ON t.id = tu.id_tahsin
+    GROUP BY t.id_pembina
+) u ON p.id_pembina = u.id_pembina
+GROUP BY p.id_pembina

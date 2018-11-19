@@ -193,20 +193,104 @@
 
                         </ul>
                     </li>
-                    <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
+                    <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'inputtahsin' || $_GET['page'] == 'tahsinm' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                      ><a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">import_contacts</i>
                             <span>Tahsin/Tahfidz</span>
                         </a>
                         <ul class="ml-menu">
                             <li>
-                                <a href="pages/forms/basic-form-elements.html">Ikhtisar</a>
+                                <a href="javascript:void(0);"><span>Ikhtisar</span></a>
+                            </li>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'tahsinm') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            ><a href="?page=tahsinm"><span>Berdasar Mahasiswa</span></a>
+                            </li>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'tahsinia') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            ><a href="?page=tahsinia"><span>Berdasar Ikhwan/Akhwat</span></a>
+                            </li>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'tahsinp') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            ><a href="?page=tahsinp"><span>Berdasar Pembina</span></a>
+                            </li>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'tahsint') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            ><a href="?page=tahsint"><span>Berdasar Tahsin</span></a>
                             </li>
                             <li>
-                                <a href="pages/forms/advanced-form-elements.html">...</a>
+                                <a href="javascript:void(0);" class="menu-toggle">
+                                    <span>Hafalan Quran</span>
+                                </a>
+                                <ul class="ml-menu">
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <span>Berdasar Mahasiswa</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <span>Berdasar Juz</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <span>Berdasar Surah</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <span>Berdasar Jumlah Ayat</span>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
-                            <li>
-                                <a href="pages/forms/form-examples.html">...</a>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'udzurtahsin') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            >
+                                <a href="?page=udzurtahsin">
+                                    <span>Udzur</span>
+                                </a>
+                            </li>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'inputtahsin') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            ><a href="?page=inputtahsin"><span>Input Presensi Mahasiswa</span></a>
                             </li>
                         </ul>
                     </li>
