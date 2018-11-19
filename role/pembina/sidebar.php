@@ -100,7 +100,7 @@
                     </li>
                     <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'inputtahsin' || $_GET['page'] == 'tahsinm' || $_GET['page'] == 'tahsint') {
+                                    if ($_GET['page'] == 'inputtahsin' || $_GET['page'] == 'tahsinm' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin') {
                                       echo "class='active'";
                                     }
                                   }
@@ -158,27 +158,17 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li>
-                                <a href="javascript:void(0);" class="menu-toggle">
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'udzurtahsin') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            >
+                                <a href="?page=udzurtahsin">
                                     <span>Udzur</span>
                                 </a>
-                                <ul class="ml-menu">
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <span>Berdasar Mahasiswa</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <span>Berdasar Tahsin</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <span>Berdasar Udzur</span>
-                                        </a>
-                                    </li>
-                                </ul>
                             </li>
                             <li <?php 
                                   if (isset($_GET['page'])) {
