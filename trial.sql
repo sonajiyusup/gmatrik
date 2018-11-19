@@ -2607,3 +2607,19 @@ LEFT JOIN (
     GROUP BY t.tahsin
 ) p ON t.tahsin = p.tahsin
 GROUP BY t.tahsin
+
+
+-- Udzur Tahsin Role Pembina (WORK)
+SELECT mb.id_mahasiswa, m.nim, m.nama, 
+IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu
+FROM m_binaan mb
+LEFT JOIN (
+    SELECT tu.id_mahasiswa, COUNT(tu.udzur) AS jmlu
+    FROM tahsin_udzur tu
+    LEFT JOIN tahsin t ON tu.id_tahsin = t.id
+    WHERE t.id_pembina = 1
+    GROUP BY tu.id_mahasiswa
+) u ON mb.id_mahasiswa = u.id_mahasiswa
+LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa
+WHERE mb.id_pembina = 1
+ORDER BY jmlu DESC

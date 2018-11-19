@@ -299,7 +299,7 @@
 	}		
 
 	function tahsinUdzurRolePembina($idPembina){
-		$ambildata = mysql_query("SELECT mb.id_mahasiswa, m.nim, m.nama, IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu FROM m_binaan mb LEFT JOIN ( SELECT tu.id_mahasiswa, COUNT(tu.udzur) AS jmlu FROM tahsin_udzur tu LEFT JOIN tahsin t ON tu.id_tahsin = t.id WHERE t.id_pembina = $idPembina GROUP BY tu.id_mahasiswa ) u ON mb.id_mahasiswa = u.id_mahasiswa LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa WHERE mb.id_pembina = $idPembina") or die(mysql_error());
+		$ambildata = mysql_query("SELECT mb.id_mahasiswa, m.nim, m.nama, IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu FROM m_binaan mb LEFT JOIN ( SELECT tu.id_mahasiswa, COUNT(tu.udzur) AS jmlu FROM tahsin_udzur tu LEFT JOIN tahsin t ON tu.id_tahsin = t.id WHERE t.id_pembina = $idPembina GROUP BY tu.id_mahasiswa ) u ON mb.id_mahasiswa = u.id_mahasiswa LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa WHERE mb.id_pembina = $idPembina ORDER BY jmlu DESC") or die(mysql_error());
 
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;

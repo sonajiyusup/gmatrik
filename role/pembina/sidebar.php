@@ -370,6 +370,8 @@
               include 'tahsin/tahsin_bymhs.php';
             } else if ($_GET['page'] == 'tahsint') {
               include 'tahsin/tahsin_bytahsin.php';
+            } else if ($_GET['page'] == 'udzurtahsin') {
+              include 'tahsin/udzur.php';
             }
         } else{
             include 'dashboard.php';
