@@ -195,7 +195,7 @@
                     </li>
                     <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'tahsinm' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin' || $_GET['page'] == 'tahsinia' || $_GET['page'] == 'tahsinp') {
+                                    if ($_GET['page'] == 'tahsinm' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin' || $_GET['page'] == 'tahsinia' || $_GET['page'] == 'tahsinp' || $_GET['page'] == 'tahsint') {
                                       echo "class='active'";
                                     }
                                   }
@@ -578,6 +578,8 @@
               include 'tahsin/tahsin_byia.php';
             } else if ($_GET['page'] == 'tahsinp') {
               include 'tahsin/tahsin_bypembina.php';
+            } else if ($_GET['page'] == 'tahsint') {
+              include 'tahsin/tahsin_bytahsin.php';
             } 
         } else{
             include 'dashboard.php';
