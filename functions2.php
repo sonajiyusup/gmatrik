@@ -348,5 +348,23 @@
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
 				return $data;			
-	}		
+	}			
+
+	function udzurTahsinRoleAdminMatrik($graph){
+		$query = "SELECT mb.id_mahasiswa, m.nim, m.nama, IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu FROM m_binaan mb LEFT JOIN ( SELECT tu.id_mahasiswa, COUNT(tu.udzur) AS jmlu FROM tahsin_udzur tu LEFT JOIN tahsin t ON tu.id_tahsin = t.id GROUP BY tu.id_mahasiswa ) u ON mb.id_mahasiswa = u.id_mahasiswa LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa ORDER BY jmlu DESC";
+			
+		if($graph == '1'){
+			$ambildata = mysql_query($query." LIMIT 5") or die(mysql_error());
+
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;		
+		} else{
+			$ambildata = mysql_query($query) or die(mysql_error());
+
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;		
+		}
+	}	
 ?>
