@@ -306,4 +306,24 @@
 				return $data;			
 	}			
 
+	function tahsinByMhsRoleAdminMatrik($graph){
+
+		$query = "SELECT m.id_mahasiswa, m.nim, m.nama, IF(ms.jmlt IS NULL, 0, ms.jmlt) AS total, IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu, IF(ta.target IS NULL, 0, ta.target) AS target1, IF(ta.target IS NULL, 0, ta.target)-IF(u.jmlu IS NULL, 0, u.jmlu) AS target2, ROUND((((IF(ms.jmlt IS NULL, 0, ms.jmlt))/(IF(ta.target IS NULL, 0, ta.target)-IF(u.jmlu IS NULL, 0, u.jmlu)))*100),2) AS nilai FROM mahasiswa m LEFT JOIN ( SELECT tp.id_mahasiswa, COUNT(tp.id_tahsin) AS jmlt FROM tahsin_presensi tp GROUP BY tp.id_mahasiswa ) ms ON m.id_mahasiswa = ms.id_mahasiswa LEFT JOIN ( SELECT tu.id_mahasiswa, COUNT(tu.udzur) AS jmlu FROM tahsin_udzur tu WHERE tu.disetujui = 1 GROUP BY tu.id_mahasiswa ) u ON m.id_mahasiswa = u.id_mahasiswa LEFT JOIN ( SELECT m.id_mahasiswa, m.nama, tl.target FROM mahasiswa m LEFT JOIN ( SELECT mb.id_mahasiswa, COUNT(t.id_pembina) AS target FROM tahsin t LEFT JOIN m_binaan mb ON t.id_pembina = mb.id_pembina GROUP BY t.id_pembina, mb.id_mahasiswa ) tl ON m.id_mahasiswa = tl.id_mahasiswa ) ta ON m.id_mahasiswa = ta.id_mahasiswa ORDER BY nilai DESC";
+
+			
+		if($graph == '1'){
+			$ambildata = mysql_query($query." LIMIT 5") or die(mysql_error());
+
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;		
+		} else{
+			$ambildata = mysql_query($query) or die(mysql_error());
+
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;		
+		}
+	}	
+
 ?>
