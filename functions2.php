@@ -324,6 +324,14 @@
 				$data[] = $ad;
 				return $data;		
 		}
-	}	
+	}
+
+	function tahsinIARoleAdminMatrik(){
+		$ambildata = mysql_query("SELECT p.j_kelamin, IF(pr.pertemuan IS NULL, 0, pr.pertemuan) AS pertemuan, IF(tl.total IS NULL, 0, tl.total) AS total, IF(ta.target1 IS NULL, 0, ta.target1) AS target1, IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu, IF(ta.target1 IS NULL, 0, ta.target1)-IF(u.jmlu IS NULL, 0, u.jmlu) AS target2, ROUND((((IF(tl.total IS NULL, 0, tl.total))/(IF(ta.target1 IS NULL, 0, ta.target1)-IF(u.jmlu IS NULL, 0, u.jmlu)))*100),2) AS nilai FROM pembina p LEFT JOIN ( SELECT m.j_kelamin, COUNT(tp.id_tahsin) AS total FROM tahsin_presensi tp LEFT JOIN mahasiswa m ON tp.id_mahasiswa = m.id_mahasiswa GROUP BY m.j_kelamin ) tl ON p.j_kelamin = tl.j_kelamin LEFT JOIN ( SELECT a.j_kelamin, SUM(a.target) AS target1 FROM ( SELECT p.j_kelamin, t.id_pembina, j.jmlb, pr.pertemuan, j.jmlb*pr.pertemuan AS target FROM tahsin t LEFT JOIN pembina p ON t.id_pembina = p.id_pembina LEFT JOIN ( SELECT mb.id_pembina, COUNT(mb.id_mahasiswa) AS jmlb FROM m_binaan mb GROUP BY mb.id_pembina ) j ON t.id_pembina = j.id_pembina LEFT JOIN ( SELECT t.id_pembina, COUNT(t.id_pembina) AS pertemuan FROM tahsin t GROUP BY t.id_pembina ) pr ON t.id_pembina = pr.id_pembina GROUP BY t.id_pembina ) a ) ta ON p.j_kelamin = ta.j_kelamin LEFT JOIN ( SELECT m.j_kelamin, COUNT(tu.udzur) AS jmlu FROM tahsin_udzur tu LEFT JOIN mahasiswa m ON tu.id_mahasiswa = m.id_mahasiswa GROUP BY m.j_kelamin ) u ON p.j_kelamin = u.j_kelamin LEFT JOIN ( SELECT p.j_kelamin, COUNT(t.id_pembina) AS pertemuan FROM tahsin t LEFT JOIN pembina p ON t.id_pembina = p.id_pembina GROUP BY p.j_kelamin ) pr ON p.j_kelamin = pr.j_kelamin GROUP BY p.j_kelamin") or die(mysql_error());
+
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;			
+	}		
 
 ?>

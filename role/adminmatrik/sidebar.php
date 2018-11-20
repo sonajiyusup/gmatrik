@@ -122,7 +122,7 @@
                     </li>
                     <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'importtalim' || $_GET['page'] == 'jtalim' || $_GET['page'] == 'talimm' || $_GET['page'] == 'talimia' || $_GET['page'] == 'talimp' || $_GET['page'] == 'talimt') {
+                                    if ($_GET['page'] == 'importtalim' || $_GET['page'] == 'jtalim' || $_GET['page'] == 'talimm' || $_GET['page'] == 'talimia' || $_GET['page'] == 'talimp' || $_GET['page'] == 'talimt' || $_GET['page'] == 'talimia') {
                                       echo "class='active'";
                                     }
                                   }
@@ -574,6 +574,8 @@
               include 'pelanggaran/planjut_detail.php';
             } else if ($_GET['page'] == 'tahsinm') {
               include 'tahsin/tahsin_bymhs.php';
+            } else if ($_GET['page'] == 'tahsinia') {
+              include 'tahsin/tahsin_byia.php';
             } 
         } else{
             include 'dashboard.php';

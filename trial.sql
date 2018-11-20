@@ -2657,6 +2657,7 @@ LEFT JOIN (
 
 -- tahsin by ikhwan/akhwat on role adminmatrik
 SELECT p.j_kelamin, 
+IF(pr.pertemuan IS NULL, 0, pr.pertemuan) AS pertemuan,
 IF(tl.total IS NULL, 0, tl.total) AS total,
 IF(ta.target1 IS NULL, 0, ta.target1) AS target1,
 IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
@@ -2695,6 +2696,12 @@ LEFT JOIN (
     LEFT JOIN mahasiswa m ON tu.id_mahasiswa = m.id_mahasiswa
     GROUP BY m.j_kelamin
 ) u ON p.j_kelamin = u.j_kelamin
+LEFT JOIN (
+    SELECT p.j_kelamin, COUNT(t.id_pembina) AS pertemuan
+    FROM tahsin t 
+    LEFT JOIN pembina p ON t.id_pembina = p.id_pembina
+    GROUP BY p.j_kelamin
+) pr ON p.j_kelamin = pr.j_kelamin
 GROUP BY p.j_kelamin
 
 --tahsin by pembina on role adminmatrik
