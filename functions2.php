@@ -334,4 +334,12 @@
 				return $data;			
 	}		
 
+	function tahsinByPembinaRoleAdminMatrik(){
+		$ambildata = mysql_query("SELECT p.id_pembina, p.nama, p.j_kelamin, j.jmlb, COUNT(t.id_pembina) AS pertemuan, IF(tl.total IS NULL, 0, tl.total) AS total, COUNT(t.id_pembina)*j.jmlb AS target1, IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu, (COUNT(t.id_pembina)*j.jmlb)-(IF(u.jmlu IS NULL, 0, u.jmlu)) AS target2, ROUND((((IF(tl.total IS NULL, 0, tl.total))/((COUNT(t.id_pembina)*j.jmlb)-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai FROM pembina p LEFT JOIN tahsin t ON p.id_pembina = t.id_pembina LEFT JOIN ( SELECT t.id_pembina, COUNT(tp.id_mahasiswa) AS total FROM tahsin t LEFT JOIN tahsin_presensi tp ON t.id = tp.id_tahsin GROUP BY t.id_pembina ) tl ON p.id_pembina = tl.id_pembina LEFT JOIN ( SELECT mb.id_pembina, COUNT(mb.id_mahasiswa) AS jmlb FROM m_binaan mb GROUP BY mb.id_pembina ) j ON p.id_pembina = j.id_pembina LEFT JOIN ( SELECT t.id_pembina, COUNT(tu.id_mahasiswa) AS jmlu FROM tahsin t LEFT JOIN tahsin_udzur tu ON t.id = tu.id_tahsin GROUP BY t.id_pembina ) u ON p.id_pembina = u.id_pembina GROUP BY p.id_pembina") or die(mysql_error());
+
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;			
+	}			
+
 ?>

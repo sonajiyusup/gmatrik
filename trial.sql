@@ -2705,7 +2705,7 @@ LEFT JOIN (
 GROUP BY p.j_kelamin
 
 --tahsin by pembina on role adminmatrik
-SELECT p.id_pembina, p.nama, j.jmlb,
+SELECT p.id_pembina, p.nama, p.j_kelamin, j.jmlb,
 COUNT(t.id_pembina) AS pertemuan, 
 IF(tl.total IS NULL, 0, tl.total) AS total,
 COUNT(t.id_pembina)*j.jmlb AS target1,
