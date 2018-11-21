@@ -12,7 +12,7 @@
                             </h2>
                         </div>
                         <div class="body">
-                            <canvas id="bar_chart" height="85"></canvas>
+                            <canvas id="bar_chart" height="55"></canvas>
                         </div>
                         <script type="text/javascript">
                           $(function () {
