@@ -176,7 +176,7 @@
                     </li>
                     <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'tahsinm' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin' || $_GET['page'] == 'tahsinia' || $_GET['page'] == 'tahsinp' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin') {
+                                    if ($_GET['page'] == 'tahsinm' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin' || $_GET['page'] == 'tahsinia' || $_GET['page'] == 'tahsinp' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin' || $_GET['page'] == 'targethafalan') {
                                       echo "class='active'";
                                     }
                                   }
@@ -225,11 +225,22 @@
                                 ?>
                             ><a href="?page=tahsint"><span>Berdasar Tahsin</span></a>
                             </li>
-                            <li>
-                                <a href="javascript:void(0);" class="menu-toggle">
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'tahsinm' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin' || $_GET['page'] == 'tahsinia' || $_GET['page'] == 'tahsinp' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin' || $_GET['page'] == 'targethafalan') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            ><a href="javascript:void(0);" class="menu-toggle">
                                     <span>Hafalan Quran</span>
                                 </a>
                                 <ul class="ml-menu">
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <span>Ikhtisar</span>
+                                        </a>
+                                    </li>
                                     <li>
                                         <a href="javascript:void(0);">
                                             <span>Berdasar Mahasiswa</span>
@@ -250,6 +261,17 @@
                                             <span>Berdasar Jumlah Ayat</span>
                                         </a>
                                     </li>
+                                    <li <?php 
+                                          if (isset($_GET['page'])) {
+                                            if ($_GET['page'] == 'targethafalan') {
+                                              echo "class='active'";
+                                            }
+                                          }
+                                        ?>
+                                    ><a href="?page=targethafalan">
+                                            <span>Input Target Hafalan Mahasiswa</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                             <li <?php 
@@ -259,8 +281,7 @@
                                     }
                                   }
                                 ?>
-                            >
-                                <a href="?page=udzurtahsin">
+                            ><a href="?page=udzurtahsin">
                                     <span>Udzur</span>
                                 </a>
                             </li>
@@ -457,6 +478,8 @@
               include 'pembina/pembina_edit.php';
             } else if ($_GET['page'] == 'profil') {
               include 'profil.php';
+            } else if ($_GET['page'] == 'targethafalan') {
+              include 'tahsin/hafalan/inputtarget.php';
             }
         } else{
             include 'dashboard.php';

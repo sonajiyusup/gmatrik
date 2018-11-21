@@ -34,6 +34,10 @@
     <!-- Animation Css -->
     <link href="assets/css/animate.css" rel="stylesheet" />
 
+    <!-- Range Slider Css -->
+    <link href="assets/css/ion-rangeslider/css/ion.rangeSlider.css" rel="stylesheet" />
+    <link href="assets/css/ion-rangeslider/css/ion.rangeSlider.skinFlat.css" rel="stylesheet" />
+
     <!-- Bootstrap Spinner Css -->
     <link href="assets/css/bootstrap-spinner.css" rel="stylesheet">
 
@@ -147,12 +151,16 @@
     <!-- Jquery CountTo Plugin Js -->
     <script src="assets/js/jquery.countTo.js"></script>
 
+    <!-- RangeSlider Plugin Js -->
+    <script src="assets/css/ion-rangeslider/js/ion.rangeSlider.js"></script>
+
     <!-- Custom Js -->
     <script src="assets/js/admin.js"></script>
     <script src="assets/js/jquery-datatable.js"></script>
     <script src="assets/js/basic-form-elements.js"></script>
     <script src="assets/js/notifications.js"></script>
     <script src="assets/js/sparkline.js"></script>
+    <script src="assets/js/range-sliders.js"></script>
     <!-- <script src="assets/js/chartjs.js"></script> -->
 
     <!-- Demo Js -->
