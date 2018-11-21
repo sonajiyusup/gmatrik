@@ -193,6 +193,9 @@
           } else
           if($_SESSION['role'] =='mahasiswa'){
             include 'role/mahasiswa/sidebar.php';
+          } else
+          if($_SESSION['role'] =='pimpinan'){
+            include 'role/pimpinan/sidebar.php';
           }
         ?>         
         <!-- #END# Left Sidebar -->
