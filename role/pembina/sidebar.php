@@ -100,7 +100,7 @@
                     </li>
                     <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'inputtahsin' || $_GET['page'] == 'tahsinm' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin' || $_GET['page'] == 'pertemuan') {
+                                    if ($_GET['page'] == 'inputtahsin' || $_GET['page'] == 'tahsinm' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin' || $_GET['page'] == 'tahsinprt') {
                                       echo "class='active'";
                                     }
                                   }
@@ -130,6 +130,15 @@
                                   }
                                 ?>
                             ><a href="?page=tahsint"><span>Berdasar Tahsin</span></a>
+                            </li>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'tahsinprt') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            ><a href="?page=tahsinprt"><span>Pertemuan</span></a>
                             </li>
                             <li>
                                 <a href="javascript:void(0);" class="menu-toggle">
@@ -169,15 +178,6 @@
                                 <a href="?page=udzurtahsin">
                                     <span>Udzur</span>
                                 </a>
-                            </li>
-                            <li <?php 
-                                  if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'pertemuan') {
-                                      echo "class='active'";
-                                    }
-                                  }
-                                ?>
-                            ><a href="?page=pertemuan"><span>Pertemuan</span></a>
                             </li>
                             <li <?php 
                                   if (isset($_GET['page'])) {
@@ -381,7 +381,7 @@
               include 'tahsin/tahsin_bytahsin.php';
             } else if ($_GET['page'] == 'udzurtahsin') {
               include 'tahsin/udzur.php';
-            } else if ($_GET['page'] == 'pertemuan') {
+            } else if ($_GET['page'] == 'tahsinprt') {
               include 'tahsin/tahsin_bypertemuan.php';
             }
         } else{

@@ -46,6 +46,7 @@ var addFormGroup  = function (event) {
                                   <th>#</th>
                                   <th>Hari - Tanggal</th>
                                   <th>Tahsin</th>
+                                  <th>Udzur</th>
                                   <th>Waktu Pengajuan</th>
                                   <th>Status</th>
                                   <th>Aksi</th>
@@ -63,6 +64,7 @@ var addFormGroup  = function (event) {
                                   <td><?php echo $no; ?></td>
                                   <td><a href="?page=udzursltdetail&t=<?php echo $row['tanggal']; ?>"><?php echo date('l - d M Y', strtotime($row['tanggal'])); ?></a></td>
                                   <td><?php echo $row['tahsin']; ?></td>
+                                  <td><?php echo $row['udzur']; ?></td>
                                   <td><?php echo $row['diajukan']; ?></td>
                                   <td><?php if($row['direview'] == 0){echo '<label class="badge bg-orange">Belum di Review<label>';}else if($row['direview'] == 1){echo '<label class="badge bg-green">Sudah di Review<label>';}?></td>
                                   <td><?php if($row['disetujui'] == 0){echo "<a title='Hapus' style='color:#DD4B39;' href='#ModalHapusUdzurTahsin' class='dropdown-item' data-toggle='modal' data-href='action/hapus.php?idudzurtahsin=".$row['id']."' aria-hidden='true'><i class='material-icons' style='font-size: 20px'>cancel</i></a>";}else if($row['disetujui'] == 1){echo "";} ?></td>
@@ -97,7 +99,7 @@ var addFormGroup  = function (event) {
                           <label>Udzur :</label><br>
                           <input name="udzur" type="radio" class="radiojk" id="sakit" value="Sakit"/>
                           <label for="sakit">SAKIT</label>&nbsp;&nbsp;
-                          <input name="udzur" type="radio" class="radiojk" id="izinsyari" value="Izin Syar'i"/>
+                          <input name="udzur" type="radio" class="radiojk" id="izinsyari" value="Izin Syari"/>
                           <label for="is">IZIN SYAR'I</label>&nbsp;&nbsp;
                                 <br><br>
                           <label>Keterangan :</label><br>

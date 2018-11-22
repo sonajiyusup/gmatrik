@@ -28,7 +28,7 @@
                                       type: 'bar',
                                       data: {
                                           labels: [<?php
-                                                    $data = tahsinUdzurRolePembina($idPembina);
+                                                    $data = udzurGraphTahsinRolePembina($idPembina);
                                                     foreach ($data as $row){
                                                      echo '"'.$row['nama'].'",';
                                                     }
@@ -36,7 +36,7 @@
                                           datasets: [{
                                               label: "Jumlah Udzur",
                                               data: [<?php
-                                                    $dataNilai = tahsinUdzurRolePembina($idPembina);
+                                                    $dataNilai = udzurGraphTahsinRolePembina($idPembina);
                                                     foreach ($dataNilai as $row){
                                                      echo '"'.$row['jmlu'].'",';
                                                     }
@@ -68,9 +68,11 @@
                               <thead>
                                 <tr>
                                   <th>#</th>
-                                  <th>NIM</th>
+                                  <th>Tanggal</th>
                                   <th>Nama Mahasiswa</th>
                                   <th>Jumlah Udzur</th>
+                                  <th>Status</th>
+                                  <th>Aksi</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -83,9 +85,11 @@
                                  ?>
                                 <tr>
                                   <td><?php echo $no; ?></td>
-                                  <td><?php echo $row['nim']; ?></td>
-                                  <td><?php echo '<a href="?page=udzurtahsindetail&m='.$row['id_mahasiswa'].'">'.$row['nama'].'</a>' ?></td>
+                                  <td><?php echo date('l - d M Y', strtotime($row['tanggal'])); ?></td>
+                                  <td><?php echo $row['nama']; ?></td>
                                   <td><?php echo $row['jmlu']; ?></td>
+                                  <td><?php if($row['direview'] == 0){echo '<label class="badge bg-orange">Belum di Review<label>';}else if($row['direview'] == 1){echo '<label class="badge bg-green">Sudah di Review<label>';}?></td>
+                                  <td><a href="?page=" class="btn btn-xs">Review</a></td>
                                 </tr>
                                 <?php $no++; } } ?>
                               </tbody> 

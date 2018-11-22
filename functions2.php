@@ -18,7 +18,7 @@
 	}
 
 	function tampilUdzurTahsinRoleMhs($idMahasiswa){
-		$ambildata = mysql_query("SELECT tu.id, tu.id_mahasiswa, tu.id_tahsin, t.tanggal, t.tahsin, tu.diajukan, tu.disetujui, tu.direview FROM tahsin_udzur tu LEFT JOIN tahsin t ON tu.id_tahsin = t.id WHERE tu.id_mahasiswa = $idMahasiswa") or die(mysql_error());
+		$ambildata = mysql_query("SELECT tu.id, tu.id_mahasiswa, tu.id_tahsin, t.tanggal, tu.udzur, t.tahsin, tu.diajukan, tu.disetujui, tu.direview FROM tahsin_udzur tu LEFT JOIN tahsin t ON tu.id_tahsin = t.id WHERE tu.id_mahasiswa = $idMahasiswa") or die(mysql_error());
 		if (mysql_num_rows($ambildata) > 0) {
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
@@ -192,7 +192,7 @@
 	}	
 
 	function tambahUdzurTahsin($idTahsin, $idMahasiswa, $udzur, $ket){
-		mysql_query("INSERT INTO tahsin_udzur (id_tahsin, id_mahasiswa, udzur, keterangan, diajukan, direview, disetujui) VALUES ( $idTahsin, $idMahasiswa, '$udzur', '$ket', now(), 0,0 )") or die(mysql_error());
+		mysql_query("INSERT INTO tahsin_udzur (id_tahsin, id_mahasiswa, udzur, keterangan, diajukan, direview, disetujui) VALUES ( $idTahsin, $idMahasiswa, '$udzur', '$ket', now(), 0, 0 );") or die(mysql_error());
 	}		
 
 	function reviewUdzurShalat($idUdzur, $status){
@@ -239,6 +239,14 @@
 				$data[] = $ad;
 				return $data;			
 	}		
+
+	function udzurGraphTahsinRolePembina($idPembina){
+		$ambildata = mysql_query("SELECT mb.id_mahasiswa, m.nama, IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu FROM m_binaan mb LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa LEFT JOIN ( SELECT tu.id_mahasiswa, COUNT(tu.udzur) AS jmlu FROM tahsin_udzur tu GROUP BY tu.id_mahasiswa ) u ON mb.id_mahasiswa = u.id_mahasiswa WHERE mb.id_pembina = $idPembina") or die(mysql_error());
+
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;			
+	}			
 
 	function tambahShalatManual($idMahasiswa, $tgl, $wkt, $ket){
 		$tgl_ = date('Y-m-d', strtotime($tgl));
@@ -326,11 +334,17 @@
 	}		
 
 	function tahsinUdzurRolePembina($idPembina){
-		$ambildata = mysql_query("SELECT mb.id_mahasiswa, m.nim, m.nama, IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu FROM m_binaan mb LEFT JOIN ( SELECT tu.id_mahasiswa, COUNT(tu.udzur) AS jmlu FROM tahsin_udzur tu LEFT JOIN tahsin t ON tu.id_tahsin = t.id WHERE t.id_pembina = $idPembina GROUP BY tu.id_mahasiswa ) u ON mb.id_mahasiswa = u.id_mahasiswa LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa WHERE mb.id_pembina = $idPembina ORDER BY jmlu DESC") or die(mysql_error());
-
+		$ambildata = mysql_query("SELECT t.tanggal, tu.id_mahasiswa, m.nama, COUNT(tu.udzur) AS jmlu, tu.direview FROM tahsin_udzur tu LEFT JOIN tahsin t ON tu.id_tahsin = t.id LEFT JOIN mahasiswa m ON tu.id_mahasiswa = m.id_mahasiswa WHERE t.id_pembina = $idPembina GROUP BY t.tanggal ORDER BY tu.diajukan DESC") or die(mysql_error());
+		if (mysql_num_rows($ambildata) > 0) {
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
-				return $data;			
+				return $data;
+		} else{
+			echo "<div class='alert alert-warning alert-dismissibl' role='alert'>
+							<button type='button' class='close' data-dismiss='alert' aria-label='Close'></button>
+							Belum Ada Data Pengajuan Udzur Tahsin
+						</div>";
+		}			
 	}			
 
 	function tahsinByMhsRoleAdminMatrik($graph){
