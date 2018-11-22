@@ -367,4 +367,8 @@
 				return $data;		
 		}
 	}	
+
+	function inputTargetHafalan($from, $to){
+		mysql_query("INSERT INTO hafalan_target (dari_juz, sampai_juz) VALUES ($from, $to);");
+	}		
 ?>
