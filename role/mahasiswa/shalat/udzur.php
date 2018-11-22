@@ -144,13 +144,14 @@ $(document).on('click', '.btn-add', addFormGroup);
                                 <input name="udzur" type="radio" class="radiojk" id="sakit" value="Sakit"/>
                                 <label for="sakit">SAKIT</label>&nbsp;&nbsp;
                                 <input name="udzur" type="radio" class="radiojk" id="hujan" value="Hujan"/>
-                                <label for="hujan">HUJAN DERAS</label>&nbsp;&nbsp;
-                                <input name="udzur" type="radio" class="radiojk" id="is" value="Izin Syari"/>
+                                
                                 <label for="is">IZIN SYAR'I</label>&nbsp;&nbsp;
                                 <?php 
                                   if($jKelamin == 'Akhwat'){
                                     echo '<input name="udzur" type="radio" id="radio_32" class="radiojk" id="haid" value="Haid"/>
-                                          <label for="radio_32">HAID</label>';
+                                          <label for="radio_32">HAID</label>
+                                          <label for="hujan">HUJAN DERAS</label>&nbsp;&nbsp;
+                                          <input name="udzur" type="radio" class="radiojk" id="is" value="Izin Syari"/>';
                                   }
                                 ?>
                                 <br><br>              
