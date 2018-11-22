@@ -49,5 +49,11 @@ include '../functions.php';
 
 	    hapusjplgDetail($tgl, $wkt, $jKelamin);
 	    header('location:/gmatrik/index.php?page=jplgdetail&p='.$idPeriod.''); 
+	} else
+	if(isset($_GET['idudzurtahsin'])){
+		$idTahsin = $_GET['idudzurtahsin'];
+
+	    hapusUdzurTahsin($idTahsin);
+	    header('location:/gmatrik/index.php?page=udzurtahsin'); 
 	}
  ?>

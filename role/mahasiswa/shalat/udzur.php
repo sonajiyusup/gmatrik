@@ -79,12 +79,12 @@ var addFormGroup  = function (event) {
         checkboxClass: 'icheckbox_flat-blue',
         radioClass: 'iradio_square-blue',
         increaseArea: '20%' // optional
-    }); 
+    });
 };
 
 $(document).on('click', '.btn-add', addFormGroup);
-
 </script>
+
 <div class="row clearfix">
 
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
