@@ -65,7 +65,7 @@ var addFormGroup  = function (event) {
                                   <td><?php echo $row['tahsin']; ?></td>
                                   <td><?php echo $row['diajukan']; ?></td>
                                   <td><?php if($row['direview'] == 0){echo '<label class="badge bg-orange">Belum di Review<label>';}else if($row['direview'] == 1){echo '<label class="badge bg-green">Sudah di Review<label>';}?></td>
-                                  <td><?php if($row['disetujui'] == 0){echo "<a title='Hapus' style='color:#DD4B39;' href='#ModalHapusUdzur' class='dropdown-item' data-toggle='modal' data-href='action/hapus.php?idudzurtahsin=".$row['id']."' aria-hidden='true'><i class='material-icons' style='font-size: 20px'>cancel</i></a>";}else if($row['disetujui'] == 1){echo "";} ?></td>
+                                  <td><?php if($row['disetujui'] == 0){echo "<a title='Hapus' style='color:#DD4B39;' href='#ModalHapusUdzurTahsin' class='dropdown-item' data-toggle='modal' data-href='action/hapus.php?idudzurtahsin=".$row['id']."' aria-hidden='true'><i class='material-icons' style='font-size: 20px'>cancel</i></a>";}else if($row['disetujui'] == 1){echo "";} ?></td>
                                 </tr>
                                 <?php $no++; } } ?>
                               </tbody> 
@@ -114,7 +114,7 @@ var addFormGroup  = function (event) {
 </div>   
 
             <!-- Small Size -->
-            <div class="modal fade" id="ModalHapusUdzur" tabindex="-1" role="dialog">
+            <div class="modal fade" id="ModalHapusUdzurTahsin" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-sm" role="document">
                     <div class="modal-content">
                         <div class="modal-header">

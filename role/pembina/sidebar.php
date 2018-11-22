@@ -100,7 +100,7 @@
                     </li>
                     <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'inputtahsin' || $_GET['page'] == 'tahsinm' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin') {
+                                    if ($_GET['page'] == 'inputtahsin' || $_GET['page'] == 'tahsinm' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin' || $_GET['page'] == 'pertemuan') {
                                       echo "class='active'";
                                     }
                                   }
@@ -169,6 +169,15 @@
                                 <a href="?page=udzurtahsin">
                                     <span>Udzur</span>
                                 </a>
+                            </li>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'pertemuan') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            ><a href="?page=pertemuan"><span>Pertemuan</span></a>
                             </li>
                             <li <?php 
                                   if (isset($_GET['page'])) {
@@ -372,6 +381,8 @@
               include 'tahsin/tahsin_bytahsin.php';
             } else if ($_GET['page'] == 'udzurtahsin') {
               include 'tahsin/udzur.php';
+            } else if ($_GET['page'] == 'pertemuan') {
+              include 'tahsin/tahsin_bypertemuan.php';
             }
         } else{
             include 'dashboard.php';
