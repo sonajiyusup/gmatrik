@@ -444,4 +444,12 @@
 				$data[] = $ad;
 				return $data;			
 	}			
+
+	function tampilTargetHafalan(){
+		$ambildata = mysql_query("SELECT th.id, j.juz, j.deskripsi AS nama_juz, COUNT(s.id_juz) AS jumlah_surah, sm.semester, sm.dari, sm.sampai FROM target_hafalan th LEFT JOIN juz j ON th.id_juz = j.id LEFT JOIN surah s ON j.id = s.id_juz LEFT JOIN semester sm ON th.id_semester = sm.id GROUP BY th.id_juz") or die(mysql_error());
+
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;			
+	}			
 ?>
