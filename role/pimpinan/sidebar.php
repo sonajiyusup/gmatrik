@@ -269,7 +269,7 @@
                                           }
                                         ?>
                                     ><a href="?page=targethafalan">
-                                            <span>Input Target Hafalan Mahasiswa</span>
+                                            <span>Target Hafalan Quran</span>
                                         </a>
                                     </li>
                                 </ul>
