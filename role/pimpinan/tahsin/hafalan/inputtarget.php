@@ -10,66 +10,51 @@
                                 INPUT TARGET HAFALAN QURAN MAHASISWA
                             </h2>
                         </div>
-                        <form method="POST" id="formInputTargetHafalan">
-	                        <div class="body">
-	                            <div class="irs-demo">
-	                                <b>Pilih Target Hafalan (Juz 30 Sampai 1)</b>
-	                                <input type="text" id="range_07" class="js-range-slider" value="" />
-	                            </div>
-	                            <button type="submit" class="btn btn-primary waves-effect js-get-values" name="submitTargetHafalan">SUBMIT</button>
-	                           <div class="result">
-																<input type="hidden" class="js-result-to" name="juz_dari" value="" />
-															</div>
-	                           <div class="result">
-																<input type="hidden" class="js-result-from" name="juz_sampai" value="" />
-															</div>
-                        	</div>
-                        </form>
+                        <div class="body">
+	                        <form method="POST" id="formInputTargetHafalan">
+	                        <div class="row">
+	                        	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+	                        		<div class="input-group">
+	                                <label>Juz :</label>
+	                                  <div class="form-line">
+	                                    <select class="form-control show-tick" data-live-search="true" name="juz" required>
+	                                    	<option value="">-- Pilih Target Juz Quran --</option>
+	                                                        <?php $juz = tampiljuz();
+	                                                          foreach($juz as $row){
+	                                                            echo '<option value="'.$row['id'].'">Juz '.$row['juz'].' ('.$row['deskripsi'].') '.$row['jumlah_surah'].' Surah</option>';
+	                                                          } 
+	                                                        ?>
+	                                    </select>
+	                                  </div>
+	                              </div>
+	                        	</div>
+	                        	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+	                        		<div class="input-group">
+	                                <label>Semeser :</label>
+	                                  <div class="form-line">
+	                                    <select class="form-control show-tick" name="semester" required>
+	                                    	<option value="">-- Pilih Target Semester --</option>
+	                                                        <?php $juz = tampilSemester();
+	                                                          foreach($juz as $row){
+	                                                            echo '<option value="'.$row['id'].'">Semester '.$row['semester'].' ('.date('F Y', strtotime($row['dari'])).' - '.date('F Y', strtotime($row['sampai'])).')</option>';
+	                                                          } 
+	                                                        ?>
+	                                    </select>
+	                                  </div>
+	                              </div>
+	                        	</div>
+	                        </div>
+	                        <button type="submit" class="btn btn-primary waves-effect" name="submitTargetHafalan">SUBMIT</button>
+	                        </form>
+                        </div>
                     </div>
                 </div>
 </div>
 
     <?php 
         if (isset($_POST['submitTargetHafalan'])) {
-          inputTargetHafalan($_POST['juz_dari'], $_POST['juz_sampai']);
+          inputTarget($_POST['juz'], $_POST['semester']);
 
-					echo "<script>document.location='?page=targethafalan'</script>";
+					// echo "<script>document.location='?page=targethafalan'</script>";
         }
     ?>
-
-<script type="text/javascript">
-	var $range = $(".js-range-slider"),
-	    $resultfrom = $(".js-result-from"),
-	    $resultto = $(".js-result-to"),
-	    $getvalues = $(".js-get-values"),
-	    
-	    from = 0,
-	    to = 0;
-
-	var saveResult = function (data) {
-	    from = data.from;
-	    to = data.to;
-	};
-
-	var writeResult = function () {
-			$resultfrom.val(to)
-	    $resultto.val(from);
-	};
-
-	$range.ionRangeSlider({
-	    type: "double",
-	    grid: true,
-      values: [0, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
-	    from: from,
-	    to: to,
-	    onStart: function (data) {
-	        saveResult(data);
-	        writeResult();
-	    },
-	    onChange: saveResult,
-	    onFinish: saveResult
-	});
-
-	$getvalues.on("click", writeResult);
-
-</script>

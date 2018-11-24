@@ -409,8 +409,8 @@
 		}
 	}	
 
-	function inputTargetHafalan($from, $to){
-		mysql_query("INSERT INTO hafalan_target (dari_juz, sampai_juz) VALUES ($from, $to);");
+	function inputTarget($juz, $smt){
+		mysql_query("INSERT INTO target_hafalan (id_juz, id_semester) VALUES ($juz, $smt);");
 	}		
 
 	function tahsinByPertemuanRolePembina($idPembina){
@@ -423,6 +423,22 @@
 
 	function tahsinByPertemuanRoleAdminmatrik(){
 		$ambildata = mysql_query("SELECT t.id, t.tanggal, j.nama, t.tahsin, j.jmlb, COUNT(tp.id_mahasiswa) AS total, j.jmlb-COUNT(tp.id_mahasiswa) AS absen, COUNT(tu.id_mahasiswa) AS jmlu, j.jmlb-COUNT(tu.id_mahasiswa) AS target, ROUND(((COUNT(tp.id_mahasiswa)/(j.jmlb-COUNT(tu.id_mahasiswa)))*100),2) AS nilai FROM tahsin t LEFT JOIN tahsin_presensi tp ON t.id = tp.id_tahsin LEFT JOIN tahsin_udzur tu ON t.id = tu.id_tahsin LEFT JOIN ( SELECT mb.id_pembina, p.nama, COUNT(mb.id_mahasiswa) AS jmlb FROM m_binaan mb LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina GROUP BY mb.id_pembina ) j ON t.id_pembina = j.id_pembina GROUP BY tp.id_tahsin ORDER BY t.tanggal DESC, t.tahsin") or die(mysql_error());
+
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;			
+	}			
+
+	function tampilJuz(){
+		$ambildata = mysql_query("SELECT j.id, j.juz, j.deskripsi, COUNT(s.id_juz) AS jumlah_surah, SUM(s.jumlah_ayat) AS total_jumlah_ayat FROM juz j LEFT JOIN surah s ON j.id = s.id_juz GROUP BY j.id") or die(mysql_error());
+
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;			
+	}		
+
+	function tampilSemester(){
+		$ambildata = mysql_query("SELECT * FROM semester s ") or die(mysql_error());
 
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
