@@ -512,4 +512,22 @@
 				return $data;		
 		}
 	}		
+
+	function tampilHafalanBySurahRoleAdminmatrik($graph){
+		$query = "SELECT s.id, j.juz, j.deskripsi , s.no_surah, s.nama_surah, j.jmhs AS target, IF(pg.progres IS NULL, 0, pg.progres) AS jmlb_setor, ROUND((((IF(pg.progres IS NULL, 0, pg.progres))/(j.jmhs))*100),2) AS progres FROM surah s LEFT JOIN juz j ON s.id_juz = j.id LEFT JOIN ( SELECT sh.id_surah, m.id_mahasiswa, COUNT(sh.id_mahasiswa) AS progres FROM setor_hafalan sh LEFT JOIN mahasiswa m ON sh.id_mahasiswa = m.id_mahasiswa GROUP BY sh.id_surah ) pg ON s.id = pg.id_surah JOIN ( SELECT COUNT(m.id_mahasiswa) AS jmhs FROM mahasiswa m ) j GROUP BY s.id ORDER BY s.no_surah DESC";
+			
+		if($graph == 1){
+			$ambildata = mysql_query($query." LIMIT 10") or die(mysql_error());
+
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;		
+		} else{
+			$ambildata = mysql_query($query) or die(mysql_error());
+
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;		
+		}
+	}			
 ?>
