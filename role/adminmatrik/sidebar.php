@@ -195,7 +195,7 @@
                     </li>
                     <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'tahsinm' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin' || $_GET['page'] == 'tahsinia' || $_GET['page'] == 'tahsinp' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin' || $_GET['page'] == 'tahsinprt' || $_GET['page'] == 'hafalanm' || $_GET['page'] == 'hafalans' || $_GET['page'] == 'targethafalan' || $_GET['page'] == 'hafalanp') {
+                                    if ($_GET['page'] == 'tahsinm' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin' || $_GET['page'] == 'tahsinia' || $_GET['page'] == 'tahsinp' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin' || $_GET['page'] == 'tahsinprt' || $_GET['page'] == 'hafalanm' || $_GET['page'] == 'hafalans' || $_GET['page'] == 'targethafalan' || $_GET['page'] == 'hafalanp' || $_GET['page'] == 'setorhafalan') {
                                       echo "class='active'";
                                     }
                                   }
@@ -258,7 +258,7 @@
                             </li>
                             <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'hafalanm' || $_GET['page'] == 'hafalans' || $_GET['page'] == 'targethafalan' || $_GET['page'] == 'hafalanp') {
+                                    if ($_GET['page'] == 'hafalanm' || $_GET['page'] == 'hafalans' || $_GET['page'] == 'targethafalan' || $_GET['page'] == 'hafalanp' || $_GET['page'] == 'setorhafalan') {
                                       echo "class='active'";
                                     }
                                   }
@@ -298,6 +298,17 @@
                                         ?>
                                     ><a href="?page=hafalans">
                                             <span>Berdasar Surah</span>
+                                        </a>
+                                    </li>
+                                    <li <?php 
+                                          if (isset($_GET['page'])) {
+                                            if ($_GET['page'] == 'setorhafalan') {
+                                              echo "class='active'";
+                                            }
+                                          }
+                                        ?>
+                                    ><a href="?page=setorhafalan">
+                                            <span>Penyetoran Hafalan Quran</span>
                                         </a>
                                     </li>
                                     <li <?php 
@@ -633,6 +644,8 @@
               include 'tahsin/hafalan/target.php';
             } else if ($_GET['page'] == 'hafalanp') {
               include 'tahsin/hafalan/hafalan_bypembina.php';
+            } else if ($_GET['page'] == 'setorhafalan') {
+              include 'tahsin/hafalan/setor.php';
             }
         } else{
             include 'dashboard.php';
