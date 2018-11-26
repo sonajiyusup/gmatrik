@@ -97,7 +97,7 @@
                                   </thead>
                                   <tbody>
                                     <?php 
-                                      $data = tampilSetorHafalan();
+                                      $data = tampilSetorHafalanRolePembina($idPembina);
                                       $no = 1;
 
                                       if (is_array($data) || is_object($data)){

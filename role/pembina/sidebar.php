@@ -158,17 +158,7 @@
                                     </li>
                                     <li>
                                         <a href="javascript:void(0);">
-                                            <span>Berdasar Juz</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">
                                             <span>Berdasar Surah</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <span>Berdasar Jumlah Ayat</span>
                                         </a>
                                     </li>
                                     <li <?php 

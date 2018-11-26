@@ -465,11 +465,17 @@
 				return $data;			
 	}			
 
-	function tampilSetorHafalan(){
-		$ambildata = mysql_query("SELECT sh.id, sh.id_mahasiswa, m.nama, sh.id_surah, s.no_surah, s.nama_surah, s.jumlah_ayat, sh.tanggal_setor FROM setor_hafalan sh LEFT JOIN mahasiswa m ON sh.id_mahasiswa = m.id_mahasiswa LEFT JOIN surah s ON sh.id_surah = s.id") or die(mysql_error());
-
+	function tampilSetorHafalanRolePembina($idPembina){
+		$ambildata = mysql_query("SELECT sh.id, mb.id_mahasiswa, m.nama, sh.id_surah, s.no_surah, s.nama_surah, s.jumlah_ayat, sh.tanggal_setor FROM setor_hafalan sh LEFT JOIN m_binaan mb ON sh.id_mahasiswa = mb.id_mahasiswa LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa LEFT JOIN surah s ON sh.id_surah = s.id WHERE mb.id_pembina = $idPembina") or die(mysql_error());
+		if (mysql_num_rows($ambildata) > 0) {
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
-				return $data;			
+				return $data;
+		} else{
+			echo "<div class='alert alert-warning alert-dismissibl' role='alert'>
+							<button type='button' class='close' data-dismiss='alert' aria-label='Close'></button>
+							Belum Ada Mahasiswa Yang Menyetorkan Hafalan Quran
+						</div>";
+		}				
 	}			
 ?>
