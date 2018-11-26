@@ -100,7 +100,7 @@
                     </li>
                     <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'inputtahsin' || $_GET['page'] == 'tahsinm' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin' || $_GET['page'] == 'tahsinprt' || $_GET['page'] == 'targethafalan' || $_GET['page'] == 'setor') {
+                                    if ($_GET['page'] == 'inputtahsin' || $_GET['page'] == 'tahsinm' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin' || $_GET['page'] == 'tahsinprt' || $_GET['page'] == 'targethafalan' || $_GET['page'] == 'setor' || $_GET['page'] == 'hafalanm') {
                                       echo "class='active'";
                                     }
                                   }
@@ -142,7 +142,7 @@
                             </li>
                             <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'targethafalan' || $_GET['page'] == 'setor') {
+                                    if ($_GET['page'] == 'targethafalan' || $_GET['page'] == 'setor' || $_GET['page'] == 'hafalanm') {
                                       echo "class='active'";
                                     }
                                   }
@@ -151,8 +151,14 @@
                                     <span>Hafalan Quran</span>
                                 </a>
                                 <ul class="ml-menu">
-                                    <li>
-                                        <a href="javascript:void(0);">
+                                    <li <?php 
+                                          if (isset($_GET['page'])) {
+                                            if ($_GET['page'] == 'hafalanm') {
+                                              echo "class='active'";
+                                            }
+                                          }
+                                        ?>
+                                    ><a href="?page=hafalanm">
                                             <span>Berdasar Mahasiswa</span>
                                         </a>
                                     </li>
@@ -405,6 +411,8 @@
               include 'tahsin/hafalan/target.php';
             } else if ($_GET['page'] == 'setor') {
               include 'tahsin/hafalan/setor.php';
+            } else if ($_GET['page'] == 'hafalanm') {
+              include 'tahsin/hafalan/hafalan_bymhs.php';
             }
         } else{
             include 'dashboard.php';

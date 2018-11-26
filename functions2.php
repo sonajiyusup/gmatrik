@@ -478,4 +478,12 @@
 						</div>";
 		}				
 	}			
+
+	function tampilHafalanByMahasiswaRolePembina($idPembina){
+		$ambildata = mysql_query("SELECT mb.id_mahasiswa, m.nim, m.nama, t.target, IF(h.jmls IS NULL, 0, h.jmls) AS jmls, IF(ROUND(((h.jmls/t.target)*100),2) IS NULL, 0, ROUND(((h.jmls/t.target)*100),2)) AS progres FROM m_binaan mb LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa LEFT JOIN ( SELECT sh.id_mahasiswa, COUNT(sh.id_surah) AS jmls FROM setor_hafalan sh GROUP BY sh.id_mahasiswa ) h ON mb.id_mahasiswa = h.id_mahasiswa JOIN ( SELECT th.id_juz, COUNT(s.no_surah) AS target FROM target_hafalan th LEFT JOIN surah s ON th.id_juz = s.id_juz GROUP BY th.id_juz ) t WHERE mb.id_pembina = $idPembina ORDER BY progres DESC") or die(mysql_error());
+
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;			
+	}		
 ?>
