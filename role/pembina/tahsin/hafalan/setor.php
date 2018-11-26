@@ -8,77 +8,8 @@
                     <div class="card">
                         <div class="header">
                             <h2>
-                                INPUT PENYETORAN HAFALAN QURAN MAHASISWA
-                            </h2>
-                        </div>
-                        <div class="body">
-	                        <form method="POST" id="formInputdata">
-                          <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                              <div class="input-group">
-                                  <label>Tanggal :</label>
-                                    <div class="form-line">
-                                      <input type="text" class="form-control datepicker" name="tglsetor" placeholder="Tanggal Penyetoran Hafalan" required /><br>
-                                    </div>
-                                </div>
-                              </div>
-                          </div>
-	                        <div class="row">
-	                        	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-	                        		<div class="input-group">
-	                                <label>Nama Mahasiswa :</label>
-	                                  <div class="form-line">
-	                                    <select class="form-control show-tick" data-live-search="true" name="idMahasiswa" required>
-	                                    	<option value="">-- Pilih Mahasiswa Binaan --</option>
-	                                                        <?php $data = tampilBinaanByPembina($idPembina);
-	                                                          foreach($data as $row){
-	                                                            echo '<option value="'.$row['id_mahasiswa'].'">'.$row['nama'].'</option>';
-	                                                          } 
-	                                                        ?>
-	                                    </select>
-	                                  </div>
-	                              </div>
-	                        	</div>
-	                        	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-	                        		<div class="input-group">
-	                                <label>Surah :</label>
-	                                  <div class="form-line">
-	                                    <select class="form-control show-tick" data-live-search="true" name="idSurah" required>
-	                                    	<option value="">-- Pilih Surah Yang Sudah di Setor --</option>
-	                                                        <?php $surah = tampilSurah();
-	                                                          foreach($surah as $row){
-	                                                            echo '<option value="'.$row['id'].'">'.$row['no_surah'].'. '.$row['nama_surah'].' ('.$row['jumlah_ayat'].' Ayat)'.'</option>';
-	                                                          } 
-	                                                        ?>
-	                                    </select>
-	                                  </div>
-	                              </div>
-                                
-	                        	</div>
-	                        </div>
-                          <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                              <div class="input-group">
-                                  <label>Keterangan :</label>
-                                    <div class="form-line">
-                                      <input type="text" name="keterangan" >
-                                    </div>
-                                </div>
-                              </div>
-                          </div>
-	                        <button type="submit" class="btn btn-primary waves-effect" name="submitSetorHafalan">SUBMIT</button>
-	                        </form>
-                        </div>
-                    </div>
-                </div>
-</div>
-
-<div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header">
-                            <h2>
                                 DATA PENYETORAN HAFALAN QURAN MAHASISWA
+                                <button class="btn btn-sm btn-link waves-effect " data-toggle="modal" data-target="#tambahPembina" style="width: 10%;" title="Tambah Data Pembina"><i class="material-icons">playlist_add</i></button>
                             </h2>
                         </div>
                         <div class="body">
@@ -122,6 +53,77 @@
 						              	</div>	                        
                         </div>
                     </div>
+                </div>
+</div>
+
+<div class="modal fade" id="tambahPembina" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                  <form class="form-horizontal" method="POST">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="defaultModalLabel">FORM INPUT PENYETORAN HAFALAN QURAN MAHASISWA</h4>
+                        </div>
+                        <div class="modal-body">
+                          <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                              <div class="input-group">
+                                  <label>Tanggal :</label>
+                                    <div class="form-line">
+                                      <input type="text" class="form-control datepicker" name="tglsetor" placeholder="Tanggal Penyetoran Hafalan" required /><br>
+                                    </div>
+                                </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                              <div class="input-group">
+                                  <label>Nama Mahasiswa :</label>
+                                    <div class="form-line">
+                                      <select class="form-control show-tick" data-live-search="true" name="idMahasiswa" required>
+                                        <option value="">-- Pilih Mahasiswa Binaan --</option>
+                                                          <?php $data = tampilBinaanByPembina($idPembina);
+                                                            foreach($data as $row){
+                                                              echo '<option value="'.$row['id_mahasiswa'].'">'.$row['nama'].'</option>';
+                                                            } 
+                                                          ?>
+                                      </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                              <div class="input-group">
+                                  <label>Surah :</label>
+                                    <div class="form-line">
+                                      <select class="form-control show-tick" data-live-search="true" name="idSurah" required>
+                                        <option value="">-- Pilih Surah Yang Sudah di Setor --</option>
+                                                          <?php $surah = tampilSurah();
+                                                            foreach($surah as $row){
+                                                              echo '<option value="'.$row['id'].'">'.$row['no_surah'].'. '.$row['nama_surah'].' ('.$row['jumlah_ayat'].' Ayat)'.'</option>';
+                                                            } 
+                                                          ?>
+                                      </select>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                              <div class="input-group">
+                                  <label>Keterangan :</label>
+                                    <div class="form-line">
+                                      <input type="text" name="keterangan" >
+                                    </div>
+                                </div>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" name="submitSetorHafalan" class="btn btn-primary waves-effect" style="width: 16.66666666666667%;">SUBMIT</button>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">BATAL</button>
+                        </div>
+                    </div>
+                  </form>
                 </div>
 </div>
 
