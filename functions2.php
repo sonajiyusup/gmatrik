@@ -437,6 +437,14 @@
 				return $data;			
 	}		
 
+	function tampilSurah(){
+		$ambildata = mysql_query("SELECT * FROM surah ORDER BY no_surah DESC") or die(mysql_error());
+
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;			
+	}		
+
 	function tampilSemester(){
 		$ambildata = mysql_query("SELECT * FROM semester s ") or die(mysql_error());
 

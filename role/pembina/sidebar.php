@@ -100,7 +100,7 @@
                     </li>
                     <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'inputtahsin' || $_GET['page'] == 'tahsinm' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin' || $_GET['page'] == 'tahsinprt' || $_GET['page'] == 'targethafalan') {
+                                    if ($_GET['page'] == 'inputtahsin' || $_GET['page'] == 'tahsinm' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin' || $_GET['page'] == 'tahsinprt' || $_GET['page'] == 'targethafalan' || $_GET['page'] == 'setor') {
                                       echo "class='active'";
                                     }
                                   }
@@ -142,7 +142,7 @@
                             </li>
                             <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'targethafalan') {
+                                    if ($_GET['page'] == 'targethafalan' || $_GET['page'] == 'setor') {
                                       echo "class='active'";
                                     }
                                   }
@@ -169,6 +169,17 @@
                                     <li>
                                         <a href="javascript:void(0);">
                                             <span>Berdasar Jumlah Ayat</span>
+                                        </a>
+                                    </li>
+                                    <li <?php 
+                                          if (isset($_GET['page'])) {
+                                            if ($_GET['page'] == 'setor') {
+                                              echo "class='active'";
+                                            }
+                                          }
+                                        ?>
+                                    ><a href="?page=setor">
+                                            <span>Penyetoran Hafalan Quran</span>
                                         </a>
                                     </li>
                                     <li <?php 
@@ -402,6 +413,8 @@
               include 'tahsin/tahsin_bypertemuan.php';
             } else if ($_GET['page'] == 'targethafalan') {
               include 'tahsin/hafalan/target.php';
+            } else if ($_GET['page'] == 'setor') {
+              include 'tahsin/hafalan/setor.php';
             }
         } else{
             include 'dashboard.php';
