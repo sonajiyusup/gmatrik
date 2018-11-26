@@ -100,7 +100,7 @@
                     </li>
                     <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'inputtahsin' || $_GET['page'] == 'tahsinm' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin' || $_GET['page'] == 'tahsinprt') {
+                                    if ($_GET['page'] == 'inputtahsin' || $_GET['page'] == 'tahsinm' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin' || $_GET['page'] == 'tahsinprt' || $_GET['page'] == 'targethafalan') {
                                       echo "class='active'";
                                     }
                                   }
@@ -140,8 +140,14 @@
                                 ?>
                             ><a href="?page=tahsinprt"><span>Pertemuan</span></a>
                             </li>
-                            <li>
-                                <a href="javascript:void(0);" class="menu-toggle">
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'targethafalan') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            ><a href="javascript:void(0);" class="menu-toggle">
                                     <span>Hafalan Quran</span>
                                 </a>
                                 <ul class="ml-menu">
@@ -163,6 +169,17 @@
                                     <li>
                                         <a href="javascript:void(0);">
                                             <span>Berdasar Jumlah Ayat</span>
+                                        </a>
+                                    </li>
+                                    <li <?php 
+                                          if (isset($_GET['page'])) {
+                                            if ($_GET['page'] == 'targethafalan') {
+                                              echo "class='active'";
+                                            }
+                                          }
+                                        ?>
+                                    ><a href="?page=targethafalan">
+                                            <span>Target Hafalan Quran</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -383,6 +400,8 @@
               include 'tahsin/udzur.php';
             } else if ($_GET['page'] == 'tahsinprt') {
               include 'tahsin/tahsin_bypertemuan.php';
+            } else if ($_GET['page'] == 'targethafalan') {
+              include 'tahsin/hafalan/target.php';
             }
         } else{
             include 'dashboard.php';
