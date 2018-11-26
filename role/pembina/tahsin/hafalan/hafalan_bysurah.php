@@ -9,7 +9,7 @@
                     <div class="card">
                         <div class="header">
                             <h2>GRAFIK PROGRESS HAFALAN QURAN MAHASISWA BINAAN
-                              <small>Berdasarkan Mahasiswa</small>
+                              <small>Berdasarkan Progres Surah Tertinggi ke Terendah</small>
                             </h2>
                         </div>
                         <div class="body">
@@ -28,15 +28,15 @@
                                       type: 'bar',
                                       data: {
                                           labels: [<?php
-                                                    $data = tampilHafalanByMahasiswaRolePembina($idPembina);
+                                                    $data = tampilHafalanBySurahRolePembina($idPembina);
                                                     foreach ($data as $row){
-                                                     echo '"'.$row['nama'].'",';
+                                                     echo '"'.$row['nama_surah'].'",';
                                                     }
                                                   ?>],
                                           datasets: [{
                                               label: "Progres (%)",
                                               data: [<?php
-                                                    $data = tampilHafalanByMahasiswaRolePembina($idPembina);
+                                                    $data = tampilHafalanBySurahRolePembina($idPembina);
                                                     foreach ($data as $row){
                                                      echo '"'.$row['progres'].'",';
                                                     }
@@ -60,33 +60,34 @@
                     <div class="card">
                         <div class="header">
                           <h2>DATA PROGRESS HAFALAN QURAN MAHASISWA BINAAN
+                            <small>Berdasarkan Progres Surah Tertinggi ke Terendah</small>
                           </h2>
                         </div>
                         <div class="body">
                           <div class="table-responsive">
-                            <table id="tableHafalanMhs" class="table table-hover table-condensed">
+                            <table id="tableHafalanSurah" class="table table-hover table-condensed">
                               <thead>
                                 <tr>
                                   <th>#</th>
-                                  <th>NIM</th>
-                                  <th>Nama</th>
-                                  <th>Target (Jml Surah)</th>
-                                  <th>Jumlah Setor Surah</th>
+                                  <th>No Surah</th>
+                                  <th>Nama Surah</th>
+                                  <th>Target (Jml Binaan)</th>
+                                  <th>Jumlah Mahasiswa Sudah Setor</th>
                                   <th>Progres</th>
                                 </tr>
                               </thead>
                               <tbody>
                                 <?php 
                                   $no = 1;
-                                  $data = tampilHafalanByMahasiswaRolePembina($idPembina);
+                                  $data = tampilHafalanBySurahRolePembina($idPembina);
                                   foreach($data as $row){
                                  ?>
                                 <tr>
                                   <td><?php echo $no; ?></td>
-                                  <td><?php echo $row['nim']; ?></td>
-                                  <td><?php echo '<a href="?page=hafalandetail&id='.$row['id_mahasiswa'].'">'.$row['nama'].'</a>'; ?></td>
+                                  <td><?php echo $row['no_surah']; ?></td>
+                                  <td><?php echo '<a href="?page=surahdetail&id='.$row['id'].'">'.$row['nama_surah'].'</a>'; ?></td>
                                   <td><?php echo $row['target']; ?></td>
-                                  <td><?php echo $row['jmls']; ?></td>
+                                  <td><?php echo $row['jmlb_setor']; ?></td>
                                   <td><?php echo $row['progres'].'%'; ?></td>
                                 </tr>
                                 <?php $no++; } ?>
@@ -103,6 +104,6 @@
 <!-- Daterange picker import data presensi shalat mahasiswa -->
     <script>
     $(document).ready(function() {
-      var t = $('#tableHafalanMhs').DataTable({});
+      var t = $('#tableHafalanSurah').DataTable({});
     } );
     </script> 
