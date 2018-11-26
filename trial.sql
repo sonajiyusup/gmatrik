@@ -2861,3 +2861,21 @@ JOIN (
 ) j
 GROUP BY s.id
 ORDER BY s.no_surah DESC
+
+-- Hafalan Quran by Pembina on role Adminmatrik
+SELECT p.id_pembina, p.nama, COUNT(mb.id_mahasiswa) AS jmlb, js.jsurah, 
+js.jsurah*COUNT(mb.id_mahasiswa) AS target_hafalan,
+IF(sr.jmls IS NULL, 0, sr.jmls) AS jmls,
+ROUND((((IF(sr.jmls IS NULL, 0, sr.jmls))/(js.jsurah*COUNT(mb.id_mahasiswa)))*100),2) AS progres
+FROM pembina p 
+LEFT JOIN (
+    SELECT mb.id_pembina, COUNT(sh.id_surah) AS jmls
+    FROM setor_hafalan sh 
+    LEFT JOIN m_binaan mb ON sh.id_mahasiswa = mb.id_mahasiswa
+) sr ON p.id_pembina = sr.id_pembina
+LEFT JOIN m_binaan mb ON p.id_pembina = mb.id_pembina
+JOIN (
+    SELECT COUNT(s.id) AS jsurah
+    FROM surah s 
+) js
+GROUP BY p.id_pembina
