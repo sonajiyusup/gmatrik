@@ -12,7 +12,17 @@
                             </h2>
                         </div>
                         <div class="body">
-	                        <form method="POST" id="formInputTargetHafalan">
+	                        <form method="POST" id="formInputdata">
+                          <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                              <div class="input-group">
+                                  <label>Tanggal :</label>
+                                    <div class="form-line">
+                                      <input type="text" class="form-control datepicker" name="tglsetor" placeholder="Tanggal Penyetoran Hafalan" required /><br>
+                                    </div>
+                                </div>
+                              </div>
+                          </div>
 	                        <div class="row">
 	                        	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 	                        		<div class="input-group">
@@ -33,7 +43,7 @@
 	                        		<div class="input-group">
 	                                <label>Surah :</label>
 	                                  <div class="form-line">
-	                                    <select class="form-control show-tick" data-live-search="true" name="surah" required>
+	                                    <select class="form-control show-tick" data-live-search="true" name="idSurah" required>
 	                                    	<option value="">-- Pilih Surah Yang Sudah di Setor --</option>
 	                                                        <?php $surah = tampilSurah();
 	                                                          foreach($surah as $row){
@@ -43,8 +53,19 @@
 	                                    </select>
 	                                  </div>
 	                              </div>
+                                
 	                        	</div>
 	                        </div>
+                          <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                              <div class="input-group">
+                                  <label>Keterangan :</label>
+                                    <div class="form-line">
+                                      <input type="text" name="keterangan" >
+                                    </div>
+                                </div>
+                              </div>
+                          </div>
 	                        <button type="submit" class="btn btn-primary waves-effect" name="submitSetorHafalan">SUBMIT</button>
 	                        </form>
                         </div>
@@ -57,37 +78,39 @@
                     <div class="card">
                         <div class="header">
                             <h2>
-                                DATA TARGET HAFALAN QURAN MAHASISWA
+                                DATA PENYETORAN HAFALAN QURAN MAHASISWA
                             </h2>
                         </div>
                         <div class="body">
 													<div class="table-responsive">
-                                <table id="tableTargetHafalan" class="table table-hover table-condensed js-basic-example">
+                                <table id="tabledata" class="table table-hover table-condensed js-basic-example">
                                   <thead>
                                     <tr>
                                       <th>#</th>
-                                      <th>Quran Juz</th>
-                                      <th>Nama Juz</th>
-                                      <th>Jumlah Surah</th>
-                                      <th>Target Semester</th>
-                                      <th>Rentang Waktu</th>
+                                      <th>Nama Mahasiswa</th>
+                                      <th>No Surah</th>
+                                      <th>Nama Surah</th>
+                                      <th>Jumlah Ayat</th>
+                                      <th>Tanggal Penyetoran</th>
+                                      <th>Aksi</th>
                                     </tr>
                                   </thead>
                                   <tbody>
                                     <?php 
-                                      $targetHafalan = tampilTargetHafalan();
+                                      $data = tampilSetorHafalan();
                                       $no = 1;
 
-                                      if (is_array($targetHafalan) || is_object($targetHafalan)){
-                                        foreach($targetHafalan as $row){
+                                      if (is_array($data) || is_object($data)){
+                                        foreach($data as $row){
                                     ?>
                                   <tr >
                                     <td><?php echo $no; ?></td>
-                                    <td><?php echo $row['juz']; ?></td>
-                                    <td><?php echo $row['nama_juz']; ?></td>
-                                    <td><?php echo $row['jumlah_surah']; ?></td>
-                                    <td><?php echo $row['semester']; ?></td>
-                                    <td><?php echo date('F Y', strtotime($row['dari'])).' - '.date('F Y', strtotime($row['sampai'])); ?></td>
+                                    <td><?php echo $row['nama']; ?></td>
+                                    <td><?php echo $row['no_surah']; ?></td>
+                                    <td><?php echo $row['nama_surah']; ?></td>
+                                    <td><?php echo $row['jumlah_ayat']; ?></td>
+                                    <td><?php echo date('d-M-Y', strtotime($row['tanggal_setor'])); ?></td>
+                                    <td></td>
                                   </tr>
                                     <?php 
                                       $no++; }
@@ -104,8 +127,8 @@
 
     <?php 
         if (isset($_POST['submitSetorHafalan'])) {
-          inputTarget($_POST['juz'], $_POST['semester']);
+          inputSetorHafalan($_POST['idMahasiswa'], $_POST['idSurah'], $_POST['keterangan'], $_POST['tglsetor']);
 
-					echo "<script>document.location='?page=targethafalan'</script>";
+					echo "<script>document.location='?page=setor'</script>";
         }
     ?>

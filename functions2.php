@@ -413,6 +413,10 @@
 		mysql_query("INSERT INTO target_hafalan (id_juz, id_semester) VALUES ($juz, $smt);");
 	}		
 
+	function inputSetorHafalan($idMahasiswa, $idSurah, $ket, $tglSetor){
+		mysql_query("INSERT INTO setor_hafalan (id_mahasiswa, id_surah, keterangan, tanggal_setor, waktu_input) VALUES ($idMahasiswa, $idSurah, '$ket', '$tglSetor', now());");
+	}		
+
 	function tahsinByPertemuanRolePembina($idPembina){
 		$ambildata = mysql_query("SELECT t.id, t.tanggal, t.tahsin, j.jmlb, COUNT(tp.id_mahasiswa) AS total, j.jmlb-COUNT(tp.id_mahasiswa) AS absen, COUNT(tu.id_mahasiswa) AS jmlu, j.jmlb-COUNT(tu.id_mahasiswa) AS target, ROUND(((COUNT(tp.id_mahasiswa)/(j.jmlb-COUNT(tu.id_mahasiswa)))*100),2) AS nilai FROM tahsin t LEFT JOIN tahsin_presensi tp ON t.id = tp.id_tahsin LEFT JOIN tahsin_udzur tu ON t.id = tu.id_tahsin JOIN ( SELECT COUNT(mb.id_mahasiswa) AS jmlb FROM m_binaan mb WHERE mb.id_pembina = $idPembina GROUP BY mb.id_pembina ) j WHERE t.id_pembina = $idPembina GROUP BY tp.id_tahsin ORDER BY t.tanggal") or die(mysql_error());
 
@@ -455,6 +459,14 @@
 
 	function tampilTargetHafalan(){
 		$ambildata = mysql_query("SELECT th.id, j.juz, j.deskripsi AS nama_juz, COUNT(s.id_juz) AS jumlah_surah, sm.semester, sm.dari, sm.sampai FROM target_hafalan th LEFT JOIN juz j ON th.id_juz = j.id LEFT JOIN surah s ON j.id = s.id_juz LEFT JOIN semester sm ON th.id_semester = sm.id GROUP BY th.id_juz") or die(mysql_error());
+
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;			
+	}			
+
+	function tampilSetorHafalan(){
+		$ambildata = mysql_query("SELECT sh.id, sh.id_mahasiswa, m.nama, sh.id_surah, s.no_surah, s.nama_surah, s.jumlah_ayat, sh.tanggal_setor FROM setor_hafalan sh LEFT JOIN mahasiswa m ON sh.id_mahasiswa = m.id_mahasiswa LEFT JOIN surah s ON sh.id_surah = s.id") or die(mysql_error());
 
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
