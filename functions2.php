@@ -493,6 +493,21 @@ function tampilSetorHafalanRoleAdminmatrik(){
 		}				
 	}			
 
+function tampilSetorHafalanDetailRoleAdminmatrik($tgl){
+	$tgl_ = date('Y-m-d', strtotime($tgl));
+		$ambildata = mysql_query("SELECT sh.id, mb.id_mahasiswa, m.nama, mb.id_pembina, p.nama AS pembina, sh.id_surah, s.no_surah, s.nama_surah, s.jumlah_ayat FROM setor_hafalan sh LEFT JOIN m_binaan mb ON sh.id_mahasiswa = mb.id_mahasiswa LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina LEFT JOIN surah s ON sh.id_surah = s.id WHERE sh.tanggal_setor = '$tgl_'") or die(mysql_error());
+		if (mysql_num_rows($ambildata) > 0) {
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;
+		} else{
+			echo "<div class='alert alert-warning alert-dismissibl' role='alert'>
+							<button type='button' class='close' data-dismiss='alert' aria-label='Close'></button>
+							Belum Ada Mahasiswa Yang Menyetorkan Hafalan Quran Pada ".date('d-M-Y', strtotime($tgl))."
+						</div>";
+		}				
+	}		
+
 	function tampilHafalanByMahasiswaRolePembina($idPembina){
 		$ambildata = mysql_query("SELECT mb.id_mahasiswa, m.nim, m.nama, t.target, IF(h.jmls IS NULL, 0, h.jmls) AS jmls, IF(ROUND(((h.jmls/t.target)*100),2) IS NULL, 0, ROUND(((h.jmls/t.target)*100),2)) AS progres FROM m_binaan mb LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa LEFT JOIN ( SELECT sh.id_mahasiswa, COUNT(sh.id_surah) AS jmls FROM setor_hafalan sh GROUP BY sh.id_mahasiswa ) h ON mb.id_mahasiswa = h.id_mahasiswa JOIN ( SELECT th.id_juz, COUNT(s.no_surah) AS target FROM target_hafalan th LEFT JOIN surah s ON th.id_juz = s.id_juz GROUP BY th.id_juz ) t WHERE mb.id_pembina = $idPembina ORDER BY progres DESC") or die(mysql_error());
 

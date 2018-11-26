@@ -195,7 +195,7 @@
                     </li>
                     <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'tahsinm' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin' || $_GET['page'] == 'tahsinia' || $_GET['page'] == 'tahsinp' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin' || $_GET['page'] == 'tahsinprt' || $_GET['page'] == 'hafalanm' || $_GET['page'] == 'hafalans' || $_GET['page'] == 'targethafalan' || $_GET['page'] == 'hafalanp' || $_GET['page'] == 'setorhafalan') {
+                                    if ($_GET['page'] == 'tahsinm' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin' || $_GET['page'] == 'tahsinia' || $_GET['page'] == 'tahsinp' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin' || $_GET['page'] == 'tahsinprt' || $_GET['page'] == 'hafalanm' || $_GET['page'] == 'hafalans' || $_GET['page'] == 'targethafalan' || $_GET['page'] == 'hafalanp' || $_GET['page'] == 'setorhafalan' || $_GET['page'] == 'setordetail') {
                                       echo "class='active'";
                                     }
                                   }
@@ -258,7 +258,7 @@
                             </li>
                             <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'hafalanm' || $_GET['page'] == 'hafalans' || $_GET['page'] == 'targethafalan' || $_GET['page'] == 'hafalanp' || $_GET['page'] == 'setorhafalan') {
+                                    if ($_GET['page'] == 'hafalanm' || $_GET['page'] == 'hafalans' || $_GET['page'] == 'targethafalan' || $_GET['page'] == 'hafalanp' || $_GET['page'] == 'setorhafalan' || $_GET['page'] == 'setordetail') {
                                       echo "class='active'";
                                     }
                                   }
@@ -302,7 +302,7 @@
                                     </li>
                                     <li <?php 
                                           if (isset($_GET['page'])) {
-                                            if ($_GET['page'] == 'setorhafalan') {
+                                            if ($_GET['page'] == 'setorhafalan' || $_GET['page'] == 'setordetail') {
                                               echo "class='active'";
                                             }
                                           }
@@ -646,6 +646,8 @@
               include 'tahsin/hafalan/hafalan_bypembina.php';
             } else if ($_GET['page'] == 'setorhafalan') {
               include 'tahsin/hafalan/setor.php';
+            } else if ($_GET['page'] == 'setordetail') {
+              include 'tahsin/hafalan/setor_detail.php';
             }
         } else{
             include 'dashboard.php';
