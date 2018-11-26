@@ -447,6 +447,10 @@
 		mysql_query("DELETE FROM tahsin_udzur WHERE id = $id");
 	}			
 
+	function hapusSetorHafalan($id){
+		mysql_query("DELETE FROM setor_hafalan WHERE id = $id") or die(mysql_error());
+	}		
+
 	function editPembina($idUser, $nama, $j_kelamin, $tgl_lahir, $gelar, $asalkota, $email, $telp){
 		mysql_query("UPDATE pembina SET nama = '$nama', j_kelamin = '$j_kelamin', tgl_lahir = '$tgl_lahir', gelar = '$gelar', asalkota = '$asalkota', email = '$email', telp = '$telp' WHERE id_user = $idUser ");
 	}

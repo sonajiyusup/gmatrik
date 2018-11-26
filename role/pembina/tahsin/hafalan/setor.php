@@ -41,7 +41,7 @@
                                     <td><?php echo $row['nama_surah']; ?></td>
                                     <td><?php echo $row['jumlah_ayat']; ?></td>
                                     <td><?php echo date('d-M-Y', strtotime($row['tanggal_setor'])); ?></td>
-                                    <td></td>
+                                    <td><a title='Hapus' style='color:#DD4B39;' href='#ModalHapusSetor' class='dropdown-item' data-toggle='modal' data-href='action/hapus.php?idsetor=<?php echo $row['id']; ?>' aria-hidden='true'><i class='material-icons' style='font-size: 17px'>cancel</i></a></td>
                                   </tr>
                                     <?php 
                                       $no++; }
@@ -55,6 +55,21 @@
                     </div>
                 </div>
 </div>
+
+            <!-- Small Size -->
+            <div class="modal fade" id="ModalHapusSetor" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="smallModalLabel">Hapus Data Penyetoran Hafalan Quran Mahasiswa?</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <a type="button" class="btn btn-danger btn-ok waves-effect">YA</a>
+                            <button class="btn btn-link waves-effect" data-dismiss="modal">TIDAK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>  
 
 <div class="modal fade" id="tambahPembina" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">

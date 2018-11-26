@@ -55,5 +55,11 @@ include '../functions.php';
 
 	    hapusUdzurTahsin($idTahsin);
 	    header('location:/gmatrik/index.php?page=udzurtahsin'); 
+	} else
+	if(isset($_GET['idsetor'])){
+		$id = $_GET['idsetor'];
+
+	    hapusSetorHafalan($id);
+	    header('location:/gmatrik/index.php?page=setor'); 
 	}
  ?>
