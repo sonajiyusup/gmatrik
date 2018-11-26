@@ -195,7 +195,7 @@
                     </li>
                     <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'tahsinm' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin' || $_GET['page'] == 'tahsinia' || $_GET['page'] == 'tahsinp' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin' || $_GET['page'] == 'tahsinprt' || $_GET['page'] == 'hafalanm' || $_GET['page'] == 'hafalans') {
+                                    if ($_GET['page'] == 'tahsinm' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin' || $_GET['page'] == 'tahsinia' || $_GET['page'] == 'tahsinp' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin' || $_GET['page'] == 'tahsinprt' || $_GET['page'] == 'hafalanm' || $_GET['page'] == 'hafalans' || $_GET['page'] == 'targethafalan') {
                                       echo "class='active'";
                                     }
                                   }
@@ -258,7 +258,7 @@
                             </li>
                             <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'hafalanm' || $_GET['page'] == 'hafalans') {
+                                    if ($_GET['page'] == 'hafalanm' || $_GET['page'] == 'hafalans' || $_GET['page'] == 'targethafalan') {
                                       echo "class='active'";
                                     }
                                   }
@@ -294,7 +294,17 @@
                                             <span>Berdasar Surah</span>
                                         </a>
                                     </li>
-                                    
+                                    <li <?php 
+                                          if (isset($_GET['page'])) {
+                                            if ($_GET['page'] == 'targethafalan') {
+                                              echo "class='active'";
+                                            }
+                                          }
+                                        ?>
+                                    ><a href="?page=targethafalan">
+                                            <span>Target Hafalan Quran</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                             <li <?php 
@@ -613,6 +623,8 @@
               include 'tahsin/hafalan/hafalan_bymhs.php';
             } else if ($_GET['page'] == 'hafalans') {
               include 'tahsin/hafalan/hafalan_bysurah.php';
+            } else if ($_GET['page'] == 'targethafalan') {
+              include 'tahsin/hafalan/target.php';
             }
         } else{
             include 'dashboard.php';
