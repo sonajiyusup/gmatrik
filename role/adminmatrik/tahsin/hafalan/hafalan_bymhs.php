@@ -1,6 +1,5 @@
 <?php 
   include 'functions2.php';
-  $idPembina = $_SESSION['id_pembina'];
  ?>
 <section>
 	<div class="row clearfix">
@@ -8,7 +7,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <h2>GRAFIK PROGRESS HAFALAN QURAN MAHASISWA BINAAN
+                            <h2>GRAFIK PROGRESS HAFALAN QURAN MAHASISWA
                               <small>Berdasarkan Progres Mahasiswa Tertinggi ke Terendah</small>
                             </h2>
                         </div>
@@ -28,7 +27,7 @@
                                       type: 'bar',
                                       data: {
                                           labels: [<?php
-                                                    $data = tampilHafalanByMahasiswaRolePembina($idPembina);
+                                                    $data = tampilHafalanByMahasiswaRoleAdminmatrik(1);
                                                     foreach ($data as $row){
                                                      echo '"'.$row['nama'].'",';
                                                     }
@@ -36,7 +35,7 @@
                                           datasets: [{
                                               label: "Progres (%)",
                                               data: [<?php
-                                                    $data = tampilHafalanByMahasiswaRolePembina($idPembina);
+                                                    $data = tampilHafalanByMahasiswaRoleAdminmatrik(1);
                                                     foreach ($data as $row){
                                                      echo '"'.$row['progres'].'",';
                                                     }
@@ -59,7 +58,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                          <h2>DATA PROGRESS HAFALAN QURAN MAHASISWA BINAAN
+                          <h2>DATA PROGRESS HAFALAN QURAN MAHASISWA
                             <small>Berdasarkan Progres Mahasiswa Tertinggi ke Terendah</small>
                           </h2>
                         </div>
@@ -79,7 +78,7 @@
                               <tbody>
                                 <?php 
                                   $no = 1;
-                                  $data = tampilHafalanByMahasiswaRolePembina($idPembina);
+                                  $data = tampilHafalanByMahasiswaRoleAdminmatrik(0);
                                   foreach($data as $row){
                                  ?>
                                 <tr>

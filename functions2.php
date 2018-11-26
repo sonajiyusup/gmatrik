@@ -485,7 +485,7 @@
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
 				return $data;			
-	}		
+	}			
 
 	function tampilHafalanBySurahRolePembina($idPembina){
 		$ambildata = mysql_query("SELECT s.id, j.juz, j.deskripsi , s.no_surah, s.nama_surah, j.jmlb AS target, IF(pg.progres IS NULL, 0, pg.progres) AS jmlb_setor, ROUND((((IF(pg.progres IS NULL, 0, pg.progres))/(j.jmlb))*100),2) AS progres FROM surah s LEFT JOIN juz j ON s.id_juz = j.id LEFT JOIN ( SELECT sh.id_surah, mb.id_mahasiswa, COUNT(sh.id_mahasiswa) AS progres FROM setor_hafalan sh LEFT JOIN m_binaan mb ON sh.id_mahasiswa = mb.id_mahasiswa WHERE mb.id_pembina = $idPembina GROUP BY sh.id_surah ) pg ON s.id = pg.id_surah JOIN ( SELECT COUNT(mb.id_mahasiswa) AS jmlb FROM m_binaan mb WHERE mb.id_pembina = $idPembina GROUP BY mb.id_pembina ) j GROUP BY s.id ORDER BY s.no_surah DESC") or die(mysql_error());
@@ -494,4 +494,22 @@
 				$data[] = $ad;
 				return $data;			
 	}			
+
+	function tampilHafalanByMahasiswaRoleAdminmatrik($graph){
+		$query = "SELECT mb.id_mahasiswa, m.nim, m.nama, t.target, IF(h.jmls IS NULL, 0, h.jmls) AS jmls, IF(ROUND(((h.jmls/t.target)*100),2) IS NULL, 0, ROUND(((h.jmls/t.target)*100),2)) AS progres FROM m_binaan mb LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa LEFT JOIN ( SELECT sh.id_mahasiswa, COUNT(sh.id_surah) AS jmls FROM setor_hafalan sh GROUP BY sh.id_mahasiswa ) h ON mb.id_mahasiswa = h.id_mahasiswa JOIN ( SELECT th.id_juz, COUNT(s.no_surah) AS target FROM target_hafalan th LEFT JOIN surah s ON th.id_juz = s.id_juz GROUP BY th.id_juz ) t ORDER BY progres DESC";
+			
+		if($graph == 1){
+			$ambildata = mysql_query($query." LIMIT 5") or die(mysql_error());
+
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;		
+		} else{
+			$ambildata = mysql_query($query) or die(mysql_error());
+
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;		
+		}
+	}		
 ?>

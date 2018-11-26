@@ -195,7 +195,7 @@
                     </li>
                     <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'tahsinm' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin' || $_GET['page'] == 'tahsinia' || $_GET['page'] == 'tahsinp' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin' || $_GET['page'] == 'tahsinprt') {
+                                    if ($_GET['page'] == 'tahsinm' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin' || $_GET['page'] == 'tahsinia' || $_GET['page'] == 'tahsinp' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin' || $_GET['page'] == 'tahsinprt' || $_GET['page'] == 'hafalanm') {
                                       echo "class='active'";
                                     }
                                   }
@@ -256,31 +256,39 @@
                                     <span>Pertemuan</span>
                                 </a>
                             </li>
-                            <li>
-                                <a href="javascript:void(0);" class="menu-toggle">
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'hafalanm' || $_GET['page'] == 'hafalans') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            ><a href="javascript:void(0);" class="menu-toggle">
                                     <span>Hafalan Quran</span>
                                 </a>
                                 <ul class="ml-menu">
-                                    <li>
-                                        <a href="javascript:void(0);">
+                                    <li <?php 
+                                          if (isset($_GET['page'])) {
+                                            if ($_GET['page'] == 'hafalanm') {
+                                              echo "class='active'";
+                                            }
+                                          }
+                                        ?>
+                                    ><a href="?page=hafalanm">
                                             <span>Berdasar Mahasiswa</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);">
-                                            <span>Berdasar Juz</span>
+                                        <a href="?page=hafalanp">
+                                            <span>Berdasar Pembina</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);">
+                                        <a href="?page=hafalans">
                                             <span>Berdasar Surah</span>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <span>Berdasar Jumlah Ayat</span>
-                                        </a>
-                                    </li>
+                                    
                                 </ul>
                             </li>
                             <li <?php 
@@ -290,8 +298,7 @@
                                     }
                                   }
                                 ?>
-                            >
-                                <a href="?page=udzurtahsin">
+                            ><a href="?page=udzurtahsin">
                                     <span>Udzur</span>
                                 </a>
                             </li>
@@ -596,6 +603,8 @@
               include 'tahsin/udzur.php';
             } else if ($_GET['page'] == 'tahsinprt') {
               include 'tahsin/tahsin_bypertemuan.php';
+            } else if ($_GET['page'] == 'hafalanm') {
+              include 'tahsin/hafalan/hafalan_bymhs.php';
             }
         } else{
             include 'dashboard.php';

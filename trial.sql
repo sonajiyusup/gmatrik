@@ -2837,7 +2837,7 @@ JOIN (
     GROUP BY th.id_juz
 ) t
 WHERE mb.id_pembina = 1
-ORDER BY progres
+ORDER BY progres DESC
 
 -- Hafalan Quran by Surah on role pembina
 SELECT s.id, j.juz, j.deskripsi , s.no_surah, s.nama_surah, 
