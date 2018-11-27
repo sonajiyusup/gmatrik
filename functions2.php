@@ -576,6 +576,14 @@ function tampilSetorHafalanDetailRoleAdminmatrik($tgl){
 				return $data;			
 	}		
 
+	function tampilOrtuDetailRoleAdminmatrik($idOrtu){
+		$ambildata = mysql_query("SELECT ot.id, ot.id_user, u.username, u.password, ot.nama AS nama_ortu, ot.id_mahasiswa, m.id_user AS uid_mhs, m.id_mahasiswa, m.nama AS nama_mhs, ot.telp, ot.email, ot.alamat, ot.avatar FROM orang_tua ot LEFT JOIN mahasiswa m ON ot.id_mahasiswa = m.id_mahasiswa LEFT JOIN users u ON ot.id_user = u.id_user WHERE ot.id = $idOrtu") or die(mysql_error());
+
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;			
+	}	
+
 	function tambahOrtu($nama, $alamat, $email, $telp, $user, $pass, $idMahasiswa){
 		mysql_query("INSERT INTO users (username, password, level) VALUES ('$user','$pass', 5)");
 
