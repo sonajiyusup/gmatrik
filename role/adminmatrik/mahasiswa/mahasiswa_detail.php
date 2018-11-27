@@ -59,6 +59,11 @@
                                   <td><?php if($row['nama_pembina'] == NULL){echo 'Belum Diset';} else{ echo "<a href=index.php?page=pembinadetails&id=".$row['uid_pembina']."&idP=".$row['id_pembina'].">".$row['nama_pembina'].".".$row['gelar']."</a>";} ?></td>
                                 </tr>
                                 <tr>
+                                  <th>Orang Tua</th>
+                                  <td>:</td>
+                                  <td><?php if($row['nama_ortu'] == NULL){echo 'Belum Diset';} else{ echo "<a href=index.php?page=ortudetail&id=".$row['uid_ortu'].">".$row['nama_ortu']."</a>";} ?></td>
+                                </tr>
+                                <tr>
                                 <tr>
                                   <th>Email</th>
                                   <td>:</td>
