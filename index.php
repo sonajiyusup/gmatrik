@@ -204,6 +204,9 @@
           } else
           if($_SESSION['role'] =='pimpinan'){
             include 'role/pimpinan/sidebar.php';
+          } else
+          if($_SESSION['role'] =='orangtua'){
+            include 'role/orangtua/sidebar.php';
           }
         ?>         
         <!-- #END# Left Sidebar -->

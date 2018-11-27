@@ -158,7 +158,6 @@ if(isset($_POST['login'])){
         $_SESSION['rolename'] = 'Pembina Mahasiswa';
         $_SESSION['username'] = $user; 
 
-      $_SESSION['role'] = 'pembina';
       //$_SESSION['nama'] = $row['nama'];
       //echo '<script language="javascript">document.location="index.php";</script>';
     } else if($row['level'] == 4){
@@ -192,12 +191,49 @@ if(isset($_POST['login'])){
 
         $_SESSION['id_mahasiswa'] = $id_mahasiswa;
         $_SESSION['nama'] = $nama;
-        $_SESSION['role'] = 'pembina';
         $_SESSION['rolename'] = 'Mahasiswa';
         $_SESSION['username'] = $user; 
         $_SESSION['jKelamin'] = $gender;
+        $_SESSION['role'] = 'mahasiswa';
 
-      $_SESSION['role'] = 'mahasiswa';
+      //$_SESSION['nama'] = $row['nama'];
+      //echo '<script language="javascript">document.location="index.php";</script>';
+    } else if($row['level'] == 5){
+
+      $sql_profil = mysql_query("SELECT ot.*, m.nama AS nama_mhs FROM orang_tua ot LEFT JOIN mahasiswa m ON ot.id_mahasiswa = m.id_mahasiswa WHERE ot.id_user = $id") or die(mysql_error());
+
+        while($ortu = mysql_fetch_assoc($sql_profil)){
+          $ava = $ortu['avatar'];
+          $id_ortu = $ortu['id'];
+          $nama = $ortu['nama'];
+          $email = $ortu['email'];
+          $telp = $ortu['telp'];
+          $nama_mhs = $ortu['nama_mhs'];
+          
+          echo '<script language="javascript">document.location="index.php";</script>';
+        }
+
+        if ($ava == NULL) {
+          if ($gender == 'Perempuan' || $gender == 'Akhwat'){
+            $_SESSION['ava'] ='default-female.jpg';
+          } else
+          if ($gender == 'Laki-laki' || $gender == 'Ikhwan'){
+            $_SESSION['ava'] ='default-male.png';
+          } else
+          if ($gender == NULL){
+            $_SESSION['ava'] ='default.png';
+          }
+        } else{
+          $_SESSION['ava'] = $ava;
+        } 
+
+        $_SESSION['id_ortu'] = $id_ortu;
+        $_SESSION['nama'] = $nama;
+        $_SESSION['role'] = 'orangtua';
+        $_SESSION['rolename'] = 'Orang Tua Mahasiswa';
+        $_SESSION['username'] = $user; 
+        $_SESSION['nama_mhs'] = $nama_mhs; 
+
       //$_SESSION['nama'] = $row['nama'];
       //echo '<script language="javascript">document.location="index.php";</script>';
     }
