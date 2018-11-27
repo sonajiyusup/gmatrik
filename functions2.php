@@ -575,4 +575,20 @@ function tampilSetorHafalanDetailRoleAdminmatrik($tgl){
 				$data[] = $ad;
 				return $data;			
 	}		
+
+	function tambahOrtu($nama, $alamat, $email, $telp, $user, $pass, $idMahasiswa){
+		mysql_query("INSERT INTO users (username, password, level) VALUES ('$user','$pass', 5)");
+
+		$sql = mysql_query("SELECT id_user FROM users WHERE username='$user'") or die(mysql_error());
+		$row = mysql_fetch_assoc($sql);
+		$id_user = $row['id_user'];
+
+		if (mysql_num_rows($row) == 1) {
+			echo "<script>document.location='?page=ortu&alert=duplicateusername'</script>";
+		} else{
+			mysql_query("INSERT INTO orang_tua (id_user, id_mahasiswa, nama, telp, email, alamat) VALUES ($id_user, $idMahasiswa, '$nama', '$telp', '$email', '$alamat');");
+
+			echo "<script>document.location='?page=ortu'</script>";
+		}
+	}	
 ?>
