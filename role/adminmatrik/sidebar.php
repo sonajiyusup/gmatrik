@@ -427,7 +427,7 @@
                     <li class="header">PENGGUNA</li>
                     <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'mahasiswa' || $_GET['page'] == 'mahasiswadetails' || $_GET['page'] == 'editmahasiswa') {
+                                    if ($_GET['page'] == 'mahasiswa' || $_GET['page'] == 'mahasiswadetails' || $_GET['page'] == 'editmahasiswa' || $_GET['page'] == 'ortu' || $_GET['page'] == 'ortudetails' || $_GET['page'] == 'editortu') {
                                       echo "class='active'";
                                     }
                                   }
@@ -446,6 +446,15 @@
                                   }
                                 ?>
                             ><a href="?page=mahasiswa">Data Mahasiswa</a>
+                            </li>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'ortu' || $_GET['page'] == 'ortudetails' || $_GET['page'] == 'editortu') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            ><a href="?page=ortu">Data Orang Tua Mahasiswa</a>
                             </li>
                         </ul>
                     </li>
@@ -648,6 +657,8 @@
               include 'tahsin/hafalan/setor.php';
             } else if ($_GET['page'] == 'setordetail') {
               include 'tahsin/hafalan/setor_detail.php';
+            } else if ($_GET['page'] == 'ortu') {
+              include 'mahasiswa/orangtua/orangtua.php';
             }
         } else{
             include 'dashboard.php';
