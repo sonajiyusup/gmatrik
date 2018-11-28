@@ -2,6 +2,8 @@
 
   include 'functions2.php';
     $id = $_SESSION['id_ortu'];
+    $idUser = $_SESSION['id_user'];
+
       $dataOrtu = tampilOrtuDetailRoleAdminmatrik($id);
 
       foreach($dataOrtu as $row){
@@ -75,6 +77,7 @@
                               </table>                          
                               
                               <a href="index.php?page=editortu&id=<?php echo $id; ?>" class="btn btn-primary btn-block waves-effect"><i class="material-icons" style='font-size: 16px'>mode_edit</i><span>&nbsp;EDIT DATA PROFIL</span></a>
+                              <?php echo "<a class='btn btn-link btn-block waves-effect' href='#ModalGantiPass' data-toggle='modal' ><i class='material-icons' style='font-size: 16px'>lock</i><span>&nbsp;GANTI PASSWORD</span></a>"; ?>
 
                         </div>
                         <?php } ?>
@@ -135,7 +138,7 @@
 
 <?php 
   if (isset($_POST['gantiPass'])) {
-    gantiUserPassword($_SESSION['id_user'], $_POST['pass']);
+    gantiUserPassword($idUser, $_POST['pass']);
     echo "<script>document.location='?page=profil&alert=passchanged'</script>";
   }
 
