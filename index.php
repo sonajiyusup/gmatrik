@@ -437,6 +437,14 @@
             });
         });
 
+        //Modal Hapus Data Akun Orang Tua Mahasiswa
+        $(document).ready(function() {
+            $('#ModalHapusOrtu').on('show.bs.modal', function(e) {
+                $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+            });
+        });
+
+
       </script>
 
 <script>

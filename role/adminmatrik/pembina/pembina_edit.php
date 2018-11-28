@@ -3,6 +3,7 @@
   include 'functions.php';
 
   $id = $_GET['id'];     
+  $idP = $_GET['idP'];
   $pembina = pembinaDetails($id);
   foreach($pembina as $row){
 ?>
@@ -10,7 +11,7 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="header">
-                            <h2><a href="?page=pembinadetails&id=<?php echo $id; ?>" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;EDIT DATA PROFIL
+                            <h2><a href="?page=pembinadetails&id=<?php echo $id; ?>&idP=<?php echo $idP; ?>" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;EDIT DATA PROFIL
                             </h2>
                         </div>
                         <div class="body">

@@ -118,7 +118,7 @@
                                 </tr>
                               </table>                          
                               
-                              <a href="?page=editpembina&id=<?php echo $id; ?>" class="btn btn-primary btn-block waves-effect"><i class="material-icons" style='font-size: 16px'>mode_edit</i><span>EDIT DATA PROFIL</span></a>
+                              <a href="?page=editpembina&id=<?php echo $id; ?>&idP=<?php echo $row['id_pembina']; ?>" class="btn btn-primary btn-block waves-effect"><i class="material-icons" style='font-size: 16px'>mode_edit</i><span>EDIT DATA PROFIL</span></a>
                               <?php echo "<a class='btn btn-danger btn-block waves-effect' href='#ModalHapusPembina' data-toggle='modal' data-href='action/hapus.php?idpembina=".$row['id_pembina']."&iduser=".$row['id_user']."'><i class='material-icons' style='font-size: 16px'>delete</i><span>HAPUS PEMBINA</span></a>"; ?>
                         </div>
                         <?php } ?>

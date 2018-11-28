@@ -61,5 +61,12 @@ include '../functions.php';
 
 	    hapusSetorHafalan($id);
 	    header('location:/gmatrik/index.php?page=setor'); 
+	} else
+	if(isset($_GET['idortu'])){
+		$idOrtu = $_GET['idortu'];
+		$idUser = $_GET['iduser'];
+
+	    hapusOrtuMahasiswa($idOrtu, $idUser);
+	    header('location:/gmatrik/index.php?page=ortu'); 
 	}
  ?>

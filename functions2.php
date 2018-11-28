@@ -569,7 +569,7 @@ function tampilSetorHafalanDetailRoleAdminmatrik($tgl){
 	}			
 
 	function tampilOrtuRoleAdminmatrik(){
-		$ambildata = mysql_query("SELECT ot.id, ot.nama AS nama_ortu, ot.telp, ot.alamat, ot.id_mahasiswa, m.id_user AS uid_mhs, m.nama AS nama_mahasiswa, u.last_login FROM orang_tua ot LEFT JOIN mahasiswa m ON ot.id_mahasiswa = m.id_mahasiswa LEFT JOIN users u ON ot.id_user = u.id_user ORDER BY ot.nama") or die(mysql_error());
+		$ambildata = mysql_query("SELECT ot.id, ot.id_user AS uid_ortu, ot.nama AS nama_ortu, ot.telp, ot.alamat, ot.id_mahasiswa, m.id_user AS uid_mhs, m.nama AS nama_mahasiswa, u.last_login FROM orang_tua ot LEFT JOIN mahasiswa m ON ot.id_mahasiswa = m.id_mahasiswa LEFT JOIN users u ON ot.id_user = u.id_user ORDER BY ot.nama") or die(mysql_error());
 
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
@@ -599,4 +599,8 @@ function tampilSetorHafalanDetailRoleAdminmatrik($tgl){
 			echo "<script>document.location='?page=ortu'</script>";
 		}
 	}	
+
+	function editOrtu($idOrtu, $nama, $alamat, $email, $telp, $idMahasiswa){
+		mysql_query("UPDATE orang_tua SET nama='$nama', alamat='$alamat', telp='$telp', email='$email', id_mahasiswa=$idMahasiswa WHERE id=$idOrtu;");
+	}		
 ?>

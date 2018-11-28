@@ -420,6 +420,11 @@
 		mysql_query("DELETE FROM users WHERE id_user = $idUser");
 	}
 
+	function hapusOrtuMahasiswa($idOrtu, $idUser){
+		mysql_query("DELETE FROM orang_tua WHERE id = $idOrtu");
+		mysql_query("DELETE FROM users WHERE id_user = $idUser");
+	}	
+
 	function hapusMahasiswa($idMahasiswa, $idUser){
 		mysql_query("DELETE FROM mahasiswa WHERE id_mahasiswa = $idMahasiswa");
 		mysql_query("DELETE FROM users WHERE id_user = $idUser");

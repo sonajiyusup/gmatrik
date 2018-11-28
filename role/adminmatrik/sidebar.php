@@ -661,6 +661,8 @@
               include 'mahasiswa/orangtua/orangtua.php';
             } else if ($_GET['page'] == 'ortudetail') {
               include 'mahasiswa/orangtua/orangtua_detail.php';
+            } else if ($_GET['page'] == 'editortu') {
+              include 'mahasiswa/orangtua/orangtua_edit.php';
             }
         } else{
             include 'dashboard.php';

@@ -28,11 +28,12 @@
                                         <thead>
                                           <tr>
                                             <th>#</th>
-                                            <th>Nama Orang Tua Mahasiswa</th>
+                                            <th>Nama Orang Tua</th>
                                             <th>Telp</th>
                                             <th>Alamat</th>
-                                            <th>Nama Mahasiswa</th>
+                                            <th>Nama Mahasiswa (Anak)</th>
                                             <th>Terakhir Login</th>
+                                            <th>Aksi</th>
                                           </tr>
                                         </thead>
                                         <tbody>
@@ -49,6 +50,18 @@
                                           <td><?php echo $row['alamat'] ?></td>
                                           <td><a href="?page=mahasiswadetails&id=<?php echo $row['uid_mhs']; ?>"><?php echo $row['nama_mahasiswa'] ?></a></td>
                                           <td><?php if ($row['last_login'] == '0000-00-00 00:00:00'){ echo '<span class="label bg-grey">Belum Pernah</span>';}else{ echo date("d-m-Y H:i", strtotime($row['last_login'])) ;}?></td>
+                                          <td>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="material-icons" style="font-size: 14px">settings</i>&nbsp;<span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a title='Edit' style="color:#3C8DBC;" href="?page=editortu&id=<?php echo $row['id']; ?>" class='dropdown-item'><i class='material-icons' style='font-size: 20px'>mode_edit</i></a></li>
+                                                        <li role="separator" class="divider"></li>
+                                                        <li><?php echo "<a title='Hapus' style='color:#DD4B39;' href='#ModalHapusOrtu' class='dropdown-item' data-toggle='modal' data-href='action/hapus.php?idortu=".$row['id']."&iduser=".$row['uid_ortu']."' aria-hidden='true'><i class='material-icons' style='font-size: 20px'>delete</i></a>"; ?></li>
+                                                    </ul>
+                                                </div>
+                              </td>
                                         </tr>
                                           <?php 
                                             $no++; }
@@ -64,11 +77,11 @@
 </div>
 
             <!-- Small Size -->
-            <div class="modal fade" id="ModalHapusPembina" tabindex="-1" role="dialog">
+            <div class="modal fade" id="ModalHapusOrtu" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-sm" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="smallModalLabel">Hapus Data Pembina ?</h4>
+                            <h4 class="modal-title" id="smallModalLabel">Hapus Data Akun Orang Tua Mahasiswa ?</h4>
                         </div>
                         <div class="modal-footer">
                             <a type="button" class="btn btn-danger btn-ok waves-effect">HAPUS</a>
@@ -157,7 +170,7 @@
                                     <div class="form-line">
                                       <select class="form-control show-tick" data-live-search="true" name="idMahasiswa" required>
                                         <option value="">-- Pilih Mahasiswa --</option>
-                                                          <?php $data = tampilMahasiswa($idPembina);
+                                                          <?php $data = tampilMahasiswa();
                                                             foreach($data as $row){
                                                               echo '<option value="'.$row['id_mahasiswa'].'">'.$row['nama'].'</option>';
                                                             } 
