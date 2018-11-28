@@ -205,6 +205,7 @@ if(isset($_POST['login'])){
         while($ortu = mysql_fetch_assoc($sql_profil)){
           $ava = $ortu['avatar'];
           $id_ortu = $ortu['id'];
+          $id_user = $ortu['id_user'];
           $nama = $ortu['nama'];
           $email = $ortu['email'];
           $telp = $ortu['telp'];
@@ -228,6 +229,7 @@ if(isset($_POST['login'])){
         } 
 
         $_SESSION['id_ortu'] = $id_ortu;
+        $_SESSION['id_user'] = $id_user;
         $_SESSION['nama'] = $nama;
         $_SESSION['role'] = 'orangtua';
         $_SESSION['rolename'] = 'Orang Tua Mahasiswa';

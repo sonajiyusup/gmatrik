@@ -1,8 +1,10 @@
 <?php 
 
-  include 'functions.php';
-      $dataMahasiswa = mahasiswaDetails($_SESSION['id_user']);
-      foreach($dataMahasiswa as $row){ 
+  include 'functions2.php';
+    $id = $_SESSION['id_ortu'];
+      $dataOrtu = tampilOrtuDetailRoleAdminmatrik($id);
+
+      foreach($dataOrtu as $row){
  ?>
 
 <div class="container-fluid">
@@ -23,42 +25,32 @@
                                 <tr> 
                                   <td colspan="3"> 
                                     <div class="image" align="center">
-                                      <a href="#ModalUploadAva" title="Klik untuk Ganti Foto Profil" data-toggle='modal'>
                                         <img src=<?php
                                           if ($row['avatar'] == NULL) {
-                                            if ($row['j_kelamin'] == 'Akhwat' || $row['j_kelamin'] == 'Perempuan'){
-                                              echo 'assets/img/user/default-female.jpg';
-                                            } else
-                                            if ($row['j_kelamin'] == 'Ikhwan' || $row['j_kelamin'] == 'Laki-laki'){
-                                              echo 'assets/img/user/default-male.png';
-                                            } else
-                                            if ($row['j_kelamin'] == NULL){
                                               echo 'assets/img/user/default.png';
-                                            }
                                           } else if($row['avatar'] != NULL){
                                             echo 'assets/img/user/'.$row['avatar'];
                                           }               
                                         ?> width="100" height="100" alt="User" />
-                                      </a>
                                       <br>
-                                      <h4 align="center"><?php echo $row['nama']; ?></h4>
+                                      <h4 align="center"><?php echo $row['nama_ortu']; ?></h4>
                                     </div>
                                   </td>
                                 </tr>
                                 <tr>
-                                  <th>Nomor Induk Mahasiswa</th>
+                                  <th>ID Orang Tua Mahasiswa</th>
                                   <td>:</td>
-                                  <td><?php echo $row['nim']; ?></td>
+                                  <td><?php echo $row['id']; ?></td>
                                 </tr>
                                 <tr>
                                   <th>Username</th>
                                   <td>:</td>
-                                  <td><code><?php echo $row['username']; ?></code></td>
+                                  <td><span class="label bg-deep-orange"><?php echo $row['username']; ?></span></td>
                                 </tr>
                                 <tr>
-                                  <th>Email</th>
+                                  <th>Nama Mahasiswa</th>
                                   <td>:</td>
-                                  <td><?php if($row['email'] == NULL){echo 'Belum diatur';}else{echo $row['email'];} ?></td>
+                                  <td><?php if($row['nama_mhs'] == NULL){echo 'Belum Diset';} else{ echo "<a href=index.php?page=mahasiswadetails&id=".$row['uid_mhs'].">".$row['nama_mhs']."</a>";} ?></td>
                                 </tr>
                                 <tr>
                                   <th>No Telp</th>
@@ -66,19 +58,24 @@
                                   <td><?php if($row['telp'] == NULL){echo 'Belum diatur';}else{echo $row['telp'];} ?></td>
                                 </tr>
                                 <tr>
-                                  <th>Ikhwan/Akhwat</th>
+                                  <th>Email</th>
                                   <td>:</td>
-                                  <td><?php if($row['j_kelamin'] == NULL){echo 'Belum diatur';}else{echo $row['j_kelamin'];} ?></td>
+                                  <td><?php if($row['email'] == NULL){echo 'Belum diatur';}else{echo $row['email'];} ?></td>
                                 </tr>
                                 <tr>
-                                  <th>Tanggal Lahir</th>
+                                  <th>Alamat</th>
                                   <td>:</td>
-                                  <td><?php if($row['tgl_lahir'] == NULL){echo 'Belum diatur';}else{echo date('d F Y', strtotime($row['tgl_lahir']));} ?></td>
+                                  <td><?php if($row['alamat'] == NULL){echo 'Belum diatur';}else{echo $row['alamat'];} ?></td>
+                                </tr>
+                                <tr>
+                                  <th>Password</th>
+                                  <td>:</td>
+                                  <td><?php echo "<code>".$row['password']."</code>"; ?></td>
                                 </tr>
                               </table>                          
                               
-                              <a href="index.php?page=editprofil" class="btn btn-primary btn-block waves-effect"><i class="material-icons" style='font-size: 16px'>mode_edit</i><span>&nbsp;EDIT DATA PROFIL</span></a>
-                              <?php echo "<a class='btn btn-link btn-block waves-effect' href='#ModalGantiPass' data-toggle='modal' ><i class='material-icons' style='font-size: 16px'>lock</i><span>&nbsp;GANTI PASSWORD</span></a>"; ?>
+                              <a href="index.php?page=editortu&id=<?php echo $id; ?>" class="btn btn-primary btn-block waves-effect"><i class="material-icons" style='font-size: 16px'>mode_edit</i><span>&nbsp;EDIT DATA PROFIL</span></a>
+
                         </div>
                         <?php } ?>
                     </div>
