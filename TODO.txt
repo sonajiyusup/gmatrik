@@ -157,7 +157,7 @@ DOING
 
 27/11/2018 (PR)
 - edit & hapus data orang tua on role adminmatrik
-	- page ortu (within table) & ortudetail
+	- page ortu (within table) & ortudetail (DONE)
 - add profile page on role orangtua
 - edit data orang tua on role orangtua
 - add ganti password feature on role orangtua
