@@ -1,0 +1,21 @@
+Pelanggaran (on role adminmatrik)
+
+submenu :
+- Aksi Pelanggaran (sebagai statistik data pelanggaran berdasar aksi)
+	- button modal tambah aksi pelanggaran
+- Sanksi (sebagai statistik data pelanggaran berdasar sanksi)
+- Data Pelanggaran (table daftar data pelanggaran yang pernah diinput)
+	- button modal tambah data pelanggaran
+
+
+modal :
+- tambah aksi pelanggaran 
+	text field aksi pelanggaran
+	tombol submit
+
+- tambah data pelanggaran
+	text field nama mahasiswa
+	select option aksi pelanggaran
+	select option sanksi
+	textarea keterangan pelanggaran
+	text field tanggal pelanggaran

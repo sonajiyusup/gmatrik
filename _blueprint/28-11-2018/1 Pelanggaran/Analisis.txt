@@ -1,0 +1,4 @@
+- Mahasiswa yg melanggaran di mintai persetujuan (ttd) berita acara konseling yg diambil oleh tim komisi disiplin pembina
+- Data Pelanggaran Mahasiswa Diinput oleh Admin Matrikulasi setelah dirapatkan dengan pembina2 lain & pimpinan matrikulasi
+- Bobot sanksi disesuaikan dengan aksi pelanggaran, masing2 jenis/kategori pelanggaran sudah ditetapkan bobot sanksi nya berdasarkan peraturan resmi matrikulasi
+- Bobot sanksi akan memengaruhi pengurangan nilai pembinaan mahasiswa di periode dimana mahasiswa tersebut melakukan pelanggaran
