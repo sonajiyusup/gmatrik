@@ -154,3 +154,10 @@ DOING
 		- by period
 		- by day
 - add id column on each table simon.sql
+
+27/11/2018 (PR)
+- edit & hapus data orang tua on role adminmatrik
+	- page ortu (within table) & ortudetail
+- add profile page on role orangtua
+- edit data orang tua on role orangtua
+- add ganti password feature on role orangtua
