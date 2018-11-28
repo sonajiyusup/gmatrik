@@ -72,11 +72,9 @@
                                 </tr>
                               </table>                          
                               
-                              <!-- <a href="index.php?page=editmahasiswa&id=<?php echo $row['id_user']; ?>" class="btn btn-primary btn-block waves-effect"><i class="material-icons" style='font-size: 16px'>mode_edit</i><span>&nbsp;EDIT DATA PROFIL</span></a> -->
-                              
-                              <?php //if($row['password_default'] == 0){ echo "<a class='btn btn-warning btn-block waves-effect' href='#ModalResetPassword' data-toggle='modal' ><i class='material-icons' style='font-size: 16px'>lock_open</i><span>&nbsp;RESET PASSWORD</span></a>";} ?>
+                              <a href="index.php?page=editortu&id=<?php echo $id; ?>" class="btn btn-primary btn-block waves-effect"><i class="material-icons" style='font-size: 16px'>mode_edit</i><span>&nbsp;EDIT DATA PROFIL</span></a>
 
-                              <?php // echo "<a class='btn btn-danger btn-block waves-effect' href='#ModalHapusMahasiswa' data-toggle='modal' data-href='action/hapus.php?idmahasiswa=".$row['id_mahasiswa']."&iduser=".$row['id_user']."'><i class='material-icons' style='font-size: 16px'>delete</i><span>&nbsp;HAPUS MAHASISWA</span></a>"; ?>
+                              <?php echo "<a class='btn btn-danger btn-block waves-effect' href='#ModalHapusOrtu' data-toggle='modal' data-href='action/hapus.php?idortu=".$row['id']."&iduser=".$row['id_user']."' ><i class='material-icons' style='font-size: 16px'>delete</i><span>&nbsp;HAPUS ORANG TUA MAHASISWA</span></a>"; ?>
                         </div>
                         <?php } ?>
                     </div>
@@ -85,39 +83,17 @@
   </div>
 </div> 
 
-            <div class="modal fade" id="ModalHapusMahasiswa" tabindex="-1" role="dialog">
-                <div class="modal-dialog modal-sm">
+            <!-- Small Size -->
+            <div class="modal fade" id="ModalHapusOrtu" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-sm" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="smallModalLabel">HAPUS MAHASISWA ?</h4>
+                            <h4 class="modal-title" id="smallModalLabel">Hapus Data Akun Orang Tua Mahasiswa ?</h4>
                         </div>
                         <div class="modal-footer">
-                            <a class="btn btn-danger btn-ok waves-effect" name="upload">HAPUS</a>
+                            <a type="button" class="btn btn-danger btn-ok waves-effect">HAPUS</a>
                             <button class="btn btn-link waves-effect" data-dismiss="modal">BATAL</button>
                         </div>
                     </div>
                 </div>
-            </div>            
-
-            <div class="modal fade" id="ModalResetPassword" tabindex="-1" role="dialog">
-                <div class="modal-dialog modal-sm">
-                  <form method="POST">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title" id="smallModalLabel">RESET PASSWORD MAHASISWA ?</h4>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-warning btn-ok waves-effect" name="resetPass">RESET</button>
-                            <button class="btn btn-link waves-effect" data-dismiss="modal">BATAL</button>
-                        </div>
-                    </div>
-                  </form>
-                </div>
-            </div>               
-
-<?php 
-  if (isset($_POST['resetPass'])) {
-    resetPassword($id);
-    echo "<script type='text/javascript'>window.location.href='index.php?page=mahasiswadetails&id=".$id."';</script>";
-  }
- ?>
+            </div>                     
