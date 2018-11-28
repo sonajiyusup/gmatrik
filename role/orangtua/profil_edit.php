@@ -1,8 +1,9 @@
 <?php 
+  include 'functions2.php';
 
-  include 'functions.php';
-      $dataMahasiswa = mahasiswaDetails($_SESSION['id_user']);
-      foreach($dataMahasiswa as $row){ 
+  $id = $_SESSION['id_ortu'];
+  $dataOrtu = tampilOrtuDetailRoleAdminmatrik($id);
+    foreach($dataOrtu as $row){        
  ?>
 
 <div class="row clearfix">
@@ -19,61 +20,15 @@
                                             <i class="material-icons">assignment_ind</i>
                                         </span>
                                         <div class="form-line">
-                                            <input type="text" name="nim" class="form-control date" placeholder="Nama" value="<?php echo $row['nim']; ?>" disabled>
+                                            <input type="text" name="namaOrtu" class="form-control date" placeholder="Nama" value="<?php echo $row['nama_ortu']; ?>" >
                                         </div>
                                     </div>
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <i class="material-icons">assignment_ind</i>
-                                        </span>
-                                        <div class="form-line">
-                                            <input type="text" name="nama" class="form-control date" placeholder="Nama" value="<?php echo $row['nama']; ?>" required>
-                                        </div>
-                                    </div>
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <i class="material-icons">person_outline</i>
-                                        </span>
-                                        <select class="form-control show-tick" name="gender" value="<?php 
-                                            if ($row['j_kelamin'] == "Ikhwan" || $row['j_kelamin'] == "Laki-laki") {
-                                              echo "Ikhwan";
-                                            } else
-                                            if($row['j_kelamin'] == "Akhwat" || $row['j_kelamin'] == "Perempuan"){
-                                              echo "Akhwat";
-                                            }
-                                          ?>">
-                                          <option><?php 
-                                            if ($row['j_kelamin'] == "Ikhwan" || $row['j_kelamin'] == "Laki-laki") {
-                                              echo "Ikhwan";
-                                            } else
-                                            if($row['j_kelamin'] == "Akhwat" || $row['j_kelamin'] == "Perempuan"){
-                                              echo "Akhwat";
-                                            }
-                                          ?></option>
-                                          <?php 
-                                            if ($row['j_kelamin'] == "Ikhwan" || $row['j_kelamin'] == "Laki-laki") {
-                                              echo "<option>Akhwat</option>";
-                                            } else
-                                            if($row['j_kelamin'] == "Akhwat" || $row['j_kelamin'] == "Perempuan"){
-                                              echo "<option>Ikhwan</option>";
-                                            }
-                                          ?>
-                                        </select required>                                            
-                                    </div>
-                                  <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <i class="material-icons">today</i>
-                                        </span>
-                                        <div class="form-line">
-                                            <input type="text" class="datepicker form-control" name="tgl_lahir" placeholder="Tanggal Lahir" value="<?php echo $row['tgl_lahir']; ?>" required>
-                                        </div>
-                                  </div>
                                   <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="material-icons">email</i>
                                         </span>
                                         <div class="form-line">
-                                            <input type="email" name="email" class="form-control date" placeholder="Email" value="<?php echo $row['email']; ?>" required>
+                                            <input type="email" name="email" class="form-control date" placeholder="Email" value="<?php echo $row['email']; ?>">
                                         </div>
                                   </div>
                                   <div class="input-group">
@@ -81,21 +36,51 @@
                                             <i class="material-icons">phone_iphone</i>
                                         </span>
                                         <div class="form-line">
-                                            <input type="text" name="telp" class="form-control date" placeholder="No Telp." value="<?php echo $row['telp']; ?>" required>
+                                            <input type="text" name="telp" class="form-control date" placeholder="No Telp." value="<?php echo $row['telp']; ?>">
                                         </div>
                                   </div>
-                                  <button type="submit" class="btn btn-primary btn-block waves-effect" name="editProfilSaya"><span>SIMPAN</span></button>
+                                  <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">location_city</i>
+                                        </span>
+                                        <div class="form-line">
+                                            <input type="text" name="alamat" class="form-control date" placeholder="Alamat" value="<?php echo $row['alamat']; ?>">
+                                        </div>
+                                  </div>
+                                  <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">person</i>
+                                        </span>
+                                        <div class="form-line">
+                                            <input type="text" name="username" class="form-control date" placeholder="Username" value="<?php echo $row['username']; ?>" disabled>
+                                        </div>
+                                  </div>
+                                  <div class="input-group">
+                                      <span class="input-group-addon">
+                                        <i class="material-icons">person</i>
+                                      </span>
+                                    <div class="form-line">
+                                      <select class="form-control show-tick" data-live-search="true" name="idMahasiswa" disabled>
+                                        <option selected value="<?php echo $row['id_mahasiswa'] ?>">-- <?php echo $row['nama_mhs'] ?> --</option>
+                                                          <?php $data = tampilMahasiswa();
+                                                            foreach($data as $row){
+                                                              echo '<option value="'.$row['id_mahasiswa'].'">'.$row['nama'].'</option>';
+                                                            } 
+                                                          ?>
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <button type="submit" class="btn btn-primary btn-block waves-effect" name="editOrtu"><span>SIMPAN</span></button>
                                   </form>
                                 </div>
                     </div>
-                </div>
-  </div>
+                </div>  
 </div>           
 
 <?php
-    if (isset($_POST['editProfilSaya'])) {
-        editMahasiswa($_SESSION['id_user'], $_POST['nama'], $_POST['gender'], date("Y-m-d", strtotime($_POST['tgl_lahir'])), $_POST['asalkota'], $_POST['email'], $_POST['telp']);
-      echo "<script>document.location='index.php?page=profil&alert=profileupdated'</script>";
+    if(isset($_POST['editOrtu'])) {
+      editProfilOrtu($id, $_POST['namaOrtu'], $_POST['alamat'], $_POST['email'], $_POST['telp']);
+      echo "<script>document.location='?page=profil'</script>";
     }
   } 
 ?>

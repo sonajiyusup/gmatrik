@@ -75,8 +75,7 @@
                                 </div>
                     </div>
                 </div>
-  </div>
-</div>           
+  </div>          
 
 <?php
     if(isset($_POST['editOrtu'])) {

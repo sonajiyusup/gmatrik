@@ -76,7 +76,7 @@
                                 </tr>
                               </table>                          
                               
-                              <a href="index.php?page=editortu&id=<?php echo $id; ?>" class="btn btn-primary btn-block waves-effect"><i class="material-icons" style='font-size: 16px'>mode_edit</i><span>&nbsp;EDIT DATA PROFIL</span></a>
+                              <a href="index.php?page=editprofil" class="btn btn-primary btn-block waves-effect"><i class="material-icons" style='font-size: 16px'>mode_edit</i><span>&nbsp;EDIT DATA PROFIL</span></a>
                               <?php echo "<a class='btn btn-link btn-block waves-effect' href='#ModalGantiPass' data-toggle='modal' ><i class='material-icons' style='font-size: 16px'>lock</i><span>&nbsp;GANTI PASSWORD</span></a>"; ?>
 
                         </div>

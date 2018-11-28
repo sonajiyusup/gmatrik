@@ -603,4 +603,8 @@ function tampilSetorHafalanDetailRoleAdminmatrik($tgl){
 	function editOrtu($idOrtu, $nama, $alamat, $email, $telp, $idMahasiswa){
 		mysql_query("UPDATE orang_tua SET nama='$nama', alamat='$alamat', telp='$telp', email='$email', id_mahasiswa=$idMahasiswa WHERE id=$idOrtu;");
 	}		
+
+	function editProfilOrtu($idOrtu, $nama, $alamat, $email, $telp){
+		mysql_query("UPDATE orang_tua SET nama='$nama', alamat='$alamat', telp='$telp', email='$email' WHERE id=$idOrtu;");
+	}			
 ?>
