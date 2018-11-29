@@ -366,38 +366,30 @@
                     <li class="header">KOMISI DISIPLIN</li>
                     <li <?php 
                           if (isset($_GET['page'])) {
-                              if ($_GET['page'] == 'pikhtisar' || $_GET['page'] == 'pbentuk' || $_GET['page'] == 'paksi' || $_GET['page'] == 'psanksi' || $_GET['page'] == 'planjut' || $_GET['page'] == 'pmaindetail'  || $_GET['page'] == 'pbentukdetail'  || $_GET['page'] == 'paksidetail' || $_GET['page'] == 'psanksidetail' || $_GET['page'] == 'planjutdetail') {
+                              if ($_GET['page'] == 'pelanggaran' || $_GET['page'] == 'paksi' || $_GET['page'] == 'psanksi') {
                                 echo "class='active'";
                               } else{
                                 echo '';
                               }
                             }
-                          ?>><a href="javascript:void(0);" class="menu-toggle">
+                          ?>
+                      ><a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">gavel</i>
                             <span>Pelanggaran</span>
                         </a>
                         <ul class="ml-menu">
                             <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'pikhtisar' || $_GET['page'] == 'pmaindetail') {
+                                    if ($_GET['page'] == 'pelanggaran') {
                                       echo "class='active'";
                                     }
                                   }
                                 ?>
-                            ><a href="?page=pikhtisar">Ikhtisar</a>
+                            ><a href="?page=pelanggaran">Data Pelanggaran</a>
                             </li>
                             <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'pbentuk' || $_GET['page'] == 'pbentukdetail') {
-                                      echo "class='active'";
-                                    }
-                                  }
-                                ?>
-                            ><a href="?page=pbentuk">Bentuk Pelanggaran</a>
-                            </li>
-                            <li <?php 
-                                  if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'paksi' || $_GET['page'] == 'paksidetail') {
+                                    if ($_GET['page'] == 'paksi') {
                                       echo "class='active'";
                                     }
                                   }
@@ -406,21 +398,12 @@
                             </li>
                             <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'psanksi' || $_GET['page'] == 'psanksidetail') {
+                                    if ($_GET['page'] == 'psanksi') {
                                       echo "class='active'";
                                     }
                                   }
                                 ?>
                             ><a href="?page=psanksi">Sanksi</a>
-                            </li>
-                            <li <?php 
-                                  if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'planjut' || $_GET['page'] == 'planjutdetail') {
-                                      echo "class='active'";
-                                    }
-                                  }
-                                ?>
-                            ><a href="?page=planjut">Tindak Lanjut</a>
                             </li>
                         </ul>
                     </li>
