@@ -607,4 +607,18 @@ function tampilSetorHafalanDetailRoleAdminmatrik($tgl){
 	function editProfilOrtu($idOrtu, $nama, $alamat, $email, $telp){
 		mysql_query("UPDATE orang_tua SET nama='$nama', alamat='$alamat', telp='$telp', email='$email' WHERE id=$idOrtu;");
 	}			
+
+	function aksiPelanggaranRoleAdminmatrik(){
+		$ambildata = mysql_query("SELECT sap.id_aksi_pelanggaran, ap.aksi_pelanggaran, COUNT(pm.id_mahasiswa) AS jmlp FROM sanksi_aksi_pelanggaran sap LEFT JOIN aksi_pelanggaran ap ON sap.id_aksi_pelanggaran = ap.id LEFT JOIN pelanggaran_mahasiswa pm ON sap.id = pm.id_sanksi_aksi_pelanggaran GROUP BY sap.id_aksi_pelanggaran") or die(mysql_error());
+		if (mysql_num_rows($ambildata) > 0) {
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;
+		} else{
+			echo "<div class='alert alert-warning alert-dismissibl' role='alert'>
+							<button type='button' class='close' data-dismiss='alert' aria-label='Close'></button>
+							Belum Ada Mahasiswa Yang Melakukan Pelanggaran
+						</div>";
+		}				
+	}
 ?>

@@ -15,32 +15,44 @@
                         	<div class="table-responsive">
 									<!-- Table Daftar Pembina -->
 						              <table id="tablePaksi" class="table table-bordered table-hover table-condensed">
-						                <thead>
+						              	<thead>
 						                  <tr>
-							                    <th>#</th>
-							                    <th>Aksi Pelanggaran</th>
-							                    <th>Jumlah Pelanggaran</th>
+						                    <th></th>
+						                    <th>Nama Pembina</th>
+						                    <th>Jumlah Binaan</th>
+						                    <th>Ikhwan/Akhwat</th>
+						                    <th>Telp</th>
+						                    <th>Terakhir Login</th>
+						                    <th>Aksi</th>
 						                  </tr>
 						                </thead>
 						                <tbody>
 						                  <?php 
-						                    /*$dataPaksi = tampilPaksi();
+						                    $dataPelanggaran = tampilPembina();
 						                    
 						                    $no = 1;
-						                  	if (is_array($dataPaksi) || is_object($dataPaksi)){
-						                    	foreach($dataPaksi as $row){*/
-
+						                    foreach($dataPelanggaran as $row){
 						                   ?>
 						                <tr>
-						                  <td><?php echo $no; ?></td>
-						                  <td><a href="?page=paksidetail&id=<?php echo $row['id_paksi']; ?> "><?php echo $row['nama_aksi']; ?></a></td>
-						                  <td><?php echo $row['jumlah']; ?></td>
+						                  <td><b><?php echo $no ?></b></td>  
+						                  
+						                 	<td>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="material-icons" style="font-size: 14px">settings</i>&nbsp;<span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a title='Edit' style="color:#3C8DBC;" href="?page=editpembina&id=<?php echo $row['id_user']; ?>&idP=<?php echo $row['id_pembina']; ?>" class='dropdown-item'><i class='material-icons' style='font-size: 20px'>mode_edit</i></a></li>
+                                                        <li role="separator" class="divider"></li>
+                                                        <li><?php echo "<a title='Hapus' style='color:#DD4B39;' href='#ModalHapusPembina' class='dropdown-item' data-toggle='modal' data-href='action/hapus.php?idpembina=".$row['id_pembina']."&iduser=".$row['id_user']."' aria-hidden='true'><i class='material-icons' style='font-size: 20px'>delete</i></a>"; ?></li>
+                                                    </ul>
+                                                </div>
+						                  </td>
 						                </tr>
 						                  <?php 
-						                    // $no++; }
-						                   }
-						                  ?>      
-						                </tbody>          
+						                    $no++; }
+						                   ?>      
+						                </tbody>   
 						              </table>
 						              <!-- /Table Daftar Pembina -->   
 						              </div>                       
@@ -74,7 +86,6 @@
         echo "<script>document.location='index.php?page=paksi'</script>";
       }
     ?> 
-
 
     <script>
     $(document).ready(function() {
