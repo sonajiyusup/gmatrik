@@ -5,7 +5,7 @@
   $idPembina = $_SESSION['id_pembina'];
 
   $tm = totalBinaanByPembina($idPembina);
-  $tp = totalPelanggaranBinaanByPembina($idPembina);
+  // $tp = totalPelanggaranBinaanByPembina($idPembina);
 ?>
 
 <div class="container-fluid">
@@ -32,7 +32,7 @@
                         </div>
                         <div class="content">
                             <div class="text">JUMLAH PELANGGARAN</div>
-                            <div class="number count-to" data-from="0" data-to="125" data-speed="1000" data-fresh-interval="20"><?php foreach($tp as $totalPelanggaran){ echo $totalPelanggaran; }?></div>
+                            <div class="number count-to" data-from="0" data-to="125" data-speed="1000" data-fresh-interval="20"><?php //foreach($tp as $totalPelanggaran){ echo $totalPelanggaran; }?></div>
                         </div>
                     </div>
                 </div>

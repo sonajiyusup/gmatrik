@@ -649,4 +649,20 @@ function tampilSetorHafalanDetailRoleAdminmatrik($tgl){
 						</div>";
 		}				
 	}		
+
+	function tampilAksiPelanggaranRoleAdminmatrik(){
+		$ambildata = mysql_query("SELECT * FROM aksi_pelanggaran") or die(mysql_error());
+
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;			
+	}		
+
+	function tampilSanksiPelanggaranRoleAdminmatrik(){
+		$ambildata = mysql_query("SELECT * FROM sanksi_pelanggaran sp ORDER BY sp.sanksi") or die(mysql_error());
+
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;			
+	}		
 ?>
