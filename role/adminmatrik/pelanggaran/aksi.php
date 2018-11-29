@@ -1,5 +1,5 @@
 <?php 
-  include 'functions.php';
+  include 'functions2.php';
  ?>   
 
 	<div class="row clearfix">
@@ -14,40 +14,25 @@
                         <div class="body ">
                         	<div class="table-responsive">
 									<!-- Table Daftar Pembina -->
-						              <table id="tablePaksi" class="table table-bordered table-hover table-condensed">
+						              <table id="tablePaksi" class="table table-hover table-condensed">
 						              	<thead>
 						                  <tr>
-						                    <th></th>
-						                    <th>Nama Pembina</th>
-						                    <th>Jumlah Binaan</th>
-						                    <th>Ikhwan/Akhwat</th>
-						                    <th>Telp</th>
-						                    <th>Terakhir Login</th>
-						                    <th>Aksi</th>
+						                    <th>#</th>
+						                    <th>Aksi Pelanggaran</th>
+						                    <th>Jumlah Pelanggaran</th>
 						                  </tr>
 						                </thead>
 						                <tbody>
 						                  <?php 
-						                    $dataPelanggaran = tampilPembina();
+						                    $dataPelanggaran = aksiPelanggaranRoleAdminmatrik();
 						                    
 						                    $no = 1;
 						                    foreach($dataPelanggaran as $row){
 						                   ?>
 						                <tr>
 						                  <td><b><?php echo $no ?></b></td>  
-						                  
-						                 	<td>
-                                                <div class="btn-group">
-                                                    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <i class="material-icons" style="font-size: 14px">settings</i>&nbsp;<span class="caret"></span>
-                                                    </button>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a title='Edit' style="color:#3C8DBC;" href="?page=editpembina&id=<?php echo $row['id_user']; ?>&idP=<?php echo $row['id_pembina']; ?>" class='dropdown-item'><i class='material-icons' style='font-size: 20px'>mode_edit</i></a></li>
-                                                        <li role="separator" class="divider"></li>
-                                                        <li><?php echo "<a title='Hapus' style='color:#DD4B39;' href='#ModalHapusPembina' class='dropdown-item' data-toggle='modal' data-href='action/hapus.php?idpembina=".$row['id_pembina']."&iduser=".$row['id_user']."' aria-hidden='true'><i class='material-icons' style='font-size: 20px'>delete</i></a>"; ?></li>
-                                                    </ul>
-                                                </div>
-						                  </td>
+						                  <td><?php echo $row['aksi_pelanggaran']; ?></td>
+                              <td><?php echo $row['jmlp']; ?></td>
 						                </tr>
 						                  <?php 
 						                    $no++; }
