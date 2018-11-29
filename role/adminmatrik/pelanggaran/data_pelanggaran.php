@@ -18,7 +18,7 @@
                               <tr>
                                 <th>#</th>
                                 <th>Nama Mahasiswa</th>
-                                <th width="200">Aksi Pelanggaran</th>
+                                <th width="235">Aksi Pelanggaran</th>
                                 <th>Keterangan</th>
                                 <th>Tanggal</th>
                                 <th>Sanksi</th>
@@ -59,9 +59,6 @@
                         <h4 class="modal-title" id="smallModalLabel">INPUT DATA PELANGGARAN MAHASISWA</h4>
                         </div>
                         <div class="modal-body">
-                                <label>Tanggal Pelanggaran</label>&nbsp;
-                                <input type="text" id="txt" class="datepicker form-control" name="tplg2" placeholder="Pilih Tanggal"/>
-                                <br>
                                 <label>Mahasiswa Yang Melanggar</label>&nbsp;
                                 <select class="form-control show-tick" name="idMahasiswa" data-live-search="true" required>
                                   <option value="">-- Pilih Mahasiswa --</option>
@@ -97,6 +94,9 @@
                                                         ?>
                                 </select> 
                                 <br><br>            
+                                <label>Tanggal Pelanggaran</label>&nbsp;
+                                <input type="text" id="txt" class="datepicker form-control" name="tplg2" placeholder="Pilih Tanggal"/>
+                                <br>          
                                 <label>Keterangan</label>&nbsp;
                                 <textarea class="form-control" rows="3" name="keterangan" placeholder="Masukan Keterangan Pelanggaran"></textarea>
                         </div>
