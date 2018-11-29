@@ -2,3 +2,22 @@
 - Data Pelanggaran Mahasiswa Diinput oleh Admin Matrikulasi setelah dirapatkan dengan pembina2 lain & pimpinan matrikulasi
 - Bobot sanksi disesuaikan dengan aksi pelanggaran, masing2 jenis/kategori pelanggaran sudah ditetapkan bobot sanksi nya berdasarkan peraturan resmi matrikulasi
 - Bobot sanksi akan memengaruhi pengurangan nilai pembinaan mahasiswa di periode dimana mahasiswa tersebut melakukan pelanggaran
+- Aksi Pelanggaran :
+	- Merokok/Membawa rokok 
+	- Pacaran
+	- Membuka Aurat
+	- Masuk lingkungan asrama ikhwan/akhwat
+	- Berambut gondrong
+	- Memakai aksesoris gelang, anting, kalung
+	- Memakai perhiasan berlebihan
+	- Bermalam diluar asrama/tinggal diluar asrama & menerima tamua bermalam di asrama
+	- Menggunakan fasilitas diluar yang telah disediakan pengelola asrama
+	- Membawa senjata api dan atau senjata tajam
+	- Membawa atau memelihara binatang peliharaan
+	- Menggunakan HP/gadget ketika shalat, ta'lim, tahsin atau program pembinaan lain
+	- Membuat kegaduhan atau mengganggu kenyamanan lingkungan asrama
+	- Memindah, mengeluarkan dan atau merusak inventaris kamar dan asrama
+	- Melakukan kegiatan yang merugikan dan membahayakan diri sendiri dan atau orang lain
+	- Menghina, mengancam, berkata kotor kepada Pembina, Staff dan manajemen tazkia atau merusak aset bersangkutan
+	- Memukul atau melakukan tindakan fisik kepada Pembina, Staff dan Manajemen Matrikulasi
+	- Melanggar Jam Asrama (Ikhwan 21.00 WIB, Akhwat 18.00 WIB)
