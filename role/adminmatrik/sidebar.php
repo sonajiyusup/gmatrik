@@ -596,26 +596,10 @@
               include 'shalat/manual_detail.php';
             } else if ($_GET['page'] == 'jplgdetail') {
               include 'shalat/jplg_detail.php';
-            } else if ($_GET['page'] == 'pbentuk') {
-              include 'pelanggaran/pbentuk.php';
             } else if ($_GET['page'] == 'paksi') {
-              include 'pelanggaran/paksi.php';
+              include 'pelanggaran/aksi.php';
             } else if ($_GET['page'] == 'psanksi') {
-              include 'pelanggaran/psanksi.php';
-            } else if ($_GET['page'] == 'planjut') {
-              include 'pelanggaran/planjut.php';
-            } else if ($_GET['page'] == 'pikhtisar') {
-              include 'pelanggaran/pikhtisar.php';
-            } else if ($_GET['page'] == 'pmaindetail') {
-              include 'pelanggaran/pikhtisar_detail.php';
-            } else if ($_GET['page'] == 'pbentukdetail') {
-              include 'pelanggaran/pbentuk_detail.php';
-            } else if ($_GET['page'] == 'paksidetail') {
-              include 'pelanggaran/paksi_detail.php';
-            } else if ($_GET['page'] == 'psanksidetail') {
-              include 'pelanggaran/psanksi_detail.php';
-            } else if ($_GET['page'] == 'planjutdetail') {
-              include 'pelanggaran/planjut_detail.php';
+              include 'pelanggaran/sanksi.php';
             } else if ($_GET['page'] == 'tahsinm') {
               include 'tahsin/tahsin_bymhs.php';
             } else if ($_GET['page'] == 'tahsinia') {
