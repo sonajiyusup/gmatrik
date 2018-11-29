@@ -621,4 +621,32 @@ function tampilSetorHafalanDetailRoleAdminmatrik($tgl){
 						</div>";
 		}				
 	}
+
+	function sanksiPelanggaranRoleAdminmatrik(){
+		$ambildata = mysql_query("SELECT sap.id, sp.id AS id_sanksi, sp.sanksi, COUNT(pm.id_mahasiswa) AS jmls FROM sanksi_aksi_pelanggaran sap LEFT JOIN sanksi_pelanggaran sp ON sap.id_aksi_pelanggaran = sp.id LEFT JOIN pelanggaran_mahasiswa pm ON sap.id = pm.id_sanksi_aksi_pelanggaran GROUP BY sap.id_sanksi ORDER BY sp.sanksi") or die(mysql_error());
+		if (mysql_num_rows($ambildata) > 0) {
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;
+		} else{
+			echo "<div class='alert alert-warning alert-dismissibl' role='alert'>
+							<button type='button' class='close' data-dismiss='alert' aria-label='Close'></button>
+							Belum Ada Mahasiswa Yang Melakukan Pelanggaran
+						</div>";
+		}				
+	}	
+
+	function tampilPelanggaranRoleAdminmatrik(){
+		$ambildata = mysql_query("SELECT pm.id, pm.id_mahasiswa, m.nama, ap.aksi_pelanggaran, pm.keterangan, pm.tanggal, sp.sanksi, sp.bobot FROM pelanggaran_mahasiswa pm LEFT JOIN sanksi_aksi_pelanggaran sap ON pm.id_sanksi_aksi_pelanggaran = sap.id LEFT JOIN aksi_pelanggaran ap ON sap.id_aksi_pelanggaran = ap.id LEFT JOIN sanksi_pelanggaran sp ON sap.id_sanksi = sp.id LEFT JOIN mahasiswa m ON pm.id_mahasiswa = m.id_mahasiswa") or die(mysql_error());
+		if (mysql_num_rows($ambildata) > 0) {
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;
+		} else{
+			echo "<div class='alert alert-warning alert-dismissibl' role='alert'>
+							<button type='button' class='close' data-dismiss='alert' aria-label='Close'></button>
+							Belum Ada Mahasiswa Yang Melakukan Pelanggaran
+						</div>";
+		}				
+	}		
 ?>

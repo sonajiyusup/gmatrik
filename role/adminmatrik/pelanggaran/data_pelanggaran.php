@@ -6,32 +6,35 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                          <h2>SANKSI
-                          <small>Data Pelanggaran Berdasarkan Sanksi</small>
+                          <h2>DATA PELANGGARAN MAHASISWA
                           </h2>
                         </div>
                         <div class="body ">
                         	<div class="table-responsive">
 									<!-- Table Daftar Pembina -->
-						              <table id="tableSanksi" class="table table-bordered table-hover table-condensed">
+						              <table id="tablePelanggaran" class="table table-bordered table-hover table-condensed">
 						                <thead>
                               <tr>
                                 <th>#</th>
-                                <th>Sanksi Pelanggaran</th>
-                                <th>Jumlah Pelanggaran</th>
+                                <th>Nama Mahasiswa</th>
+                                <th>Aksi Pelanggaran</th>
+                                <th>Tanggal</th>
+                                <th>Sanksi</th>
                               </tr>
                             </thead>
                             <tbody>
                               <?php 
-                                $dataPelanggaran = sanksiPelanggaranRoleAdminmatrik();
+                                $dataPelanggaran = tampilPelanggaranRoleAdminmatrik();
                                 
                                 $no = 1;
                                 foreach($dataPelanggaran as $row){
                                ?>
                             <tr>
                               <td><b><?php echo $no ?></b></td>  
+                              <td><?php echo $row['nama']; ?></td>
+                              <td><?php echo $row['aksi_pelanggaran']; ?></td>
+                              <td><?php echo $row['tanggal']; ?></td>
                               <td><?php echo $row['sanksi']; ?></td>
-                              <td><?php echo $row['jmls']; ?></td>
                             </tr>
                               <?php 
                                 $no++; }
@@ -45,14 +48,13 @@
                 </div>
 </div>           
 
-
     <script>
     $(document).ready(function() {
-      var t = $('#tableSanksi').DataTable( {
+      var t = $('#tablePelanggaran').DataTable( {
             "columnDefs": [
               { "searchable": false, "orderable": false, "targets": [0]}
             ]
         } );
 
     } );
-    </script>   
+    </script>  

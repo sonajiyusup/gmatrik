@@ -600,6 +600,8 @@
               include 'pelanggaran/aksi.php';
             } else if ($_GET['page'] == 'psanksi') {
               include 'pelanggaran/sanksi.php';
+            } else if ($_GET['page'] == 'pelanggaran') {
+              include 'pelanggaran/data_pelanggaran.php';
             } else if ($_GET['page'] == 'tahsinm') {
               include 'tahsin/tahsin_bymhs.php';
             } else if ($_GET['page'] == 'tahsinia') {

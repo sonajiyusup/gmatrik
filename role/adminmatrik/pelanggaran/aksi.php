@@ -7,14 +7,14 @@
                     <div class="card">
                         <div class="header">
                           <h2>AKSI PELANGGARAN
-                            <button class="btn btn-sm btn-link waves-effect " data-toggle="modal" data-target="#tambahPaksi" style="width: 10%;" title="Tambah Master Aksi Pelanggaran"><i class="material-icons">playlist_add</i></button>
+                            <!-- <button class="btn btn-sm btn-link waves-effect " data-toggle="modal" data-target="#tambahPaksi" style="width: 10%;" title="Tambah Master Aksi Pelanggaran"><i class="material-icons">playlist_add</i></button> -->
                             <small>Data Pelanggaran Berdasarkan Aksi</small>
                           </h2>
                         </div>
                         <div class="body ">
                         	<div class="table-responsive">
 									<!-- Table Daftar Pembina -->
-						              <table id="tablePaksi" class="table table-hover table-condensed">
+						              <table id="tablePaksi" class="table table-bordered table-hover table-condensed">
 						              	<thead>
 						                  <tr>
 						                    <th>#</th>
