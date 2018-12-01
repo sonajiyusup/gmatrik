@@ -28,7 +28,7 @@ LEFT JOIN (
 	SELECT Format(DateValue(CHECKTIME)) As tanggal, Format(TimeValue(CHECKTIME)) As tapping, ue.userid, ue.Badgenumber, CHECKTIME 
 	FROM CHECKINOUT ce 
 	LEFT JOIN USERINFO ue ON ce.userid = ue.userid 
-	WHERE (Format(DateValue(ce.CHECKTIME), 'yyyy-mm-dd')  BETWEEN '2018-11-16' AND '2018-11-17') AND (Format(TimeValue(ce.CHECKTIME))  BETWEEN '18:00:00' AND '18:45:00') AND (ue.Badgenumber LIKE '18*')		
+	WHERE (Format(DateValue(ce.CHECKTIME), 'yyyy-mm-dd')  BETWEEN '2018-11-16' AND '2018-11-17') AND (Format(TimeValue(ce.CHECKTIME))  BETWEEN '19:00:00' AND '19:50:00') AND (ue.Badgenumber LIKE '18*')		
 )i ON (t.userid = i.userid) AND (t.tanggal = i.tanggal)
 GROUP BY t.userid, t.tanggal, ua.Badgenumber 
 ORDER BY t.userid, t.tanggal
