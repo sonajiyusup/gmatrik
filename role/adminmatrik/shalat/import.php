@@ -94,8 +94,10 @@
         $isyaFrom = $_POST['isyaFrom'];
         $isyaTo = $_POST['isyaTo'];
 
-        updateTimeSetup($from, $to, $shubuhFrom, $shubuhTo, $dzuhurFrom, $dzuhurTo, $asharFrom, $asharTo, $maghribFrom, $maghribTo, $isyaFrom, $isyaTo);
-        importShalat('18', $datefrom, $dateto);
+        /*updateTimeSetup($from, $to, $shubuhFrom, $shubuhTo, $dzuhurFrom, $dzuhurTo, $asharFrom, $asharTo, $maghribFrom, $maghribTo, $isyaFrom, $isyaTo);
+        importShalat('18', $datefrom, $dateto);*/
+
+        importShalat2(18, $datefrom, $dateto, $shubuhFrom, $shubuhTo, $dzuhurFrom, $dzuhurTo, $asharFrom, $asharTo, $maghribFrom, $maghribTo, $isyaFrom, $isyaTo);
 
         echo "<script>document.location='?page=shalat'</script>";
       }

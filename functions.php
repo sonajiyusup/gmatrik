@@ -460,6 +460,47 @@
 		}
 	}
 
+
+	// Untuk testing struktur table shalat baru
+	function importShalat2($angkatan, $from, $to, $_shubuhFrom, $_shubuhTo, $_dzuhurFrom, $_dzuhurTo, $_asharFrom, $_asharTo, $_maghribFrom, $_maghribTo, $_isyaFrom, $_isyaTo){
+
+		$from_ = date('Y-m-d', strtotime($from));
+		$to_ = date('Y-m-d', strtotime($to));
+
+		$shubuhFrom = date('H:i:s', strtotime($_shubuhFrom));
+		$shubuhTo = date('H:i:s', strtotime($_shubuhTo));
+		$dzuhurFrom = date('H:i:s', strtotime($_dzuhurFrom));
+		$dzuhurTo = date('H:i:s', strtotime($_dzuhurTo));
+		$asharFrom = date('H:i:s', strtotime($_asharFrom));
+		$asharTo = date('H:i:s', strtotime($_asharTo));
+		$maghribFrom = date('H:i:s', strtotime($_maghribFrom));
+		$maghribTo = date('H:i:s', strtotime($_maghribTo));
+		$isyaFrom = date('H:i:s', strtotime($_isyaFrom));
+		$isyaTo = date('H:i:s', strtotime($_isyaTo));		
+
+		// Periode shalat table
+		// mysql_query("INSERT INTO shalat_periode (tanggal_dari, tanggal_sampai) VALUES ('$from_','$to_')");
+
+		$koneksi_mdb = odbc_connect( 'att2000', "", "");
+		
+		$sql = "SELECT t.userid AS id_mahasiswa, Format(t.tanggal, 'yyyy-mm-dd') AS tgl, Format(TimeValue(Min(t.CHECKTIME))) As shubuh, Format(TimeValue(Min(d.CHECKTIME))) As dzuhur, Format(TimeValue(Min(a.CHECKTIME))) As ashar, Format(TimeValue(Min(m.CHECKTIME))) As maghrib, Format(TimeValue(Min(i.CHECKTIME))) As isya FROM (((( SELECT Format(DateValue(CHECKTIME)) As tanggal, Format(TimeValue(CHECKTIME)) As tapping, ua.userid, ua.Badgenumber, CHECKTIME FROM CHECKINOUT ca LEFT JOIN USERINFO ua ON ca.userid = ua.userid WHERE (Format(DateValue(ca.CHECKTIME), 'yyyy-mm-dd') BETWEEN '$from_' AND '$to_') AND (Format(TimeValue(ca.CHECKTIME)) BETWEEN '$shubuhFrom' AND '$shubuhTo') AND (ua.Badgenumber LIKE '$angkatan%') )t LEFT JOIN ( SELECT Format(DateValue(CHECKTIME)) As tanggal, Format(TimeValue(CHECKTIME)) As tapping, ub.userid, ub.Badgenumber, CHECKTIME FROM CHECKINOUT cb LEFT JOIN USERINFO ub ON cb.userid = ub.userid WHERE (Format(DateValue(cb.CHECKTIME), 'yyyy-mm-dd') BETWEEN '$from_' AND '$to_') AND (Format(TimeValue(cb.CHECKTIME)) BETWEEN '$dzuhurFrom' AND '$dzuhurTo') AND (ub.Badgenumber LIKE '$angkatan%') )d ON (t.userid = d.userid) AND (t.tanggal = d.tanggal)) LEFT JOIN ( SELECT Format(DateValue(CHECKTIME)) As tanggal, Format(TimeValue(CHECKTIME)) As tapping, uc.userid, uc.Badgenumber, CHECKTIME FROM CHECKINOUT cc LEFT JOIN USERINFO uc ON cc.userid = uc.userid WHERE (Format(DateValue(cc.CHECKTIME), 'yyyy-mm-dd') BETWEEN '$from_' AND '$to_') AND (Format(TimeValue(cc.CHECKTIME)) BETWEEN '$asharFrom' AND '$asharTo') AND (uc.Badgenumber LIKE '$angkatan%') )a ON (t.userid = a.userid) AND (t.tanggal = a.tanggal)) LEFT JOIN ( SELECT Format(DateValue(CHECKTIME)) As tanggal, Format(TimeValue(CHECKTIME)) As tapping, ud.userid, ud.Badgenumber, CHECKTIME FROM CHECKINOUT cd LEFT JOIN USERINFO ud ON cd.userid = ud.userid WHERE (Format(DateValue(cd.CHECKTIME), 'yyyy-mm-dd') BETWEEN '$from_' AND '$to_') AND (Format(TimeValue(cd.CHECKTIME)) BETWEEN '$maghribFrom' AND '$maghribTo') AND (ud.Badgenumber LIKE '$angkatan%') )m ON (t.userid = m.userid) AND (t.tanggal = m.tanggal)) LEFT JOIN ( SELECT Format(DateValue(CHECKTIME)) As tanggal, Format(TimeValue(CHECKTIME)) As tapping, ue.userid, ue.Badgenumber, CHECKTIME FROM CHECKINOUT ce LEFT JOIN USERINFO ue ON ce.userid = ue.userid WHERE (Format(DateValue(ce.CHECKTIME), 'yyyy-mm-dd') BETWEEN '$from_' AND '$to_') AND (Format(TimeValue(ce.CHECKTIME)) BETWEEN '$isyaFrom' AND '$isyaTo') AND (ue.Badgenumber LIKE '$angkatan%') )i ON (t.userid = i.userid) AND (t.tanggal = i.tanggal) GROUP BY t.userid, t.tanggal, ua.Badgenumber ORDER BY t.userid, t.tanggal";
+
+		$result = odbc_exec($koneksi_mdb, $sql);		
+
+		while($row_mdb = odbc_fetch_array($result)){
+
+			$tgl_ = date('Y-m-d', strtotime($row_mdb['tgl']));	
+
+			//if(strpos($row_mdb['Name'], $row_mdb['Badgenumber']) === FALSE){
+			$mysql_insert_presensi = "INSERT INTO shalat2(id_mahasiswa, tanggal, shubuh, dzuhur, ashar, maghrib, isya) VALUES 
+			(".$row_mdb['id_mahasiswa'].", '$tgl_', '".$row_mdb['shubuh']."','".$row_mdb['dzuhur']."','".$row_mdb['ashar']."','".$row_mdb['maghrib']."','".$row_mdb['isya']."');";
+
+			mysql_query($mysql_insert_presensi);
+
+			//mysql_query("INSERT INTO shalat (id_mahasiswa, tanggal, wkt_tapping, wkt_shalat) VALUES ('$angkatan', '$to', '$from');");
+		}
+	}	
+
 	function updateTimeSetup($_dateFrom, $_dateTo, $_shubuhFrom, $_shubuhTo, $_dzuhurFrom, $_dzuhurTo, $_asharFrom, $_asharTo, $_maghribFrom, $_maghribTo, $_isyaFrom, $_isyaTo){
 		$koneksi_mdb = odbc_connect( 'att2000', "", "");
 
