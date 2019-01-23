@@ -535,7 +535,7 @@
             } else if ($_GET['page'] == 'shalat') {
               include 'shalat/shalat.php';
             } else if ($_GET['page'] == 'shalatpdetail') {
-              include 'shalat/shalat_periode.php';
+              include 'shalat/shalat_periode_new.php';
             } else if ($_GET['page'] == 'shalatbyday') {
               include 'shalat/shalat_byday.php';
             } else if ($_GET['page'] == 'shalatia') {
@@ -558,6 +558,8 @@
               include 'shalat/shalat_bypembina.php';
             } else if ($_GET['page'] == 'shalatbpembinadetail') {
               include 'shalat/shalat_bypembinadetail.php';
+            } else if ($_GET['page'] == 'shalatbpembinadetailnew') {
+              include 'shalat/shalat_bypembinadetail_byperiod_new.php';
             } else if ($_GET['page'] == 'shalatbpembinabp') {
               include 'shalat/shalat_bypembinadetail_byperiod.php';
             } else if ($_GET['page'] == 'shalatbpembinabpday') {

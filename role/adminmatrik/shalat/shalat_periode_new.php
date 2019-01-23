@@ -1,6 +1,6 @@
 <?php 
   include 'functions.php';
-  $idPembina = $_GET['id'];
+  $idPeriod = $_GET['id'];
  ?>
 
 	<div class="row clearfix">
@@ -8,37 +8,41 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                          <h2><a href="?page=shalatbpembina" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;DATA NILAI PRESENSI MAHASISWA BERDASARKAN PEMBINA
-                            <br>
-                              <span class="label bg-cyan"> Jumlah Mahasiswa Binaan : 
-                                    <?php 
-                                      $jmlb = tampilJmlBinaan($idPembina);
-                                        foreach($jmlb as $row){
-                                          echo $row['jmlb'];
-                                        } 
-                                    ?>
+                          <h2>DATA NILAI RATA-RATA PRESENSI MAHASISWA
+                            <small> Periode :&nbsp; 
+                              <span class="label bg-cyan">
+                                <?php $dataPresensi = tampilTglPeriodeById($idPeriod);
+                                  foreach($dataPresensi as $row){
+                                    echo date('d M Y', strtotime($row['tanggal_dari']))." - ".date('d M Y', strtotime($row['tanggal_sampai']));
+                                  } 
+                                ?>
                               </span>
+                            </small>
                           </h2>
                         </div>
                         <div class="body">
                           <div class="table-responsive">
-                            <table id="tableShalatByPembinaDetail" class="table table-hover table-condensed">
+                            <table id="tableShalatIkhtisarDetail" class="table table-hover table-condensed">
                               <thead>
                                 <tr>
                                   <th>#</th>
-                                  <th>Periode</th>
-                                  <th>Total</th>
+                                  <th>NIM</th>
+                                  <th>Nama Mahasiswa</th>
+                                  <th>Ikhwan/Akhwat</th>
+                                  <th>Total Jumlah Shalat</th>
                                 </tr>
                               </thead>
                               <tbody>
                                 <?php 
+                                  $dataPresensi = shalatIkhtisarDetail($idPeriod);
                                   $no = 1;
-                                  $dataPembina = shalatByPembinaIdNew($idPembina);
-                                  foreach($dataPembina as $row){
+                                  foreach($dataPresensi as $row){
                                  ?>
                                 <tr>
                                   <td><?php echo $no; ?></td>
-                                  <td><?php echo '<a href="?page=shalatbpembinadetailnew&pm='.$idPembina.'&pr='.$row['id_periode'].'">'.date('d M Y', strtotime($row['tanggal_dari']))." - ".date('d M Y', strtotime($row['tanggal_sampai'])).'</a>'; ?></td>
+                                  <td><?php echo $row['nim']; ?></td>
+                                  <td><?php echo $row['nama']; ?></td>
+                                  <td><?php echo $row['j_kelamin']; ?></td>
                                   <td><?php echo $row['total']; ?></td>
                                 </tr>
                                 <?php $no++; } ?>
@@ -55,6 +59,6 @@
 <!-- Daterange picker import data presensi shalat mahasiswa -->
     <script>
     $(document).ready(function() {
-      var t = $('#tableShalatByPembinaDetail').DataTable({});
+      var t = $('#tableShalatIkhtisarDetail').DataTable({});
     } );
     </script> 

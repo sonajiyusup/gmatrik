@@ -158,6 +158,7 @@
                             <table id="tableShalatMhsDetail" class="table table-hover table-condensed">
                               <thead>
                                 <tr>
+                                  <th>#</th>
                                   <th>ID</th>
                                   <th>Periode</th>
                                   <th>Fingerprint</th>
@@ -171,10 +172,12 @@
                               </thead>
                               <tbody>
                                 <?php 
+                                  $no = 1;
                                   $data = shalatMhsDetail($idMhs);
                                   foreach($data as $row){
                                  ?>
                                 <tr>
+                                  <td><?php echo $no; ?></td>
                                   <td><?php echo $row['id_periode']; ?></td>
                                   <td><?php echo '<a href="?page=shalatmbyperiod&p='.$row['id_periode'].'&m='.$idMhs.'">'.date('d M Y', strtotime($row['tanggal_dari']))." - ".date('d M Y', strtotime($row['tanggal_sampai'])).'</a>'; ?></td>
                                   <td><?php echo $row['fingerprint']; ?></td>
@@ -185,7 +188,7 @@
                                   <td><?php echo $row['target2']; ?></td>
                                   <td><?php echo $row['nilai']; ?></td>
                                 </tr>
-                                <?php } ?>
+                                <?php $no++; } ?>
                               </tbody> 
                             </table>
                           </div>
