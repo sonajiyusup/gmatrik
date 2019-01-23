@@ -250,7 +250,7 @@ if(isset($_POST['login'])){
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>Login | Graph Matrik</title>
+    <title>Login | Matrikulasi</title>
     <!-- Favicon-->
     <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
 
@@ -277,8 +277,8 @@ if(isset($_POST['login'])){
 <body class="login-page">
     <div class="login-box">
         <div class="logo">
-            <a href="javascript:void(0);"><img src="assets/img/icon30.png">&nbsp;<b>Graph</b>Matrik</a>
-            <small>Sistem Informasi Monitoring Matrikulasi Mahasiswa STEI Tazkia</small>
+            <a href="javascript:void(0);"><img src="assets/img/icon30.png">&nbsp;<b>STEI</b>Tazkia</a>
+            <small>Sistem Informasi Pengelolaan Matrikulasi Program Pembinaan</small>
         </div>
         <div class="card">
             <div class="body">
