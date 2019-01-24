@@ -35,7 +35,7 @@
                                         foreach($calonBinaan as $row){
                                     ?>
                                   <tr style="height: 5px;">
-                                    <td><input type="checkbox" class="flat-red" name="idMahasiswa" value="<?php echo $row['id_mahasiswa']; ?>"></td>
+                                    <td><input type="checkbox" class="flat-red" name="idMahasiswa" value="<?php echo $row['id_mahasiswa']; ?>" required></td>
                                     <td><?php echo "<span class='badge'>".$row['nim']."</span>" ?></td>
                                     <td><?php echo "<a href='index.php?page=mahasiswadetails&id=".$row['id_user']."'>".$row['nama']."</a>" ?></td>
                                     <td><?php if($row['j_kelamin'] == 'Ikhwan' || $row['j_kelamin'] == 'Laki-laki'){echo '<span class="label bg-green">Ikhwan</span>';} else if($row['j_kelamin'] == 'Akhwat' || $row['j_kelamin'] == 'Perempuan'){echo '<span class="label bg-yellow">Akhwat</span>';} else if($row['j_kelamin'] == NULL){echo '<span class="label label-default">Belum diset</span>';} ?></td>
