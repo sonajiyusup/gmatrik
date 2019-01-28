@@ -136,26 +136,46 @@ $(document).on('click', '.btn-add', addFormGroup);
                   <form method="POST" name="formUdzur" id="formJplg">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h4 class="modal-title" id="smallModalLabel">INPUT PERMINTAAN UDZUR SHALAT</h4>
+                        <h4 class="modal-title" id="smallModalLabel">INPUT PERSETUJUAN UDZUR TAHSIN/TAHFIDZ</h4>
                         </div>
                         <div class="modal-body">
 
-                        <label>Udzur :</label><br>
+                        <label>Nama Mahasiswa : </label>&nbsp;&nbsp; Adelina <br>
+                        <label>Udzur : </label>&nbsp;&nbsp; Izin Syar'i&nbsp;&nbsp; <br>
+                        <label>Keterangan : </label>&nbsp;&nbsp;Nenek Meninggal&nbsp;&nbsp; <br>
+                        <label>Tanggal Pengajuan Udzur : </label>&nbsp;&nbsp; 23 Okt 2018&nbsp;&nbsp; <br><br>
+
+                        &nbsp;&nbsp;<label>Udzur tidak hadir pada,</label><br>
+                        &nbsp;&nbsp;<label>Tahsin/Tahfidz : </label>&nbsp;&nbsp; Ba'da Shubuh <br>
+                        &nbsp;&nbsp;<label>Tanggal Pelaksanaan Tahsin/Tahfidz : </label>&nbsp;&nbsp; 20 Okt 2018&nbsp;&nbsp; <br>
+                        &nbsp;&nbsp;<label>Deskripsi Tahsin/Tahfidz : </label>&nbsp;&nbsp;Makhrajul Huruf 3&nbsp;&nbsp; <br><br>
+
+                        <label>Setuju?</label>
                                 <input name="udzur" type="radio" class="radiojk" id="sakit" value="Sakit"/>
-                                <label for="sakit">SAKIT</label>&nbsp;&nbsp;
-                                <input name="udzur" type="radio" class="radiojk" id="hujan" value="Hujan"/>
+                                <label for="sakit">Ya</label>&nbsp;&nbsp;
+
+                                <input name="udzur" type="radio" class="radiojk" id="izin" value="Izin"/>
+                                <label for="izin">Tidak</label>&nbsp;&nbsp;
+
+                                <!-- <input name="udzur" type="radio" class="radiojk" id="haid" value="Haid"/>
+                                <label for="sakit">Haid</label>&nbsp;&nbsp; -->
+
+                                <!-- <input name="udzur" type="radio" class="radiojk" id="hujan" value="Hujan"/>
+                                <label for="hujan">Hujan</label>&nbsp;&nbsp; -->
+
+                                <!-- <input name="udzur" type="radio" class="radiojk" id="hujan" value="Hujan"/>
                                 
-                                <label for="is">IZIN SYAR'I</label>&nbsp;&nbsp;
+                                <label for="is">IZIN SYAR'I</label>&nbsp;&nbsp; -->
                                 <?php 
-                                  if($jKelamin == 'Akhwat'){
+                                  /*if($jKelamin == 'Akhwat'){
                                     echo '<input name="udzur" type="radio" id="radio_32" class="radiojk" id="haid" value="Haid"/>
                                           <label for="radio_32">HAID</label>
                                           <label for="hujan">HUJAN DERAS</label>&nbsp;&nbsp;
-                                          <input name="udzur" type="radio" class="radiojk" id="is" value="Izin Syari"/>';
-                                  }
+                                          <input name="udzur" type="radio" class="radiojk" id="is" value="Izin Syari"/>';*/
+                                  //}
                                 ?>
-                                <br><br>              
-                                <div class="form-group multiple-form-group" id="defaultForm">          
+                                <!-- <br><br>              
+                                <div class="form-group multiple-form-group" id="defaultForm">        -->   
                                     <!-- <label class="switch">
                                       <input type="checkbox" name="opt" id="opt" value="Y" onclick="toggle('.myClass', this)">
                                       <span class="slider round"></span><br>
@@ -164,26 +184,34 @@ $(document).on('click', '.btn-add', addFormGroup);
                                     <!-- <div class="showhide">   -->
                                       <!-- <div class="controls">     -->
                                         <!-- <div class="entry"> -->
-                                      <label>Tanggal :</label><br>
-                                          <input type="text" class="form-control datepicker" name="tudzur[]" placeholder="Tanggal Udzur" required /><br>
+                                       <!--  <label>Tahsin/Tahfidz :</label>
+                                        <select class="form-control show-tick" data-live-search="true" onchange="location = this.value;">
+                                          <option selected>-- Pilih Tahsin/Tahfidz & Tanggal --</option>
+
+                                        </select>
+                                        <br><br>
+                                        <label>Keterangan:</label><br><br>
+                                        <input type="text" name="ket"  class="form-control" placeholder="Keterangan Udzur"> -->
+                                     <!--  <label>Udzur Untuk Tanggal :</label><br>
+                                          <input type="text" class="form-control datepicker" name="tudzur[]" placeholder="Tanggal Udzur" required /><br> -->
                                           <!-- <input type="checkbox" class="flat-red" id="check-all1">&nbsp;Semua&nbsp;&nbsp; -->
-                                      <label>Waktu Shalat :</label><br>
+                                      <!-- <label>Waktu Shalat :</label><br>
                                           <input type="checkbox" class="flat-red" id="check-all1">&nbsp;Semua&nbsp;&nbsp;
                                           <input type="checkbox" class="flat-red check" name="shubuh[]" value="shubuh">&nbsp;Shubuh&nbsp;&nbsp;
                                           <input type="checkbox" class="flat-red check" name="dzuhur[]" value="dzuhur">&nbsp;Dzuhur&nbsp;&nbsp;
                                           <input type="checkbox" class="flat-red check" name="ashar[]" value="ashar">&nbsp;Ashar&nbsp;&nbsp;
                                           <input type="checkbox" class="flat-red check" name="maghrib[]" value="maghrib">&nbsp;Maghrib&nbsp;&nbsp;
-                                          <input type="checkbox" class="flat-red check" name="isya[]" value="isya">&nbsp;Isya
-                                          <br><br>
-                                      <label>Keterangan :</label><br>
-                                      <input type="text" class="form-control" name="keterangan" placeholder="Keterangan Udzur"/>
-                                </div>
+                                          <input type="checkbox" class="flat-red check" name="isya[]" value="isya">&nbsp;Isya -->
+                                          
+                                      <!-- <label>Keterangan :</label><br>
+                                      <input type="text" class="form-control" name="keterangan" placeholder="Keterangan Udzur"/> -->
+                                <!-- </div> -->
                                 <!-- <button type="button" class="btn btn-xs btn-link waves-effect btn-add" title="Tambah Hari">
                                               <i class="material-icons">add</i>
                                           </button> -->
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary waves-effect" name="submitUdzur">SUBMIT</button>
+                            <button type="submit" class="btn btn-primary waves-effect" name="submitUdzur">SIMPAN</button>
                             <button class="btn btn-link waves-effect" data-dismiss="modal">BATAL</button>
                         </div>
                     </div>

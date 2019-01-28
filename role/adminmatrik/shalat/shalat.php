@@ -122,11 +122,84 @@
                     </div>
                 </div>
             </div>
+
+              <div class="row clearfix">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>DATA PEKAN PRESENSI TAHSIN/TAHFIDZ</h2>
+                        </div>
+                        <div class="body">
+                            <div class="table-responsive">
+                            <table id="tablepekan" class="table table-hover table-condensed table-bordered">
+                              <thead>
+                                <tr>
+                                  <th>Semester</th>
+                                  <th>Pekan ke</th>
+                                  <th>Rentang Waktu</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>1</td>
+                                  <td>1</td>
+                                  <td><a href="">12 Sep 2018 - 27 Sep 2018</a></td>
+                                </tr>
+                                <tr>
+                                  <td>1</td>
+                                  <td>2</td>
+                                  <td><a href="">28 Sep 2018 - 04 Oct 2018</a></td>
+                                </tr>
+                                <tr>
+                                  <td>1</td>
+                                  <td>3</td>
+                                  <td><a href="">05 Oct 2018 - 11 Oct 2018</a></td>
+                                </tr>
+                                <tr>
+                                  <td>1</td>
+                                  <td>4</td>
+                                  <td><a href="">12 Oct 2018 - 18 Oct 2018</a></td>
+                                </tr>
+                                <tr>  
+                                  <td>1</td>
+                                  <td>5</td>
+                                  <td><a href="">19 Oct 2018 - 25 Oct 2018</a></td>
+                                </tr>
+                                <tr>
+                                  <td>1</td>
+                                  <td>6</td>
+                                  <td><a href="">26 Oct 2018 - 01 Nov 2018</a></td>
+                                </tr>
+                                <tr>
+                                  <td>1</td>
+                                  <td>7</td>
+                                  <td><a href="">02 Nov 2018 - 08 Nov 2018</a></td>
+                                </tr>
+                                <tr>
+                                  <td>1</td>
+                                  <td>8</td>
+                                  <td><a href="">09 Nov 2018 - 15 Nov 2018</a></td>
+                                </tr>
+                               </tbody> 
+                            </table>
+                          </div>
+                        </div>
+
+                    </div>
+                </div>
+
+              </div>
     </section>
     <!-- /.content -->
 
     <script>
     $(document).ready(function() {
       var t = $('#tableShalatIkhtisar').DataTable({});
+    } );
+    </script> 
+
+        <script>
+    $(document).ready(function() {
+      var t = $('#tablepekan').DataTable({});
     } );
     </script> 

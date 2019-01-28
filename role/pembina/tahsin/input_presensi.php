@@ -9,19 +9,20 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                          <h2>FORM INPUT PRESENSI TAHSIN/TAHFIDZ MAHASISWA</h2>
+                          <h2>TAMBAH DATA TA'LIM</h2>
                         </div>
                         <form method="POST" id="formInputPresensiTahsin">
                         <div class="body">   
                           <div class="row">
                             <div class="col col-sm-4">
                               <div class="input-group">
-                                      <label>Tahsin :</label>
+                                      <label>Ta'lim :</label>
                                       <div class="form-line">
                                         <select class="form-control show-tick" name="namatahsin" required>
                                           <option value="">- Pilih Tahsin -</option>
                                           <option value="badashubuh">Tahsin Ba'da Shubuh</option>
                                           <option value="badaashar">Tahsin Ba'da Ashar</option>
+                                          <option value="badaashar">Ta'lim Ba'da Isya</option>
                                           <option value="tambahan">Tahsin Tambahan</option>
                                         </select>
                                       </div>
@@ -37,14 +38,16 @@
                             </div>
                             <div class="col col-sm-4">
                               <div class="input-group">
-                                      <label>Keterangan :</label>
+                                      <label>Deskripsi :</label>
                                       <div class="form-line">
                                         <input type="text" class="form-control" name="keterangan" /><br>
                                       </div>
                                     </div>
                             </div>
-                          </div>                             
-                                    <label>Input Presensi :</label>
+                          </div>     
+
+                                                
+                                    <label>Input Data Presensi Ta'lim :</label>
                                     <div class="table-responsive">
                                     <!-- Table Daftar Pembina -->
                                       <table class="table table-hover table-condensed">
@@ -56,7 +59,7 @@
                                           </tr>
                                         </thead>
                                         <tbody>
-                                          &nbsp;&nbsp;&nbsp;<input type="checkbox" class="flat-red" id="check-all-tahsin">&nbsp;&nbsp;Semua
+                                          &nbsp;&nbsp;&nbsp;<input type="checkbox" class="flat-red" id="check-all-tahsin">&nbsp;&nbsp;Hadir Semua
                                           <?php 
                                             $binaanTahsin = tampilDaftarBinaanTahsin($idPembina);
                                             $no = 1;

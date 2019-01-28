@@ -17,8 +17,8 @@
              ?>                  
                     <div class="card">
                         <div class="header">
-                          <h2>DAFTAR PEMBINA MAHASISWA 
-                            <button class="btn btn-sm btn-link waves-effect " data-toggle="modal" data-target="#tambahPembina" style="width: 10%;" title="Tambah Data Pembina"><i class="material-icons">playlist_add</i></button>
+                          <h2>DATA PEMBINA MAHASISWA &nbsp;&nbsp;&nbsp;
+                          <button class="btn btn-sm btn-default waves-effect" data-toggle="modal" data-target="#tambahPembina" title="Import Database Mahasiswa"><i class="material-icons">get_app</i><span>TAMBAH DATA</span></button>
                           </h2>
                         </div>
                         <div class="body ">
@@ -27,11 +27,11 @@
 						              <table id="tablePembina" class="table table-hover table-condensed">
 						                <thead>
 						                  <tr>
-						                    <th></th>
-						                    <th>Nama Pembina</th>
+						                    <th>#</th>
+						                    <th>Nama Pembina Mahasiswa</th>
 						                    <th>Jumlah Binaan</th>
 						                    <th>Ikhwan/Akhwat</th>
-						                    <th>Telp</th>
+						                    <!-- <th>Telp</th> -->
 						                    <th>Terakhir Login</th>
 						                    <th>Aksi</th>
 						                  </tr>
@@ -48,7 +48,7 @@
 						                  <td><?php echo "<a href='index.php?page=pembinadetails&id=".$row['id_user']."&idP=".$row['id_pembina']."' style='text-decoration:none'>".$row['nama']."</a>" ?></td>
 						                  <td><?php echo $row['jml_binaan'] ?></td>
 						                  <td><?php if($row['j_kelamin'] == 'Ikhwan' || $row['j_kelamin'] == 'Laki-laki'){echo '<span class="label bg-light-blue">Ikhwan</span>';} else if($row['j_kelamin'] == 'Akhwat' || $row['j_kelamin'] == 'Perempuan'){echo '<span class="label bg-pink">Akhwat</span>';} ?></td>
-						                  <td><?php echo $row['telp'] ?></td>
+						                  <!-- <td><?php echo $row['telp'] ?></td> -->
 						                  <td><?php if ($row['last_login'] == '0000-00-00 00:00:00'){ echo 'Belum Pernah';}else{ echo date("d-m-Y H:i", strtotime($row['last_login'])) ;}
 						                  ?></td>
 						                 	<td>
@@ -97,7 +97,7 @@
                 	<form class="form-horizontal" method="POST">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="defaultModalLabel">Tambah Data Pembina</h4>
+                            <h4 class="modal-title" id="defaultModalLabel">Tambah Data Pembina Mahasiswa</h4>
                         </div>
                         <div class="modal-body">
                             <div class="row clearfix">
@@ -108,6 +108,16 @@
                                         </span>
                                         <div class="form-line">
                                             <input type="text" name="nama" class="form-control date" placeholder="Nama" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">school</i>
+                                        </span>
+                                        <div class="form-line">
+                                            <input type="text" name="gelar" class="form-control date" placeholder="Gelar">
                                         </div>
                                     </div>
                                 </div>
@@ -126,45 +136,6 @@
                                 <div class="col-sm-12">
                                   <div class="input-group">
                                         <span class="input-group-addon">
-                                            <i class="material-icons">today</i>
-                                        </span>
-                                        <div class="form-line">
-                                            <input type="text" class="datepicker form-control" name="tgl_lahir" placeholder="Tanggal Lahir" >
-                                        </div>
-                                  </div>
-                                </div>
-                                <div class="col-sm-12">
-                                  <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <i class="material-icons">school</i>
-                                        </span>
-                                        <select class="form-control show-tick" name="gelar" >
-	                                        <option value="">-- Pilih Gelar --</option>
-                                          <option value="Lc">Lc</option>
-	                                        <option value="S.E.I">S.E.I</option>
-                                          <option value="S.E">S.E</option>
-                                          <option value="S.Pd">S.Pd</option>
-                                          <option value="S.Akun">S.Akun</option>
-                                          <option value="S.Si">S.Si</option>
-                                          <option value="S.H">S.H</option>
-	                                        <option value="M.Ei">M.Ei</option>
-                                          <option value="M.Si">M.Si</option>
-                                    		</select>                                            
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                  <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <i class="material-icons">location_city</i>
-                                        </span>
-                                        <div class="form-line">
-                                            <input type="text" name="asalkota" class="form-control date" placeholder="Kota Asal" >
-                                        </div>
-                                  </div>
-                                </div>
-                                <div class="col-sm-12">
-                                  <div class="input-group">
-                                        <span class="input-group-addon">
                                             <i class="material-icons">email</i>
                                         </span>
                                         <div class="form-line">
@@ -178,7 +149,7 @@
                                             <i class="material-icons">phone_iphone</i>
                                         </span>
                                         <div class="form-line">
-                                            <input type="text" name="telp" class="form-control date" placeholder="No Telp." required>
+                                            <input type="text" name="telp" class="form-control date" placeholder="Telepon" required>
                                         </div>
                                   </div>
                                 </div>
@@ -205,7 +176,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" name="tambahPembina" class="btn btn-primary waves-effect" style="width: 16.66666666666667%;">SUBMIT</button>
+                            <button type="submit" name="tambahPembina" class="btn btn-primary waves-effect" style="width: 16.66666666666667%;">SIMPAN</button>
                             <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">BATAL</button>
                         </div>
                     </div>

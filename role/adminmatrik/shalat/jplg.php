@@ -16,8 +16,8 @@
                               <thead>
                                 <tr>
                                   <th>#</th>
-                                  <th>ID Periode</th>
-                                  <th>Periode</th>
+                                  <th>ID Pekan</th>
+                                  <th>Pekan</th>
                                   <th>Ikhwan/Akhwat</th>
                                   <th>Jumlah Dispensasi Waktu Shalat</th>
                                 </tr>
@@ -43,19 +43,81 @@
 </div>
 </div>
 
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                          <h2>DATA PEKAN &nbsp;&nbsp;&nbsp;
+                          </h2>
+                        </div>
+                        <div class="body">                               
+                          <div class="table-responsive">
+                            <table id="tablepekan" class="table table-hover table-condensed">
+                              <thead>
+                                <tr>
+                                  <th>Semester</th>
+                                  <th>Pekan ke</th>
+                                  <th>Tanggal dari</th>
+                                  <th>Tanggal sampai</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>1</td>
+                                  <td>1</td>
+                                  <td>12 Sep 2018</td>
+                                  <td>27 Sep 2018</td>
+                                </tr>
+                                <tr>
+                                  <td>1</td>
+                                  <td>2</td>
+                                  <td>28 Sep 2018</td>
+                                  <td>04 Oct 2018</td>
+                                </tr>
+                                <tr>
+                                  <td>1</td>
+                                  <td>3</td>
+                                  <td>05 Oct 2018</td>
+                                  <td>11 Oct 2018</td>
+                                </tr>
+                                <tr>
+                                  <td>1</td>
+                                  <td>4</td>
+                                  <td>12 Oct 2018</td>
+                                  <td>18 Oct 2018</td>
+                                </tr>
+                                <tr>
+                                  <td>1</td>
+                                  <td>5</td>
+                                  <td>19 Oct 2018</td>
+                                  <td>25 Oct 2018</td>
+                                </tr>
+                                <tr>
+                                  <td>1</td>
+                                  <td>6</td>
+                                  <td>26 Oct 2018</td>
+                                  <td>1 Nov 2018</td>
+                                </tr>
+                              </tbody> 
+                            </table>
+                          </div>                        
+                        </div>
+</div>
+</div>
+
             <div class="modal fade" id="tambahJplg" tabindex="-1" role="dialog">
                 <div class="modal-dialog">
                   <form method="POST" name="formJplg" id="formJplg">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h4 class="modal-title" id="smallModalLabel">INPUT JADWAL PULANG MAHASISWA</h4>
+                        <h4 class="modal-title" id="smallModalLabel">INPUT DATA JADWAL KEPULANGAN</h4>
                         </div>
                         <div class="modal-body">
                                 <input type="radio" id="radio_30" class="radiojk" name="gender" id="rdi" value="Ikhwan" required />
                                 <label for="radio_30">IKHWAN</label>&nbsp;
                                 <input type="radio" id="radio_31" class="radiojk" name="gender" id="rda" value="Akhwat"/>
                                 <label for="radio_31">AKHWAT</label><br><br>   
-                                <label>Periode</label>&nbsp;
+                                <label>Pekan ke :</label>&nbsp;
                                 <select class="form-control show-tick" name="idPeriode" required>
                                   <?php $dataPresensi = tampilMaxTglPeriodeById();
                                                           foreach($dataPresensi as $row){
@@ -71,7 +133,7 @@
                                           
                                         </select> 
                                     <br><br>            
-                                    <label>Hari 1</label>&nbsp;
+                                    <label>Hari 1 :</label>&nbsp;
                                     <!-- <label class="switch">
                                       <input type="checkbox" name="opt" id="opt" value="Y" onclick="toggle('.myClass', this)">
                                       <span class="slider round"></span><br>
@@ -96,7 +158,7 @@
                                         <!-- </div> -->
                                       <!-- </div> -->
                                     <!-- </div>                           -->
-                                    <label>Hari 2</label>&nbsp;
+                                    <label>Hari 2 :</label>&nbsp;
                                           <input type="text" id="txt" class="datepicker form-control" name="tplg2" placeholder="Tanggal Pulang"/><br>
                                           <input type="checkbox" class="flat-red" id="check-all2">&nbsp;Semua&nbsp;&nbsp;
                                           <input type="checkbox" class="flat-red check2" name="shubuh2" value="shubuh">&nbsp;Shubuh&nbsp;&nbsp;
@@ -107,7 +169,7 @@
                                           
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary waves-effect" name="submitJplg">SUBMIT</button>
+                            <button type="submit" class="btn btn-primary waves-effect" name="submitJplg">SIMPAN</button>
                             <button class="btn btn-link waves-effect" data-dismiss="modal">BATAL</button>
                         </div>
                     </div>
@@ -119,6 +181,12 @@
     <script>
     $(document).ready(function() {
       var t = $('#tableJplg').DataTable({});
+    } );
+    </script> 
+
+        <script>
+    $(document).ready(function() {
+      var t = $('#tablepekan').DataTable({});
     } );
     </script> 
 

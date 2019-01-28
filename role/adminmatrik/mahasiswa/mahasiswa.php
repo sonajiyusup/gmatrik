@@ -6,7 +6,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                          <h2>DAFTAR MAHASISWA &nbsp;&nbsp;&nbsp;
+                          <h2>DATA MAHASISWA &nbsp;&nbsp;&nbsp;
                             <button class="btn btn-sm btn-default waves-effect" data-toggle="modal" data-target="#importMhsModal" title="Import Database Mahasiswa"><i class="material-icons">get_app</i><span>IMPORT DATA</span></button>
                           </h2>
                         </div>

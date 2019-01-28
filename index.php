@@ -177,7 +177,7 @@
     <nav class="navbar">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="index.php">GRAPH MATRIK</a>
+                <a class="navbar-brand" href="index.php">SISTEM INFORMASI PENGELOLAAN MATRIKULASI PROGRAM PEMBINAAN</a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">

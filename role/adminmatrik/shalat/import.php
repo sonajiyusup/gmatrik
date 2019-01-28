@@ -7,13 +7,13 @@
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                     <div class="card">
                         <div class="header">
-                          <h2>IMPORT DATABASE PRESENSI SHALAT MAHASISWA</h2>
+                          <h2>IMPORT DATA PRESENSI SHALAT MAHASISWA</h2>
                         </div>
                         <form method="POST">
                         <div class="body">                                
                                   
                                     <div class="input-group">
-                                      <label>Periode :</label>
+                                      <label>Pekan ke :</label>
                                       <div class="form-line">
                                         <input type="text" name="daterangeShalat" class="form-control date" id="reportrange" required>
                                       </div>

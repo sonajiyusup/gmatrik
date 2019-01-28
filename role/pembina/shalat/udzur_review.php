@@ -14,9 +14,9 @@
                     <div class="card">
                         <div class="header">
                             <h2>
-                              <a href="?page=udzurslt" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;
-                                PERMINTAAN UDZUR SHALAT MAHASISWA
-                                <small>Nama : <?php foreach($namaMhs as $row){ echo $row['nama']; }?><br>Tanggal : <?php echo date('d F Y', strtotime($tgl)); ?></small>
+                             <!--  <a href="?page=udzurslt" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a> -->&nbsp;&nbsp;&nbsp;
+                                <br>INPUT PERSETUJUAN UDZUR SHALAT
+                                <small>Nama Mahasiswa : <?php foreach($namaMhs as $row){ echo $row['nama']; }?><br>Udzur Tanggal : <?php echo date('d F Y', strtotime($tgl)); ?></small>
                             </h2>
                         </div>
                         <form method="POST" id="formReviewUdzur">
@@ -28,7 +28,7 @@
                                     <!-- <th>ID Udzur</th> -->
                                     <th>Waktu Shalat</th>
                                     <th>Udzur</th>
-                                    <th>Keterangan</th>
+                                    <!-- <th>Keterangan</th> -->
                                     <th>Setujui ?</th>
                                   </tr>
                                 </thead>
@@ -43,7 +43,7 @@
                                     <!-- <td><?php echo $row['id_udzur']; ?></td> -->
                                     <td><?php echo ucwords($row['wkt_shalat']); ?></td>
                                     <td><?php echo $row['udzur']; ?></td>
-                                    <td><?php echo $row['keterangan']; ?></td>
+                                    <!-- <td><?php echo $row['keterangan']; ?></td> -->
                                     <td>
                                     <?php if($row['disetujui'] == 0){echo '<input type="radio" class="radiojk" name="disetujui_'.$row['wkt_shalat'].'[]" value="1"/>
                                         <label for="radio_1">Ya</label>&nbsp;
