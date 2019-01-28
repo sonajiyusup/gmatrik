@@ -61,8 +61,8 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                          <h2>DAFTAR UDZUR SHALAT MAHASISWA BINAAN<br>
-                          <small>Berdasarkan Tanggal & Mahasiswa</small></h2>
+                          <h2>DATA UDZUR SHALAT<br>
+                          <small>Berdasarkan Tanggal</small></h2>
                         </div>
                         <div class="body">                               
                           <div class="table-responsive">
@@ -93,7 +93,9 @@
                                   <td><?php echo $row['udzur']; ?></td>
                                   <td><?php echo $row['jml']; ?></td>
                                   <td><?php if($row['direview'] == 0){echo '<label class="badge bg-orange">Belum di Review<label>';}else if($row['direview'] == 1){echo '<label class="badge bg-green">Sudah di Review<label>';}?></td>
-                                  <td><a href="?page=udzursltrev&m=<?php echo $row['id_mahasiswa']; ?>&t=<?php echo $row['tanggal']; ?>" class="btn btn-xs">Review</a></td>
+                                  <td>
+                                  <!-- <a href="?page=udzursltrev&m=<?php echo $row['id_mahasiswa']; ?>&t=<?php echo $row['tanggal']; ?>" class="btn btn-xs">Review</a> -->
+                                  </td>
                                 </tr>
                                 <?php $no++; } } ?>
                               </tbody> 

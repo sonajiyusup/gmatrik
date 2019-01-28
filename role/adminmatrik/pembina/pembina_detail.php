@@ -128,8 +128,29 @@
                     <div class="card">
                         <div class="header">
                             <h2>
-                                MAHASISWA BINAAN &nbsp;
+                                DATA MAHASISWA BINAAN &nbsp;
                                 <a href="?page=tambahbinaan&id=<?php echo $idPembina; ?>" class="btn btn-sm btn-link waves-effect" style="width: 17%;" title="Tambah Mahasiswa Binaan"><i class="material-icons">playlist_add</i></a>
+                                <small>Pembina Mahasiswa : <div class="btn-group">
+                                                    <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <?php 
+                                                          $namaPembina = namaPembinaById($idPembina);
+                                                          foreach($namaPembina as $row){
+                                                            echo $row['nama'].' '.$row['gelar'];
+                                                          } 
+                                                        ?>
+                                            <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <?php
+                                                          $dataPembina = tampilPembina();
+                                                          foreach($dataPembina as $row){
+                                                          ?>
+                                                            <li><?php echo '<a href="?page=pembinadetails&id='.$row['id_user'].'&idP='.$row['id_pembina'].'">'.$row['nama'].' '.$row['gelar'].'</a>'; ?></li>
+                                                          <?php
+                                                          }
+                                                        ?>
+                                                    </ul>
+                                                </div></small>
                             </h2>
                         </div>
                         <div class="body">
@@ -140,7 +161,7 @@
                                 <th>#</th>
                                 <th>NIM</th>
                                 <th>Nama Mahasiswa Binaan</th>
-                                <th>Aksi</th>
+                                <!-- <th>Aksi</th> -->
                               </tr>
                             </thead>
                             <tbody>
@@ -157,7 +178,7 @@
                               <td><?php echo $no ?></td>
                               <td><?php echo "<span class='badge bg-green'>".$row['nim']."</span>" ?></td>
                               <td><a href="index.php?page=mahasiswadetails&id=<?php echo $row['uid_mahasiswa']; ?>" style='text-decoration:none'><?php echo $row['nama_mahasiswa']?></a></td>
-                              <td>
+                              <!-- <td>
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="material-icons" style="font-size: 14px">settings</i>&nbsp;<span class="caret"></span>
@@ -166,7 +187,7 @@
                                       <li><?php echo "<a style='color:#DD4B39;' href='#ModalHapusBinaan' class='dropdown-item' data-toggle='modal' data-href='action/hapus.php?idmahasiswabinaan=".$row['id_mahasiswa']."&uidpembina=".$row['uid_pembina']."' aria-hidden='true'><i class='material-icons' style='font-size: 20px'>delete</i></a>"; ?></li>
                                     </ul>
                                 </div>
-                              </td>
+                              </td> -->
                             </tr>
                            <?php 
                               $no++; }
