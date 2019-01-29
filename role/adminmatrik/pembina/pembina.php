@@ -17,13 +17,10 @@
              ?>                  
                     <div class="card">
                         <div class="header">
-<<<<<<< HEAD
                           <h2>DATA PEMBINA MAHASISWA &nbsp;&nbsp;&nbsp;
                           <button class="btn btn-sm btn-default waves-effect" data-toggle="modal" data-target="#tambahPembina" title="Import Database Mahasiswa"><i class="material-icons">get_app</i><span>TAMBAH DATA</span></button>
-=======
                           <h2>DAFTAR PEMBINA MAHASISWA 
                             <button class="btn btn-sm btn-link waves-effect " data-toggle="modal" data-target="#tambahDataPembina" style="width: 10%;" title="Tambah Data Pembina"><i class="material-icons">playlist_add</i></button>
->>>>>>> 41e6b1f362a61afe63eb6a87d87e3e755127a766
                           </h2>
                         </div>
                         <div class="body ">
@@ -33,7 +30,7 @@
 						                <thead>
 						                  <tr>
 						                    <th>#</th>
-						                    <th>Nama Pembina Mahasiswa</th>
+						                    <th>Nama</th>
 						                    <th>Jumlah Binaan</th>
 						                    <th>Ikhwan/Akhwat</th>
 						                    <!-- <th>Telp</th> -->

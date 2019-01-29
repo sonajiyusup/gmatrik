@@ -1,7 +1,8 @@
 <?php 
 
 	mysql_connect("localhost", "root", "");
-	mysql_select_db("simon");
+	mysql_select_db("gmatrik");
+	// mysql_select_db("simon");
 
 	function tambahUser($nama, $j_kelamin, $level, $user){
 
@@ -56,7 +57,8 @@
 	}
 
 	function tampilPembina(){
-		$ambildata = mysql_query("SELECT p.*, COUNT(mb.id_mahasiswa) AS 'jml_binaan', u.* FROM pembina p LEFT JOIN m_binaan mb ON p.id_pembina = mb.id_pembina LEFT JOIN users u ON p.id_user = u.id_user GROUP BY p.nama ORDER BY p.nama") or die(mysql_error());
+		// $ambildata = mysql_query("SELECT p.*, COUNT(mb.id_mahasiswa) AS 'jml_binaan', u.* FROM pembina p LEFT JOIN m_binaan mb ON p.id_pembina = mb.id_pembina LEFT JOIN users u ON p.id_user = u.id_user GROUP BY p.nama ORDER BY p.nama") or die(mysql_error());
+		$ambildata = mysql_query("SELECT p.* FROM pembina_mahasiswa p ORDER BY p.nama") or die(mysql_error());
 		if (mysql_num_rows($ambildata) > 0) {
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
@@ -100,7 +102,8 @@
 	}	
 
 	function tampilMahasiswa(){
-		$ambildata = mysql_query("SELECT mahasiswa.*, users.* FROM users INNER JOIN mahasiswa ON mahasiswa.id_user = users.id_user ORDER BY nama") or die(mysql_error());
+		// $ambildata = mysql_query("SELECT mahasiswa.*, users.* FROM users INNER JOIN mahasiswa ON mahasiswa.id_user = users.id_user ORDER BY nama") or die(mysql_error());
+		$ambildata = mysql_query("SELECT m.*, p.nama AS namapembina FROM mahasiswa m LEFT JOIN pembina_mahasiswa p ON m.id_pembina = p.id_pembina ORDER BY nama") or die(mysql_error());
 		if (mysql_num_rows($ambildata) > 0) {
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
@@ -310,13 +313,13 @@
 	}	
 
 	function totalPembina(){
-		$ambildata = mysql_query("SELECT COUNT(id_pembina) as Total from pembina");
+		$ambildata = mysql_query("SELECT COUNT(id_pembina) as Total from pembina_mahasiswa");
 		$data = mysql_fetch_assoc($ambildata);
 		return $data;
 	}
 
 	function totalMahasiswa(){
-		$ambildata = mysql_query("SELECT COUNT(id_mahasiswa) as Total from mahasiswa");
+		$ambildata = mysql_query("SELECT COUNT(nim) as Total from mahasiswa");
 		$data = mysql_fetch_assoc($ambildata);
 		return $data;
 	}	
@@ -432,6 +435,28 @@
 				//echo $row_mdb['Name']." Berhasil diinput <br>";
 			//}
 		}
+	}
+
+	function tambahMahasiswa($nim, $idPembina, $nama, $gender, $angkatan, $kotaasal, $telepon){
+
+			/*$namaTanpaSpasi = str_replace(' ', '', $row_mdb['Name']);
+			$pass = $namaTanpaSpasi.(substr($row_mdb['Badgenumber'], -5));*/
+			$randpass = substr(str_shuffle(str_repeat("0123456789aAbBcCdDeEfFgGhHiIjJ0123456789kKlLmMnNoOpPqQrRsStT0123456789uUvVwWxXyYzZ", 10)), 0, 10);
+			$_randpass = mysql_real_escape_string($randpass);
+
+			//if(strpos($row_mdb['Name'], $row_mdb['Badgenumber']) === FALSE){
+				$mysql_insert_usr = "INSERT INTO users(username, password, password_default, level) VALUES ('$nim', '$_randpass', '1', '3')";
+				mysql_query($mysql_insert_usr);
+
+				$sql = mysql_query("SELECT id_user FROM users WHERE username='$nim'") or die(mysql_error());
+				$row = mysql_fetch_assoc($sql);
+				$id_user = $row['id_user'];
+
+				$mysql_insert_mhs = "INSERT INTO mahasiswa (nim, id_user, id_pembina, nama, gender, angkatan, kota_asal, telepon, aktif) VALUES ('$nim', '".$id_user."', '$idPembina', '$nama', '$gender', '$angkatan', '$kotaasal', '$telepon', 1)";
+				mysql_query($mysql_insert_mhs);
+				//echo $row_mdb['Name']." Berhasil diinput <br>";
+			//}
+
 	}
 
 	function importShalat($angkatan, $from, $to){
