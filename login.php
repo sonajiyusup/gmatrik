@@ -55,7 +55,7 @@ if(isset($_POST['login'])){
         $_SESSION['rolename'] = 'Admininstrator';
         $_SESSION['username'] = $user;
         
-        }else if($row['level'] == 1){
+        }else if($row['level'] == 4){
         $sql_profil = mysql_query("SELECT * FROM pimpinan WHERE id_user=$id") or die(mysql_error());
 
           while($pimpinan = mysql_fetch_assoc($sql_profil)){
@@ -89,16 +89,14 @@ if(isset($_POST['login'])){
         $_SESSION['rolename'] = 'pimpinan';
         $_SESSION['username'] = $user;   
            
-        }else if($row['level'] == 2){
-        $sql_profil = mysql_query("SELECT * FROM adminmatrik WHERE id_user=$id") or die(mysql_error());
+        }else if($row['level'] == 1){
+        $sql_profil = mysql_query("SELECT * FROM adminmatrikulasi WHERE id_user=$id") or die(mysql_error());
 
           while($adminmatrik = mysql_fetch_assoc($sql_profil)){
-          $ava = $adminmatrik['avatar'];
-            $id_AM = $adminmatrik['id_adminmatrik'];
+          // $ava = $adminmatrik['avatar'];
+            $id_AM = $adminmatrik['id_adminmatrikulasi'];
             $nama = $adminmatrik['nama'];
-            $email = $adminmatrik['email'];
-            $telp = $adminmatrik['telp'];
-          $gender = $adminmatrik['j_kelamin'];
+            $gender = $adminmatrik['gender'];
             
             echo '<script language="javascript">document.location="index.php";</script>';
           }
@@ -123,7 +121,7 @@ if(isset($_POST['login'])){
         $_SESSION['rolename'] = 'Admin Matrikulasi';
         $_SESSION['username'] = $user;   
            
-        }else if($row['level'] == 3){
+        }else if($row['level'] == 2){
 
       $sql_profil = mysql_query("SELECT * FROM pembina WHERE id_user=$id") or die(mysql_error());
 
@@ -160,7 +158,7 @@ if(isset($_POST['login'])){
 
       //$_SESSION['nama'] = $row['nama'];
       //echo '<script language="javascript">document.location="index.php";</script>';
-    } else if($row['level'] == 4){
+    } else if($row['level'] == 3){
 
       $sql_profil = mysql_query("SELECT * FROM mahasiswa WHERE id_user = $id") or die(mysql_error());
 
