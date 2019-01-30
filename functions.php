@@ -69,7 +69,7 @@
 	}
 
 	function tampilUsers(){
-		$ambildata = mysql_query("SELECT * FROM users ORDER BY level") or die(mysql_error());
+		$ambildata = mysql_query("SELECT * FROM users ORDER BY id_user") or die(mysql_error());
 		if (mysql_num_rows($ambildata) > 0) {
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
@@ -80,7 +80,7 @@
 	}	
 
 	function tampilJplg(){
-		$ambildata = mysql_query("SELECT jp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, jp.j_kelamin, COUNT(jp.wkt_shalat) AS jws FROM j_pulang2 jp LEFT JOIN shalat_periode sp ON jp.id_periode = sp.id_periode GROUP BY jp.id_periode ORDER BY jp.id_periode DESC") or die(mysql_error());
+		$ambildata = mysql_query("SELECT jp.id_pekan, sp.tanggal_dari, sp.tanggal_sampai, jp.j_kelamin, COUNT(jp.wkt_shalat) AS jws FROM j_pulang2 jp LEFT JOIN shalat_periode sp ON jp.id_periode = sp.id_periode GROUP BY jp.id_periode ORDER BY jp.id_periode DESC") or die(mysql_error());
 		if (mysql_num_rows($ambildata) > 0) {
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
@@ -161,7 +161,7 @@
 	}
 
 	function tampilPimpinan(){
-		$ambildata = mysql_query("SELECT pimpinan.*, users.* FROM users INNER JOIN pimpinan ON pimpinan.id_user = users.id_user ORDER BY nama") or die(mysql_error());
+		$ambildata = mysql_query("SELECT p.* FROM pimpinan p ORDER BY p.nama") or die(mysql_error());
 		if (mysql_num_rows($ambildata) > 0) {
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
@@ -253,6 +253,13 @@
 				return $data;
 	}	
 
+	function pimpinanDetails($idPimpinan){
+		$ambildata = mysql_query("SELECT pi.* FROM pimpinan pi WHERE pi.id_pimpinan = $idPimpinan ");
+			$ad = mysql_fetch_assoc($ambildata);
+				$data[] = $ad;
+				return $data;
+	}		
+
 	function namaPembinaById($idPembina){
 	    $ambildata = mysql_query("SELECT p.id_pembina, p.nama AS nama, p.gelar FROM pembina p WHERE p.id_pembina = $idPembina");
 	      $ad = mysql_fetch_assoc($ambildata);
@@ -307,12 +314,16 @@
 		mysql_query("DELETE FROM setor_hafalan WHERE id = $id") or die(mysql_error());
 	}		
 
-	function editPembina($idUser, $nama, $j_kelamin, $tgl_lahir, $gelar, $asalkota, $email, $telp){
-		mysql_query("UPDATE pembina SET nama = '$nama', j_kelamin = '$j_kelamin', tgl_lahir = '$tgl_lahir', gelar = '$gelar', asalkota = '$asalkota', email = '$email', telp = '$telp' WHERE id_user = $idUser ");
+	function editPembina($idPembina, $nama, $gelar, $gender, $kotaasal, $telepon){
+		mysql_query("UPDATE pembina_mahasiswa SET nama = '$nama', gelar = '$gelar', gender = '$gender', kota_asal = '$kotaasal', telepon = '$telepon' WHERE id_pembina = $idPembina ");
 	}
 
-	function editMahasiswa($nim, $nama, $angkatan, $gender, $idPembina, $kotaasal, $telepon){
-		mysql_query("UPDATE mahasiswa SET id_pembina = $idPembina, nama = '$nama', angkatan = '$angkatan', gender = '$gender', kota_asal = '$kotaasal', telepon = '$telepon' WHERE nim = $nim ");
+	function editMahasiswa($nim, $nama, $angkatan, $gender, $idPembina, $kotaasal, $telepon, $aktif){
+		mysql_query("UPDATE mahasiswa SET id_pembina = $idPembina, nama = '$nama', angkatan = '$angkatan', gender = '$gender', kota_asal = '$kotaasal', telepon = '$telepon', aktif = '$aktif' WHERE nim = $nim ");
+	}	
+
+	function editPimpinan($idPimpinan, $nama, $gender, $jabatan){
+		mysql_query("UPDATE pimpinan SET nama = '$nama', gender = '$gender', jabatan = '$jabatan' WHERE id_pimpinan = $idPimpinan ");
 	}	
 
 	function totalPembina(){
@@ -346,7 +357,7 @@
 	}
 
 	function totalBinaanByPembina($idPembina){
-		$ambildata = mysql_query("SELECT COUNT(mb.id_mahasiswa) AS 'jml_binaan' FROM pembina p LEFT JOIN m_binaan mb ON p.id_pembina = mb.id_pembina WHERE p.id_pembina = $idPembina");
+		$ambildata = mysql_query("SELECT COUNT(m.nim) AS 'jml_binaan' FROM mahasiswa m WHERE m.id_pembina = $idPembina GROUP BY m.id_pembina");
 		$data = mysql_fetch_assoc($ambildata);
 		return $data;		
 	}
@@ -464,8 +475,6 @@
 
 
 	function tambahPembinaNew($nama, $gelar, $gender, $kotaasal, $telepon, $username){
-
-			
 			$randpass = substr(str_shuffle(str_repeat("0123456789aAbBcCdDeEfFgGhHiIjJ0123456789kKlLmMnNoOpPqQrRsStT0123456789uUvVwWxXyYzZ", 10)), 0, 10);
 			$_randpass = mysql_real_escape_string($randpass);
 
@@ -479,8 +488,24 @@
 
 				$mysql_insert_pembina = "INSERT INTO pembina_mahasiswa (id_user, nama, gelar, gender, kota_asal, telepon) VALUES ('".$id_user."', '$nama', '$gelar', '$gender', '$kotaasal', '$telepon')";
 				mysql_query($mysql_insert_pembina);
-
 	}	
+
+
+	function tambahPimpinan($username, $nama, $gender, $jabatan){
+			$randpass = substr(str_shuffle(str_repeat("0123456789aAbBcCdDeEfFgGhHiIjJ0123456789kKlLmMnNoOpPqQrRsStT0123456789uUvVwWxXyYzZ", 10)), 0, 10);
+			$_randpass = mysql_real_escape_string($randpass);
+
+		
+				$mysql_insert_usr = "INSERT INTO users(username, password, password_default, level) VALUES ('$username', '$_randpass', '1', '2')";
+				mysql_query($mysql_insert_usr);
+
+				$sql = mysql_query("SELECT id_user FROM users WHERE username='$username'") or die(mysql_error());
+				$row = mysql_fetch_assoc($sql);
+				$id_user = $row['id_user'];
+
+				$mysql_insert_pembina = "INSERT INTO pimpinan (id_user, nama, gender, jabatan) VALUES ('".$id_user."', '$nama', '$gender', '$jabatan')";
+				mysql_query($mysql_insert_pembina);
+	}		
 
 	function importShalat($angkatan, $from, $to){
 

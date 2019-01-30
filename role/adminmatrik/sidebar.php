@@ -514,6 +514,29 @@
                     </li>
                     <li class="header">PENGGUNA</li>
                     <li <?php 
+                          if (isset($_GET['page'])) {
+                            if ($_GET['page'] == 'pembina' || $_GET['page'] == 'pembinadetails' || $_GET['page'] == 'editpembina' || $_GET['page'] == 'tambahbinaan') {
+                              echo "class='active'";
+                            }
+                          }
+                        ?>
+                    ><a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">supervisor_account</i>
+                            <span>Pembina Mahasiswa</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'pembina' || $_GET['page'] == 'pembinadetails' || $_GET['page'] == 'editpembina' || $_GET['page'] == 'tambahbinaan') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            ><a href="?page=pembina">Data Pembina Mahasiswa</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li <?php 
                                   if (isset($_GET['page'])) {
                                     if ($_GET['page'] == 'mahasiswa' || $_GET['page'] == 'mahasiswadetails' || $_GET['page'] == 'editmahasiswa' || $_GET['page'] == 'ortu' || $_GET['page'] == 'ortudetail' || $_GET['page'] == 'editortu') {
                                       echo "class='active'";
@@ -538,25 +561,50 @@
                         </ul>
                     </li>
                     <li <?php 
-                          if (isset($_GET['page'])) {
-                            if ($_GET['page'] == 'pembina' || $_GET['page'] == 'pembinadetails' || $_GET['page'] == 'editpembina' || $_GET['page'] == 'tambahbinaan') {
-                              echo "class='active'";
-                            }
-                          }
-                        ?>
-                    ><a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">supervisor_account</i>
-                            <span>Pembina Mahasiswa</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'pembina' || $_GET['page'] == 'pembinadetails' || $_GET['page'] == 'editpembina' || $_GET['page'] == 'tambahbinaan') {
+                                    if ($_GET['page'] == 'pimpinan' || $_GET['page'] == 'editpimpinan') {
                                       echo "class='active'";
                                     }
                                   }
                                 ?>
-                            ><a href="?page=pembina">Data Pembina Mahasiswa</a>
+                            >
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">account_box</i>
+                            <span>Pimpinan</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'pimpinan' || $_GET['page'] == 'editpimpinan') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            ><a href="?page=pimpinan">Data Pimpinan</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'user') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            >
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">account_box</i>
+                            <span>User</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'user') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            ><a href="?page=user">Data User</a>
                             </li>
                         </ul>
                     </li>
@@ -727,6 +775,12 @@
               include 'mahasiswa/orangtua/orangtua_detail.php';
             } else if ($_GET['page'] == 'editortu') {
               include 'mahasiswa/orangtua/orangtua_edit.php';
+            } else if ($_GET['page'] == 'user') {
+              include 'user/user.php';
+            } else if ($_GET['page'] == 'pimpinan') {
+              include 'pimpinan/pimpinan.php';
+            } else if ($_GET['page'] == 'editpimpinan') {
+              include 'pimpinan/pimpinan_edit.php';
             }
         } else{
             include 'dashboard.php';

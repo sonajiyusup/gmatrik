@@ -7,7 +7,7 @@
                     <div class="card">
                         <div class="header">
                           <h2>DAFTAR JADWAL KEPULANGAN MAHASISWA &nbsp;&nbsp;&nbsp;
-                            <button class="btn btn-sm btn-default waves-effect" data-toggle="modal" data-target="#tambahJplg" title="Import Database Mahasiswa"><i class="material-icons">playlist_add</i><span>TAMBAH DATA</span></button>
+                            <button class="btn btn-sm btn-default waves-effect" data-toggle="modal" data-target="#tambahJplg" title="Tambah Data Jadwal Kepulangan"><i class="material-icons">playlist_add</i><span>TAMBAH DATA</span></button>
                           </h2>
                         </div>
                         <div class="body">                               

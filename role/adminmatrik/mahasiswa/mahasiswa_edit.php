@@ -94,6 +94,28 @@
                                             <input type="number" name="telepon" class="form-control" placeholder="No Telp." value="<?php echo $row['telepon']; ?>" >
                                         </div>
                                   </div>
+                                  <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">person_outline</i>
+                                        </span>
+                                        <select class="form-control show-tick" name="aktif" required>
+                                          <?php 
+                                            if ($row['aktif'] == 0) {
+                                              echo "<option>Aktif</option>
+                                                    <option>Nonaktif</option>";
+                                            } else
+                                            if($row['aktif'] == 1){
+                                              echo "<option>Nonaktif</option>
+                                                    <option>Aktif</option>";
+                                            } else
+                                            if($row['aktif'] == NULL){
+                                              echo "<option selected='selected' value=''>-- Aktif/Tidak Aktif --</option>
+                                                    <option>Aktif</option>
+                                                    <option>Nonaktif</option>";
+                                            }
+                                         ?>
+                                        </select>                                            
+                                    </div>
                                   <button type="submit" class="btn btn-primary btn-block waves-effect" name="editMahasiswa" ><span>SIMPAN</span></button>
                                   <a href="?page=mahasiswa" class="btn btn-default btn-block waves-effect" ><span>BATAL</span></a>
                                   </form>
@@ -105,7 +127,7 @@
 
 <?php
     if (isset($_POST['editMahasiswa'])) {
-      editMahasiswa($nim, $_POST['nama'], $_POST['angkatan'], $_POST['gender'], $_POST['idPembina'], $_POST['kotaasal'], $_POST['telepon']);
+      editMahasiswa($nim, $_POST['nama'], $_POST['angkatan'], $_POST['gender'], $_POST['idPembina'], $_POST['kotaasal'], $_POST['telepon'], $_POST['aktif']);
       echo "<script>document.location='index.php?page=mahasiswa'</script>";
     }
   }

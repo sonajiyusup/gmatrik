@@ -65,6 +65,7 @@
                                         </div>
                                   </div>
                                   <button type="submit" class="btn btn-primary btn-block waves-effect" name="editPembina"><span>SIMPAN</span></button>
+                                  <a href="?page=pembina" class="btn btn-default btn-block waves-effect" ><span>BATAL</span></a>
                                   </form>
                                 </div>
                     </div>
@@ -74,8 +75,8 @@
 
 <?php
     if (isset($_POST['editPembina'])) {
-      editPembina($id, $_POST['nama'], $_POST['gender'], date("Y-m-d", strtotime($_POST['tgl_lahir'])), $_POST['gelar'], $_POST['asalkota'], $_POST['email'], $_POST['telepon']);
-      echo "<script>document.location='?page=pembinadetails&id=".$id."'</script>";
+      editPembina($idPembina, $_POST['nama'], $_POST['gelar'], $_POST['gender'], $_POST['kotaasal'], $_POST['telepon']);
+      echo "<script>document.location='?page=pembina'</script>";
     }
   } 
 ?>

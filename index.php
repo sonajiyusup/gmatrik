@@ -395,6 +395,13 @@
             });
         });     
 
+        //Modal Reset Password ke Default
+        $(document).ready(function() {
+            $('#ResetPassword').on('show.bs.modal', function(e) {
+                $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+            });
+        });          
+
         //Modal Hapus Data Mahasiswa Binaan By Pembina
         $(document).ready(function() {
             $('#ModalHapusBinaan').on('show.bs.modal', function(e) {

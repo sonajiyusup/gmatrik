@@ -68,5 +68,11 @@ include '../functions.php';
 
 	    hapusOrtuMahasiswa($idOrtu, $idUser);
 	    header('location:/gmatrik/index.php?page=ortu'); 
+	} else
+	if(isset($_GET['iduser'])){
+		$idUser = $_GET['iduser'];
+
+	    resetPassword($idUser);
+	    header('location:/gmatrik/index.php?page=user'); 
 	}
  ?>

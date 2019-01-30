@@ -19,7 +19,7 @@ if(isset($_POST['login'])){
     $id = $row['id_user'];
     $_SESSION['id_user'] = $id;
 
-    mysql_query("UPDATE users SET last_login = NOW() WHERE id_user = $id");
+    mysql_query("UPDATE users SET terakhir_login = NOW() WHERE id_user = $id");
 
         if($row['level'] == 0){
         $sql_profil = mysql_query("SELECT * FROM administrator WHERE id_user=$id") or die(mysql_error());
@@ -123,15 +123,16 @@ if(isset($_POST['login'])){
            
         }else if($row['level'] == 2){
 
-      $sql_profil = mysql_query("SELECT * FROM pembina WHERE id_user=$id") or die(mysql_error());
+      $sql_profil = mysql_query("SELECT * FROM pembina_mahasiswa WHERE id_user=$id") or die(mysql_error());
 
         while($pembina = mysql_fetch_assoc($sql_profil)){
-          $ava = $pembina['avatar'];
+          // $ava = $pembina['avatar'];
           $id_pembina = $pembina['id_pembina'];
           $nama = $pembina['nama'];
-          $email = $pembina['email'];
+          $gelar = $pembina['gelar'];
+          // $email = $pembina['email'];
           $telp = $pembina['telp'];
-          $gender = $pembina['j_kelamin'];
+          $gender = $pembina['gender'];
           
           echo '<script language="javascript">document.location="index.php";</script>';
         }
@@ -151,7 +152,7 @@ if(isset($_POST['login'])){
         } 
 
         $_SESSION['id_pembina'] = $id_pembina;
-        $_SESSION['nama'] = $nama;
+        $_SESSION['nama'] = $nama.' '.$gelar;
         $_SESSION['role'] = 'pembina';
         $_SESSION['rolename'] = 'Pembina Mahasiswa';
         $_SESSION['username'] = $user; 
