@@ -11,12 +11,13 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="header">
-                            <h2><a href="?page=mahasiswadetails&id=<?php echo $id; ?>" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;EDIT DATA MAHASISWA
+                            <h2><a href="?page=mahasiswa" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;EDIT DATA MAHASISWA
                             </h2>
                         </div>
                         <div class="body">
                           <form method="POST">
                                     <div class="input-group">
+
                                         <span class="input-group-addon">
                                             <i class="material-icons">assignment_ind</i>
                                         </span>
@@ -30,6 +31,14 @@
                                         </span>
                                         <div class="form-line">
                                             <input type="text" name="nama" class="form-control" placeholder="Nama" value="<?php echo $row['nama']; ?>" required>
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">assignment_ind</i>
+                                        </span>
+                                        <div class="form-line">
+                                            <input type="number" name="angkatan" class="form-control" placeholder="Angkatan" value="<?php echo $row['angkatan']; ?>" required>
                                         </div>
                                     </div>
                                     <div class="input-group">
@@ -63,7 +72,7 @@
                                                         <option value="<?php echo $row['id_pembina']; ?>" selected><?php echo $row['namapembina']; ?></option>
                                                         <?php $namaMhs = tampilPembina();
                                                           foreach($namaMhs as $row){
-                                                            echo '<option value="'.$row['id_pembina'].'">'.$row['nama'].'</option>';
+                                                            echo '<option value="'.$row['id_pembina'].'">'.$row['nama'].' '.$row['gelar'].'</option>';
                                                           } 
                                                         ?>
                                         </select>                                           
@@ -86,7 +95,7 @@
                                         </div>
                                   </div>
                                   <button type="submit" class="btn btn-primary btn-block waves-effect" name="editMahasiswa" ><span>SIMPAN</span></button>
-                                  <a href="?page=mahasiswadetails&id=<?php echo $id; ?>" class="btn btn-default btn-block waves-effect" ><span>BATAL</span></a>
+                                  <a href="?page=mahasiswa" class="btn btn-default btn-block waves-effect" ><span>BATAL</span></a>
                                   </form>
                                 </div>
                     </div>
@@ -96,7 +105,7 @@
 
 <?php
     if (isset($_POST['editMahasiswa'])) {
-      editMahasiswa($nim, $_POST['nama'], $_POST['gender'], $_POST['idPembina'], $_POST['kotaasal'], $_POST['telepon']);
+      editMahasiswa($nim, $_POST['nama'], $_POST['angkatan'], $_POST['gender'], $_POST['idPembina'], $_POST['kotaasal'], $_POST['telepon']);
       echo "<script>document.location='index.php?page=mahasiswa'</script>";
     }
   }

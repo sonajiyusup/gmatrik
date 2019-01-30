@@ -8,6 +8,7 @@
                         <div class="header">
                           <h2>DATA MAHASISWA &nbsp;&nbsp;&nbsp;
                             <button class="btn btn-sm btn-default waves-effect" data-toggle="modal" data-target="#tambahDataMahasiswa" title="Tambah Data Mahasiswa"><i class="material-icons">get_app</i><span>TAMBAH DATA</span></button>
+                            <!-- <button class="btn btn-sm btn-default waves-effect" data-toggle="modal" data-target="#importMhsModal" title="Tambah Data Mahasiswa"><i class="material-icons">get_app</i><span>IMPORT DATA</span></button> -->
                           </h2>
                         </div>
                         <div class="body ">
@@ -40,7 +41,7 @@
                                           <td><?php echo $row['nim'];?></td>
                                           <td><?php echo $row['nama'] ?></td>
                                           <td><?php if($row['gender'] == 'Ikhwan' || $row['gender'] == 'Laki-laki'){echo '<span class="label bg-light-blue">Ikhwan</span>';} else if($row['gender'] == 'Akhwat' || $row['gender'] == 'Perempuan'){echo '<span class="label bg-pink">Akhwat</span>';} ?></td>
-                                          <td><?php echo $row['namapembina'] ?></td>
+                                          <td><?php echo $row['namapembina'].' '.$row['gelar']; ?></td>
                                           <td><?php echo $row['angkatan'] ?></td>
                                           <td><?php echo $row['kota_asal'] ?></td>
                                           <td><?php echo $row['telepon'] ?></td>
@@ -255,7 +256,7 @@
                 </div>
             </div>
 
-<!--             <div class="modal fade" id="importMhsModal" tabindex="-1" role="dialog">
+         <div class="modal fade" id="importMhsModal" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-sm">
                   <form method="post">
                     <div class="modal-content">
@@ -280,7 +281,7 @@
                     </div>
                   </form>
                 </div>
-            </div>  -->
+            </div>
 
     <?php 
 

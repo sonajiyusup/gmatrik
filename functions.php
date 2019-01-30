@@ -103,7 +103,7 @@
 
 	function tampilMahasiswa(){
 		// $ambildata = mysql_query("SELECT mahasiswa.*, users.* FROM users INNER JOIN mahasiswa ON mahasiswa.id_user = users.id_user ORDER BY nama") or die(mysql_error());
-		$ambildata = mysql_query("SELECT m.*, p.nama AS namapembina FROM mahasiswa m LEFT JOIN pembina_mahasiswa p ON m.id_pembina = p.id_pembina ORDER BY nama") or die(mysql_error());
+		$ambildata = mysql_query("SELECT m.*, p.nama AS namapembina, p.gelar FROM mahasiswa m LEFT JOIN pembina_mahasiswa p ON m.id_pembina = p.id_pembina ORDER BY nama") or die(mysql_error());
 		if (mysql_num_rows($ambildata) > 0) {
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
@@ -311,8 +311,8 @@
 		mysql_query("UPDATE pembina SET nama = '$nama', j_kelamin = '$j_kelamin', tgl_lahir = '$tgl_lahir', gelar = '$gelar', asalkota = '$asalkota', email = '$email', telp = '$telp' WHERE id_user = $idUser ");
 	}
 
-	function editMahasiswa($nim, $nama, $gender, $idPembina, $kotaasal, $telepon){
-		mysql_query("UPDATE mahasiswa SET nama = '$nama', gender = '$gender', kota_asal = '$kotaasal', telepon = '$telepon' WHERE nim = $nim ");
+	function editMahasiswa($nim, $nama, $angkatan, $gender, $idPembina, $kotaasal, $telepon){
+		mysql_query("UPDATE mahasiswa SET id_pembina = $idPembina, nama = '$nama', angkatan = '$angkatan', gender = '$gender', kota_asal = '$kotaasal', telepon = '$telepon' WHERE nim = $nim ");
 	}	
 
 	function totalPembina(){
@@ -412,7 +412,7 @@
 	function importMahasiswa($angkatan){
 		$koneksi_mdb = odbc_connect( 'att2000', "", "");
 		
-		$sql = "SELECT USERID,Badgenumber,Name FROM USERINFO WHERE Badgenumber LIKE '$angkatan%' AND Name NOT LIKE '$angkatan%'";
+		$sql = "SELECT USERID,Badgenumber,Name FROM USERINFO WHERE Badgenumber LIKE '$angkatan%' AND Name NOT LIKE '$angkatan%' ORDER BY Name";
 		$result = odbc_exec($koneksi_mdb, $sql);
 
 		while($row_mdb = odbc_fetch_array($result)){
@@ -423,7 +423,7 @@
 			$_randpass = mysql_real_escape_string($randpass);
 
 			//if(strpos($row_mdb['Name'], $row_mdb['Badgenumber']) === FALSE){
-				$mysql_insert_usr = "INSERT INTO users(username, password, password_default, level) VALUES ('".$row_mdb['Badgenumber']."', '$_randpass', '1', '4')";
+				$mysql_insert_usr = "INSERT INTO users(username, password, password_default, level) VALUES ('".$row_mdb['Badgenumber']."', '$_randpass', '1', '3')";
 				mysql_query($mysql_insert_usr);
 
 				$sql = mysql_query("SELECT id_user FROM users WHERE username='".$row_mdb['Badgenumber']."'") or die(mysql_error());
@@ -433,7 +433,7 @@
 				$name = mysql_real_escape_string($row_mdb['Name']);
 				$lname = strtolower($name);
 
-				$mysql_insert_mhs = "INSERT INTO mahasiswa (id_mahasiswa, nim, nama, id_user) VALUES ('".$row_mdb['USERID']."', '".$row_mdb['Badgenumber']."', '".ucwords($lname)."', '$id_user')";
+				$mysql_insert_mhs = "INSERT INTO mahasiswa (nim, id_user, nama, angkatan, aktif) VALUES ('".$row_mdb['Badgenumber']."', '".$id_user."', '".ucwords($lname)."', '18', '1')";
 				mysql_query($mysql_insert_mhs);
 				//echo $row_mdb['Name']." Berhasil diinput <br>";
 			//}
@@ -515,23 +515,25 @@
 		$from_ = date('Y-m-d', strtotime($from));
 		$to_ = date('Y-m-d', strtotime($to));
 
-		$shubuhFrom = date('H:i:s', strtotime($_shubuhFrom));
-		$shubuhTo = date('H:i:s', strtotime($_shubuhTo));
-		$dzuhurFrom = date('H:i:s', strtotime($_dzuhurFrom));
-		$dzuhurTo = date('H:i:s', strtotime($_dzuhurTo));
-		$asharFrom = date('H:i:s', strtotime($_asharFrom));
-		$asharTo = date('H:i:s', strtotime($_asharTo));
-		$maghribFrom = date('H:i:s', strtotime($_maghribFrom));
-		$maghribTo = date('H:i:s', strtotime($_maghribTo));
-		$isyaFrom = date('H:i:s', strtotime($_isyaFrom));
-		$isyaTo = date('H:i:s', strtotime($_isyaTo));		
+		$shubuhFrom = date('H.i.s', strtotime($_shubuhFrom));
+		$shubuhTo = date('H.i.s', strtotime($_shubuhTo));
+		$dzuhurFrom = date('H.i.s', strtotime($_dzuhurFrom));
+		$dzuhurTo = date('H.i.s', strtotime($_dzuhurTo));
+		$asharFrom = date('H.i.s', strtotime($_asharFrom));
+		$asharTo = date('H.i.s', strtotime($_asharTo));
+		$maghribFrom = date('H.i.s', strtotime($_maghribFrom));
+		$maghribTo = date('H.i.s', strtotime($_maghribTo));
+		$isyaFrom = date('H.i.s', strtotime($_isyaFrom));
+		$isyaTo = date('H.i.s', strtotime($_isyaTo));		
 
 		// Periode shalat table
 		// mysql_query("INSERT INTO shalat_periode (tanggal_dari, tanggal_sampai) VALUES ('$from_','$to_')");
 
 		$koneksi_mdb = odbc_connect( 'att2000', "", "");
 		
-		$sql = "SELECT t.userid AS id_mahasiswa, Format(t.tanggal, 'yyyy-mm-dd') AS tgl, Format(TimeValue(Min(t.CHECKTIME))) As shubuh, Format(TimeValue(Min(d.CHECKTIME))) As dzuhur, Format(TimeValue(Min(a.CHECKTIME))) As ashar, Format(TimeValue(Min(m.CHECKTIME))) As maghrib, Format(TimeValue(Min(i.CHECKTIME))) As isya FROM (((( SELECT Format(DateValue(CHECKTIME)) As tanggal, Format(TimeValue(CHECKTIME)) As tapping, ua.userid, ua.Badgenumber, CHECKTIME FROM CHECKINOUT ca LEFT JOIN USERINFO ua ON ca.userid = ua.userid WHERE (Format(DateValue(ca.CHECKTIME), 'yyyy-mm-dd') BETWEEN '$from_' AND '$to_') AND (Format(TimeValue(ca.CHECKTIME)) BETWEEN '$shubuhFrom' AND '$shubuhTo') AND (ua.Badgenumber LIKE '$angkatan%') )t LEFT JOIN ( SELECT Format(DateValue(CHECKTIME)) As tanggal, Format(TimeValue(CHECKTIME)) As tapping, ub.userid, ub.Badgenumber, CHECKTIME FROM CHECKINOUT cb LEFT JOIN USERINFO ub ON cb.userid = ub.userid WHERE (Format(DateValue(cb.CHECKTIME), 'yyyy-mm-dd') BETWEEN '$from_' AND '$to_') AND (Format(TimeValue(cb.CHECKTIME)) BETWEEN '$dzuhurFrom' AND '$dzuhurTo') AND (ub.Badgenumber LIKE '$angkatan%') )d ON (t.userid = d.userid) AND (t.tanggal = d.tanggal)) LEFT JOIN ( SELECT Format(DateValue(CHECKTIME)) As tanggal, Format(TimeValue(CHECKTIME)) As tapping, uc.userid, uc.Badgenumber, CHECKTIME FROM CHECKINOUT cc LEFT JOIN USERINFO uc ON cc.userid = uc.userid WHERE (Format(DateValue(cc.CHECKTIME), 'yyyy-mm-dd') BETWEEN '$from_' AND '$to_') AND (Format(TimeValue(cc.CHECKTIME)) BETWEEN '$asharFrom' AND '$asharTo') AND (uc.Badgenumber LIKE '$angkatan%') )a ON (t.userid = a.userid) AND (t.tanggal = a.tanggal)) LEFT JOIN ( SELECT Format(DateValue(CHECKTIME)) As tanggal, Format(TimeValue(CHECKTIME)) As tapping, ud.userid, ud.Badgenumber, CHECKTIME FROM CHECKINOUT cd LEFT JOIN USERINFO ud ON cd.userid = ud.userid WHERE (Format(DateValue(cd.CHECKTIME), 'yyyy-mm-dd') BETWEEN '$from_' AND '$to_') AND (Format(TimeValue(cd.CHECKTIME)) BETWEEN '$maghribFrom' AND '$maghribTo') AND (ud.Badgenumber LIKE '$angkatan%') )m ON (t.userid = m.userid) AND (t.tanggal = m.tanggal)) LEFT JOIN ( SELECT Format(DateValue(CHECKTIME)) As tanggal, Format(TimeValue(CHECKTIME)) As tapping, ue.userid, ue.Badgenumber, CHECKTIME FROM CHECKINOUT ce LEFT JOIN USERINFO ue ON ce.userid = ue.userid WHERE (Format(DateValue(ce.CHECKTIME), 'yyyy-mm-dd') BETWEEN '$from_' AND '$to_') AND (Format(TimeValue(ce.CHECKTIME)) BETWEEN '$isyaFrom' AND '$isyaTo') AND (ue.Badgenumber LIKE '$angkatan%') )i ON (t.userid = i.userid) AND (t.tanggal = i.tanggal) GROUP BY t.userid, t.tanggal, ua.Badgenumber ORDER BY t.userid, t.tanggal";
+		// $sql = "SELECT t.userid AS id_mahasiswa, Format(t.tanggal, 'yyyy-mm-dd') AS tgl, Format(TimeValue(Min(t.CHECKTIME))) As shubuh, Format(TimeValue(Min(d.CHECKTIME))) As dzuhur, Format(TimeValue(Min(a.CHECKTIME))) As ashar, Format(TimeValue(Min(m.CHECKTIME))) As maghrib, Format(TimeValue(Min(i.CHECKTIME))) As isya FROM (((( SELECT Format(DateValue(CHECKTIME)) As tanggal, Format(TimeValue(CHECKTIME)) As tapping, ua.userid, ua.Badgenumber, CHECKTIME FROM CHECKINOUT ca LEFT JOIN USERINFO ua ON ca.userid = ua.userid WHERE (Format(DateValue(ca.CHECKTIME), 'yyyy-mm-dd') BETWEEN '$from_' AND '$to_') AND (Format(TimeValue(ca.CHECKTIME)) BETWEEN '$shubuhFrom' AND '$shubuhTo') AND (ua.Badgenumber LIKE '$angkatan%') )t LEFT JOIN ( SELECT Format(DateValue(CHECKTIME)) As tanggal, Format(TimeValue(CHECKTIME)) As tapping, ub.userid, ub.Badgenumber, CHECKTIME FROM CHECKINOUT cb LEFT JOIN USERINFO ub ON cb.userid = ub.userid WHERE (Format(DateValue(cb.CHECKTIME), 'yyyy-mm-dd') BETWEEN '$from_' AND '$to_') AND (Format(TimeValue(cb.CHECKTIME)) BETWEEN '$dzuhurFrom' AND '$dzuhurTo') AND (ub.Badgenumber LIKE '$angkatan%') )d ON (t.userid = d.userid) AND (t.tanggal = d.tanggal)) LEFT JOIN ( SELECT Format(DateValue(CHECKTIME)) As tanggal, Format(TimeValue(CHECKTIME)) As tapping, uc.userid, uc.Badgenumber, CHECKTIME FROM CHECKINOUT cc LEFT JOIN USERINFO uc ON cc.userid = uc.userid WHERE (Format(DateValue(cc.CHECKTIME), 'yyyy-mm-dd') BETWEEN '$from_' AND '$to_') AND (Format(TimeValue(cc.CHECKTIME)) BETWEEN '$asharFrom' AND '$asharTo') AND (uc.Badgenumber LIKE '$angkatan%') )a ON (t.userid = a.userid) AND (t.tanggal = a.tanggal)) LEFT JOIN ( SELECT Format(DateValue(CHECKTIME)) As tanggal, Format(TimeValue(CHECKTIME)) As tapping, ud.userid, ud.Badgenumber, CHECKTIME FROM CHECKINOUT cd LEFT JOIN USERINFO ud ON cd.userid = ud.userid WHERE (Format(DateValue(cd.CHECKTIME), 'yyyy-mm-dd') BETWEEN '$from_' AND '$to_') AND (Format(TimeValue(cd.CHECKTIME)) BETWEEN '$maghribFrom' AND '$maghribTo') AND (ud.Badgenumber LIKE '$angkatan%') )m ON (t.userid = m.userid) AND (t.tanggal = m.tanggal)) LEFT JOIN ( SELECT Format(DateValue(CHECKTIME)) As tanggal, Format(TimeValue(CHECKTIME)) As tapping, ue.userid, ue.Badgenumber, CHECKTIME FROM CHECKINOUT ce LEFT JOIN USERINFO ue ON ce.userid = ue.userid WHERE (Format(DateValue(ce.CHECKTIME), 'yyyy-mm-dd') BETWEEN '$from_' AND '$to_') AND (Format(TimeValue(ce.CHECKTIME)) BETWEEN '$isyaFrom' AND '$isyaTo') AND (ue.Badgenumber LIKE '$angkatan%') )i ON (t.userid = i.userid) AND (t.tanggal = i.tanggal) GROUP BY t.userid, t.tanggal, ua.Badgenumber ORDER BY t.userid, t.tanggal";
+
+		$sql = "SELECT t.Badgenumber AS nim, Format(t.tanggal, 'yyyy-mm-dd') AS tgl, Format(TimeValue(Min(t.CHECKTIME))) As shubuh, Format(TimeValue(Min(d.CHECKTIME))) As dzuhur, Format(TimeValue(Min(a.CHECKTIME))) As ashar, Format(TimeValue(Min(m.CHECKTIME))) As maghrib, Format(TimeValue(Min(i.CHECKTIME))) As isya FROM (((( SELECT Format(DateValue(CHECKTIME)) As tanggal, Format(TimeValue(CHECKTIME)) As tapping, ua.userid, ua.Badgenumber, CHECKTIME FROM CHECKINOUT ca LEFT JOIN USERINFO ua ON ca.userid = ua.userid WHERE (Format(DateValue(ca.CHECKTIME), 'yyyy-mm-dd') BETWEEN '$from' AND '$to') AND (Format(TimeValue(ca.CHECKTIME)) BETWEEN '$shubuhFrom' AND '$shubuhTo') AND (ua.Badgenumber LIKE '$angkatan%') )t LEFT JOIN ( SELECT Format(DateValue(CHECKTIME)) As tanggal, Format(TimeValue(CHECKTIME)) As tapping, ub.userid, ub.Badgenumber, CHECKTIME FROM CHECKINOUT cb LEFT JOIN USERINFO ub ON cb.userid = ub.userid WHERE (Format(DateValue(cb.CHECKTIME), 'yyyy-mm-dd') BETWEEN '$from' AND '$to') AND (Format(TimeValue(cb.CHECKTIME)) BETWEEN '$dzuhurFrom' AND '$dzuhurTo') AND (ub.Badgenumber LIKE '$angkatan%') )d ON (t.userid = d.userid) AND (t.tanggal = d.tanggal)) LEFT JOIN ( SELECT Format(DateValue(CHECKTIME)) As tanggal, Format(TimeValue(CHECKTIME)) As tapping, uc.userid, uc.Badgenumber, CHECKTIME FROM CHECKINOUT cc LEFT JOIN USERINFO uc ON cc.userid = uc.userid WHERE (Format(DateValue(cc.CHECKTIME), 'yyyy-mm-dd') BETWEEN '$from' AND '$to') AND (Format(TimeValue(cc.CHECKTIME)) BETWEEN '$asharFrom' AND '$asharTo') AND (uc.Badgenumber LIKE '$angkatan%') )a ON (t.userid = a.userid) AND (t.tanggal = a.tanggal)) LEFT JOIN ( SELECT Format(DateValue(CHECKTIME)) As tanggal, Format(TimeValue(CHECKTIME)) As tapping, ud.userid, ud.Badgenumber, CHECKTIME FROM CHECKINOUT cd LEFT JOIN USERINFO ud ON cd.userid = ud.userid WHERE (Format(DateValue(cd.CHECKTIME), 'yyyy-mm-dd') BETWEEN '$from' AND '$to') AND (Format(TimeValue(cd.CHECKTIME)) BETWEEN '$maghribFrom' AND '$maghribTo') AND (ud.Badgenumber LIKE '$angkatan%') )m ON (t.userid = m.userid) AND (t.tanggal = m.tanggal)) LEFT JOIN ( SELECT Format(DateValue(CHECKTIME)) As tanggal, Format(TimeValue(CHECKTIME)) As tapping, ue.userid, ue.Badgenumber, CHECKTIME FROM CHECKINOUT ce LEFT JOIN USERINFO ue ON ce.userid = ue.userid WHERE (Format(DateValue(ce.CHECKTIME), 'yyyy-mm-dd') BETWEEN '$from' AND '$to') AND (Format(TimeValue(ce.CHECKTIME)) BETWEEN '$isyaFrom' AND '$isyaTo') AND (ue.Badgenumber LIKE '$angkatan%') )i ON (t.userid = i.userid) AND (t.tanggal = i.tanggal) GROUP BY t.userid, t.tanggal, ua.Badgenumber ORDER BY t.userid, t.tanggal";
 
 		$result = odbc_exec($koneksi_mdb, $sql);		
 
@@ -539,9 +541,23 @@
 
 			$tgl_ = date('Y-m-d', strtotime($row_mdb['tgl']));	
 
+
+
+			if($row_mdb['shubuh'] == ''){$shubuh_ = 0;}else{$shubuh_ = 1;}
+			if($row_mdb['dzuhur'] == ''){$dzuhur_ = 0;}else{$dzuhur_ = 1;}
+			if($row_mdb['ashar'] == ''){$ashar_ = 0;}else{$ashar_ = 1;}
+			if($row_mdb['maghrib'] == ''){$maghrib_ = 0;}else{$maghrib_ = 1;}
+			if($row_mdb['isya'] == ''){$isya_ = 0;}else{$isya_ = 1;}
+
+			/*if($shubuh_ == date('H:i:s', strtotime('00:00:00'))){$shubuh_ = NULL;}else{$shubuh_ = $shubuh_;}
+			if($dzuhur_ == date('H:i:s', strtotime('00:00:00'))){$dzuhur_ = NULL;}else{$dzuhur_ = $dzuhur_;}
+			if($ashar_ == date('H:i:s', strtotime('00:00:00'))){$ashar_ = NULL;}else{$ashar_ = $ashar_;}
+			if($maghrib_ == date('H:i:s', strtotime('00:00:00'))){$maghrib_ = NULL;}else{$maghrib_ = $maghrib_;}
+			if($isya_ == date('H:i:s', strtotime('00:00:00'))){$isya_ = NULL;}else{$isya_ = $isya_;}*/
+
 			//if(strpos($row_mdb['Name'], $row_mdb['Badgenumber']) === FALSE){
-			$mysql_insert_presensi = "INSERT INTO shalat2(id_mahasiswa, tanggal, shubuh, dzuhur, ashar, maghrib, isya) VALUES 
-			(".$row_mdb['id_mahasiswa'].", '$tgl_', '".$row_mdb['shubuh']."','".$row_mdb['dzuhur']."','".$row_mdb['ashar']."','".$row_mdb['maghrib']."','".$row_mdb['isya']."');";
+			$mysql_insert_presensi = "INSERT INTO presensi_shalat(nim, tanggal, shubuh, dzuhur, ashar, maghrib, isya) VALUES 
+			(".$row_mdb['nim'].", '$tgl_', '".$shubuh_."','".$dzuhur_."','".$ashar_."','".$maghrib_."','".$isya_."');";
 
 			mysql_query($mysql_insert_presensi);
 
