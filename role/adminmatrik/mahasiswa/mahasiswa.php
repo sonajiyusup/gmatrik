@@ -51,7 +51,7 @@
                                                                     <i class="material-icons" style="font-size: 14px">settings</i>&nbsp;<span class="caret"></span>
                                                                 </button>
                                                                 <ul class="dropdown-menu">
-                                                                    <li><a title='Edit' style="color:#3C8DBC;" href="" class='dropdown-item'><i class='material-icons' style='font-size: 20px'>mode_edit</i></a></li>
+                                                                    <li><a title='Edit' style="color:#3C8DBC;" href="?page=editmahasiswa&nim=<?php echo $row['nim'];?>" class='dropdown-item'><i class='material-icons' style='font-size: 20px'>mode_edit</i></a></li>
                                                                 </ul>
                                                             </div>
                                           </td>

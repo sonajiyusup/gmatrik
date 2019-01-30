@@ -18,10 +18,7 @@
                     <div class="card">
                         <div class="header">
                           <h2>DATA PEMBINA MAHASISWA &nbsp;&nbsp;&nbsp;
-                          <button class="btn btn-sm btn-default waves-effect" data-toggle="modal" data-target="#tambahPembina" title="Import Database Mahasiswa"><i class="material-icons">get_app</i><span>TAMBAH DATA</span></button>
-                          <h2>DAFTAR PEMBINA MAHASISWA 
-                            <button class="btn btn-sm btn-link waves-effect " data-toggle="modal" data-target="#tambahDataPembina" style="width: 10%;" title="Tambah Data Pembina"><i class="material-icons">playlist_add</i></button>
-                          </h2>
+                          <button class="btn btn-sm btn-default waves-effect" data-toggle="modal" data-target="#tambahPembina" title="Tambah Data Pembina Mahasiswa"><i class="material-icons">get_app</i><span>TAMBAH DATA</span></button>
                         </div>
                         <div class="body ">
                         	<div class="table-responsive">
@@ -31,10 +28,10 @@
 						                  <tr>
 						                    <th>#</th>
 						                    <th>Nama</th>
-						                    <th>Jumlah Binaan</th>
+                                <th>Gelar</th>
 						                    <th>Ikhwan/Akhwat</th>
-						                    <!-- <th>Telp</th> -->
-						                    <th>Terakhir Login</th>
+                                <th>Kota Asal</th>
+						                    <th>Telepon</th>
 						                    <th>Aksi</th>
 						                  </tr>
 						                </thead>
@@ -47,21 +44,19 @@
 						                   ?>
 						                <tr>
 						                  <td><b><?php echo $no ?></b></td>  
-						                  <td><?php echo "<a href='index.php?page=pembinadetails&id=".$row['id_user']."&idP=".$row['id_pembina']."' style='text-decoration:none'>".$row['nama']."</a>" ?></td>
-						                  <td><?php echo $row['jml_binaan'] ?></td>
-						                  <td><?php if($row['j_kelamin'] == 'Ikhwan' || $row['j_kelamin'] == 'Laki-laki'){echo '<span class="label bg-light-blue">Ikhwan</span>';} else if($row['j_kelamin'] == 'Akhwat' || $row['j_kelamin'] == 'Perempuan'){echo '<span class="label bg-pink">Akhwat</span>';} ?></td>
-						                  <!-- <td><?php echo $row['telp'] ?></td> -->
-						                  <td><?php if ($row['last_login'] == '0000-00-00 00:00:00'){ echo 'Belum Pernah';}else{ echo date("d-m-Y H:i", strtotime($row['last_login'])) ;}
-						                  ?></td>
+						                  <td><?php echo $row['nama'];?></td>
+						                  <td><?php echo $row['gelar'] ?></td>
+						                  <td><?php if($row['gender'] == 'Ikhwan' || $row['gender'] == 'Laki-laki'){echo '<span class="label bg-light-blue">Ikhwan</span>';} else if($row['gender'] == 'Akhwat' || $row['gender'] == 'Perempuan'){echo '<span class="label bg-pink">Akhwat</span>';} ?></td>
+                              <td><?php echo $row['kota_asal'] ?></td>
+						                  <td><?php echo $row['telepon'] ?></td>
+						                  
 						                 	<td>
                                                 <div class="btn-group">
                                                     <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         <i class="material-icons" style="font-size: 14px">settings</i>&nbsp;<span class="caret"></span>
                                                     </button>
                                                     <ul class="dropdown-menu">
-                                                        <li><a title='Edit' style="color:#3C8DBC;" href="?page=editpembina&id=<?php echo $row['id_user']; ?>&idP=<?php echo $row['id_pembina']; ?>" class='dropdown-item'><i class='material-icons' style='font-size: 20px'>mode_edit</i></a></li>
-                                                        <li role="separator" class="divider"></li>
-                                                        <li><?php echo "<a title='Hapus' style='color:#DD4B39;' href='#ModalHapusPembina' class='dropdown-item' data-toggle='modal' data-href='action/hapus.php?idpembina=".$row['id_pembina']."&iduser=".$row['id_user']."' aria-hidden='true'><i class='material-icons' style='font-size: 20px'>delete</i></a>"; ?></li>
+                                                        <li><a title='Edit' style="color:#3C8DBC;" href="?page=editpembina&id=<?php echo $row['id_pembina']; ?>" class='dropdown-item'><i class='material-icons' style='font-size: 20px'>mode_edit</i></a></li>
                                                     </ul>
                                                 </div>
 						                  </td>
@@ -109,7 +104,7 @@
                                             <i class="material-icons">assignment_ind</i>
                                         </span>
                                         <div class="form-line">
-                                            <input type="text" name="nama" class="form-control date" placeholder="Nama" required>
+                                            <input type="text" name="nama" class="form-control" placeholder="Nama" required>
                                         </div>
                                     </div>
                                 </div>
@@ -119,7 +114,7 @@
                                             <i class="material-icons">school</i>
                                         </span>
                                         <div class="form-line">
-                                            <input type="text" name="gelar" class="form-control date" placeholder="Gelar">
+                                            <input type="text" name="gelar" class="form-control" placeholder="Gelar">
                                         </div>
                                     </div>
                                 </div>
@@ -141,7 +136,7 @@
                                             <i class="material-icons">email</i>
                                         </span>
                                         <div class="form-line">
-                                            <input type="email" name="email" class="form-control date" placeholder="Email" required>
+                                            <input type="text" name="kotaasal" class="form-control" placeholder="Kota Asal" required>
                                         </div>
                                   </div>
                                 </div>
@@ -151,27 +146,18 @@
                                             <i class="material-icons">phone_iphone</i>
                                         </span>
                                         <div class="form-line">
-                                            <input type="text" name="telp" class="form-control date" placeholder="Telepon" required>
+                                            <input type="text" name="telp" class="form-control" placeholder="Telepon" required>
                                         </div>
                                   </div>
-                                </div>
+                                </div><br>
+                                <label>Data User</label>
                                 <div class="col-sm-12">
                                   <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="material-icons">person</i>
                                         </span>
                                         <div class="form-line">
-                                            <input type="text" name="username" class="form-control date" placeholder="Username" required>
-                                        </div>
-                                  </div>
-                                </div>
-                                <div class="col-sm-12">
-                                  <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <i class="material-icons">lock</i>
-                                        </span>
-                                        <div class="form-line">
-                                            <input type="text" name="password" class="form-control date" placeholder="Password" required>
+                                            <input type="text" name="username" class="form-control" placeholder="Username (Digunakan untuk Login Sistem)" required>
                                         </div>
                                   </div>
                                 </div>
@@ -188,9 +174,9 @@
 
     <?php 
       if (isset($_POST['tambahPembina'])) {
-        tambahPembina($_POST['nama'], $_POST['gender'], date("Y-m-d", strtotime($_POST['tgl_lahir'])), $_POST['gelar'], $_POST['asalkota'], $_POST['email'], $_POST['telp'], $_POST['username'], $_POST['password']);
+        tambahPembinaNew($_POST['nama'], $_POST['gelar'], $_POST['gender'], $_POST['kotaasal'],  $_POST['telp'], $_POST['username']);
         
-        //echo "<script>document.location='?page=pembina'</script>";
+        echo "<script>document.location='?page=pembina'</script>";
       }
     ?> 
 
