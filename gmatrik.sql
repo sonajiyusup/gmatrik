@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 30, 2019 at 02:10 AM
+-- Generation Time: Jan 30, 2019 at 02:57 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -82,9 +82,7 @@ CREATE TABLE `mahasiswa` (
 --
 
 INSERT INTO `mahasiswa` (`nim`, `id_user`, `id_pembina`, `nama`, `gender`, `angkatan`, `kota_asal`, `telepon`, `aktif`) VALUES
-(18000372, 3, 1, 'Syahrizal', 'Ikhwan', 18, 'Palembang', '0857920313', 1),
-(18003724, 5, 1, 'Deni Darmawan', 'Akhwat', 18, 'Jakarta', '08127482942', 1),
-(18004285, 6, 1, 'Sonaji', 'Ikhwan', 18, 'Bekasi', '0813349536', 1);
+(18000372, 3, 1, 'Syahrizal', 'Ikhwan', 18, 'Palembang', '0857920313', 1);
 
 -- --------------------------------------------------------
 
@@ -300,9 +298,7 @@ INSERT INTO `users` (`id_user`, `username`, `password`, `password_default`, `lev
 (1, 'adminmatrik', 'bismillah', 0, 1, NULL),
 (2, 'hamid', 'hamid123', 0, 2, NULL),
 (3, '18000372', 'mahasiswa123', 0, 3, NULL),
-(4, 'hasan', 'hasan123', 0, 4, NULL),
-(5, '18003724', 'F0wSHr6173', 1, 3, NULL),
-(6, '18004285', 'KR4gG1OjLx', 1, 3, NULL);
+(4, 'hasan', 'hasan123', 0, 4, NULL);
 
 --
 -- Indexes for dumped tables
@@ -481,7 +477,7 @@ ALTER TABLE `udzur_talim`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_user` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- Constraints for dumped tables
 --
