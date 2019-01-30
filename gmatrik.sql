@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 29, 2019 at 03:10 PM
+-- Generation Time: Jan 30, 2019 at 02:10 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `adminmatrikulasi` (
   `id_adminmatrikulasi` int(5) NOT NULL,
-  `id_user` int(5) NOT NULL,
+  `id_user` int(6) NOT NULL,
   `nama` varchar(50) NOT NULL,
   `gender` varchar(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -67,10 +67,11 @@ CREATE TABLE `jadwal_pulang` (
 
 CREATE TABLE `mahasiswa` (
   `nim` int(8) NOT NULL,
-  `id_user` int(5) NOT NULL,
+  `id_user` int(6) NOT NULL,
+  `id_pembina` int(5) NOT NULL,
   `nama` varchar(50) NOT NULL,
   `gender` varchar(6) NOT NULL,
-  `angkatan` varchar(2) NOT NULL,
+  `angkatan` int(2) NOT NULL,
   `kota_asal` varchar(25) NOT NULL,
   `telepon` varchar(13) DEFAULT NULL,
   `aktif` int(1) NOT NULL
@@ -80,10 +81,10 @@ CREATE TABLE `mahasiswa` (
 -- Dumping data for table `mahasiswa`
 --
 
-INSERT INTO `mahasiswa` (`nim`, `id_user`, `nama`, `gender`, `angkatan`, `kota_asal`, `telepon`, `aktif`) VALUES
-(18323, 5, 'Adelina', 'Akhwat', '18', 'Jakarta', '08124738242', 1),
-(18000274, 7, 'Dian Nabila', 'Akhwat', '18', 'Bekasi', '0812472942', 1),
-(18004215, 3, 'Muhammad Alfi', 'Ikhwan', '18', 'Palembang', '08563922184', 1);
+INSERT INTO `mahasiswa` (`nim`, `id_user`, `id_pembina`, `nama`, `gender`, `angkatan`, `kota_asal`, `telepon`, `aktif`) VALUES
+(18000372, 3, 1, 'Syahrizal', 'Ikhwan', 18, 'Palembang', '0857920313', 1),
+(18003724, 5, 1, 'Deni Darmawan', 'Akhwat', 18, 'Jakarta', '08127482942', 1),
+(18004285, 6, 1, 'Sonaji', 'Ikhwan', 18, 'Bekasi', '0813349536', 1);
 
 -- --------------------------------------------------------
 
@@ -92,7 +93,7 @@ INSERT INTO `mahasiswa` (`nim`, `id_user`, `nama`, `gender`, `angkatan`, `kota_a
 --
 
 CREATE TABLE `pekan` (
-  `id_pekan` int(4) NOT NULL,
+  `id_pekan` int(5) NOT NULL,
   `id_semester` int(1) NOT NULL,
   `tanggal_dari` date NOT NULL,
   `tanggal_sampai` date NOT NULL
@@ -105,14 +106,21 @@ CREATE TABLE `pekan` (
 --
 
 CREATE TABLE `pembina_mahasiswa` (
-  `id_pembina` int(8) NOT NULL ,
-  `id_user` int(5) NOT NULL,
+  `id_pembina` int(5) NOT NULL,
+  `id_user` int(6) NOT NULL,
   `nama` varchar(50) NOT NULL,
   `gelar` varchar(10) NOT NULL,
   `gender` varchar(6) NOT NULL,
   `kota_asal` varchar(25) NOT NULL,
   `telepon` varchar(13) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pembina_mahasiswa`
+--
+
+INSERT INTO `pembina_mahasiswa` (`id_pembina`, `id_user`, `nama`, `gelar`, `gender`, `kota_asal`, `telepon`) VALUES
+(1, 2, 'Abdul Hamid', 'Lc.', 'Ikhwan', 'Solo', '0815382942');
 
 -- --------------------------------------------------------
 
@@ -122,7 +130,7 @@ CREATE TABLE `pembina_mahasiswa` (
 
 CREATE TABLE `pimpinan` (
   `id_pimpinan` int(5) NOT NULL,
-  `id_user` int(5) NOT NULL,
+  `id_user` int(6) NOT NULL,
   `nama` varchar(50) NOT NULL,
   `gender` varchar(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -132,7 +140,7 @@ CREATE TABLE `pimpinan` (
 --
 
 INSERT INTO `pimpinan` (`id_pimpinan`, `id_user`, `nama`, `gender`) VALUES
-(1, 4, 'Hasan Ishak', 'Ikhwan');
+(1, 4, 'Hasan Ishaq', 'Ikhwan');
 
 -- --------------------------------------------------------
 
@@ -197,6 +205,7 @@ CREATE TABLE `tahsin` (
   `id_tahsin` int(5) NOT NULL,
   `id_pekan` int(5) NOT NULL,
   `id_pembina` int(5) NOT NULL,
+  `tahsin` varchar(14) NOT NULL,
   `tanggal` date NOT NULL,
   `deskripsi` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -210,9 +219,10 @@ CREATE TABLE `tahsin` (
 CREATE TABLE `talim` (
   `id_talim` int(5) NOT NULL,
   `id_pekan` int(4) NOT NULL,
+  `id_pembina` int(5) NOT NULL,
   `talim` varchar(14) NOT NULL,
   `tanggal` date NOT NULL,
-  `keterangan` varchar(100) DEFAULT NULL
+  `deskripsi` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -244,6 +254,7 @@ CREATE TABLE `udzur_tahsin` (
   `id_tahsin` int(5) NOT NULL,
   `nim` int(8) NOT NULL,
   `udzur` varchar(12) NOT NULL,
+  `keterangan` varchar(100) DEFAULT NULL,
   `diajukan` datetime NOT NULL,
   `disetujui` int(1) NOT NULL,
   `direview` datetime NOT NULL
@@ -273,7 +284,7 @@ CREATE TABLE `udzur_talim` (
 --
 
 CREATE TABLE `users` (
-  `id_user` int(5) NOT NULL,
+  `id_user` int(6) NOT NULL,
   `username` varchar(25) NOT NULL,
   `password` varchar(50) NOT NULL,
   `password_default` int(1) NOT NULL,
@@ -287,12 +298,11 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id_user`, `username`, `password`, `password_default`, `level`, `terakhir_login`) VALUES
 (1, 'adminmatrik', 'bismillah', 0, 1, NULL),
-(2, 'pembina1', 'pembina123', 0, 2, NULL),
-(3, '18004215', 'mahasiswa', 0, 3, NULL),
-(4, 'pimpinan1', 'pimpinan123', 0, 4, NULL),
-(5, '18000263', '4S1C7iZxIc', 1, 3, NULL),
-(6, '18323', 'rxDSIqFoAU', 1, 3, NULL),
-(7, '18000274', 'Vkq3UUZRk5', 1, 3, NULL);
+(2, 'hamid', 'hamid123', 0, 2, NULL),
+(3, '18000372', 'mahasiswa123', 0, 3, NULL),
+(4, 'hasan', 'hasan123', 0, 4, NULL),
+(5, '18003724', 'F0wSHr6173', 1, 3, NULL),
+(6, '18004285', 'KR4gG1OjLx', 1, 3, NULL);
 
 --
 -- Indexes for dumped tables
@@ -316,7 +326,8 @@ ALTER TABLE `jadwal_pulang`
 --
 ALTER TABLE `mahasiswa`
   ADD PRIMARY KEY (`nim`),
-  ADD KEY `id_user` (`id_user`);
+  ADD KEY `id_user` (`id_user`),
+  ADD KEY `id_pembina` (`id_pembina`);
 
 --
 -- Indexes for table `pekan`
@@ -379,15 +390,16 @@ ALTER TABLE `tahsin`
 --
 ALTER TABLE `talim`
   ADD PRIMARY KEY (`id_talim`),
-  ADD KEY `id_pekan` (`id_pekan`);
+  ADD KEY `id_pekan` (`id_pekan`),
+  ADD KEY `id_pembina` (`id_pembina`);
 
 --
 -- Indexes for table `udzur_shalat`
 --
 ALTER TABLE `udzur_shalat`
   ADD PRIMARY KEY (`id_udzur`),
-  ADD KEY `nim` (`nim`),
-  ADD KEY `id_pekan` (`id_pekan`);
+  ADD KEY `id_pekan` (`id_pekan`),
+  ADD KEY `nim` (`nim`);
 
 --
 -- Indexes for table `udzur_tahsin`
@@ -402,15 +414,14 @@ ALTER TABLE `udzur_tahsin`
 --
 ALTER TABLE `udzur_talim`
   ADD PRIMARY KEY (`id_udzur`),
-  ADD KEY `nim` (`nim`),
-  ADD KEY `id_talim` (`id_talim`);
+  ADD KEY `id_talim` (`id_talim`),
+  ADD KEY `nim` (`nim`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id_user`),
-  ADD UNIQUE KEY `username` (`username`);
+  ADD PRIMARY KEY (`id_user`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -425,12 +436,22 @@ ALTER TABLE `adminmatrikulasi`
 -- AUTO_INCREMENT for table `pekan`
 --
 ALTER TABLE `pekan`
-  MODIFY `id_pekan` int(4) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pekan` int(5) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `pembina_mahasiswa`
+--
+ALTER TABLE `pembina_mahasiswa`
+  MODIFY `id_pembina` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `pimpinan`
 --
 ALTER TABLE `pimpinan`
   MODIFY `id_pimpinan` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `semester`
+--
+ALTER TABLE `semester`
+  MODIFY `id_semester` int(3) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tahsin`
 --
@@ -460,7 +481,7 @@ ALTER TABLE `udzur_talim`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_user` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- Constraints for dumped tables
 --
@@ -481,7 +502,8 @@ ALTER TABLE `jadwal_pulang`
 -- Constraints for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  ADD CONSTRAINT `mahasiswa_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`);
+  ADD CONSTRAINT `mahasiswa_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`),
+  ADD CONSTRAINT `mahasiswa_ibfk_2` FOREIGN KEY (`id_pembina`) REFERENCES `pembina_mahasiswa` (`id_pembina`);
 
 --
 -- Constraints for table `pekan`
@@ -533,14 +555,15 @@ ALTER TABLE `tahsin`
 -- Constraints for table `talim`
 --
 ALTER TABLE `talim`
-  ADD CONSTRAINT `talim_ibfk_1` FOREIGN KEY (`id_pekan`) REFERENCES `pekan` (`id_pekan`);
+  ADD CONSTRAINT `talim_ibfk_1` FOREIGN KEY (`id_pekan`) REFERENCES `pekan` (`id_pekan`),
+  ADD CONSTRAINT `talim_ibfk_2` FOREIGN KEY (`id_pembina`) REFERENCES `pembina_mahasiswa` (`id_pembina`);
 
 --
 -- Constraints for table `udzur_shalat`
 --
 ALTER TABLE `udzur_shalat`
-  ADD CONSTRAINT `udzur_shalat_ibfk_1` FOREIGN KEY (`nim`) REFERENCES `mahasiswa` (`nim`),
-  ADD CONSTRAINT `udzur_shalat_ibfk_2` FOREIGN KEY (`id_pekan`) REFERENCES `pekan` (`id_pekan`);
+  ADD CONSTRAINT `udzur_shalat_ibfk_1` FOREIGN KEY (`id_pekan`) REFERENCES `pekan` (`id_pekan`),
+  ADD CONSTRAINT `udzur_shalat_ibfk_2` FOREIGN KEY (`nim`) REFERENCES `mahasiswa` (`nim`);
 
 --
 -- Constraints for table `udzur_tahsin`
@@ -553,8 +576,8 @@ ALTER TABLE `udzur_tahsin`
 -- Constraints for table `udzur_talim`
 --
 ALTER TABLE `udzur_talim`
-  ADD CONSTRAINT `udzur_talim_ibfk_1` FOREIGN KEY (`nim`) REFERENCES `mahasiswa` (`nim`),
-  ADD CONSTRAINT `udzur_talim_ibfk_2` FOREIGN KEY (`id_talim`) REFERENCES `talim` (`id_talim`);
+  ADD CONSTRAINT `udzur_talim_ibfk_1` FOREIGN KEY (`id_talim`) REFERENCES `talim` (`id_talim`),
+  ADD CONSTRAINT `udzur_talim_ibfk_2` FOREIGN KEY (`nim`) REFERENCES `mahasiswa` (`nim`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
