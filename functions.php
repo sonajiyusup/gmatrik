@@ -113,6 +113,18 @@
 		}		
 	}
 
+	function tampilSemester(){
+		// $ambildata = mysql_query("SELECT mahasiswa.*, users.* FROM users INNER JOIN mahasiswa ON mahasiswa.id_user = users.id_user ORDER BY nama") or die(mysql_error());
+		$ambildata = mysql_query("SELECT s.* FROM semester s ORDER BY s.id_semester DESC") or die(mysql_error());
+		if (mysql_num_rows($ambildata) > 0) {
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;
+		} else{
+			echo "Data semester kosong";
+		}		
+	}
+
 	function tampilMahasiswaById($idMahasiswa){
 		$ambildata = mysql_query("SELECT m.*, u.*, p.id_pembina AS idp, p.nama AS namap FROM users u INNER JOIN mahasiswa m ON m.id_user = u.id_user LEFT JOIN m_binaan mb ON m.id_mahasiswa = mb.id_mahasiswa LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina WHERE m.id_mahasiswa = $idMahasiswa ORDER BY m.nama") or die(mysql_error());
 		if (mysql_num_rows($ambildata) > 0) {
@@ -451,6 +463,10 @@
 		}
 	}
 
+	function tambahSemester($angkatan, $semester, $tanggaldari, $tanggalsampai){
+		mysql_query("INSERT INTO semester(angkatan, semester, tanggal_dari, tanggal_sampai) VALUES ('$angkatan','$semester','$tanggaldari','$tanggalsampai')");
+	}
+
 	function tambahMahasiswa($nim, $idPembina, $nama, $gender, $angkatan, $kotaasal, $telepon){
 
 			/*$namaTanpaSpasi = str_replace(' ', '', $row_mdb['Name']);
@@ -470,7 +486,6 @@
 				mysql_query($mysql_insert_mhs);
 				//echo $row_mdb['Name']." Berhasil diinput <br>";
 			//}
-
 	}
 
 

@@ -489,7 +489,7 @@
                     </li>
                     <li <?php 
                           if (isset($_GET['page'])) {
-                              if ($_GET['page'] == 'pelanggaran' || $_GET['page'] == 'paksi' || $_GET['page'] == 'psanksi') {
+                              if ($_GET['page'] == 'semester') {
                                 echo "class='active'";
                               } else{
                                 echo '';
@@ -503,12 +503,12 @@
                         <ul class="ml-menu">
                             <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'pelanggaran') {
+                                    if ($_GET['page'] == 'semester') {
                                       echo "class='active'";
                                     }
                                   }
                                 ?>
-                            ><a href="?page=pelanggaran">Data Semester</a>
+                            ><a href="?page=semester">Data Semester</a>
                             </li>
                         </ul>
                     </li>
@@ -781,6 +781,8 @@
               include 'pimpinan/pimpinan.php';
             } else if ($_GET['page'] == 'editpimpinan') {
               include 'pimpinan/pimpinan_edit.php';
+            } else if ($_GET['page'] == 'semester') {
+              include 'semester/semester.php';
             }
         } else{
             include 'dashboard.php';
