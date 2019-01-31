@@ -571,13 +571,17 @@ GROUP BY su.id_mahasiswa
 
 
 -- shalat wajib berdasarkan ikhwan/akhwat versi j_pulang2 + shalat_udzur2 (WORK !, LIGHTER)
-SELECT m.j_kelamin, COUNT(s.wkt_tapping) AS total, h.jmhs, d.jhari,
-h.jmhs*d.jhari*5 AS target_awal,
+SELECT m.j_kelamin, h.jmhs, 
+COUNT(s.wkt_tapping) AS fingerprint, 
+mn.manual, 
+COUNT(s.wkt_tapping)+mn.manual AS total,
+d.jhari,
+h.jmhs*d.jhari*5 AS target1,
 j.jwsp*h.jmhs AS jplg,
 IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
-(j.jwsp*h.jmhs)+(IF(u.jmlu IS NULL, 0, u.jmlu)) AS total_dispen,
-(h.jmhs*d.jhari*5)-((j.jwsp*h.jmhs)+(IF(u.jmlu IS NULL, 0, u.jmlu))) AS target_akhir,
-ROUND(((COUNT(s.wkt_tapping)/((h.jmhs*d.jhari*5)-((j.jwsp*h.jmhs)+(IF(u.jmlu IS NULL, 0, u.jmlu)))))*100),2) AS nilai
+(j.jwsp*h.jmhs)+(IF(u.jmlu IS NULL, 0, u.jmlu)) AS totalu,
+(h.jmhs*d.jhari*5)-((j.jwsp*h.jmhs)+(IF(u.jmlu IS NULL, 0, u.jmlu))) AS target2,
+ROUND((((COUNT(s.wkt_tapping)+mn.manual)/((h.jmhs*d.jhari*5)-((j.jwsp*h.jmhs)+(IF(u.jmlu IS NULL, 0, u.jmlu)))))*100),2) AS nilai
 FROM mahasiswa m
 LEFT JOIN shalat s ON m.id_mahasiswa = s.id_mahasiswa
 LEFT JOIN (
@@ -600,17 +604,32 @@ LEFT JOIN (
     LEFT JOIN mahasiswa m ON su.id_mahasiswa = m.id_mahasiswa
     WHERE su.disetujui = 1
 ) u ON m.j_kelamin = u.j_kelamin
+LEFT JOIN (
+    SELECT m.j_kelamin, IF(ma.jmlm IS NULL, 0, ma.jmlm) AS manual
+    FROM mahasiswa m 
+    LEFT JOIN (
+        SELECT m.j_kelamin, COUNT(sm.wkt_shalat) AS jmlm
+        FROM mahasiswa m 
+        LEFT JOIN shalat_manual sm ON m.id_mahasiswa = sm.id_mahasiswa
+        WHERE sm.disetujui = 1
+        GROUP BY m.j_kelamin
+    ) ma ON m.j_kelamin = ma.j_kelamin
+    GROUP BY m.j_kelamin    
+) mn ON m.j_kelamin = mn.j_kelamin
 GROUP BY m.j_kelamin
 
 
--- shalat wajib berdasarkan ikhwan/akhwat detail (WORK)
-SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, d.jhari, m.jml, sh.total,
+-- shalat wajib berdasarkan ikhwan/akhwat detail With Shalat Manual (WORK)
+SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, d.jhari, m.jml AS jmhs, 
+sh.total AS fingerprint,
+IF(ma.jmlm IS NULL, 0, ma.jmlm) AS manual,
+sh.total+IF(ma.jmlm IS NULL, 0, ma.jmlm) AS total,
 d.jhari*m.jml*5 AS target1,
 IF(j.jplg IS NULL, 0, j.jplg) AS jplg,
 m.jml*(IF(j.jplg IS NULL, 0, j.jplg)) AS total_jplg,
 IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
 (d.jhari*m.jml*5)-(m.jml*(IF(j.jplg IS NULL, 0, j.jplg)))-(IF(u.jmlu IS NULL, 0, u.jmlu)) AS target2,
-ROUND((((sh.total)/((d.jhari*m.jml*5)-(m.jml*(IF(j.jplg IS NULL, 0, j.jplg)))-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai
+ROUND(((((sh.total+IF(ma.jmlm IS NULL, 0, ma.jmlm)))/((d.jhari*m.jml*5)-(m.jml*(IF(j.jplg IS NULL, 0, j.jplg)))-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai
 FROM shalat_periode sp
 LEFT JOIN (
     SELECT sp.id_periode, DATEDIFF(sp.tanggal_sampai, sp.tanggal_dari)+1 AS jhari
@@ -641,6 +660,14 @@ LEFT JOIN (
     WHERE su.disetujui = 1 AND m.j_kelamin = 'Akhwat'
     GROUP BY su.id_periode
 ) u ON sp.id_periode = u.id_periode
+LEFT JOIN (
+    SELECT sp.id_periode, COUNT(sm.wkt_shalat) AS jmlm
+    FROM shalat_manual sm
+    LEFT JOIN shalat_periode sp ON sm.tanggal BETWEEN sp.tanggal_dari AND sp.tanggal_sampai
+    LEFT JOIN mahasiswa m ON sm.id_mahasiswa = m.id_mahasiswa
+    WHERE m.j_kelamin = 'Akhwat' AND sm.disetujui = 1
+    GROUP BY sp.id_periode
+) ma ON sp.id_periode = ma.id_periode
 
 
 -- shalat wajib berdasarkan ikhwan/akhwat detail percentage (WORK)
@@ -754,39 +781,50 @@ LEFT JOIN (
 WHERE m.j_kelamin = 'Akhwat'
 GROUP BY sp.id_periode
 
--- shalat wajib berdasarkan ikhwan/akhwat detail by period (WORK)
+-- shalat wajib berdasarkan ikhwan/akhwat detail by period With Manual (WORK)
 SELECT t.tanggal, 
-IF(p.tanggal IS NULL, t.total, 0) AS total,
+IF(p.tanggal IS NULL, t.total, 0) AS fingerprint,
+IF(ma.jmlm IS NULL, 0, ma.jmlm) AS manual,
+IF(p.tanggal IS NULL, t.total, 0)+IF(ma.jmlm IS NULL, 0, ma.jmlm) AS total,
 j.jmhs,
 (IF(p.tanggal IS NULL, j.jmhs, p.j_kelamin))*5 AS target1,
 IF(p.tanggal IS NULL, '-', p.j_kelamin) AS plg,
 IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
 ((IF(p.tanggal IS NULL, j.jmhs, p.j_kelamin))*5)-(IF(u.jmlu IS NULL, 0, u.jmlu)) AS target2,
-IF(ROUND((((IF(p.tanggal IS NULL, t.total, 0))/(((IF(p.tanggal IS NULL, j.jmhs, p.j_kelamin))*5)-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) IS NULL, 0, ROUND((((IF(p.tanggal IS NULL, t.total, 0))/(((IF(p.tanggal IS NULL, j.jmhs, p.j_kelamin))*5)-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2)) AS nilai 
+IF(ROUND(((((IF(p.tanggal IS NULL, t.total, 0)+IF(ma.jmlm IS NULL, 0, ma.jmlm)))/(((IF(p.tanggal IS NULL, j.jmhs, p.j_kelamin))*5)-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) IS NULL, 0, ROUND((((IF(p.tanggal IS NULL, t.total, 0))/(((IF(p.tanggal IS NULL, j.jmhs, p.j_kelamin))*5)-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2)) AS nilai 
 FROM (
     SELECT s.tanggal, COUNT(s.wkt_tapping) AS total, s.id_periode
     FROM shalat s
     LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa
-    WHERE m.j_kelamin = 'Ikhwan'
+    WHERE m.j_kelamin = 'Akhwat'
     GROUP BY s.tanggal
 ) t
 LEFT JOIN ( 
     SELECT jp.tanggal, jp.j_kelamin 
     FROM j_pulang2 jp 
-    WHERE jp.j_kelamin = 'Ikhwan'
+    WHERE jp.j_kelamin = 'Akhwat'
     GROUP BY jp.tanggal 
 ) p ON t.tanggal = p.tanggal 
 JOIN ( 
     SELECT COUNT(m.id_mahasiswa) AS jmhs 
     FROM mahasiswa m 
-    WHERE m.j_kelamin = 'Ikhwan'
+    WHERE m.j_kelamin = 'Akhwat'
 ) j 
 LEFT JOIN ( 
     SELECT su.tanggal, COUNT(su.udzur) AS jmlu 
     FROM shalat_udzur2 su 
-    WHERE su.disetujui = 1 
+    LEFT JOIN mahasiswa m ON su.id_mahasiswa = m.id_mahasiswa
+    WHERE su.disetujui = 1 AND m.j_kelamin = 'Akhwat'
+    GROUP BY su.tanggal
 ) u ON t.tanggal = u.tanggal 
-WHERE t.id_periode = 1
+LEFT JOIN (
+    SELECT sm.tanggal, COUNT(sm.wkt_shalat) AS jmlm
+    FROM shalat_manual sm 
+    LEFT JOIN mahasiswa m ON sm.id_mahasiswa = m.id_mahasiswa
+    WHERE m.j_kelamin = 'Akhwat' AND sm.disetujui = 1
+    GROUP BY sm.tanggal    
+) ma ON t.tanggal = ma.tanggal
+WHERE t.id_periode = 4
 GROUP BY t.tanggal
 
 -- shalat wajib berdasarkan ikhwan/akhwat detail by period by day (WORK !)
@@ -1162,22 +1200,19 @@ GROUP BY s.wkt_shalat
 ORDER BY s.wkt_tapping
 
 
--- shalat by pembina LENGKAP (WORK)
-SELECT p.id_pembina, p.nama AS pembina, p.j_kelamin, 
-COUNT(s.jws) AS total, 
-j.jmlb, 
-r.jmltgl, pu.jplg, r.jmltgl-pu.jplg AS jhari, 
-(j.jmlb*(r.jmltgl-pu.jplg)*5) AS target1,
+-- shalat by pembina LENGKAP with Manual (WORK)
+SELECT p.id_pembina, p.nama, p.j_kelamin,
+j.jmlb,
+s.total AS fingerprint,
+IF(ma.jmlm IS NULL, 0, ma.jmlm) AS manual,
+s.total+IF(ma.jmlm IS NULL, 0, ma.jmlm) AS total,
+r.jhari,
+r.jhari*5*j.jmlb AS target,
+pu.jplg,
 IF(uz.jmlu IS NULL, 0, uz.jmlu) AS jmlu,
-(j.jmlb*(r.jmltgl-pu.jplg)*5)-(IF(uz.jmlu IS NULL, 0, uz.jmlu)) AS target2,
-ROUND(((COUNT(s.jws)/((j.jmlb*(r.jmltgl-pu.jplg)*5)-(IF(uz.jmlu IS NULL, 0, uz.jmlu))))*100),2) AS nilai 
+(r.jhari*5*j.jmlb)-(pu.jplg)-(IF(uz.jmlu IS NULL, 0, uz.jmlu)) AS target2,
+ROUND((((s.total+IF(ma.jmlm IS NULL, 0, ma.jmlm))/((r.jhari*5*j.jmlb)-(pu.jplg)-(IF(uz.jmlu IS NULL, 0, uz.jmlu))))*100),2) AS nilai
 FROM pembina p 
-LEFT JOIN ( 
-    SELECT mb.id_pembina, sl.wkt_tapping AS jws 
-    FROM m_binaan mb 
-    LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa 
-    LEFT JOIN shalat sl ON m.id_mahasiswa = sl.id_mahasiswa 
-) s ON p.id_pembina = s.id_pembina 
 LEFT JOIN ( 
     SELECT p.id_pembina, COUNT(mb.id_mahasiswa) AS jmlb 
     FROM m_binaan mb 
@@ -1185,44 +1220,51 @@ LEFT JOIN (
     GROUP BY p.id_pembina 
 ) j ON p.id_pembina = j.id_pembina 
 LEFT JOIN ( 
-    SELECT p.id_pembina, DATEDIFF(MAX(s.tanggal),MIN(s.tanggal))+1 AS jmltgl 
-    FROM pembina p 
-    LEFT JOIN m_binaan mb ON p.id_pembina = mb.id_pembina 
-    LEFT JOIN shalat s ON mb.id_mahasiswa = s.id_mahasiswa 
-    GROUP BY p.id_pembina 
-) r ON p.id_pembina = r.id_pembina 
-LEFT JOIN ( 
-    SELECT p.id_pembina, COUNT(jp.tanggal) AS jplg 
-    FROM pembina p 
-    LEFT JOIN j_pulang jp ON p.j_kelamin = jp.j_kelamin 
-    GROUP BY p.id_pembina 
-) pu ON p.id_pembina = pu.id_pembina 
-LEFT JOIN (
-    SELECT mb.id_pembina, u.jmlu
+    SELECT mb.id_pembina, COUNT(sl.wkt_tapping) AS total 
     FROM m_binaan mb 
-    LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina
-    LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa
-    LEFT JOIN (
-        SELECT su.id_mahasiswa, COUNT(su.wkt_shalat) AS jmlu
-        FROM shalat_udzur2 su 
-        WHERE su.disetujui = 1
-        GROUP BY su.id_mahasiswa
-    ) u ON m.id_mahasiswa = u.id_mahasiswa
-    GROUP BY mb.id_pembina    
+    LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa 
+    LEFT JOIN shalat sl ON m.id_mahasiswa = sl.id_mahasiswa 
+    GROUP BY mb.id_pembina
+) s ON p.id_pembina = s.id_pembina 
+LEFT JOIN (
+    SELECT mb.id_pembina, COUNT(sm.wkt_shalat) AS jmlm
+    FROM m_binaan mb
+    LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa 
+    LEFT JOIN shalat_manual sm ON m.id_mahasiswa = sm.id_mahasiswa
+    WHERE sm.disetujui = 1
+    GROUP BY mb.id_pembina
+) ma ON p.id_pembina = ma.id_pembina
+JOIN ( 
+    SELECT DATEDIFF(MAX(sp.tanggal_sampai),MIN(sp.tanggal_dari))+1 AS jhari 
+    FROM shalat_periode sp
+) r
+LEFT JOIN (
+    SELECT p.id_pembina, COUNT(jp.wkt_shalat) AS jplg 
+    FROM pembina p 
+    LEFT JOIN j_pulang2 jp ON p.j_kelamin = jp.j_kelamin 
+    GROUP BY p.id_pembina     
+) pu ON p.id_pembina = pu.id_pembina
+LEFT JOIN (
+    SELECT mb.id_pembina, COUNT(su.wkt_shalat) AS jmlu
+    FROM m_binaan mb
+    LEFT JOIN shalat_udzur2 su ON mb.id_mahasiswa = su.id_mahasiswa
+    WHERE su.disetujui = 1
+    GROUP BY mb.id_pembina 
 ) uz ON p.id_pembina = uz.id_pembina
-GROUP BY p.nama
+GROUP BY p.id_pembina
 
--- shalat by pembina detail LENGKAP (WORK)
+-- shalat by pembina detail LENGKAP With Manual (WORK)
 SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, 
 d.jhari, t.j_kelamin,
-COUNT(s.wkt_shalat) AS 'total', 
+COUNT(s.wkt_shalat) AS fingerprint, 
+IF(ma.jmlm IS NULL, 0, ma.jmlm) AS manual,
+COUNT(s.wkt_shalat)+IF(ma.jmlm IS NULL, 0, ma.jmlm) AS total,
 j.jmlb,
 j.jmlb*d.jhari*5 AS target1,
-(COUNT(s.wkt_shalat)/(j.jmlb*d.jhari*5))*100 AS nilai1,
 j.jmlb*(CASE WHEN t.j_kelamin = 'Akhwat' THEN (IF(a.jplg IS NULL, 0, a.jplg)) ELSE (IF(i.jplg IS NULL, 0, i.jplg)) END) AS jplg,
 IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
 (j.jmlb*d.jhari*5)-((j.jmlb*(CASE WHEN t.j_kelamin = 'Akhwat' THEN (IF(a.jplg IS NULL, 0, a.jplg)) ELSE (IF(i.jplg IS NULL, 0, i.jplg)) END))+IF(u.jmlu IS NULL, 0, u.jmlu)) AS target2,
-ROUND(((COUNT(s.wkt_shalat)/((j.jmlb*d.jhari*5)-((j.jmlb*(CASE WHEN t.j_kelamin = 'Akhwat' THEN (IF(a.jplg IS NULL, 0, a.jplg)) ELSE (IF(i.jplg IS NULL, 0, i.jplg)) END))+IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai
+ROUND((((COUNT(s.wkt_shalat)+IF(ma.jmlm IS NULL, 0, ma.jmlm))/((j.jmlb*d.jhari*5)-((j.jmlb*(CASE WHEN t.j_kelamin = 'Akhwat' THEN (IF(a.jplg IS NULL, 0, a.jplg)) ELSE (IF(i.jplg IS NULL, 0, i.jplg)) END))+IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai
 FROM shalat_periode sp 
 LEFT JOIN shalat s ON sp.id_periode = s.id_periode 
 LEFT JOIN ( 
@@ -1236,7 +1278,7 @@ LEFT JOIN (
     FROM m_binaan mb 
     LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa 
     LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina 
-    WHERE mb.id_pembina = 34 
+    WHERE mb.id_pembina = 16
     GROUP BY p.nama 
 ) j ON t.id_pembina = j.id_pembina 
 LEFT JOIN (
@@ -1263,10 +1305,18 @@ LEFT JOIN (
     LEFT JOIN mahasiswa m ON su.id_mahasiswa = m.id_mahasiswa
     LEFT JOIN m_binaan mb ON m.id_mahasiswa = mb.id_mahasiswa
     LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina
-    WHERE p.id_pembina = 34 AND su.disetujui = 1
+    WHERE p.id_pembina = 16 AND su.disetujui = 1
     GROUP BY su.id_periode    
 ) u ON sp.id_periode = u.id_periode
-WHERE t.id_pembina = 34 
+LEFT JOIN (
+    SELECT sp.id_periode, COUNT(sm.wkt_shalat) AS jmlm
+    FROM shalat_manual sm
+    LEFT JOIN shalat_periode sp ON sm.tanggal BETWEEN sp.tanggal_dari AND sp.tanggal_sampai
+    LEFT JOIN m_binaan mb ON sm.id_mahasiswa = mb.id_mahasiswa
+    WHERE mb.id_pembina = 16 AND sm.disetujui = 1
+    GROUP BY sp.id_periode    
+) ma ON sp.id_periode = ma.id_periode
+WHERE t.id_pembina = 16
 GROUP BY sp.id_periode 
 ORDER BY sp.id_periode
 
@@ -1510,13 +1560,16 @@ JOIN (
 
 ------------------------------------------------------------- SHALAT BY MAHASISWA ------------------------------------------------------------
 
--- shalat by mahasiswa NEW (WORK)
-SELECT m.nama, m.j_kelamin, sh.total, t.jtgl, 
+-- shalat by mahasiswa NEW With Manual (WORK)
+SELECT m.id_mahasiswa, m.nama, m.j_kelamin, sh.total AS fingerprint, 
+IF(sm.jmlm IS NULL, 0, sm.jmlm) AS manual,
+sh.total+IF(sm.jmlm IS NULL, 0, sm.jmlm) AS total,
+t.jtgl, 
 t.jtgl*5 As target1, 
 p.jplg, 
 IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
 (t.jtgl*5)-(p.jplg+IF(u.jmlu IS NULL, 0, u.jmlu)) AS target2,
-ROUND(((sh.total/((t.jtgl*5)-(p.jplg+IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai
+ROUND((((sh.total+IF(sm.jmlm IS NULL, 0, sm.jmlm))/((t.jtgl*5)-(p.jplg+IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai
 FROM mahasiswa m
 LEFT JOIN (
     SELECT s.id_mahasiswa, COUNT(s.wkt_tapping) AS total
@@ -1538,6 +1591,12 @@ LEFT JOIN (
     WHERE su.disetujui = 1
     GROUP BY su.id_mahasiswa
 ) u ON m.id_mahasiswa = u.id_mahasiswa
+LEFT JOIN (
+    SELECT sm.id_mahasiswa, COUNT(sm.wkt_shalat) AS jmlm
+    FROM shalat_manual sm 
+    WHERE sm.disetujui = 1
+    GROUP BY sm.id_mahasiswa
+) sm ON m.id_mahasiswa = sm.id_mahasiswa
 ORDER BY m.nama
 
 -- BEST 5 halat by mahasiswa NEW GRAPH (WORK)
@@ -1575,21 +1634,23 @@ FROM (
 ) a
 
 
--- shalat by mahasiswa detail NEW (WORK)
+-- shalat by mahasiswa detail NEW With Manual (WORK)
 SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, 
-sh.total,
+IF(sh.total IS NULL, 0, sh.total) AS fingerprint,
+IF(ma.jmlm IS NULL, 0, ma.jmlm) AS manual,
+IF(sh.total IS NULL, 0, sh.total)+IF(ma.jmlm IS NULL, 0, ma.jmlm) AS total,
 DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1 AS jtgl,
 (DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*5 AS target1,
 IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)) AS jplg,
 IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
 ((DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*5)-(IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)))-(IF(u.jmlu IS NULL, 0, u.jmlu)) AS target2,
-ROUND((((sh.total)/(((DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*5)-(IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)))-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai
+IF((ROUND(((((IF(sh.total IS NULL, 0, sh.total)+IF(ma.jmlm IS NULL, 0, ma.jmlm)))/(((DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*5)-(IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)))-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2)) > 100, 100, (ROUND(((((IF(sh.total IS NULL, 0, sh.total)+IF(ma.jmlm IS NULL, 0, ma.jmlm)))/(((DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*5)-(IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)))-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2))) AS nilai
 FROM shalat_periode sp
 LEFT JOIN (
     SELECT s.id_periode, COUNT(s.wkt_tapping) AS total, m.j_kelamin, m.id_mahasiswa
     FROM shalat s
     LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa
-    WHERE m.id_mahasiswa = 1432
+    WHERE m.id_mahasiswa = 2256
     GROUP BY s.id_periode
 ) sh ON sp.id_periode = sh.id_periode
 LEFT JOIN (
@@ -1607,9 +1668,16 @@ LEFT JOIN (
 LEFT JOIN (
     SELECT su.id_periode, COUNT(su.wkt_shalat) AS jmlu
     FROM shalat_udzur2 su 
-    WHERE su.disetujui = 1 AND su.id_mahasiswa = 1432
+    WHERE su.disetujui = 1 AND su.id_mahasiswa = 2256
     GROUP BY su.id_periode
 ) u ON sh.id_periode = u.id_periode
+LEFT JOIN (
+    SELECT sp.id_periode, COUNT(sm.wkt_shalat) AS jmlm
+    FROM shalat_manual sm
+    LEFT JOIN shalat_periode sp ON sm.tanggal BETWEEN sp.tanggal_dari AND sp.tanggal_sampai
+    WHERE sm.id_mahasiswa = 2256
+    GROUP BY sp.id_periode    
+) ma ON sp.id_periode = ma.id_periode
 
 -- shalat by mahasiswa detail percentage (WORK)
 SELECT a.nilai AS a, b.nilai AS b, 
@@ -1726,20 +1794,22 @@ WHERE s.id_periode = 7 AND s.id_mahasiswa = 1179
 GROUP BY s.tanggal
 
 
--- shalat by mahasiswa detail by period (UNSOLVED MISS DATE)
+-- shalat by mahasiswa detail by period With Manual (WORK)
 SELECT s.tanggal, 
-IF(sh.total IS NULL, 0, sh.total) AS total, 
+IF(sh.total IS NULL, 0, sh.total) AS fingerprint, 
+IF(ma.jmlm IS NULL, 0, ma.jmlm) AS manual,
+IF(sh.total IS NULL, 0, sh.total)+IF(ma.jmlm IS NULL, 0, ma.jmlm) AS total,
 5 AS target1,
 IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)) AS jplg,
 IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
 ((5-(IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)))-(IF(u.jmlu IS NULL, 0, u.jmlu)))) AS target2,
-ROUND(((IF(sh.total IS NULL, 0, sh.total)/((5-(IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)))-(IF(u.jmlu IS NULL, 0, u.jmlu)))))*100),2) AS nilai
+IF((ROUND((((IF(sh.total IS NULL, 0, sh.total)+IF(ma.jmlm IS NULL, 0, ma.jmlm))/((5-(IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)))-(IF(u.jmlu IS NULL, 0, u.jmlu)))))*100),2)) > 100, 100, (ROUND((((IF(sh.total IS NULL, 0, sh.total)+IF(ma.jmlm IS NULL, 0, ma.jmlm))/((5-(IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)))-(IF(u.jmlu IS NULL, 0, u.jmlu)))))*100),2))) AS nilai
 FROM shalat s
 LEFT JOIN (
     SELECT s.tanggal, COUNT(s.wkt_tapping) AS total, m.j_kelamin, m.id_mahasiswa
     FROM shalat s
     LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa
-    WHERE m.id_mahasiswa = 1179
+    WHERE m.id_mahasiswa = 2423
     GROUP BY s.tanggal
 ) sh ON s.tanggal = sh.tanggal
 LEFT JOIN (
@@ -1757,10 +1827,16 @@ LEFT JOIN (
 LEFT JOIN (
     SELECT su.tanggal, COUNT(su.wkt_shalat) AS jmlu
     FROM shalat_udzur2 su
-    WHERE su.id_mahasiswa = 1179 AND su.disetujui = 1
+    WHERE su.id_mahasiswa = 2423 AND su.disetujui = 1
     GROUP BY su.tanggal
 ) u ON s.tanggal = u.tanggal
-WHERE s.id_periode = 8
+LEFT JOIN (
+    SELECT sm.tanggal, COUNT(sm.wkt_shalat) AS jmlm
+    FROM shalat_manual sm 
+    WHERE sm.id_mahasiswa = 2423 AND sm.disetujui = 1
+    GROUP BY sm.tanggal
+) ma ON s.tanggal = ma.tanggal
+WHERE s.id_periode = 3
 GROUP BY s.tanggal
 
 
@@ -1854,13 +1930,17 @@ JOIN (
 ------------------------------------------------------------- SHALAT BY WAKTU SHALAT ------------------------------------------------------------
 
 
--- shalat by waktu shalat ikhtisar (WORK)
-SELECT s.wkt_shalat, COUNT(s.wkt_tapping) AS total, t.jtgl, h.jmhs,
+-- shalat by waktu shalat ikhtisar with Manual (WORK)
+SELECT s.wkt_shalat, 
+COUNT(s.wkt_tapping) AS fingerprint, 
+IF(ma.jmlm IS NULL, 0, ma.jmlm) AS manual,
+COUNT(s.wkt_tapping)+IF(ma.jmlm IS NULL, 0, ma.jmlm) AS total,
+t.jtgl, h.jmhs,
 (t.jtgl*h.jmhs) AS target1,
 (p.jplg*h.jmhs) AS jplg,
 u.jmlu,
 (t.jtgl*h.jmhs)-(p.jplg*h.jmhs)-u.jmlu AS target2,
-ROUND(((((COUNT(s.wkt_tapping))/((t.jtgl*h.jmhs)-(p.jplg*h.jmhs)-u.jmlu))*100)),2) AS nilai
+ROUND((((((COUNT(s.wkt_tapping)+IF(ma.jmlm IS NULL, 0, ma.jmlm)))/((t.jtgl*h.jmhs)-(p.jplg*h.jmhs)-u.jmlu))*100)),2) AS nilai
 FROM shalat s
 JOIN (
     SELECT DATEDIFF(MAX(s.tanggal),MIN(s.tanggal))+1 AS jtgl
@@ -1881,13 +1961,21 @@ LEFT JOIN (
     WHERE su.disetujui = 1
     GROUP BY su.wkt_shalat
 ) u ON s.wkt_shalat = u.wkt_shalat
+LEFT JOIN (
+    SELECT sm.wkt_shalat, COUNT(sm.wkt_shalat) AS jmlm
+    FROM shalat_manual sm 
+    WHERE sm.disetujui = 1
+    GROUP BY sm.wkt_shalat
+) ma ON s.wkt_shalat = ma.wkt_shalat
 GROUP BY s.wkt_shalat
 ORDER BY s.wkt_tapping
 
 
--- shalat by waktu shalat detail (WORK)
+-- shalat by waktu shalat detail With Manual (WORK)
 SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, 
-sh.total,
+sh.total AS fingerprint,
+IF(ma.jmlm IS NULL, 0, ma.jmlm) AS manual,
+sh.total+IF(ma.jmlm IS NULL, 0, ma.jmlm) AS total,
 DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1 AS jtgl,
 h.jmhs,
 (DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*h.jmhs As target1,
@@ -1897,7 +1985,7 @@ IF(j.jplg IS NULL, 0, j.jplg) AS jplg,
 (IF(p.id_periode IS NULL, 0, (CASE WHEN p.j_kelamin = 'Akhwat' THEN a.plg ELSE i.plg END)))*IF(j.jplg IS NULL, 0, j.jplg) AS total_jplg,
 IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
 (((DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*h.jmhs)-((IF(p.id_periode IS NULL, 0, (CASE WHEN p.j_kelamin = 'Akhwat' THEN a.plg ELSE i.plg END)))*IF(j.jplg IS NULL, 0, j.jplg))-(IF(u.jmlu IS NULL, 0, u.jmlu))) AS target2,
-ROUND((((sh.total)/(((DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*h.jmhs)-((IF(p.id_periode IS NULL, 0, (CASE WHEN p.j_kelamin = 'Akhwat' THEN a.plg ELSE i.plg END)))*IF(j.jplg IS NULL, 0, j.jplg))-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai
+ROUND(((((sh.total+IF(ma.jmlm IS NULL, 0, ma.jmlm)))/(((DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*h.jmhs)-((IF(p.id_periode IS NULL, 0, (CASE WHEN p.j_kelamin = 'Akhwat' THEN a.plg ELSE i.plg END)))*IF(j.jplg IS NULL, 0, j.jplg))-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai
 FROM shalat_periode sp
 LEFT JOIN (
     SELECT s.id_periode, COUNT(s.wkt_tapping) AS total
@@ -1936,6 +2024,13 @@ LEFT JOIN (
     WHERE su.wkt_shalat = 'dzuhur' AND su.disetujui = 1
     GROUP BY su.id_periode
 ) u ON sp.id_periode = u.id_periode
+LEFT JOIN (
+    SELECT sp.id_periode, COUNT(sm.wkt_shalat) AS jmlm
+    FROM shalat_manual sm
+    LEFT JOIN shalat_periode sp ON sm.tanggal BETWEEN sp.tanggal_dari AND sp.tanggal_sampai
+    WHERE sm.wkt_shalat = 'dzuhur' AND sm.disetujui = 1
+    GROUP BY sp.id_periode    
+) ma ON sp.id_periode = ma.id_periode
 
 -- shalat by waktu shalat detail percentage (WORK)
 SELECT a.nilai AS a, b.nilai AS b, 
@@ -2444,3 +2539,343 @@ LEFT JOIN (
     GROUP BY d.talim    
 ) j ON v.talim = j.talim
 GROUP BY v.talim
+
+
+---------------------------------------------------------------- TAHSIN -------------------------------------------------------
+-- Tahsin by Mahasiswa on Role Pembina (WORK)
+SELECT mb.id_mahasiswa, m.nama, 
+ms.jmlt AS total, 
+IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
+t.target AS target1,
+t.target-IF(u.jmlu IS NULL, 0, u.jmlu) AS target2,
+ROUND(((ms.jmlt/(t.target-IF(u.jmlu IS NULL, 0, u.jmlu)))*100),2) AS nilai
+FROM m_binaan mb
+LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa
+LEFT JOIN (
+    SELECT tp.id_mahasiswa, COUNT(tp.id_tahsin) AS jmlt
+    FROM tahsin_presensi tp
+    GROUP BY tp.id_mahasiswa
+) ms ON mb.id_mahasiswa = ms.id_mahasiswa
+LEFT JOIN (
+    SELECT tu.id_mahasiswa, COUNT(tu.udzur) AS jmlu
+    FROM tahsin_udzur tu 
+    WHERE tu.disetujui = 1
+    GROUP BY tu.id_mahasiswa
+) u ON mb.id_mahasiswa = u.id_mahasiswa
+JOIN (
+    SELECT COUNT(t.tahsin) AS target
+    FROM tahsin t
+    WHERE t.id_pembina = 1
+    GROUP BY t.id_pembina
+) t
+WHERE mb.id_pembina = 1
+ORDER BY nilai DESC
+
+-- Tahsin by Tahsin role Pembina (WORK)
+SELECT t.tahsin, 
+IF(p.pertemuan IS NULL, 0, p.pertemuan) AS pertemuan,
+jb.jmlb,
+IF(tl.total IS NULL, 0, tl.total) AS total,
+IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
+IF(p.pertemuan IS NULL, 0, p.pertemuan)*jb.jmlb AS target1,
+(IF(p.pertemuan IS NULL, 0, p.pertemuan)*jb.jmlb)-(IF(u.jmlu IS NULL, 0, u.jmlu)) AS target2,
+ROUND((((IF(tl.total IS NULL, 0, tl.total))/((IF(p.pertemuan IS NULL, 0, p.pertemuan)*jb.jmlb)-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai
+FROM tahsin t
+LEFT JOIN (
+    SELECT t.tahsin, COUNT(tp.id_mahasiswa) AS total
+    FROM tahsin t
+    LEFT JOIN tahsin_presensi tp ON t.id = tp.id_tahsin
+    WHERE t.id_pembina = 6
+    GROUP BY t.tahsin
+) tl ON t.tahsin = tl.tahsin
+JOIN (
+    SELECT COUNT(mb.id_mahasiswa) AS jmlb
+    FROM m_binaan mb
+    WHERE mb.id_pembina = 6
+    GROUP BY mb.id_pembina
+) jb
+LEFT JOIN (
+    SELECT t.tahsin, COUNT(tu.udzur) AS jmlu
+    FROM tahsin_udzur tu 
+    LEFT JOIN tahsin t ON tu.id_tahsin = t.id
+    WHERE t.id_pembina = 6
+) u ON t.tahsin = u.tahsin
+LEFT JOIN (
+    SELECT t.tahsin, COUNT(t.tanggal) AS pertemuan
+    FROM tahsin t 
+    WHERE t.id_pembina = 6
+    GROUP BY t.tahsin
+) p ON t.tahsin = p.tahsin
+GROUP BY t.tahsin
+
+
+-- Udzur Tahsin Role Pembina (WORK)
+SELECT mb.id_mahasiswa, m.nim, m.nama, 
+IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu
+FROM m_binaan mb
+LEFT JOIN (
+    SELECT tu.id_mahasiswa, COUNT(tu.udzur) AS jmlu
+    FROM tahsin_udzur tu
+    LEFT JOIN tahsin t ON tu.id_tahsin = t.id
+    WHERE t.id_pembina = 1
+    GROUP BY tu.id_mahasiswa
+) u ON mb.id_mahasiswa = u.id_mahasiswa
+LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa
+WHERE mb.id_pembina = 1
+ORDER BY jmlu DESC
+
+-- Tahsin By Mahasiswa on Role Adminmatrik (WORK)
+SELECT m.id_mahasiswa, m.nim, m.nama,
+IF(ms.jmlt IS NULL, 0, ms.jmlt) AS total,
+IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
+IF(ta.target IS NULL, 0, ta.target) AS target1,
+IF(ta.target IS NULL, 0, ta.target)-IF(u.jmlu IS NULL, 0, u.jmlu) AS target2,
+ROUND((((IF(ms.jmlt IS NULL, 0, ms.jmlt))/(IF(ta.target IS NULL, 0, ta.target)-IF(u.jmlu IS NULL, 0, u.jmlu)))*100),2) AS nilai
+FROM mahasiswa m 
+LEFT JOIN (
+    SELECT tp.id_mahasiswa, COUNT(tp.id_tahsin) AS jmlt
+    FROM tahsin_presensi tp
+    GROUP BY tp.id_mahasiswa
+) ms ON m.id_mahasiswa = ms.id_mahasiswa
+LEFT JOIN (
+    SELECT tu.id_mahasiswa, COUNT(tu.udzur) AS jmlu
+    FROM tahsin_udzur tu 
+    WHERE tu.disetujui = 1
+    GROUP BY tu.id_mahasiswa
+) u ON m.id_mahasiswa = u.id_mahasiswa
+LEFT JOIN (
+    SELECT m.id_mahasiswa, m.nama, tl.target
+    FROM mahasiswa m 
+    LEFT JOIN (
+        SELECT mb.id_mahasiswa, COUNT(t.id_pembina) AS target
+        FROM tahsin t 
+        LEFT JOIN m_binaan mb ON t.id_pembina = mb.id_pembina
+        GROUP BY t.id_pembina, mb.id_mahasiswa
+    ) tl ON m.id_mahasiswa = tl.id_mahasiswa  
+) ta ON m.id_mahasiswa = ta.id_mahasiswa
+
+
+-- tahsin by ikhwan/akhwat on role adminmatrik
+SELECT p.j_kelamin, 
+IF(pr.pertemuan IS NULL, 0, pr.pertemuan) AS pertemuan,
+IF(tl.total IS NULL, 0, tl.total) AS total,
+IF(ta.target1 IS NULL, 0, ta.target1) AS target1,
+IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
+IF(ta.target1 IS NULL, 0, ta.target1)-IF(u.jmlu IS NULL, 0, u.jmlu) AS target2,
+ROUND((((IF(tl.total IS NULL, 0, tl.total))/(IF(ta.target1 IS NULL, 0, ta.target1)-IF(u.jmlu IS NULL, 0, u.jmlu)))*100),2) AS nilai
+FROM pembina p 
+LEFT JOIN (
+    SELECT m.j_kelamin, COUNT(tp.id_tahsin) AS total
+    FROM tahsin_presensi tp
+    LEFT JOIN mahasiswa m ON tp.id_mahasiswa = m.id_mahasiswa
+    GROUP BY m.j_kelamin
+) tl ON p.j_kelamin = tl.j_kelamin
+LEFT JOIN (
+    SELECT a.j_kelamin, SUM(a.target) AS target1
+    FROM (
+        SELECT p.j_kelamin, t.id_pembina, j.jmlb, pr.pertemuan, 
+        j.jmlb*pr.pertemuan AS target
+        FROM tahsin t 
+        LEFT JOIN pembina p ON t.id_pembina = p.id_pembina
+        LEFT JOIN (
+            SELECT mb.id_pembina, COUNT(mb.id_mahasiswa) AS jmlb
+            FROM m_binaan mb 
+            GROUP BY mb.id_pembina
+        ) j ON t.id_pembina = j.id_pembina
+        LEFT JOIN (
+            SELECT t.id_pembina, COUNT(t.id_pembina) AS pertemuan
+            FROM tahsin t 
+            GROUP BY t.id_pembina
+        ) pr ON t.id_pembina = pr.id_pembina
+        GROUP BY t.id_pembina    
+    ) a 
+) ta ON p.j_kelamin = ta.j_kelamin
+LEFT JOIN (
+    SELECT m.j_kelamin, COUNT(tu.udzur) AS jmlu
+    FROM tahsin_udzur tu 
+    LEFT JOIN mahasiswa m ON tu.id_mahasiswa = m.id_mahasiswa
+    GROUP BY m.j_kelamin
+) u ON p.j_kelamin = u.j_kelamin
+LEFT JOIN (
+    SELECT p.j_kelamin, COUNT(t.id_pembina) AS pertemuan
+    FROM tahsin t 
+    LEFT JOIN pembina p ON t.id_pembina = p.id_pembina
+    GROUP BY p.j_kelamin
+) pr ON p.j_kelamin = pr.j_kelamin
+GROUP BY p.j_kelamin
+
+--tahsin by pembina on role adminmatrik
+SELECT p.id_pembina, p.nama, p.j_kelamin, j.jmlb,
+COUNT(t.id_pembina) AS pertemuan, 
+IF(tl.total IS NULL, 0, tl.total) AS total,
+COUNT(t.id_pembina)*j.jmlb AS target1,
+IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,
+(COUNT(t.id_pembina)*j.jmlb)-(IF(u.jmlu IS NULL, 0, u.jmlu)) AS target2,
+ROUND((((IF(tl.total IS NULL, 0, tl.total))/((COUNT(t.id_pembina)*j.jmlb)-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai
+FROM pembina p 
+LEFT JOIN tahsin t ON p.id_pembina = t.id_pembina
+LEFT JOIN (
+    SELECT t.id_pembina, COUNT(tp.id_mahasiswa) AS total
+    FROM tahsin t 
+    LEFT JOIN tahsin_presensi tp ON t.id = tp.id_tahsin
+    GROUP BY t.id_pembina
+) tl ON p.id_pembina = tl.id_pembina
+LEFT JOIN (
+    SELECT mb.id_pembina, COUNT(mb.id_mahasiswa) AS jmlb
+    FROM m_binaan mb 
+    GROUP BY mb.id_pembina
+) j ON p.id_pembina = j.id_pembina
+LEFT JOIN (
+    SELECT t.id_pembina, COUNT(tu.id_mahasiswa) AS jmlu
+    FROM tahsin t 
+    LEFT JOIN tahsin_udzur tu ON t.id = tu.id_tahsin
+    GROUP BY t.id_pembina
+) u ON p.id_pembina = u.id_pembina
+GROUP BY p.id_pembina
+
+
+--tahsin by tahsin on role adminmatrik
+SELECT t.tahsin, COUNT(t.tahsin) AS pertemuan, tl.total, 
+IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu, ta.target1,
+ta.target1-IF(u.jmlu IS NULL, 0, u.jmlu) AS target2,
+ROUND(((tl.total/(ta.target1-IF(u.jmlu IS NULL, 0, u.jmlu)))*100),2) AS nilai
+FROM tahsin t 
+LEFT JOIN (
+    SELECT t.tahsin, COUNT(tp.id_mahasiswa) AS total
+    FROM tahsin_presensi tp 
+    LEFT JOIN tahsin t ON tp.id_tahsin = t.id
+    GROUP BY t.tahsin
+) tl ON t.tahsin = tl.tahsin
+LEFT JOIN (
+    SELECT t.tahsin, COUNT(tu.udzur) AS jmlu
+    FROM tahsin_udzur tu
+    LEFT JOIN tahsin t ON tu.id_tahsin = t.id
+    GROUP BY t.tahsin
+) u ON t.tahsin = u.tahsin
+LEFT JOIN (
+    SELECT t.tahsin, SUM(j.jmlb) AS target1
+    FROM tahsin t 
+    LEFT JOIN (
+        SELECT mb.id_pembina, COUNT(mb.id_mahasiswa) AS jmlb
+        FROM m_binaan mb 
+        GROUP BY mb.id_pembina
+    ) j ON t.id_pembina = j.id_pembina
+    GROUP BY t.tahsin  
+) ta ON t.tahsin = ta.tahsin
+GROUP BY t.tahsin
+
+
+-- Udzur tahsin on role adminmatrik
+SELECT mb.id_mahasiswa, m.nim, m.nama, 
+IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu
+FROM m_binaan mb
+LEFT JOIN (
+    SELECT tu.id_mahasiswa, COUNT(tu.udzur) AS jmlu
+    FROM tahsin_udzur tu
+    LEFT JOIN tahsin t ON tu.id_tahsin = t.id
+    GROUP BY tu.id_mahasiswa
+) u ON mb.id_mahasiswa = u.id_mahasiswa
+LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa
+ORDER BY jmlu DESC
+
+
+--tahsin by pertemuan role pembina
+SELECT t.id, t.tanggal, t.tahsin, j.jmlb, 
+COUNT(tp.id_mahasiswa) AS total,  
+j.jmlb-COUNT(tp.id_mahasiswa) AS absen,
+COUNT(tu.id_mahasiswa) AS jmlu,
+j.jmlb-COUNT(tu.id_mahasiswa) AS target,
+ROUND(((COUNT(tp.id_mahasiswa)/(j.jmlb-COUNT(tu.id_mahasiswa)))*100),2) AS nilai
+FROM tahsin t 
+LEFT JOIN tahsin_presensi tp ON t.id = tp.id_tahsin
+LEFT JOIN tahsin_udzur tu ON t.id = tu.id_tahsin
+JOIN (
+    SELECT COUNT(mb.id_mahasiswa) AS jmlb
+    FROM m_binaan mb
+    WHERE mb.id_pembina = $idPembina
+    GROUP BY mb.id_pembina
+) j
+WHERE t.id_pembina = $idPembina
+GROUP BY tp.id_tahsin
+
+--tahsin by pertemuan role adminmatrik
+SELECT t.id, t.tanggal, j.nama, t.tahsin, j.jmlb, 
+COUNT(tp.id_mahasiswa) AS total,  
+j.jmlb-COUNT(tp.id_mahasiswa) AS absen,
+COUNT(tu.id_mahasiswa) AS jmlu,
+j.jmlb-COUNT(tu.id_mahasiswa) AS target,
+ROUND(((COUNT(tp.id_mahasiswa)/(j.jmlb-COUNT(tu.id_mahasiswa)))*100),2) AS nilai
+FROM tahsin t 
+LEFT JOIN tahsin_presensi tp ON t.id = tp.id_tahsin
+LEFT JOIN tahsin_udzur tu ON t.id = tu.id_tahsin
+LEFT JOIN (
+    SELECT mb.id_pembina, p.nama, COUNT(mb.id_mahasiswa) AS jmlb
+    FROM m_binaan mb
+    LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina
+    GROUP BY mb.id_pembina
+) j ON t.id_pembina = j.id_pembina
+GROUP BY tp.id_tahsin
+
+
+----------------------------------------------------------------------- HAFALAN QURAN --------------------------------------
+
+-- Hafalan quran by mahasiswa on role pembina
+SELECT mb.id_mahasiswa, m.nim, m.nama, t.target,
+IF(h.jmls IS NULL, 0, h.jmls) AS jmls, 
+IF(ROUND(((h.jmls/t.target)*100),2) IS NULL, 0, ROUND(((h.jmls/t.target)*100),2)) AS progres
+FROM m_binaan mb
+LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa
+LEFT JOIN (
+    SELECT sh.id_mahasiswa, COUNT(sh.id_surah) AS jmls
+    FROM setor_hafalan sh 
+    GROUP BY sh.id_mahasiswa
+) h ON mb.id_mahasiswa = h.id_mahasiswa
+JOIN (
+    SELECT th.id_juz, COUNT(s.no_surah) AS target
+    FROM target_hafalan th 
+    LEFT JOIN surah s ON th.id_juz = s.id_juz
+    GROUP BY th.id_juz
+) t
+WHERE mb.id_pembina = 1
+ORDER BY progres DESC
+
+-- Hafalan Quran by Surah on role pembina
+SELECT s.id, j.juz, j.deskripsi , s.no_surah, s.nama_surah, 
+j.jmlb AS target, 
+IF(pg.progres IS NULL, 0, pg.progres) AS jmlb_setor,
+ROUND((((IF(pg.progres IS NULL, 0, pg.progres))/(j.jmlb))*100),2) AS progres
+FROM surah s 
+LEFT JOIN juz j ON s.id_juz = j.id
+LEFT JOIN (
+    SELECT sh.id_surah, mb.id_mahasiswa, COUNT(sh.id_mahasiswa) AS progres
+    FROM setor_hafalan sh
+    LEFT JOIN m_binaan mb ON sh.id_mahasiswa = mb.id_mahasiswa
+    WHERE mb.id_pembina = 1
+    GROUP BY sh.id_surah
+) pg ON s.id = pg.id_surah
+JOIN (
+    SELECT COUNT(mb.id_mahasiswa) AS jmlb
+    FROM m_binaan mb
+    WHERE mb.id_pembina = 1
+    GROUP BY mb.id_pembina
+) j
+GROUP BY s.id
+ORDER BY s.no_surah DESC
+
+-- Hafalan Quran by Pembina on role Adminmatrik
+SELECT p.id_pembina, p.nama, COUNT(mb.id_mahasiswa) AS jmlb, js.jsurah, 
+js.jsurah*COUNT(mb.id_mahasiswa) AS target_hafalan,
+IF(sr.jmls IS NULL, 0, sr.jmls) AS jmls,
+ROUND((((IF(sr.jmls IS NULL, 0, sr.jmls))/(js.jsurah*COUNT(mb.id_mahasiswa)))*100),2) AS progres
+FROM pembina p 
+LEFT JOIN (
+    SELECT mb.id_pembina, COUNT(sh.id_surah) AS jmls
+    FROM setor_hafalan sh 
+    LEFT JOIN m_binaan mb ON sh.id_mahasiswa = mb.id_mahasiswa
+) sr ON p.id_pembina = sr.id_pembina
+LEFT JOIN m_binaan mb ON p.id_pembina = mb.id_pembina
+JOIN (
+    SELECT COUNT(s.id) AS jsurah
+    FROM surah s 
+) js
+GROUP BY p.id_pembina

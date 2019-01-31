@@ -33,9 +33,8 @@
                                     
                                   ?>
                               </h2>
-                          <small>
-                                <div class="btn-group">
-                                                    <button type="button" class="btn bg-cyan waves-effect dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <!-- <div class="btn-group">
+                                                    <button type="button" class="btn bg-cyan waves-effect dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-live-search="true">
                                                         <?php $namaMhs = tampilMahasiswaById($idMhs);
                                                           foreach($namaMhs as $row){
                                                             echo $row['nama'];
@@ -53,8 +52,22 @@
                                                           }
                                                         ?>
                                                     </ul>
-                                                </div>                            
-                          </small>
+                                                </div>   -->
+                              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                    <select class="form-control show-tick" data-live-search="true" onchange="location = this.value;">
+                                                        <?php $namaMhs = tampilMahasiswaById($idMhs);
+                                                          foreach($namaMhs as $row){
+                                                            echo '<option selected>'.$row['nama'].'</option>';
+                                                          } 
+                                                        ?>
+                                                        <?php $namaMhs = tampilMahasiswa();
+                                                          foreach($namaMhs as $row){
+                                                            echo '<option value="?page=shalatmdetail&id='.$row['id_mahasiswa'].'">'.$row['nim'].' - '.$row['nama'].'</option>';
+                                                          } 
+                                                        ?>
+                                    </select>  
+                              </div> 
+                              <br>                       
                         </div>
                         <div class="body">
                             <canvas id="line_chart" height="70"></canvas>
@@ -145,30 +158,37 @@
                             <table id="tableShalatMhsDetail" class="table table-hover table-condensed">
                               <thead>
                                 <tr>
+                                  <th>#</th>
                                   <th>ID</th>
                                   <th>Periode</th>
+                                  <th>Fingerprint</th>
+                                  <th>Manual</th>
                                   <th>Total</th>
-                                  <th>Dispensasi</th>
-                                  <th>Jml Udzur</th>
-                                  <th>Maks Jml Shalat</th>
+                                  <th>Dispensasi Pulang</th>
+                                  <th>Udzur</th>
+                                  <th>Target</th>
                                   <th>Nilai</th>
                                 </tr>
                               </thead>
                               <tbody>
                                 <?php 
+                                  $no = 1;
                                   $data = shalatMhsDetail($idMhs);
                                   foreach($data as $row){
                                  ?>
                                 <tr>
+                                  <td><?php echo $no; ?></td>
                                   <td><?php echo $row['id_periode']; ?></td>
                                   <td><?php echo '<a href="?page=shalatmbyperiod&p='.$row['id_periode'].'&m='.$idMhs.'">'.date('d M Y', strtotime($row['tanggal_dari']))." - ".date('d M Y', strtotime($row['tanggal_sampai'])).'</a>'; ?></td>
+                                  <td><?php echo $row['fingerprint']; ?></td>
+                                  <td><?php echo $row['manual']; ?></td>
                                   <td><?php echo $row['total']; ?></td>
                                   <td><?php echo $row['jplg']; ?></td>
                                   <td><?php echo $row['jmlu']; ?></td>
                                   <td><?php echo $row['target2']; ?></td>
                                   <td><?php echo $row['nilai']; ?></td>
                                 </tr>
-                                <?php } ?>
+                                <?php $no++; } ?>
                               </tbody> 
                             </table>
                           </div>

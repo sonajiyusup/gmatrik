@@ -1,5 +1,5 @@
 <?php 
-  include 'functions.php';
+  include 'functions2.php';
  ?>   
 
 	<div class="row clearfix">
@@ -7,7 +7,7 @@
                     <div class="card">
                         <div class="header">
                           <h2>AKSI PELANGGARAN
-                            <button class="btn btn-sm btn-link waves-effect " data-toggle="modal" data-target="#tambahPaksi" style="width: 10%;" title="Tambah Master Aksi Pelanggaran"><i class="material-icons">playlist_add</i></button>
+                            <!-- <button class="btn btn-sm btn-link waves-effect " data-toggle="modal" data-target="#tambahPaksi" style="width: 10%;" title="Tambah Master Aksi Pelanggaran"><i class="material-icons">playlist_add</i></button> -->
                             <small>Data Pelanggaran Berdasarkan Aksi</small>
                           </h2>
                         </div>
@@ -15,32 +15,29 @@
                         	<div class="table-responsive">
 									<!-- Table Daftar Pembina -->
 						              <table id="tablePaksi" class="table table-bordered table-hover table-condensed">
-						                <thead>
+						              	<thead>
 						                  <tr>
-							                    <th>#</th>
-							                    <th>Aksi Pelanggaran</th>
-							                    <th>Jumlah Pelanggaran</th>
+						                    <th>#</th>
+						                    <th>Aksi Pelanggaran</th>
+						                    <th>Jumlah Pelanggaran</th>
 						                  </tr>
 						                </thead>
 						                <tbody>
 						                  <?php 
-						                    $dataPaksi = tampilPaksi();
+						                    $dataPelanggaran = aksiPelanggaranRoleAdminmatrik();
 						                    
 						                    $no = 1;
-						                  	if (is_array($dataPaksi) || is_object($dataPaksi)){
-						                    	foreach($dataPaksi as $row){
-
+						                    foreach($dataPelanggaran as $row){
 						                   ?>
 						                <tr>
-						                  <td><?php echo $no; ?></td>
-						                  <td><a href="?page=paksidetail&id=<?php echo $row['id_paksi']; ?> "><?php echo $row['nama_aksi']; ?></a></td>
-						                  <td><?php echo $row['jumlah']; ?></td>
+						                  <td><b><?php echo $no ?></b></td>  
+						                  <td><?php echo $row['aksi_pelanggaran']; ?></td>
+                              <td><?php echo $row['jmlp']; ?></td>
 						                </tr>
 						                  <?php 
 						                    $no++; }
-						                   }
-						                  ?>      
-						                </tbody>          
+						                   ?>      
+						                </tbody>   
 						              </table>
 						              <!-- /Table Daftar Pembina -->   
 						              </div>                       
@@ -57,34 +54,7 @@
                             <h4 class="modal-title" id="smallModalLabel">Tambah Data Master Aksi Pelanggaran Mahasiswa</h4>
                         </div>
                         <div class="modal-body">   
-                        	<div class="form-group form-float">
-	                                        <div class="form-line">
-	                                            <input type="text" class="form-control" id="paksi" name="nama_aksi" required>
-	                                            <label class="form-label">Nama Aksi Pelanggaran</label>
-	                                        </div>
-														
-													</div>
-													<div class="form-group">
-                          
-	                            <select id="pbentuk" name="idPbentuk" class="form-control" required>
-	                                <option value="">-- Pilih Bentuk Pelanggaran --</option>
-	                                <?php
-	                                  $namaPbentuk = tampilPbentukAsModal();
-
-	                                  if (is_array($namaPbentuk) || is_object($namaPbentuk)){
-	                                    foreach($namaPbentuk as $row){
-	                                ?>
-	                                    <option id="pbentuk" class="<?php echo $row['id_pbentuk']; ?>" value="<?php echo $row['id_pbentuk']; ?>">
-	                                        <?php echo $row['nama_bentuk']; ?>
-	                                    </option>
-	                                <?php
-	                                   }
-	                                  }
-	                                ?>
-	                            </select>  
-	                            <br>
-	                          
-                        	</div>
+                        	
                     		</div>  
                         <div class="modal-footer">
                             <button type="submit" name="tambahPaksi" class="btn btn-primary btn-ok waves-effect">SUBMIT</button>
@@ -101,7 +71,6 @@
         echo "<script>document.location='index.php?page=paksi'</script>";
       }
     ?> 
-
 
     <script>
     $(document).ready(function() {

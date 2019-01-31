@@ -7,13 +7,13 @@
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                     <div class="card">
                         <div class="header">
-                          <h2>IMPORT DATABASE PRESENSI SHALAT MAHASISWA</h2>
+                          <h2>IMPORT DATA PRESENSI SHALAT MAHASISWA</h2>
                         </div>
                         <form method="POST">
                         <div class="body">                                
                                   
                                     <div class="input-group">
-                                      <label>Periode :</label>
+                                      <label>Pekan ke :</label>
                                       <div class="form-line">
                                         <input type="text" name="daterangeShalat" class="form-control date" id="reportrange" required>
                                       </div>
@@ -26,35 +26,35 @@
                                           <div class="form-group">
                                             <label>Shubuh :</label>
                                               <input type="text" name="shubuhFrom" id="shubuh_dari" class="timepicker form-control" placeholder="Dari" value="04:00">
-                                              <input type="text" name="shubuhTo" id="shubuh_sampai" class="timepicker form-control" placeholder="Sampai" value="06:00">
+                                              <input type="text" name="shubuhTo" id="shubuh_sampai" class="timepicker form-control" placeholder="Sampai" value="07:00">
                                           </div>
                                         </div>
                                         <div class="col-md-3 nopadding">
                                           <div class="form-group">
                                             <label>Dzuhur :</label>
                                               <input type="text" name="dzuhurFrom" id="dzuhur_dari" class="timepicker form-control" placeholder="Dari" value="12:00">
-                                              <input type="text" name="dzuhurTo" id="dzuhur_sampai" class="timepicker form-control" placeholder="Sampai" value="13:00">
+                                              <input type="text" name="dzuhurTo" id="dzuhur_sampai" class="timepicker form-control" placeholder="Sampai" value="14:00">
                                           </div>
                                         </div>
                                         <div class="col-md-3 nopadding">
                                           <div class="form-group">
                                             <label>Ashar :</label>
                                               <input type="text" name="asharFrom" id="ashar_dari" class="timepicker form-control" placeholder="Dari" value="15:00">
-                                              <input type="text" name="asharTo" id="ashar_sampai" class="timepicker form-control" placeholder="Sampai" value="16:00">
+                                              <input type="text" name="asharTo" id="ashar_sampai" class="timepicker form-control" placeholder="Sampai" value="17:35">
                                           </div>
                                         </div>
                                         <div class="col-md-3 nopadding">
                                           <div class="form-group">
                                             <label>Maghrib :</label>
                                               <input type="text" name="maghribFrom" id="maghrib_dari" class="timepicker form-control" placeholder="Dari" value="18:00">
-                                              <input type="text" name="maghribTo" id="maghrib_sampai" class="timepicker form-control" placeholder="Sampai" value="18:35">
+                                              <input type="text" name="maghribTo" id="maghrib_sampai" class="timepicker form-control" placeholder="Sampai" value="18:45">
                                           </div>
                                         </div>
                                         <div class="col-md-3 nopadding">
                                           <div class="form-group">
                                             <label>Isya :</label>
                                               <input type="text" name="isyaFrom" id="isya_dari" class="timepicker form-control" placeholder="Dari" value="19:00">
-                                              <input type="text" name="isyaTo" id="isya_sampai" class="timepicker form-control" placeholder="Sampai" value="21:00">
+                                              <input type="text" name="isyaTo" id="isya_sampai" class="timepicker form-control" placeholder="Sampai" value="21:45">
                                           </div>
                                         </div>
                                       </div>
@@ -94,8 +94,10 @@
         $isyaFrom = $_POST['isyaFrom'];
         $isyaTo = $_POST['isyaTo'];
 
-        updateTimeSetup($from, $to, $shubuhFrom, $shubuhTo, $dzuhurFrom, $dzuhurTo, $asharFrom, $asharTo, $maghribFrom, $maghribTo, $isyaFrom, $isyaTo);
-        importShalat('18', $datefrom, $dateto);
+        /*updateTimeSetup($from, $to, $shubuhFrom, $shubuhTo, $dzuhurFrom, $dzuhurTo, $asharFrom, $asharTo, $maghribFrom, $maghribTo, $isyaFrom, $isyaTo);
+        importShalat('18', $datefrom, $dateto);*/
+
+        importShalat2(18, $datefrom, $dateto, $shubuhFrom, $shubuhTo, $dzuhurFrom, $dzuhurTo, $asharFrom, $asharTo, $maghribFrom, $maghribTo, $isyaFrom, $isyaTo);
 
         echo "<script>document.location='?page=shalat'</script>";
       }

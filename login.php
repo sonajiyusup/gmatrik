@@ -19,7 +19,7 @@ if(isset($_POST['login'])){
     $id = $row['id_user'];
     $_SESSION['id_user'] = $id;
 
-    mysql_query("UPDATE users SET last_login = NOW() WHERE id_user = $id");
+    mysql_query("UPDATE users SET terakhir_login = NOW() WHERE id_user = $id");
 
         if($row['level'] == 0){
         $sql_profil = mysql_query("SELECT * FROM administrator WHERE id_user=$id") or die(mysql_error());
@@ -55,16 +55,48 @@ if(isset($_POST['login'])){
         $_SESSION['rolename'] = 'Admininstrator';
         $_SESSION['username'] = $user;
         
-        }else if($row['level'] == 2){
-        $sql_profil = mysql_query("SELECT * FROM adminmatrik WHERE id_user=$id") or die(mysql_error());
+        }else if($row['level'] == 4){
+        $sql_profil = mysql_query("SELECT * FROM pimpinan WHERE id_user=$id") or die(mysql_error());
+
+          while($pimpinan = mysql_fetch_assoc($sql_profil)){
+          $ava = $pimpinan['avatar'];
+            $id_Pimpinan = $pimpinan['id_pimpinan'];
+            $nama = $pimpinan['nama'];
+            $email = $pimpinan['email'];
+            $telp = $pimpinan['telp'];
+            $gender = $pimpinan['j_kelamin'];
+            
+            echo '<script language="javascript">document.location="index.php";</script>';
+          }
+
+        if ($ava == NULL) {
+          if ($gender == 'Perempuan' || $gender == 'Akhwat'){
+            $_SESSION['ava'] ='default-female.jpg';
+          } else
+          if ($gender == 'Laki-laki' || $gender == 'Ikhwan'){
+            $_SESSION['ava'] ='default-male.png';
+          } else
+          if ($gender == NULL){
+            $_SESSION['ava'] ='default.png';
+          }
+        } else{
+          $_SESSION['ava'] = $ava;
+        } 
+
+        $_SESSION['id_Pimpinan'] = $id_Pimpinan;
+        $_SESSION['nama'] = $nama;
+        $_SESSION['role'] = 'pimpinan';
+        $_SESSION['rolename'] = 'pimpinan';
+        $_SESSION['username'] = $user;   
+           
+        }else if($row['level'] == 1){
+        $sql_profil = mysql_query("SELECT * FROM adminmatrikulasi WHERE id_user=$id") or die(mysql_error());
 
           while($adminmatrik = mysql_fetch_assoc($sql_profil)){
-          $ava = $adminmatrik['avatar'];
-            $id_AM = $adminmatrik['id_adminmatrik'];
+          // $ava = $adminmatrik['avatar'];
+            $id_AM = $adminmatrik['id_adminmatrikulasi'];
             $nama = $adminmatrik['nama'];
-            $email = $adminmatrik['email'];
-            $telp = $adminmatrik['telp'];
-          $gender = $adminmatrik['j_kelamin'];
+            $gender = $adminmatrik['gender'];
             
             echo '<script language="javascript">document.location="index.php";</script>';
           }
@@ -89,17 +121,18 @@ if(isset($_POST['login'])){
         $_SESSION['rolename'] = 'Admin Matrikulasi';
         $_SESSION['username'] = $user;   
            
-        }else if($row['level'] == 3){
+        }else if($row['level'] == 2){
 
-      $sql_profil = mysql_query("SELECT * FROM pembina WHERE id_user=$id") or die(mysql_error());
+      $sql_profil = mysql_query("SELECT * FROM pembina_mahasiswa WHERE id_user=$id") or die(mysql_error());
 
         while($pembina = mysql_fetch_assoc($sql_profil)){
-          $ava = $pembina['avatar'];
+          // $ava = $pembina['avatar'];
           $id_pembina = $pembina['id_pembina'];
           $nama = $pembina['nama'];
-          $email = $pembina['email'];
+          $gelar = $pembina['gelar'];
+          // $email = $pembina['email'];
           $telp = $pembina['telp'];
-          $gender = $pembina['j_kelamin'];
+          $gender = $pembina['gender'];
           
           echo '<script language="javascript">document.location="index.php";</script>';
         }
@@ -119,15 +152,14 @@ if(isset($_POST['login'])){
         } 
 
         $_SESSION['id_pembina'] = $id_pembina;
-        $_SESSION['nama'] = $nama;
+        $_SESSION['nama'] = $nama.' '.$gelar;
         $_SESSION['role'] = 'pembina';
         $_SESSION['rolename'] = 'Pembina Mahasiswa';
         $_SESSION['username'] = $user; 
 
-      $_SESSION['role'] = 'pembina';
       //$_SESSION['nama'] = $row['nama'];
       //echo '<script language="javascript">document.location="index.php";</script>';
-    } else if($row['level'] == 4){
+    } else if($row['level'] == 3){
 
       $sql_profil = mysql_query("SELECT * FROM mahasiswa WHERE id_user = $id") or die(mysql_error());
 
@@ -158,12 +190,51 @@ if(isset($_POST['login'])){
 
         $_SESSION['id_mahasiswa'] = $id_mahasiswa;
         $_SESSION['nama'] = $nama;
-        $_SESSION['role'] = 'pembina';
         $_SESSION['rolename'] = 'Mahasiswa';
         $_SESSION['username'] = $user; 
         $_SESSION['jKelamin'] = $gender;
+        $_SESSION['role'] = 'mahasiswa';
 
-      $_SESSION['role'] = 'mahasiswa';
+      //$_SESSION['nama'] = $row['nama'];
+      //echo '<script language="javascript">document.location="index.php";</script>';
+    } else if($row['level'] == 5){
+
+      $sql_profil = mysql_query("SELECT ot.*, m.nama AS nama_mhs FROM orang_tua ot LEFT JOIN mahasiswa m ON ot.id_mahasiswa = m.id_mahasiswa WHERE ot.id_user = $id") or die(mysql_error());
+
+        while($ortu = mysql_fetch_assoc($sql_profil)){
+          $ava = $ortu['avatar'];
+          $id_ortu = $ortu['id'];
+          $id_user = $ortu['id_user'];
+          $nama = $ortu['nama'];
+          $email = $ortu['email'];
+          $telp = $ortu['telp'];
+          $nama_mhs = $ortu['nama_mhs'];
+          
+          echo '<script language="javascript">document.location="index.php";</script>';
+        }
+
+        if ($ava == NULL) {
+          if ($gender == 'Perempuan' || $gender == 'Akhwat'){
+            $_SESSION['ava'] ='default-female.jpg';
+          } else
+          if ($gender == 'Laki-laki' || $gender == 'Ikhwan'){
+            $_SESSION['ava'] ='default-male.png';
+          } else
+          if ($gender == NULL){
+            $_SESSION['ava'] ='default.png';
+          }
+        } else{
+          $_SESSION['ava'] = $ava;
+        } 
+
+        $_SESSION['id_ortu'] = $id_ortu;
+        $_SESSION['id_user'] = $id_user;
+        $_SESSION['nama'] = $nama;
+        $_SESSION['role'] = 'orangtua';
+        $_SESSION['rolename'] = 'Orang Tua Mahasiswa';
+        $_SESSION['username'] = $user; 
+        $_SESSION['nama_mhs'] = $nama_mhs; 
+
       //$_SESSION['nama'] = $row['nama'];
       //echo '<script language="javascript">document.location="index.php";</script>';
     }
@@ -178,7 +249,7 @@ if(isset($_POST['login'])){
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>Login | Graph Matrik</title>
+    <title>Login | Matrikulasi</title>
     <!-- Favicon-->
     <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
 
@@ -205,8 +276,8 @@ if(isset($_POST['login'])){
 <body class="login-page">
     <div class="login-box">
         <div class="logo">
-            <a href="javascript:void(0);"><img src="assets/img/icon30.png">&nbsp;<b>Graph</b>Matrik</a>
-            <small>Sistem Informasi Monitoring Matrikulasi Mahasiswa STEI Tazkia</small>
+            <a href="javascript:void(0);"><img src="assets/img/icon30.png">&nbsp;<b>STEI</b>Tazkia</a>
+            <small>Sistem Informasi Pengelolaan Matrikulasi Program Pembinaan</small>
         </div>
         <div class="card">
             <div class="body">

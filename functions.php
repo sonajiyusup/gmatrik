@@ -1,7 +1,8 @@
 <?php 
 
 	mysql_connect("localhost", "root", "");
-	mysql_select_db("simon");
+	mysql_select_db("gmatrik");
+	// mysql_select_db("simon");
 
 	function tambahUser($nama, $j_kelamin, $level, $user){
 
@@ -56,7 +57,8 @@
 	}
 
 	function tampilPembina(){
-		$ambildata = mysql_query("SELECT p.*, COUNT(mb.id_mahasiswa) AS 'jml_binaan', u.* FROM pembina p LEFT JOIN m_binaan mb ON p.id_pembina = mb.id_pembina LEFT JOIN users u ON p.id_user = u.id_user GROUP BY p.nama ORDER BY p.nama") or die(mysql_error());
+		// $ambildata = mysql_query("SELECT p.*, COUNT(mb.id_mahasiswa) AS 'jml_binaan', u.* FROM pembina p LEFT JOIN m_binaan mb ON p.id_pembina = mb.id_pembina LEFT JOIN users u ON p.id_user = u.id_user GROUP BY p.nama ORDER BY p.nama") or die(mysql_error());
+		$ambildata = mysql_query("SELECT p.* FROM pembina_mahasiswa p ORDER BY p.nama") or die(mysql_error());
 		if (mysql_num_rows($ambildata) > 0) {
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
@@ -67,7 +69,7 @@
 	}
 
 	function tampilUsers(){
-		$ambildata = mysql_query("SELECT * FROM users ORDER BY level") or die(mysql_error());
+		$ambildata = mysql_query("SELECT * FROM users ORDER BY id_user") or die(mysql_error());
 		if (mysql_num_rows($ambildata) > 0) {
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
@@ -78,7 +80,7 @@
 	}	
 
 	function tampilJplg(){
-		$ambildata = mysql_query("SELECT jp.id_periode, jp.tanggal, jp.j_kelamin, GROUP_CONCAT(jp.wkt_shalat SEPARATOR ',') AS wkt, COUNT(jp.wkt_shalat) AS jws FROM j_pulang2 jp GROUP BY jp.tanggal") or die(mysql_error());
+		$ambildata = mysql_query("SELECT jp.id_pekan, sp.tanggal_dari, sp.tanggal_sampai, jp.j_kelamin, COUNT(jp.wkt_shalat) AS jws FROM j_pulang2 jp LEFT JOIN shalat_periode sp ON jp.id_periode = sp.id_periode GROUP BY jp.id_periode ORDER BY jp.id_periode DESC") or die(mysql_error());
 		if (mysql_num_rows($ambildata) > 0) {
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
@@ -100,7 +102,8 @@
 	}	
 
 	function tampilMahasiswa(){
-		$ambildata = mysql_query("SELECT mahasiswa.*, users.* FROM users INNER JOIN mahasiswa ON mahasiswa.id_user = users.id_user ORDER BY nama") or die(mysql_error());
+		// $ambildata = mysql_query("SELECT mahasiswa.*, users.* FROM users INNER JOIN mahasiswa ON mahasiswa.id_user = users.id_user ORDER BY nama") or die(mysql_error());
+		$ambildata = mysql_query("SELECT m.*, p.nama AS namapembina, p.gelar FROM mahasiswa m LEFT JOIN pembina_mahasiswa p ON m.id_pembina = p.id_pembina ORDER BY nama") or die(mysql_error());
 		if (mysql_num_rows($ambildata) > 0) {
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
@@ -158,7 +161,7 @@
 	}
 
 	function tampilPimpinan(){
-		$ambildata = mysql_query("SELECT pimpinan.*, users.* FROM users INNER JOIN pimpinan ON pimpinan.id_user = users.id_user ORDER BY nama") or die(mysql_error());
+		$ambildata = mysql_query("SELECT p.* FROM pimpinan p ORDER BY p.nama") or die(mysql_error());
 		if (mysql_num_rows($ambildata) > 0) {
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
@@ -216,161 +219,6 @@
 		mysql_query("INSERT INTO pbentuk(nama_bentuk) VALUES ('$nama_bentuk'); ");
 	}
 
-	function tambahPaksi($idPbentuk, $namaAksi){
-		mysql_query("INSERT INTO paksi(id_pbentuk, nama_aksi) VALUES ('$idPbentuk', '$namaAksi'); ");
-	}
-
-	function tampilPaksi(){
-		$ambildata = mysql_query("SELECT pa.id_paksi, pa.nama_aksi, COUNT(pm.id_paksi) AS jumlah FROM paksi pa LEFT JOIN pmain pm ON pa.id_paksi = pm.id_paksi GROUP BY pa.nama_aksi ORDER BY jumlah DESC") or die(mysql_error());
-		if (mysql_num_rows($ambildata) > 0) {
-			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
-				$data[] = $ad;
-				return $data;
-		} else{
-			echo "Aksi pelanggaran belum ditambahkan";
-		}
-	}	
-
-	function tampilPaksiByPembina($idPembina){
-		$ambildata = mysql_query("SELECT pa.id_paksi, pa.nama_aksi, COUNT(pmb.id_paksi) AS jumlah FROM paksi pa LEFT JOIN ( SELECT b.id_pembina, pa.id_paksi FROM pmain pm LEFT JOIN paksi pa ON pm.id_paksi = pa.id_paksi LEFT JOIN ( SELECT p.id_pembina, p.id_user AS uid_pembina, p.nama AS namap, mb.id_mhsbinaan FROM m_binaan mb LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina ) b ON pm.id_mhsbinaan = b.id_mhsbinaan WHERE b.id_pembina = $idPembina ) pmb ON pa.id_paksi = pmb.id_paksi GROUP BY pa.nama_aksi ORDER BY jumlah DESC, pa.id_paksi") or die(mysql_error());
-		if (mysql_num_rows($ambildata) > 0) {
-			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
-				$data[] = $ad;
-				return $data;
-		} else{
-			echo "Bentuk pelanggaran belum ditambahkan";
-		}
-	}		
-
-	function tampilPsanksi(){
-		$ambildata = mysql_query("SELECT ps.id_psanksi, ps.nama_sanksi, ps.bobot ,COUNT(pm.id_psanksi) AS jumlah FROM psanksi ps LEFT JOIN pmain pm ON ps.id_psanksi = pm.id_psanksi GROUP BY ps.nama_sanksi ORDER BY jumlah DESC") or die(mysql_error());
-		if (mysql_num_rows($ambildata) > 0) {
-			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
-				$data[] = $ad;
-				return $data;
-		} else{
-			echo "Sanksi belum ditambahkan";
-		}
-	}		
-
-	function tampilPsanksiByPembina($idPembina){
-		$ambildata = mysql_query("SELECT ps.id_psanksi, ps.nama_sanksi, ps.bobot, COUNT(pmb.id_psanksi) AS jumlah FROM psanksi ps LEFT JOIN ( SELECT b.id_pembina, ps.id_psanksi FROM pmain pm LEFT JOIN psanksi ps ON pm.id_psanksi = ps.id_psanksi LEFT JOIN ( SELECT p.id_pembina, p.id_user AS uid_pembina, p.nama AS namap, mb.id_mhsbinaan FROM m_binaan mb LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina ) b ON pm.id_mhsbinaan = b.id_mhsbinaan WHERE b.id_pembina = $idPembina ) pmb ON ps.id_psanksi = pmb.id_psanksi GROUP BY ps.nama_sanksi ORDER BY jumlah DESC, ps.id_psanksi") or die(mysql_error());
-		if (mysql_num_rows($ambildata) > 0) {
-			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
-				$data[] = $ad;
-				return $data;
-		} else{
-			echo "Bentuk pelanggaran belum ditambahkan";
-		}
-	}	
-
-	function tampilPlanjut(){
-		$ambildata = mysql_query("SELECT pl.id_planjut, pl.level, pl.nama_tindaklanjut, ps.nama_sanksi, COUNT(pm.id_planjut) AS jumlah FROM planjut pl LEFT JOIN pmain pm ON pl.id_planjut = pm.id_planjut LEFT JOIN psanksi ps ON pl.id_psanksi = ps.id_psanksi GROUP BY pl.nama_tindaklanjut ORDER BY level") or die(mysql_error());
-		if (mysql_num_rows($ambildata) > 0) {
-			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
-				$data[] = $ad;
-				return $data;
-		} else{
-			echo "Sanksi belum ditambahkan";
-		}
-	}	
-
-	function tampilPlanjutByPembina($idPembina){
-		$ambildata = mysql_query("SELECT pl.id_planjut, pl.nama_tindaklanjut, pl.level, COUNT(pmb.id_planjut) AS jumlah FROM planjut pl LEFT JOIN ( SELECT b.id_pembina, pl.id_planjut FROM pmain pm LEFT JOIN planjut pl ON pm.id_planjut = pl.id_planjut LEFT JOIN ( SELECT p.id_pembina, p.id_user AS uid_pembina, p.nama AS namap, mb.id_mhsbinaan FROM m_binaan mb LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina ) b ON pm.id_mhsbinaan = b.id_mhsbinaan WHERE b.id_pembina = $idPembina ) pmb ON pl.id_planjut = pmb.id_planjut GROUP BY pl.nama_tindaklanjut ORDER BY pl.level") or die(mysql_error());
-		if (mysql_num_rows($ambildata) > 0) {
-			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
-				$data[] = $ad;
-				return $data;
-		} else{
-			echo "Bentuk pelanggaran belum ditambahkan";
-		}
-	}		
-
-	function tampilPikhtisar(){
-		$ambildata = mysql_query("SELECT id_pelanggaran, b.id_mahasiswa, b.namamhs, nama_bentuk, nama_aksi, nama_sanksi, nama_tindaklanjut, deskripsi, tanggal FROM pmain pm LEFT JOIN pbentuk pb ON pm.id_pbentuk = pb.id_pbentuk LEFT JOIN paksi pa ON pm.id_paksi = pa.id_paksi LEFT JOIN psanksi ps ON pm.id_psanksi = ps.id_psanksi LEFT JOIN planjut pl ON pm.id_planjut = pl.id_planjut LEFT JOIN( SELECT m.id_mahasiswa, m.nama AS namamhs, mb.id_mhsbinaan FROM m_binaan mb LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa ) b ON pm.id_mhsbinaan = b.id_mhsbinaan") or die(mysql_error());
-
-			if (mysql_num_rows($ambildata) > 0) {
-				while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
-					$data[] = $ad;
-					return $data;
-			} else{
-				echo "Data pelanggaran masih kosong";
-			}
-	}	
-
-	function tampilPikhtisarByPembina($idPembina){
-		$ambildata = mysql_query("SELECT id_pelanggaran, b.id_mahasiswa, b.namamhs, nama_bentuk, nama_aksi, nama_sanksi, nama_tindaklanjut, deskripsi, tanggal FROM pmain pm LEFT JOIN pbentuk pb ON pm.id_pbentuk = pb.id_pbentuk LEFT JOIN paksi pa ON pm.id_paksi = pa.id_paksi LEFT JOIN psanksi ps ON pm.id_psanksi = ps.id_psanksi LEFT JOIN planjut pl ON pm.id_planjut = pl.id_planjut LEFT JOIN ( SELECT m.id_mahasiswa, mb.id_pembina, m.nama AS namamhs, mb.id_mhsbinaan FROM m_binaan mb LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa ) b ON pm.id_mhsbinaan = b.id_mhsbinaan WHERE b.id_pembina = $idPembina") or die(mysql_error());
-		
-			if (mysql_num_rows($ambildata) > 0) {
-				while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
-					$data[] = $ad;
-					return $data;
-			} else{
-				echo "Data pelanggaran masih kosong";
-			}
-	}	
-
-	function pDetailById($kategori, $id){
-
-		$sql = "SELECT id_pelanggaran, b.uid_pembina, b.id_pembina, b.namap, uid_mhs, b.nim, b.id_mahasiswa, b.namamhs, pb.id_pbentuk, nama_bentuk, pa.id_paksi, nama_aksi, ps.id_psanksi, nama_sanksi, pl.id_planjut, nama_tindaklanjut, deskripsi, tanggal FROM pmain pm LEFT JOIN pbentuk pb ON pm.id_pbentuk = pb.id_pbentuk LEFT JOIN paksi pa ON pm.id_paksi = pa.id_paksi LEFT JOIN psanksi ps ON pm.id_psanksi = ps.id_psanksi LEFT JOIN planjut pl ON pm.id_planjut = pl.id_planjut LEFT JOIN( SELECT p.id_pembina, p.id_user AS uid_pembina, p.nama AS namap, m.id_user AS uid_mhs, m.nim, m.id_mahasiswa, m.nama AS namamhs, mb.id_mhsbinaan FROM m_binaan mb LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa ) b ON pm.id_mhsbinaan = b.id_mhsbinaan";
-
-		if ($kategori == 'ikhtisar') {
-			$ambildata = mysql_query($sql." WHERE id_pelanggaran = $id") or die(mysql_error());
-		} else
-		if($kategori == 'pbentuk'){
-			$ambildata = mysql_query($sql." WHERE pb.id_pbentuk = $id") or die(mysql_error());
-		} else
-		if($kategori == 'paksi'){
-			$ambildata = mysql_query($sql." WHERE pa.id_paksi = $id") or die(mysql_error());
-		} else
-		if($kategori == 'psanksi'){
-			$ambildata = mysql_query($sql." WHERE ps.id_psanksi = $id") or die(mysql_error());
-		} else
-		if($kategori == 'planjut'){
-			$ambildata = mysql_query($sql." WHERE pl.id_planjut = $id") or die(mysql_error());
-		}
-		
-		if (mysql_num_rows($ambildata) > 0) {
-			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
-				$data[] = $ad;
-				return $data;
-		} else{
-			echo "Data pelanggaran masih kosong";
-		}
-	}
-
-	function pDetailByIdPembina($kategori, $id, $idPembina){
-
-		$sql = "SELECT id_pelanggaran, b.uid_pembina, b.id_pembina, b.namap, uid_mhs, b.nim, b.id_mahasiswa, b.namamhs, pb.id_pbentuk, nama_bentuk, pa.id_paksi, nama_aksi, ps.id_psanksi, nama_sanksi, pl.id_planjut, nama_tindaklanjut, deskripsi, tanggal FROM pmain pm LEFT JOIN pbentuk pb ON pm.id_pbentuk = pb.id_pbentuk LEFT JOIN paksi pa ON pm.id_paksi = pa.id_paksi LEFT JOIN psanksi ps ON pm.id_psanksi = ps.id_psanksi LEFT JOIN planjut pl ON pm.id_planjut = pl.id_planjut LEFT JOIN( SELECT p.id_pembina, p.id_user AS uid_pembina, p.nama AS namap, m.id_user AS uid_mhs, m.nim, m.id_mahasiswa, m.nama AS namamhs, mb.id_mhsbinaan FROM m_binaan mb LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa ) b ON pm.id_mhsbinaan = b.id_mhsbinaan";
-
-		if ($kategori == 'ikhtisar') {
-			$ambildata = mysql_query($sql." WHERE id_pelanggaran = $id AND b.id_pembina = $idPembina") or die(mysql_error());
-		} else
-		if($kategori == 'pbentuk'){
-			$ambildata = mysql_query($sql." WHERE pb.id_pbentuk = $id AND b.id_pembina = $idPembina") or die(mysql_error());
-		} else
-		if($kategori == 'paksi'){
-			$ambildata = mysql_query($sql." WHERE pa.id_paksi = $id AND b.id_pembina = $idPembina") or die(mysql_error());
-		} else
-		if($kategori == 'psanksi'){
-			$ambildata = mysql_query($sql." WHERE ps.id_psanksi = $id AND b.id_pembina = $idPembina") or die(mysql_error());
-		} else
-		if($kategori == 'planjut'){
-			$ambildata = mysql_query($sql." WHERE pl.id_planjut = $id AND b.id_pembina = $idPembina") or die(mysql_error());
-		}
-		
-		if (mysql_num_rows($ambildata) > 0) {
-			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
-				$data[] = $ad;
-				return $data;
-		} else{
-			echo "<div class='alert alert-danger alert-dismissibl' role='alert'>
-							<button type='button' class='close' data-dismiss='alert' aria-label='Close'></button>
-							Maaf, Kami tidak bisa memproses request anda...
-						</div>";
-		}
-	}
-
 	function tampilSesuatu($table, $column, $row, $id){
 		$ambildata = mysql_query("SELECT $column FROM $table WHERE $row = $id");
 		$data = mysql_fetch_assoc($ambildata);
@@ -388,19 +236,29 @@
 		}		
 	}	
 
-	function pembinaDetails($idUser){
-		$ambildata = mysql_query("SELECT p.*, u.*, COUNT(mb.id_mahasiswa) AS 'jml_binaan' FROM pembina p LEFT JOIN users u ON p.id_user = u.id_user LEFT JOIN m_binaan mb ON p.id_pembina = mb.id_pembina WHERE u.id_user = $idUser GROUP BY p.nama");
+	function pembinaDetails($idPembina){
+		// $ambildata = mysql_query("SELECT p.*, u.*, COUNT(mb.id_mahasiswa) AS 'jml_binaan' FROM pembina p LEFT JOIN users u ON p.id_user = u.id_user LEFT JOIN m_binaan mb ON p.id_pembina = mb.id_pembina WHERE u.id_user = $idUser GROUP BY p.nama");
+		$ambildata = mysql_query("SELECT p.* FROM pembina_mahasiswa p WHERE p.id_pembina = $idPembina");
 			$ad = mysql_fetch_assoc($ambildata);
 				$data[] = $ad;
 				return $data;
 	}
 
-	function mahasiswaDetails($idUser){
-		$ambildata = mysql_query("SELECT m.*, u.*, p.id_pembina, p.nama AS nama_pembina, p.gelar, p.id_user AS uid_pembina , p.j_kelamin AS jk_pembina, p.avatar AS ava_pembina FROM mahasiswa m LEFT JOIN m_binaan mb ON m.id_mahasiswa = mb.id_mahasiswa LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina LEFT JOIN users u ON m.id_user = u.id_user WHERE m.id_user = $idUser");
+	function mahasiswaDetails($nim){
+		// $ambildata = mysql_query("SELECT m.*, u.*, p.id_pembina, p.nama AS nama_pembina, p.gelar, p.id_user AS uid_pembina , p.j_kelamin AS jk_pembina, p.avatar AS ava_pembina, ot.id_user AS uid_ortu, ot.id, ot.nama AS nama_ortu FROM mahasiswa m LEFT JOIN m_binaan mb ON m.id_mahasiswa = mb.id_mahasiswa LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina LEFT JOIN users u ON m.id_user = u.id_user LEFT JOIN orang_tua ot ON m.id_mahasiswa = ot.id_mahasiswa WHERE m.id_user = $idUser");
+
+		$ambildata = mysql_query("SELECT m.*, p.id_pembina, p.nama AS namapembina FROM mahasiswa m LEFT JOIN pembina_mahasiswa p ON m.id_pembina = p.id_pembina WHERE m.nim = $nim ");
 			$ad = mysql_fetch_assoc($ambildata);
 				$data[] = $ad;
 				return $data;
 	}	
+
+	function pimpinanDetails($idPimpinan){
+		$ambildata = mysql_query("SELECT pi.* FROM pimpinan pi WHERE pi.id_pimpinan = $idPimpinan ");
+			$ad = mysql_fetch_assoc($ambildata);
+				$data[] = $ad;
+				return $data;
+	}		
 
 	function namaPembinaById($idPembina){
 	    $ambildata = mysql_query("SELECT p.id_pembina, p.nama AS nama, p.gelar FROM pembina p WHERE p.id_pembina = $idPembina");
@@ -420,6 +278,11 @@
 		mysql_query("DELETE FROM users WHERE id_user = $idUser");
 	}
 
+	function hapusOrtuMahasiswa($idOrtu, $idUser){
+		mysql_query("DELETE FROM orang_tua WHERE id = $idOrtu");
+		mysql_query("DELETE FROM users WHERE id_user = $idUser");
+	}	
+
 	function hapusMahasiswa($idMahasiswa, $idUser){
 		mysql_query("DELETE FROM mahasiswa WHERE id_mahasiswa = $idMahasiswa");
 		mysql_query("DELETE FROM users WHERE id_user = $idUser");
@@ -430,22 +293,47 @@
 		mysql_query("UPDATE mahasiswa SET j_kelamin = NULL WHERE id_mahasiswa = $idMahasiswa");
 	}
 
-	function editPembina($idUser, $nama, $j_kelamin, $tgl_lahir, $gelar, $asalkota, $email, $telp){
-		mysql_query("UPDATE pembina SET nama = '$nama', j_kelamin = '$j_kelamin', tgl_lahir = '$tgl_lahir', gelar = '$gelar', asalkota = '$asalkota', email = '$email', telp = '$telp' WHERE id_user = $idUser ");
+	function hapusUdzurShalat($idUdzur){
+		mysql_query("DELETE FROM shalat_udzur2 WHERE id_udzur = $idUdzur");
+	}			
+
+	function hapusShalatManual($idManual){
+		mysql_query("DELETE FROM shalat_manual WHERE id_manual = $idManual");
+	}			
+
+	function hapusjplgDetail($tgl, $wkt, $jKelamin){
+		$tgl_ = date('Y-m-d', strtotime($tgl));
+		mysql_query("DELETE FROM j_pulang2 WHERE tanggal = '$tgl_' AND wkt_shalat = '$wkt' AND j_kelamin = '$jKelamin'");
+	}		
+
+	function hapusUdzurTahsin($id){
+		mysql_query("DELETE FROM tahsin_udzur WHERE id = $id");
+	}			
+
+	function hapusSetorHafalan($id){
+		mysql_query("DELETE FROM setor_hafalan WHERE id = $id") or die(mysql_error());
+	}		
+
+	function editPembina($idPembina, $nama, $gelar, $gender, $kotaasal, $telepon){
+		mysql_query("UPDATE pembina_mahasiswa SET nama = '$nama', gelar = '$gelar', gender = '$gender', kota_asal = '$kotaasal', telepon = '$telepon' WHERE id_pembina = $idPembina ");
 	}
 
-	function editMahasiswa($idUser, $nama, $j_kelamin, $tgl_lahir, $asalkota, $email, $telp){
-		mysql_query("UPDATE mahasiswa SET nama = '$nama', j_kelamin = '$j_kelamin', tgl_lahir = '$tgl_lahir', asalkota = '$asalkota', email = '$email', telp = '$telp' WHERE id_user = $idUser ");
+	function editMahasiswa($nim, $nama, $angkatan, $gender, $idPembina, $kotaasal, $telepon, $aktif){
+		mysql_query("UPDATE mahasiswa SET id_pembina = $idPembina, nama = '$nama', angkatan = '$angkatan', gender = '$gender', kota_asal = '$kotaasal', telepon = '$telepon', aktif = '$aktif' WHERE nim = $nim ");
+	}	
+
+	function editPimpinan($idPimpinan, $nama, $gender, $jabatan){
+		mysql_query("UPDATE pimpinan SET nama = '$nama', gender = '$gender', jabatan = '$jabatan' WHERE id_pimpinan = $idPimpinan ");
 	}	
 
 	function totalPembina(){
-		$ambildata = mysql_query("SELECT COUNT(id_pembina) as Total from pembina");
+		$ambildata = mysql_query("SELECT COUNT(id_pembina) as Total from pembina_mahasiswa");
 		$data = mysql_fetch_assoc($ambildata);
 		return $data;
 	}
 
 	function totalMahasiswa(){
-		$ambildata = mysql_query("SELECT COUNT(id_mahasiswa) as Total from mahasiswa");
+		$ambildata = mysql_query("SELECT COUNT(nim) as Total from mahasiswa");
 		$data = mysql_fetch_assoc($ambildata);
 		return $data;
 	}	
@@ -469,7 +357,7 @@
 	}
 
 	function totalBinaanByPembina($idPembina){
-		$ambildata = mysql_query("SELECT COUNT(mb.id_mahasiswa) AS 'jml_binaan' FROM pembina p LEFT JOIN m_binaan mb ON p.id_pembina = mb.id_pembina WHERE p.id_pembina = $idPembina");
+		$ambildata = mysql_query("SELECT COUNT(m.nim) AS 'jml_binaan' FROM mahasiswa m WHERE m.id_pembina = $idPembina GROUP BY m.id_pembina");
 		$data = mysql_fetch_assoc($ambildata);
 		return $data;		
 	}
@@ -535,7 +423,7 @@
 	function importMahasiswa($angkatan){
 		$koneksi_mdb = odbc_connect( 'att2000', "", "");
 		
-		$sql = "SELECT USERID,Badgenumber,Name FROM USERINFO WHERE Badgenumber LIKE '$angkatan%' AND Name NOT LIKE '$angkatan%'";
+		$sql = "SELECT USERID,Badgenumber,Name FROM USERINFO WHERE Badgenumber LIKE '$angkatan%' AND Name NOT LIKE '$angkatan%' ORDER BY Name";
 		$result = odbc_exec($koneksi_mdb, $sql);
 
 		while($row_mdb = odbc_fetch_array($result)){
@@ -546,7 +434,7 @@
 			$_randpass = mysql_real_escape_string($randpass);
 
 			//if(strpos($row_mdb['Name'], $row_mdb['Badgenumber']) === FALSE){
-				$mysql_insert_usr = "INSERT INTO users(username, password, password_default, level) VALUES ('".$row_mdb['Badgenumber']."', '$_randpass', '1', '4')";
+				$mysql_insert_usr = "INSERT INTO users(username, password, password_default, level) VALUES ('".$row_mdb['Badgenumber']."', '$_randpass', '1', '3')";
 				mysql_query($mysql_insert_usr);
 
 				$sql = mysql_query("SELECT id_user FROM users WHERE username='".$row_mdb['Badgenumber']."'") or die(mysql_error());
@@ -556,12 +444,68 @@
 				$name = mysql_real_escape_string($row_mdb['Name']);
 				$lname = strtolower($name);
 
-				$mysql_insert_mhs = "INSERT INTO mahasiswa (id_mahasiswa, nim, nama, id_user) VALUES ('".$row_mdb['USERID']."', '".$row_mdb['Badgenumber']."', '".ucwords($lname)."', '$id_user')";
+				$mysql_insert_mhs = "INSERT INTO mahasiswa (nim, id_user, nama, angkatan, aktif) VALUES ('".$row_mdb['Badgenumber']."', '".$id_user."', '".ucwords($lname)."', '18', '1')";
 				mysql_query($mysql_insert_mhs);
 				//echo $row_mdb['Name']." Berhasil diinput <br>";
 			//}
 		}
 	}
+
+	function tambahMahasiswa($nim, $idPembina, $nama, $gender, $angkatan, $kotaasal, $telepon){
+
+			/*$namaTanpaSpasi = str_replace(' ', '', $row_mdb['Name']);
+			$pass = $namaTanpaSpasi.(substr($row_mdb['Badgenumber'], -5));*/
+			$randpass = substr(str_shuffle(str_repeat("0123456789aAbBcCdDeEfFgGhHiIjJ0123456789kKlLmMnNoOpPqQrRsStT0123456789uUvVwWxXyYzZ", 10)), 0, 10);
+			$_randpass = mysql_real_escape_string($randpass);
+
+			//if(strpos($row_mdb['Name'], $row_mdb['Badgenumber']) === FALSE){
+				$mysql_insert_usr = "INSERT INTO users(username, password, password_default, level) VALUES ('$nim', '$_randpass', '1', '3')";
+				mysql_query($mysql_insert_usr);
+
+				$sql = mysql_query("SELECT id_user FROM users WHERE username='$nim'") or die(mysql_error());
+				$row = mysql_fetch_assoc($sql);
+				$id_user = $row['id_user'];
+
+				$mysql_insert_mhs = "INSERT INTO mahasiswa (nim, id_user, id_pembina, nama, gender, angkatan, kota_asal, telepon, aktif) VALUES ('$nim', '".$id_user."', '$idPembina', '$nama', '$gender', '$angkatan', '$kotaasal', '$telepon', 1)";
+				mysql_query($mysql_insert_mhs);
+				//echo $row_mdb['Name']." Berhasil diinput <br>";
+			//}
+
+	}
+
+
+	function tambahPembinaNew($nama, $gelar, $gender, $kotaasal, $telepon, $username){
+			$randpass = substr(str_shuffle(str_repeat("0123456789aAbBcCdDeEfFgGhHiIjJ0123456789kKlLmMnNoOpPqQrRsStT0123456789uUvVwWxXyYzZ", 10)), 0, 10);
+			$_randpass = mysql_real_escape_string($randpass);
+
+		
+				$mysql_insert_usr = "INSERT INTO users(username, password, password_default, level) VALUES ('$username', '$_randpass', '1', '2')";
+				mysql_query($mysql_insert_usr);
+
+				$sql = mysql_query("SELECT id_user FROM users WHERE username='$username'") or die(mysql_error());
+				$row = mysql_fetch_assoc($sql);
+				$id_user = $row['id_user'];
+
+				$mysql_insert_pembina = "INSERT INTO pembina_mahasiswa (id_user, nama, gelar, gender, kota_asal, telepon) VALUES ('".$id_user."', '$nama', '$gelar', '$gender', '$kotaasal', '$telepon')";
+				mysql_query($mysql_insert_pembina);
+	}	
+
+
+	function tambahPimpinan($username, $nama, $gender, $jabatan){
+			$randpass = substr(str_shuffle(str_repeat("0123456789aAbBcCdDeEfFgGhHiIjJ0123456789kKlLmMnNoOpPqQrRsStT0123456789uUvVwWxXyYzZ", 10)), 0, 10);
+			$_randpass = mysql_real_escape_string($randpass);
+
+		
+				$mysql_insert_usr = "INSERT INTO users(username, password, password_default, level) VALUES ('$username', '$_randpass', '1', '2')";
+				mysql_query($mysql_insert_usr);
+
+				$sql = mysql_query("SELECT id_user FROM users WHERE username='$username'") or die(mysql_error());
+				$row = mysql_fetch_assoc($sql);
+				$id_user = $row['id_user'];
+
+				$mysql_insert_pembina = "INSERT INTO pimpinan (id_user, nama, gender, jabatan) VALUES ('".$id_user."', '$nama', '$gender', '$jabatan')";
+				mysql_query($mysql_insert_pembina);
+	}		
 
 	function importShalat($angkatan, $from, $to){
 
@@ -588,6 +532,63 @@
 			//mysql_query("INSERT INTO shalat (id_mahasiswa, tanggal, wkt_tapping, wkt_shalat) VALUES ('$angkatan', '$to', '$from');");
 		}
 	}
+
+
+	// Untuk testing struktur table shalat baru
+	function importShalat2($angkatan, $from, $to, $_shubuhFrom, $_shubuhTo, $_dzuhurFrom, $_dzuhurTo, $_asharFrom, $_asharTo, $_maghribFrom, $_maghribTo, $_isyaFrom, $_isyaTo){
+
+		$from_ = date('Y-m-d', strtotime($from));
+		$to_ = date('Y-m-d', strtotime($to));
+
+		$shubuhFrom = date('H.i.s', strtotime($_shubuhFrom));
+		$shubuhTo = date('H.i.s', strtotime($_shubuhTo));
+		$dzuhurFrom = date('H.i.s', strtotime($_dzuhurFrom));
+		$dzuhurTo = date('H.i.s', strtotime($_dzuhurTo));
+		$asharFrom = date('H.i.s', strtotime($_asharFrom));
+		$asharTo = date('H.i.s', strtotime($_asharTo));
+		$maghribFrom = date('H.i.s', strtotime($_maghribFrom));
+		$maghribTo = date('H.i.s', strtotime($_maghribTo));
+		$isyaFrom = date('H.i.s', strtotime($_isyaFrom));
+		$isyaTo = date('H.i.s', strtotime($_isyaTo));		
+
+		// Periode shalat table
+		// mysql_query("INSERT INTO shalat_periode (tanggal_dari, tanggal_sampai) VALUES ('$from_','$to_')");
+
+		$koneksi_mdb = odbc_connect( 'att2000', "", "");
+		
+		// $sql = "SELECT t.userid AS id_mahasiswa, Format(t.tanggal, 'yyyy-mm-dd') AS tgl, Format(TimeValue(Min(t.CHECKTIME))) As shubuh, Format(TimeValue(Min(d.CHECKTIME))) As dzuhur, Format(TimeValue(Min(a.CHECKTIME))) As ashar, Format(TimeValue(Min(m.CHECKTIME))) As maghrib, Format(TimeValue(Min(i.CHECKTIME))) As isya FROM (((( SELECT Format(DateValue(CHECKTIME)) As tanggal, Format(TimeValue(CHECKTIME)) As tapping, ua.userid, ua.Badgenumber, CHECKTIME FROM CHECKINOUT ca LEFT JOIN USERINFO ua ON ca.userid = ua.userid WHERE (Format(DateValue(ca.CHECKTIME), 'yyyy-mm-dd') BETWEEN '$from_' AND '$to_') AND (Format(TimeValue(ca.CHECKTIME)) BETWEEN '$shubuhFrom' AND '$shubuhTo') AND (ua.Badgenumber LIKE '$angkatan%') )t LEFT JOIN ( SELECT Format(DateValue(CHECKTIME)) As tanggal, Format(TimeValue(CHECKTIME)) As tapping, ub.userid, ub.Badgenumber, CHECKTIME FROM CHECKINOUT cb LEFT JOIN USERINFO ub ON cb.userid = ub.userid WHERE (Format(DateValue(cb.CHECKTIME), 'yyyy-mm-dd') BETWEEN '$from_' AND '$to_') AND (Format(TimeValue(cb.CHECKTIME)) BETWEEN '$dzuhurFrom' AND '$dzuhurTo') AND (ub.Badgenumber LIKE '$angkatan%') )d ON (t.userid = d.userid) AND (t.tanggal = d.tanggal)) LEFT JOIN ( SELECT Format(DateValue(CHECKTIME)) As tanggal, Format(TimeValue(CHECKTIME)) As tapping, uc.userid, uc.Badgenumber, CHECKTIME FROM CHECKINOUT cc LEFT JOIN USERINFO uc ON cc.userid = uc.userid WHERE (Format(DateValue(cc.CHECKTIME), 'yyyy-mm-dd') BETWEEN '$from_' AND '$to_') AND (Format(TimeValue(cc.CHECKTIME)) BETWEEN '$asharFrom' AND '$asharTo') AND (uc.Badgenumber LIKE '$angkatan%') )a ON (t.userid = a.userid) AND (t.tanggal = a.tanggal)) LEFT JOIN ( SELECT Format(DateValue(CHECKTIME)) As tanggal, Format(TimeValue(CHECKTIME)) As tapping, ud.userid, ud.Badgenumber, CHECKTIME FROM CHECKINOUT cd LEFT JOIN USERINFO ud ON cd.userid = ud.userid WHERE (Format(DateValue(cd.CHECKTIME), 'yyyy-mm-dd') BETWEEN '$from_' AND '$to_') AND (Format(TimeValue(cd.CHECKTIME)) BETWEEN '$maghribFrom' AND '$maghribTo') AND (ud.Badgenumber LIKE '$angkatan%') )m ON (t.userid = m.userid) AND (t.tanggal = m.tanggal)) LEFT JOIN ( SELECT Format(DateValue(CHECKTIME)) As tanggal, Format(TimeValue(CHECKTIME)) As tapping, ue.userid, ue.Badgenumber, CHECKTIME FROM CHECKINOUT ce LEFT JOIN USERINFO ue ON ce.userid = ue.userid WHERE (Format(DateValue(ce.CHECKTIME), 'yyyy-mm-dd') BETWEEN '$from_' AND '$to_') AND (Format(TimeValue(ce.CHECKTIME)) BETWEEN '$isyaFrom' AND '$isyaTo') AND (ue.Badgenumber LIKE '$angkatan%') )i ON (t.userid = i.userid) AND (t.tanggal = i.tanggal) GROUP BY t.userid, t.tanggal, ua.Badgenumber ORDER BY t.userid, t.tanggal";
+
+		$sql = "SELECT t.Badgenumber AS nim, Format(t.tanggal, 'yyyy-mm-dd') AS tgl, Format(TimeValue(Min(t.CHECKTIME))) As shubuh, Format(TimeValue(Min(d.CHECKTIME))) As dzuhur, Format(TimeValue(Min(a.CHECKTIME))) As ashar, Format(TimeValue(Min(m.CHECKTIME))) As maghrib, Format(TimeValue(Min(i.CHECKTIME))) As isya FROM (((( SELECT Format(DateValue(CHECKTIME)) As tanggal, Format(TimeValue(CHECKTIME)) As tapping, ua.userid, ua.Badgenumber, CHECKTIME FROM CHECKINOUT ca LEFT JOIN USERINFO ua ON ca.userid = ua.userid WHERE (Format(DateValue(ca.CHECKTIME), 'yyyy-mm-dd') BETWEEN '$from' AND '$to') AND (Format(TimeValue(ca.CHECKTIME)) BETWEEN '$shubuhFrom' AND '$shubuhTo') AND (ua.Badgenumber LIKE '$angkatan%') )t LEFT JOIN ( SELECT Format(DateValue(CHECKTIME)) As tanggal, Format(TimeValue(CHECKTIME)) As tapping, ub.userid, ub.Badgenumber, CHECKTIME FROM CHECKINOUT cb LEFT JOIN USERINFO ub ON cb.userid = ub.userid WHERE (Format(DateValue(cb.CHECKTIME), 'yyyy-mm-dd') BETWEEN '$from' AND '$to') AND (Format(TimeValue(cb.CHECKTIME)) BETWEEN '$dzuhurFrom' AND '$dzuhurTo') AND (ub.Badgenumber LIKE '$angkatan%') )d ON (t.userid = d.userid) AND (t.tanggal = d.tanggal)) LEFT JOIN ( SELECT Format(DateValue(CHECKTIME)) As tanggal, Format(TimeValue(CHECKTIME)) As tapping, uc.userid, uc.Badgenumber, CHECKTIME FROM CHECKINOUT cc LEFT JOIN USERINFO uc ON cc.userid = uc.userid WHERE (Format(DateValue(cc.CHECKTIME), 'yyyy-mm-dd') BETWEEN '$from' AND '$to') AND (Format(TimeValue(cc.CHECKTIME)) BETWEEN '$asharFrom' AND '$asharTo') AND (uc.Badgenumber LIKE '$angkatan%') )a ON (t.userid = a.userid) AND (t.tanggal = a.tanggal)) LEFT JOIN ( SELECT Format(DateValue(CHECKTIME)) As tanggal, Format(TimeValue(CHECKTIME)) As tapping, ud.userid, ud.Badgenumber, CHECKTIME FROM CHECKINOUT cd LEFT JOIN USERINFO ud ON cd.userid = ud.userid WHERE (Format(DateValue(cd.CHECKTIME), 'yyyy-mm-dd') BETWEEN '$from' AND '$to') AND (Format(TimeValue(cd.CHECKTIME)) BETWEEN '$maghribFrom' AND '$maghribTo') AND (ud.Badgenumber LIKE '$angkatan%') )m ON (t.userid = m.userid) AND (t.tanggal = m.tanggal)) LEFT JOIN ( SELECT Format(DateValue(CHECKTIME)) As tanggal, Format(TimeValue(CHECKTIME)) As tapping, ue.userid, ue.Badgenumber, CHECKTIME FROM CHECKINOUT ce LEFT JOIN USERINFO ue ON ce.userid = ue.userid WHERE (Format(DateValue(ce.CHECKTIME), 'yyyy-mm-dd') BETWEEN '$from' AND '$to') AND (Format(TimeValue(ce.CHECKTIME)) BETWEEN '$isyaFrom' AND '$isyaTo') AND (ue.Badgenumber LIKE '$angkatan%') )i ON (t.userid = i.userid) AND (t.tanggal = i.tanggal) GROUP BY t.userid, t.tanggal, ua.Badgenumber ORDER BY t.userid, t.tanggal";
+
+		$result = odbc_exec($koneksi_mdb, $sql);		
+
+		while($row_mdb = odbc_fetch_array($result)){
+
+			$tgl_ = date('Y-m-d', strtotime($row_mdb['tgl']));	
+
+
+
+			if($row_mdb['shubuh'] == ''){$shubuh_ = 0;}else{$shubuh_ = 1;}
+			if($row_mdb['dzuhur'] == ''){$dzuhur_ = 0;}else{$dzuhur_ = 1;}
+			if($row_mdb['ashar'] == ''){$ashar_ = 0;}else{$ashar_ = 1;}
+			if($row_mdb['maghrib'] == ''){$maghrib_ = 0;}else{$maghrib_ = 1;}
+			if($row_mdb['isya'] == ''){$isya_ = 0;}else{$isya_ = 1;}
+
+			/*if($shubuh_ == date('H:i:s', strtotime('00:00:00'))){$shubuh_ = NULL;}else{$shubuh_ = $shubuh_;}
+			if($dzuhur_ == date('H:i:s', strtotime('00:00:00'))){$dzuhur_ = NULL;}else{$dzuhur_ = $dzuhur_;}
+			if($ashar_ == date('H:i:s', strtotime('00:00:00'))){$ashar_ = NULL;}else{$ashar_ = $ashar_;}
+			if($maghrib_ == date('H:i:s', strtotime('00:00:00'))){$maghrib_ = NULL;}else{$maghrib_ = $maghrib_;}
+			if($isya_ == date('H:i:s', strtotime('00:00:00'))){$isya_ = NULL;}else{$isya_ = $isya_;}*/
+
+			//if(strpos($row_mdb['Name'], $row_mdb['Badgenumber']) === FALSE){
+			$mysql_insert_presensi = "INSERT INTO presensi_shalat(nim, tanggal, shubuh, dzuhur, ashar, maghrib, isya) VALUES 
+			(".$row_mdb['nim'].", '$tgl_', '".$shubuh_."','".$dzuhur_."','".$ashar_."','".$maghrib_."','".$isya_."');";
+
+			mysql_query($mysql_insert_presensi);
+
+			//mysql_query("INSERT INTO shalat (id_mahasiswa, tanggal, wkt_tapping, wkt_shalat) VALUES ('$angkatan', '$to', '$from');");
+		}
+	}	
 
 	function updateTimeSetup($_dateFrom, $_dateTo, $_shubuhFrom, $_shubuhTo, $_dzuhurFrom, $_dzuhurTo, $_asharFrom, $_asharTo, $_maghribFrom, $_maghribTo, $_isyaFrom, $_isyaTo){
 		$koneksi_mdb = odbc_connect( 'att2000', "", "");
@@ -639,7 +640,7 @@
 
 	// Table Nilai PRESENSI SHALAT WAJIB MAHASISWA
 	function shalatIkhwanAkhwat(){
-		$ambildata = mysql_query("SELECT m.j_kelamin, COUNT(s.wkt_tapping) AS total, h.jmhs, d.jhari, h.jmhs*d.jhari*5 AS target_awal, j.jwsp*h.jmhs AS jplg, IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu,(j.jwsp*h.jmhs)+(IF(u.jmlu IS NULL, 0, u.jmlu)) AS total_dispen, (h.jmhs*d.jhari*5)-((j.jwsp*h.jmhs)+(IF(u.jmlu IS NULL, 0, u.jmlu))) AS target_akhir, ROUND(((COUNT(s.wkt_tapping)/((h.jmhs*d.jhari*5)-((j.jwsp*h.jmhs)+(IF(u.jmlu IS NULL, 0, u.jmlu)))))*100),2) AS nilai FROM mahasiswa m LEFT JOIN shalat s ON m.id_mahasiswa = s.id_mahasiswa LEFT JOIN ( SELECT m.j_kelamin, COUNT(m.id_mahasiswa) AS jmhs FROM mahasiswa m GROUP BY m.j_kelamin ) h ON m.j_kelamin = h.j_kelamin JOIN ( SELECT DATEDIFF(MAX(s.tanggal),MIN(s.tanggal))+1 AS jhari FROM shalat s ) d LEFT JOIN ( SELECT jp.j_kelamin, COUNT(jp.wkt_shalat) AS jwsp FROM j_pulang2 jp GROUP BY jp.j_kelamin ) j ON m.j_kelamin = j.j_kelamin LEFT JOIN ( SELECT COUNT(su.udzur) AS jmlu, m.j_kelamin FROM shalat_udzur2 su LEFT JOIN mahasiswa m ON su.id_mahasiswa = m.id_mahasiswa WHERE su.disetujui = 1 ) u ON m.j_kelamin = u.j_kelamin GROUP BY m.j_kelamin") or die(mysql_error());
+		$ambildata = mysql_query("SELECT m.j_kelamin, h.jmhs, COUNT(s.wkt_tapping) AS fingerprint, mn.manual, COUNT(s.wkt_tapping)+mn.manual AS total, d.jhari, h.jmhs*d.jhari*5 AS target1, j.jwsp*h.jmhs AS jplg, IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu, (j.jwsp*h.jmhs)+(IF(u.jmlu IS NULL, 0, u.jmlu)) AS totalu, (h.jmhs*d.jhari*5)-((j.jwsp*h.jmhs)+(IF(u.jmlu IS NULL, 0, u.jmlu))) AS target2, ROUND((((COUNT(s.wkt_tapping)+mn.manual)/((h.jmhs*d.jhari*5)-((j.jwsp*h.jmhs)+(IF(u.jmlu IS NULL, 0, u.jmlu)))))*100),2) AS nilai FROM mahasiswa m LEFT JOIN shalat s ON m.id_mahasiswa = s.id_mahasiswa LEFT JOIN ( SELECT m.j_kelamin, COUNT(m.id_mahasiswa) AS jmhs FROM mahasiswa m GROUP BY m.j_kelamin ) h ON m.j_kelamin = h.j_kelamin JOIN ( SELECT DATEDIFF(MAX(s.tanggal),MIN(s.tanggal))+1 AS jhari FROM shalat s ) d LEFT JOIN ( SELECT jp.j_kelamin, COUNT(jp.wkt_shalat) AS jwsp FROM j_pulang2 jp GROUP BY jp.j_kelamin ) j ON m.j_kelamin = j.j_kelamin LEFT JOIN ( SELECT COUNT(su.udzur) AS jmlu, m.j_kelamin FROM shalat_udzur2 su LEFT JOIN mahasiswa m ON su.id_mahasiswa = m.id_mahasiswa WHERE su.disetujui = 1 ) u ON m.j_kelamin = u.j_kelamin LEFT JOIN ( SELECT m.j_kelamin, IF(ma.jmlm IS NULL, 0, ma.jmlm) AS manual FROM mahasiswa m LEFT JOIN ( SELECT m.j_kelamin, COUNT(sm.wkt_shalat) AS jmlm FROM mahasiswa m LEFT JOIN shalat_manual sm ON m.id_mahasiswa = sm.id_mahasiswa WHERE sm.disetujui = 1 GROUP BY m.j_kelamin ) ma ON m.j_kelamin = ma.j_kelamin GROUP BY m.j_kelamin ) mn ON m.j_kelamin = mn.j_kelamin GROUP BY m.j_kelamin") or die(mysql_error());
 
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
@@ -647,7 +648,7 @@
 	}		
 
 	function shalatIAByDetail($jKelamin){
-		$ambildata = mysql_query("SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, d.jhari, m.jml, sh.total, d.jhari*m.jml*5 AS target1, IF(j.jplg IS NULL, 0, j.jplg) AS jplg, m.jml*(IF(j.jplg IS NULL, 0, j.jplg)) AS total_jplg, IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu, (d.jhari*m.jml*5)-(m.jml*(IF(j.jplg IS NULL, 0, j.jplg)))-(IF(u.jmlu IS NULL, 0, u.jmlu)) AS target2, ROUND((((sh.total)/((d.jhari*m.jml*5)-(m.jml*(IF(j.jplg IS NULL, 0, j.jplg)))-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai FROM shalat_periode sp LEFT JOIN ( SELECT sp.id_periode, DATEDIFF(sp.tanggal_sampai, sp.tanggal_dari)+1 AS jhari FROM shalat_periode sp ) d ON sp.id_periode = d.id_periode LEFT JOIN ( SELECT s.id_periode, COUNT(s.wkt_tapping) AS total FROM shalat s LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa WHERE m.j_kelamin = '$jKelamin' GROUP BY s.id_periode ) sh ON sp.id_periode = sh.id_periode JOIN ( SELECT COUNT(m.id_mahasiswa) AS jml FROM mahasiswa m WHERE m.j_kelamin = '$jKelamin' ) m LEFT JOIN ( SELECT jp.id_periode, COUNT(jp.wkt_shalat) AS jplg FROM j_pulang2 jp WHERE jp.j_kelamin = '$jKelamin' GROUP BY jp.id_periode ) j ON sp.id_periode = j.id_periode LEFT JOIN ( SELECT su.id_periode, COUNT(su.wkt_shalat) AS jmlu FROM shalat_udzur2 su LEFT JOIN mahasiswa m ON su.id_mahasiswa = m.id_mahasiswa WHERE su.disetujui = 1 AND m.j_kelamin = '$jKelamin' GROUP BY su.id_periode ) u ON sp.id_periode = u.id_periode") or die(mysql_error());
+		$ambildata = mysql_query("SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, d.jhari, m.jml AS jmhs, sh.total AS fingerprint, IF(ma.jmlm IS NULL, 0, ma.jmlm) AS manual, sh.total+IF(ma.jmlm IS NULL, 0, ma.jmlm) AS total, d.jhari*m.jml*5 AS target1, IF(j.jplg IS NULL, 0, j.jplg) AS jplg, m.jml*(IF(j.jplg IS NULL, 0, j.jplg)) AS total_jplg, IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu, (d.jhari*m.jml*5)-(m.jml*(IF(j.jplg IS NULL, 0, j.jplg)))-(IF(u.jmlu IS NULL, 0, u.jmlu)) AS target2, ROUND(((((sh.total+IF(ma.jmlm IS NULL, 0, ma.jmlm)))/((d.jhari*m.jml*5)-(m.jml*(IF(j.jplg IS NULL, 0, j.jplg)))-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai FROM shalat_periode sp LEFT JOIN ( SELECT sp.id_periode, DATEDIFF(sp.tanggal_sampai, sp.tanggal_dari)+1 AS jhari FROM shalat_periode sp ) d ON sp.id_periode = d.id_periode LEFT JOIN ( SELECT s.id_periode, COUNT(s.wkt_tapping) AS total FROM shalat s LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa WHERE m.j_kelamin = '$jKelamin' GROUP BY s.id_periode ) sh ON sp.id_periode = sh.id_periode JOIN ( SELECT COUNT(m.id_mahasiswa) AS jml FROM mahasiswa m WHERE m.j_kelamin = '$jKelamin' ) m LEFT JOIN ( SELECT jp.id_periode, COUNT(jp.wkt_shalat) AS jplg FROM j_pulang2 jp WHERE jp.j_kelamin = '$jKelamin' GROUP BY jp.id_periode ) j ON sp.id_periode = j.id_periode LEFT JOIN ( SELECT su.id_periode, COUNT(su.wkt_shalat) AS jmlu FROM shalat_udzur2 su LEFT JOIN mahasiswa m ON su.id_mahasiswa = m.id_mahasiswa WHERE su.disetujui = 1 AND m.j_kelamin = '$jKelamin' GROUP BY su.id_periode ) u ON sp.id_periode = u.id_periode LEFT JOIN ( SELECT sp.id_periode, COUNT(sm.wkt_shalat) AS jmlm FROM shalat_manual sm LEFT JOIN shalat_periode sp ON sm.tanggal BETWEEN sp.tanggal_dari AND sp.tanggal_sampai LEFT JOIN mahasiswa m ON sm.id_mahasiswa = m.id_mahasiswa WHERE m.j_kelamin = '$jKelamin' AND sm.disetujui = 1 GROUP BY sp.id_periode ) ma ON sp.id_periode = ma.id_periode") or die(mysql_error());
 
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
@@ -663,7 +664,7 @@
 	}
 
 	function shalatIAByPeriodDetail($j_kelamin, $periodId){
-		$ambildata = mysql_query("SELECT t.tanggal, IF(p.tanggal IS NULL, t.total, 0) AS total, j.jmhs, (IF(p.tanggal IS NULL, j.jmhs, p.j_kelamin))*5 AS target1, IF(p.tanggal IS NULL, '-', p.j_kelamin) AS plg, IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu, ((IF(p.tanggal IS NULL, j.jmhs, p.j_kelamin))*5)-(IF(u.jmlu IS NULL, 0, u.jmlu)) AS target2, IF(ROUND((((IF(p.tanggal IS NULL, t.total, 0))/(((IF(p.tanggal IS NULL, j.jmhs, p.j_kelamin))*5)-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) IS NULL, 0, ROUND((((IF(p.tanggal IS NULL, t.total, 0))/(((IF(p.tanggal IS NULL, j.jmhs, p.j_kelamin))*5)-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2)) AS nilai FROM ( SELECT s.tanggal, COUNT(s.wkt_tapping) AS total, s.id_periode FROM shalat s LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa WHERE m.j_kelamin = '$j_kelamin' GROUP BY s.tanggal ) t LEFT JOIN ( SELECT jp.tanggal, jp.j_kelamin FROM j_pulang2 jp WHERE jp.j_kelamin = '$j_kelamin' GROUP BY jp.tanggal ) p ON t.tanggal = p.tanggal JOIN ( SELECT COUNT(m.id_mahasiswa) AS jmhs FROM mahasiswa m WHERE m.j_kelamin = '$j_kelamin' ) j LEFT JOIN ( SELECT su.tanggal, COUNT(su.udzur) AS jmlu FROM shalat_udzur2 su WHERE su.disetujui = 1 ) u ON t.tanggal = u.tanggal WHERE t.id_periode = $periodId GROUP BY t.tanggal") or die(mysql_error());
+		$ambildata = mysql_query("SELECT t.tanggal, IF(p.tanggal IS NULL, t.total, 0) AS fingerprint, IF(ma.jmlm IS NULL, 0, ma.jmlm) AS manual, IF(p.tanggal IS NULL, t.total, 0)+IF(ma.jmlm IS NULL, 0, ma.jmlm) AS total, j.jmhs, (IF(p.tanggal IS NULL, j.jmhs, p.j_kelamin))*5 AS target1, IF(p.tanggal IS NULL, '-', p.j_kelamin) AS plg, IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu, ((IF(p.tanggal IS NULL, j.jmhs, p.j_kelamin))*5)-(IF(u.jmlu IS NULL, 0, u.jmlu)) AS target2, IF(ROUND(((((IF(p.tanggal IS NULL, t.total, 0)+IF(ma.jmlm IS NULL, 0, ma.jmlm)))/(((IF(p.tanggal IS NULL, j.jmhs, p.j_kelamin))*5)-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) IS NULL, 0, ROUND((((IF(p.tanggal IS NULL, t.total, 0))/(((IF(p.tanggal IS NULL, j.jmhs, p.j_kelamin))*5)-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2)) AS nilai FROM ( SELECT s.tanggal, COUNT(s.wkt_tapping) AS total, s.id_periode FROM shalat s LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa WHERE m.j_kelamin = '$j_kelamin' GROUP BY s.tanggal ) t LEFT JOIN ( SELECT jp.tanggal, jp.j_kelamin FROM j_pulang2 jp WHERE jp.j_kelamin = '$j_kelamin' GROUP BY jp.tanggal ) p ON t.tanggal = p.tanggal JOIN ( SELECT COUNT(m.id_mahasiswa) AS jmhs FROM mahasiswa m WHERE m.j_kelamin = '$j_kelamin' ) j LEFT JOIN ( SELECT su.tanggal, COUNT(su.udzur) AS jmlu FROM shalat_udzur2 su LEFT JOIN mahasiswa m ON su.id_mahasiswa = m.id_mahasiswa WHERE su.disetujui = 1 AND m.j_kelamin = '$j_kelamin' GROUP BY su.tanggal ) u ON t.tanggal = u.tanggal LEFT JOIN ( SELECT sm.tanggal, COUNT(sm.wkt_shalat) AS jmlm FROM shalat_manual sm LEFT JOIN mahasiswa m ON sm.id_mahasiswa = m.id_mahasiswa WHERE m.j_kelamin = '$j_kelamin' AND sm.disetujui = 1 GROUP BY sm.tanggal ) ma ON t.tanggal = ma.tanggal WHERE t.id_periode = $periodId GROUP BY t.tanggal") or die(mysql_error());
 
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
@@ -690,20 +691,36 @@
 	}
 
 	function shalatMhs(){
-		$ambildata = mysql_query("SELECT m.id_mahasiswa, m.nama, m.j_kelamin, sh.total, t.jtgl, t.jtgl*5 As target1, p.jplg, IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu, (t.jtgl*5)-(p.jplg+IF(u.jmlu IS NULL, 0, u.jmlu)) AS target2, ROUND(((sh.total/((t.jtgl*5)-(p.jplg+IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai FROM mahasiswa m LEFT JOIN ( SELECT s.id_mahasiswa, COUNT(s.wkt_tapping) AS total FROM shalat s GROUP BY s.id_mahasiswa ) sh ON m.id_mahasiswa = sh.id_mahasiswa JOIN ( SELECT DATEDIFF(MAX(s.tanggal),MIN(s.tanggal))+1 AS jtgl FROM shalat s ) t LEFT JOIN ( SELECT jp.j_kelamin, COUNT(jp.wkt_shalat) AS jplg FROM j_pulang2 jp GROUP BY jp.j_kelamin ) p ON m.j_kelamin = p.j_kelamin LEFT JOIN ( SELECT su.id_mahasiswa, COUNT(su.wkt_shalat) AS jmlu FROM shalat_udzur2 su WHERE su.disetujui = 1 GROUP BY su.id_mahasiswa ) u ON m.id_mahasiswa = u.id_mahasiswa ORDER BY m.nama") or die(mysql_error());
+		$ambildata = mysql_query("SELECT m.id_mahasiswa, m.nama, m.j_kelamin, sh.total AS fingerprint, IF(sm.jmlm IS NULL, 0, sm.jmlm) AS manual, sh.total+IF(sm.jmlm IS NULL, 0, sm.jmlm) AS total, t.jtgl, t.jtgl*5 As target1, p.jplg, IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu, (t.jtgl*5)-(p.jplg+IF(u.jmlu IS NULL, 0, u.jmlu)) AS target2, ROUND((((sh.total+IF(sm.jmlm IS NULL, 0, sm.jmlm))/((t.jtgl*5)-(p.jplg+IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai FROM mahasiswa m LEFT JOIN ( SELECT s.id_mahasiswa, COUNT(s.wkt_tapping) AS total FROM shalat s GROUP BY s.id_mahasiswa ) sh ON m.id_mahasiswa = sh.id_mahasiswa JOIN ( SELECT DATEDIFF(MAX(s.tanggal),MIN(s.tanggal))+1 AS jtgl FROM shalat s ) t LEFT JOIN ( SELECT jp.j_kelamin, COUNT(jp.wkt_shalat) AS jplg FROM j_pulang2 jp GROUP BY jp.j_kelamin ) p ON m.j_kelamin = p.j_kelamin LEFT JOIN ( SELECT su.id_mahasiswa, COUNT(su.wkt_shalat) AS jmlu FROM shalat_udzur2 su WHERE su.disetujui = 1 GROUP BY su.id_mahasiswa ) u ON m.id_mahasiswa = u.id_mahasiswa LEFT JOIN ( SELECT sm.id_mahasiswa, COUNT(sm.wkt_shalat) AS jmlm FROM shalat_manual sm WHERE sm.disetujui = 1 GROUP BY sm.id_mahasiswa ) sm ON m.id_mahasiswa = sm.id_mahasiswa ORDER BY m.nama") or die(mysql_error());
 
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
 				return $data;			
 	}
 
-	function shalatMhsDetail($idMahasiswa){
-		$ambildata = mysql_query("SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, sh.total, DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1 AS jtgl, (DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*5 AS target1, IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)) AS jplg, IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu, ((DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*5)-(IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)))-(IF(u.jmlu IS NULL, 0, u.jmlu)) AS target2, ROUND((((sh.total)/(((DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*5)-(IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)))-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai FROM shalat_periode sp LEFT JOIN ( SELECT s.id_periode, COUNT(s.wkt_tapping) AS total, m.j_kelamin, m.id_mahasiswa FROM shalat s LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa WHERE m.id_mahasiswa = $idMahasiswa GROUP BY s.id_periode ) sh ON sp.id_periode = sh.id_periode LEFT JOIN ( SELECT jp.id_periode, COUNT(jp.wkt_shalat) AS jplg FROM j_pulang2 jp WHERE jp.j_kelamin = 'Ikhwan' GROUP BY jp.id_periode ) pi ON sh.id_periode = pi.id_periode LEFT JOIN ( SELECT jp.id_periode, COUNT(jp.wkt_shalat) AS jplg FROM j_pulang2 jp WHERE jp.j_kelamin = 'Akhwat' GROUP BY jp.id_periode ) pa ON sh.id_periode = pa.id_periode LEFT JOIN ( SELECT su.id_periode, COUNT(su.wkt_shalat) AS jmlu FROM shalat_udzur2 su WHERE su.disetujui = 1 AND su.id_mahasiswa = $idMahasiswa GROUP BY su.id_periode ) u ON sh.id_periode = u.id_periode") or die(mysql_error());
+	function shalatMhs2(){
+		$ambildata = mysql_query("SELECT m.id_mahasiswa, m.nama, m.j_kelamin, sh.total AS fingerprint, IF(sm.jmlm IS NULL, 0, sm.jmlm) AS manual, sh.total+IF(sm.jmlm IS NULL, 0, sm.jmlm) AS total, t.jtgl, t.jtgl*5 As target1, IF(p.jplg IS NULL, 0, p.jplg) AS jplg, IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu, (t.jtgl*5)-((IF(p.jplg IS NULL, 0, p.jplg))+IF(u.jmlu IS NULL, 0, u.jmlu)) AS target2, ROUND((((sh.total+IF(sm.jmlm IS NULL, 0, sm.jmlm))/((t.jtgl*5)-((IF(p.jplg IS NULL, 0, p.jplg))+IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai FROM mahasiswa m LEFT JOIN ( SELECT s.id_mahasiswa, COUNT(s.wkt_tapping) AS total FROM shalat s WHERE s.id_periode = 5 GROUP BY s.id_mahasiswa ) sh ON m.id_mahasiswa = sh.id_mahasiswa JOIN ( SELECT DATEDIFF(MAX(s.tanggal),MIN(s.tanggal))+1 AS jtgl FROM shalat s WHERE s.id_periode = 5 ) t LEFT JOIN ( SELECT jp.j_kelamin, COUNT(jp.wkt_shalat) AS jplg FROM j_pulang2 jp WHERE jp.id_periode = 5 GROUP BY jp.j_kelamin ) p ON m.j_kelamin = p.j_kelamin LEFT JOIN ( SELECT su.id_mahasiswa, COUNT(su.wkt_shalat) AS jmlu FROM shalat_udzur2 su WHERE su.disetujui = 1 AND su.id_periode = 5 GROUP BY su.id_mahasiswa ) u ON m.id_mahasiswa = u.id_mahasiswa LEFT JOIN ( SELECT sm.id_mahasiswa, COUNT(sm.wkt_shalat) AS jmlm FROM shalat_manual sm WHERE sm.disetujui = 1 AND sm.id_periode = 5 GROUP BY sm.id_mahasiswa ) sm ON m.id_mahasiswa = sm.id_mahasiswa ORDER BY m.nama") or die(mysql_error());
 
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
 				return $data;			
 	}	
+
+	function shalatMhsDetail($idMahasiswa){
+		$ambildata = mysql_query("SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, IF(sh.total IS NULL, 0, sh.total) AS fingerprint, IF(ma.jmlm IS NULL, 0, ma.jmlm) AS manual, IF(sh.total IS NULL, 0, sh.total)+IF(ma.jmlm IS NULL, 0, ma.jmlm) AS total, DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1 AS jtgl, (DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*5 AS target1, IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)) AS jplg, IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu, ((DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*5)-(IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)))-(IF(u.jmlu IS NULL, 0, u.jmlu)) AS target2, IF((ROUND(((((IF(sh.total IS NULL, 0, sh.total)+IF(ma.jmlm IS NULL, 0, ma.jmlm)))/(((DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*5)-(IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)))-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2)) > 100, 100, (ROUND(((((IF(sh.total IS NULL, 0, sh.total)+IF(ma.jmlm IS NULL, 0, ma.jmlm)))/(((DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*5)-(IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)))-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2))) AS nilai FROM shalat_periode sp LEFT JOIN ( SELECT s.id_periode, COUNT(s.wkt_tapping) AS total, m.j_kelamin, m.id_mahasiswa FROM shalat s LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa WHERE m.id_mahasiswa = $idMahasiswa GROUP BY s.id_periode ) sh ON sp.id_periode = sh.id_periode LEFT JOIN ( SELECT jp.id_periode, COUNT(jp.wkt_shalat) AS jplg FROM j_pulang2 jp WHERE jp.j_kelamin = 'Ikhwan' GROUP BY jp.id_periode ) pi ON sh.id_periode = pi.id_periode LEFT JOIN ( SELECT jp.id_periode, COUNT(jp.wkt_shalat) AS jplg FROM j_pulang2 jp WHERE jp.j_kelamin = 'Akhwat' GROUP BY jp.id_periode ) pa ON sh.id_periode = pa.id_periode LEFT JOIN ( SELECT su.id_periode, COUNT(su.wkt_shalat) AS jmlu FROM shalat_udzur2 su WHERE su.disetujui = 1 AND su.id_mahasiswa = $idMahasiswa GROUP BY su.id_periode ) u ON sh.id_periode = u.id_periode LEFT JOIN ( SELECT sp.id_periode, COUNT(sm.wkt_shalat) AS jmlm FROM shalat_manual sm LEFT JOIN shalat_periode sp ON sm.tanggal BETWEEN sp.tanggal_dari AND sp.tanggal_sampai WHERE sm.id_mahasiswa = $idMahasiswa GROUP BY sp.id_periode ) ma ON sp.id_periode = ma.id_periode ORDER BY sp.id_periode DESC") or die(mysql_error());
+
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;			
+	}	
+
+	function shalatIkhtisarDetail($idPeriod){
+		$ambildata = mysql_query("SELECT m.id_mahasiswa, m.nim, m.nama, m.j_kelamin, p.total FROM mahasiswa m LEFT JOIN ( SELECT s.id_mahasiswa, COUNT(s.wkt_tapping) AS total FROM shalat s WHERE s.id_periode = $idPeriod GROUP BY s.id_mahasiswa ) p ON m.id_mahasiswa = p.id_mahasiswa ORDER BY m.nama ") or die(mysql_error());
+
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;			
+	}
 
 	function shalatMhsDetailPercent($idMahasiswa){
 		$ambildata = mysql_query("SELECT a.nilai AS a, b.nilai AS b, ROUND((((b.nilai-a.nilai)/a.nilai)*100),2) AS percent FROM ( SELECT ROUND((SUM(a.nilai)/j.jml),2) AS nilai FROM ( SELECT ROUND((((sh.total)/((d.jhari*mh.jmhs*5)-((IF(p.id_periode IS NULL, 0, (CASE WHEN p.j_kelamin = 'Akhwat' THEN a.plg ELSE i.plg END)))*(IF(j.jplg IS NULL, 0, j.jplg)))-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai FROM shalat_periode sp LEFT JOIN ( SELECT sp.id_periode, DATEDIFF(sp.tanggal_sampai, sp.tanggal_dari)+1 AS jhari FROM shalat_periode sp ) d ON sp.id_periode = d.id_periode LEFT JOIN ( SELECT s.id_periode, COUNT(s.wkt_tapping) AS total FROM shalat s GROUP BY s.id_periode ) sh ON sp.id_periode = sh.id_periode JOIN ( SELECT COUNT(m.id_mahasiswa) AS jmhs FROM mahasiswa m ) mh LEFT JOIN ( SELECT jp.id_periode, jp.j_kelamin FROM j_pulang2 jp GROUP BY jp.id_periode ) p ON sp.id_periode = p.id_periode JOIN ( SELECT COUNT(m.id_mahasiswa) AS plg FROM mahasiswa m WHERE m.j_kelamin = 'Akhwat' ) a JOIN ( SELECT COUNT(m.id_mahasiswa) AS plg FROM mahasiswa m WHERE m.j_kelamin = 'Ikhwan' ) i LEFT JOIN ( SELECT jp.id_periode, COUNT(jp.wkt_shalat) AS jplg FROM j_pulang2 jp GROUP BY jp.id_periode ) j ON sp.id_periode = j.id_periode LEFT JOIN ( SELECT su.id_periode, COUNT(su.wkt_shalat) AS jmlu FROM shalat_udzur2 su WHERE su.disetujui = 1 GROUP BY su.id_periode ) u ON sp.id_periode = u.id_periode ) a JOIN ( SELECT COUNT(sp.id_periode) AS jml FROM shalat_periode sp ) j ) a JOIN ( SELECT ROUND((SUM(b.nilai)/j.jml),2) AS nilai FROM ( SELECT ROUND((((sh.total)/(((DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*5)-(IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)))-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai FROM shalat_periode sp LEFT JOIN ( SELECT s.id_periode, COUNT(s.wkt_tapping) AS total, m.j_kelamin, m.id_mahasiswa FROM shalat s LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa WHERE m.id_mahasiswa = $idMahasiswa GROUP BY s.id_periode ) sh ON sp.id_periode = sh.id_periode LEFT JOIN ( SELECT jp.id_periode, COUNT(jp.wkt_shalat) AS jplg FROM j_pulang2 jp WHERE jp.j_kelamin = 'Ikhwan' GROUP BY jp.id_periode ) pi ON sh.id_periode = pi.id_periode LEFT JOIN ( SELECT jp.id_periode, COUNT(jp.wkt_shalat) AS jplg FROM j_pulang2 jp WHERE jp.j_kelamin = 'Akhwat' GROUP BY jp.id_periode ) pa ON sh.id_periode = pa.id_periode LEFT JOIN ( SELECT su.id_periode, COUNT(su.wkt_shalat) AS jmlu FROM shalat_udzur2 su WHERE su.disetujui = 1 AND su.id_mahasiswa = $idMahasiswa GROUP BY su.id_periode ) u ON sh.id_periode = u.id_periode ) b JOIN ( SELECT COUNT(sp.id_periode) AS jml FROM shalat_periode sp ) j ) b") or die(mysql_error());
@@ -714,7 +731,7 @@
 	}
 
 	function shalatMhsByPeriodGraph($idMahasiswa, $idPeriode){
-		$ambildata = mysql_query("SELECT s.tanggal, COUNT(s.wkt_tapping) AS jml FROM shalat s WHERE s.id_periode = $idPeriode AND s.id_mahasiswa = $idMahasiswa GROUP BY s.tanggal") or die(mysql_error());
+		$ambildata = mysql_query("SELECT s.tanggal, IF((ROUND((((IF(sh.total IS NULL, 0, sh.total)+IF(ma.jmlm IS NULL, 0, ma.jmlm))/((5-(IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)))-(IF(u.jmlu IS NULL, 0, u.jmlu)))))*100),2)) > 100, 100, (ROUND((((IF(sh.total IS NULL, 0, sh.total)+IF(ma.jmlm IS NULL, 0, ma.jmlm))/((5-(IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)))-(IF(u.jmlu IS NULL, 0, u.jmlu)))))*100),2))) AS nilai FROM shalat s LEFT JOIN ( SELECT s.tanggal, COUNT(s.wkt_tapping) AS total, m.j_kelamin, m.id_mahasiswa FROM shalat s LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa WHERE m.id_mahasiswa = $idMahasiswa GROUP BY s.tanggal ) sh ON s.tanggal = sh.tanggal LEFT JOIN ( SELECT jp.tanggal, COUNT(jp.wkt_shalat) AS jplg FROM j_pulang2 jp WHERE jp.j_kelamin = 'Ikhwan' GROUP BY jp.tanggal ) pi ON s.tanggal = pi.tanggal LEFT JOIN ( SELECT jp.tanggal, COUNT(jp.wkt_shalat) AS jplg FROM j_pulang2 jp WHERE jp.j_kelamin = 'Akhwat' GROUP BY jp.tanggal ) pa ON s.tanggal = pa.tanggal LEFT JOIN ( SELECT su.tanggal, COUNT(su.wkt_shalat) AS jmlu FROM shalat_udzur2 su WHERE su.id_mahasiswa = $idMahasiswa AND su.disetujui = 1 GROUP BY su.tanggal ) u ON s.tanggal = u.tanggal LEFT JOIN ( SELECT sm.tanggal, COUNT(sm.wkt_shalat) AS jmlm FROM shalat_manual sm WHERE sm.id_mahasiswa = $idMahasiswa AND sm.disetujui = 1 GROUP BY sm.tanggal ) ma ON s.tanggal = ma.tanggal WHERE s.id_periode = $idPeriode GROUP BY s.tanggal") or die(mysql_error());
 
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
@@ -722,7 +739,7 @@
 	}
 
 	function shalatMhsByPeriod($idMahasiswa, $idPeriode){
-		$ambildata = mysql_query("SELECT s.tanggal, IF(sh.total IS NULL, 0, sh.total) AS total, 5 AS target1, IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)) AS jplg, IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu, ((5-(IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)))-(IF(u.jmlu IS NULL, 0, u.jmlu)))) AS target2, ROUND(((IF(sh.total IS NULL, 0, sh.total)/((5-(IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)))-(IF(u.jmlu IS NULL, 0, u.jmlu)))))*100),2) AS nilai FROM shalat s LEFT JOIN ( SELECT s.tanggal, COUNT(s.wkt_tapping) AS total, m.j_kelamin, m.id_mahasiswa FROM shalat s LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa WHERE m.id_mahasiswa = $idMahasiswa GROUP BY s.tanggal ) sh ON s.tanggal = sh.tanggal LEFT JOIN ( SELECT jp.tanggal, COUNT(jp.wkt_shalat) AS jplg FROM j_pulang2 jp WHERE jp.j_kelamin = 'Ikhwan' GROUP BY jp.tanggal ) pi ON s.tanggal = pi.tanggal LEFT JOIN ( SELECT jp.tanggal, COUNT(jp.wkt_shalat) AS jplg FROM j_pulang2 jp WHERE jp.j_kelamin = 'Akhwat' GROUP BY jp.tanggal ) pa ON s.tanggal = pa.tanggal LEFT JOIN ( SELECT su.tanggal, COUNT(su.wkt_shalat) AS jmlu FROM shalat_udzur2 su WHERE su.id_mahasiswa = $idMahasiswa AND su.disetujui = 1 GROUP BY su.tanggal ) u ON s.tanggal = u.tanggal WHERE s.id_periode = $idPeriode GROUP BY s.tanggal") or die(mysql_error());
+		$ambildata = mysql_query("SELECT s.tanggal, IF(sh.total IS NULL, 0, sh.total) AS fingerprint, IF(ma.jmlm IS NULL, 0, ma.jmlm) AS manual, IF(sh.total IS NULL, 0, sh.total)+IF(ma.jmlm IS NULL, 0, ma.jmlm) AS total, 5 AS target1, IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)) AS jplg, IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu, ((5-(IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)))-(IF(u.jmlu IS NULL, 0, u.jmlu)))) AS target2, IF((ROUND((((IF(sh.total IS NULL, 0, sh.total)+IF(ma.jmlm IS NULL, 0, ma.jmlm))/((5-(IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)))-(IF(u.jmlu IS NULL, 0, u.jmlu)))))*100),2)) > 100, 100, (ROUND((((IF(sh.total IS NULL, 0, sh.total)+IF(ma.jmlm IS NULL, 0, ma.jmlm))/((5-(IF((CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END) IS NULL, 0, (CASE WHEN sh.j_kelamin = 'Akhwat' THEN pa.jplg ELSE pi.jplg END)))-(IF(u.jmlu IS NULL, 0, u.jmlu)))))*100),2))) AS nilai FROM shalat s LEFT JOIN ( SELECT s.tanggal, COUNT(s.wkt_tapping) AS total, m.j_kelamin, m.id_mahasiswa FROM shalat s LEFT JOIN mahasiswa m ON s.id_mahasiswa = m.id_mahasiswa WHERE m.id_mahasiswa = $idMahasiswa GROUP BY s.tanggal ) sh ON s.tanggal = sh.tanggal LEFT JOIN ( SELECT jp.tanggal, COUNT(jp.wkt_shalat) AS jplg FROM j_pulang2 jp WHERE jp.j_kelamin = 'Ikhwan' GROUP BY jp.tanggal ) pi ON s.tanggal = pi.tanggal LEFT JOIN ( SELECT jp.tanggal, COUNT(jp.wkt_shalat) AS jplg FROM j_pulang2 jp WHERE jp.j_kelamin = 'Akhwat' GROUP BY jp.tanggal ) pa ON s.tanggal = pa.tanggal LEFT JOIN ( SELECT su.tanggal, COUNT(su.wkt_shalat) AS jmlu FROM shalat_udzur2 su WHERE su.id_mahasiswa = $idMahasiswa AND su.disetujui = 1 GROUP BY su.tanggal ) u ON s.tanggal = u.tanggal LEFT JOIN ( SELECT sm.tanggal, COUNT(sm.wkt_shalat) AS jmlm FROM shalat_manual sm WHERE sm.id_mahasiswa = $idMahasiswa AND sm.disetujui = 1 GROUP BY sm.tanggal ) ma ON s.tanggal = ma.tanggal WHERE s.id_periode = $idPeriode GROUP BY s.tanggal") or die(mysql_error());
 
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
@@ -900,14 +917,14 @@
 
 	function shalatByPembina($column){
 		if ($column == 'chart') {
-			$ambildata = mysql_query("SELECT ROUND(((COUNT(s.jws)/((j.jmlb*(r.jmltgl-pu.jplg)*5)-(IF(uz.jmlu IS NULL, 0, uz.jmlu))))*100),2) AS nilai FROM pembina p LEFT JOIN ( SELECT mb.id_pembina, sl.wkt_tapping AS jws FROM m_binaan mb LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa LEFT JOIN shalat sl ON m.id_mahasiswa = sl.id_mahasiswa ) s ON p.id_pembina = s.id_pembina LEFT JOIN ( SELECT p.id_pembina, COUNT(mb.id_mahasiswa) AS jmlb FROM m_binaan mb LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina GROUP BY p.id_pembina ) j ON p.id_pembina = j.id_pembina LEFT JOIN ( SELECT p.id_pembina, DATEDIFF(MAX(s.tanggal),MIN(s.tanggal))+1 AS jmltgl FROM pembina p LEFT JOIN m_binaan mb ON p.id_pembina = mb.id_pembina LEFT JOIN shalat s ON mb.id_mahasiswa = s.id_mahasiswa GROUP BY p.id_pembina ) r ON p.id_pembina = r.id_pembina LEFT JOIN ( SELECT p.id_pembina, COUNT(jp.tanggal) AS jplg FROM pembina p LEFT JOIN j_pulang jp ON p.j_kelamin = jp.j_kelamin GROUP BY p.id_pembina ) pu ON p.id_pembina = pu.id_pembina LEFT JOIN ( SELECT mb.id_pembina, u.jmlu FROM m_binaan mb LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa LEFT JOIN ( SELECT su.id_mahasiswa, COUNT(su.wkt_shalat) AS jmlu FROM shalat_udzur2 su WHERE su.disetujui = 1 GROUP BY su.id_mahasiswa ) u ON m.id_mahasiswa = u.id_mahasiswa GROUP BY mb.id_pembina ) uz ON p.id_pembina = uz.id_pembina GROUP BY p.nama") or die(mysql_error());
+			$ambildata = mysql_query("SELECT ROUND((((s.total+IF(ma.jmlm IS NULL, 0, ma.jmlm))/((r.jhari*5*j.jmlb)-(pu.jplg)-(IF(uz.jmlu IS NULL, 0, uz.jmlu))))*100),2) AS nilai FROM pembina p LEFT JOIN ( SELECT p.id_pembina, COUNT(mb.id_mahasiswa) AS jmlb FROM m_binaan mb LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina GROUP BY p.id_pembina ) j ON p.id_pembina = j.id_pembina LEFT JOIN ( SELECT mb.id_pembina, COUNT(sl.wkt_tapping) AS total FROM m_binaan mb LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa LEFT JOIN shalat sl ON m.id_mahasiswa = sl.id_mahasiswa GROUP BY mb.id_pembina ) s ON p.id_pembina = s.id_pembina LEFT JOIN ( SELECT mb.id_pembina, COUNT(sm.wkt_shalat) AS jmlm FROM m_binaan mb LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa LEFT JOIN shalat_manual sm ON m.id_mahasiswa = sm.id_mahasiswa WHERE sm.disetujui = 1 GROUP BY mb.id_pembina ) ma ON p.id_pembina = ma.id_pembina JOIN ( SELECT DATEDIFF(MAX(sp.tanggal_sampai),MIN(sp.tanggal_dari))+1 AS jhari FROM shalat_periode sp ) r LEFT JOIN ( SELECT p.id_pembina, COUNT(jp.wkt_shalat) AS jplg FROM pembina p LEFT JOIN j_pulang2 jp ON p.j_kelamin = jp.j_kelamin GROUP BY p.id_pembina ) pu ON p.id_pembina = pu.id_pembina LEFT JOIN ( SELECT mb.id_pembina, COUNT(su.wkt_shalat) AS jmlu FROM m_binaan mb LEFT JOIN shalat_udzur2 su ON mb.id_mahasiswa = su.id_mahasiswa WHERE su.disetujui = 1 GROUP BY mb.id_pembina ) uz ON p.id_pembina = uz.id_pembina GROUP BY p.id_pembina") or die(mysql_error());
 			
 				while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 					$data[] = $ad;
 					return $data;				
 		} else
 		if ($column == 'table') {
-			$ambildata = mysql_query("SELECT p.id_pembina, p.nama AS pembina, p.j_kelamin, COUNT(s.jws) AS total, j.jmlb, r.jmltgl, pu.jplg, r.jmltgl-pu.jplg AS jhari, (j.jmlb*(r.jmltgl-pu.jplg)*5) AS target1, IF(uz.jmlu IS NULL, 0, uz.jmlu) AS jmlu, (j.jmlb*(r.jmltgl-pu.jplg)*5)-(IF(uz.jmlu IS NULL, 0, uz.jmlu)) AS target2, ROUND(((COUNT(s.jws)/((j.jmlb*(r.jmltgl-pu.jplg)*5)-(IF(uz.jmlu IS NULL, 0, uz.jmlu))))*100),2) AS nilai FROM pembina p LEFT JOIN ( SELECT mb.id_pembina, sl.wkt_tapping AS jws FROM m_binaan mb LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa LEFT JOIN shalat sl ON m.id_mahasiswa = sl.id_mahasiswa ) s ON p.id_pembina = s.id_pembina LEFT JOIN ( SELECT p.id_pembina, COUNT(mb.id_mahasiswa) AS jmlb FROM m_binaan mb LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina GROUP BY p.id_pembina ) j ON p.id_pembina = j.id_pembina LEFT JOIN ( SELECT p.id_pembina, DATEDIFF(MAX(s.tanggal),MIN(s.tanggal))+1 AS jmltgl FROM pembina p LEFT JOIN m_binaan mb ON p.id_pembina = mb.id_pembina LEFT JOIN shalat s ON mb.id_mahasiswa = s.id_mahasiswa GROUP BY p.id_pembina ) r ON p.id_pembina = r.id_pembina LEFT JOIN ( SELECT p.id_pembina, COUNT(jp.tanggal) AS jplg FROM pembina p LEFT JOIN j_pulang jp ON p.j_kelamin = jp.j_kelamin GROUP BY p.id_pembina ) pu ON p.id_pembina = pu.id_pembina LEFT JOIN ( SELECT mb.id_pembina, u.jmlu FROM m_binaan mb LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa LEFT JOIN ( SELECT su.id_mahasiswa, COUNT(su.wkt_shalat) AS jmlu FROM shalat_udzur2 su WHERE su.disetujui = 1 GROUP BY su.id_mahasiswa ) u ON m.id_mahasiswa = u.id_mahasiswa GROUP BY mb.id_pembina ) uz ON p.id_pembina = uz.id_pembina GROUP BY p.nama") or die(mysql_error());
+			$ambildata = mysql_query("SELECT p.id_pembina, p.nama, p.j_kelamin, j.jmlb, s.total AS fingerprint, IF(ma.jmlm IS NULL, 0, ma.jmlm) AS manual, s.total+IF(ma.jmlm IS NULL, 0, ma.jmlm) AS total, r.jhari, r.jhari*5*j.jmlb AS target, pu.jplg, IF(uz.jmlu IS NULL, 0, uz.jmlu) AS jmlu, (r.jhari*5*j.jmlb)-(pu.jplg)-(IF(uz.jmlu IS NULL, 0, uz.jmlu)) AS target2, ROUND((((s.total+IF(ma.jmlm IS NULL, 0, ma.jmlm))/((r.jhari*5*j.jmlb)-(pu.jplg)-(IF(uz.jmlu IS NULL, 0, uz.jmlu))))*100),2) AS nilai FROM pembina p LEFT JOIN ( SELECT p.id_pembina, COUNT(mb.id_mahasiswa) AS jmlb FROM m_binaan mb LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina GROUP BY p.id_pembina ) j ON p.id_pembina = j.id_pembina LEFT JOIN ( SELECT mb.id_pembina, COUNT(sl.wkt_tapping) AS total FROM m_binaan mb LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa LEFT JOIN shalat sl ON m.id_mahasiswa = sl.id_mahasiswa GROUP BY mb.id_pembina ) s ON p.id_pembina = s.id_pembina LEFT JOIN ( SELECT mb.id_pembina, COUNT(sm.wkt_shalat) AS jmlm FROM m_binaan mb LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa LEFT JOIN shalat_manual sm ON m.id_mahasiswa = sm.id_mahasiswa WHERE sm.disetujui = 1 GROUP BY mb.id_pembina ) ma ON p.id_pembina = ma.id_pembina JOIN ( SELECT DATEDIFF(MAX(sp.tanggal_sampai),MIN(sp.tanggal_dari))+1 AS jhari FROM shalat_periode sp ) r LEFT JOIN ( SELECT p.id_pembina, COUNT(jp.wkt_shalat) AS jplg FROM pembina p LEFT JOIN j_pulang2 jp ON p.j_kelamin = jp.j_kelamin GROUP BY p.id_pembina ) pu ON p.id_pembina = pu.id_pembina LEFT JOIN ( SELECT mb.id_pembina, COUNT(su.wkt_shalat) AS jmlu FROM m_binaan mb LEFT JOIN shalat_udzur2 su ON mb.id_mahasiswa = su.id_mahasiswa WHERE su.disetujui = 1 GROUP BY mb.id_pembina ) uz ON p.id_pembina = uz.id_pembina GROUP BY p.id_pembina") or die(mysql_error());
 			
 				while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 					$data[] = $ad;
@@ -929,6 +946,22 @@
 				$data[] = $ad;
 				return $data;	
 	}
+
+	function shalatByPembinaIdNew($idPembina){
+		$ambildata = mysql_query("SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, p.total FROM shalat_periode sp LEFT JOIN ( SELECT s.id_periode, COUNT(s.wkt_tapping) AS total FROM shalat s LEFT JOIN m_binaan mb ON s.id_mahasiswa = mb.id_mahasiswa WHERE mb.id_pembina = $idPembina GROUP BY s.id_periode ) p ON sp.id_periode = p.id_periode") or die(mysql_error());
+		
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;	
+	}	
+
+	function shalatByPembinaIdNewDetail($idPembina, $idPeriode){
+		$ambildata = mysql_query("SELECT m.id_mahasiswa, m.nim, m.nama, p.total FROM mahasiswa m LEFT JOIN ( SELECT s.id_mahasiswa, COUNT(s.wkt_tapping) AS total FROM shalat s WHERE s.id_periode = $idPeriode GROUP BY s.id_mahasiswa ) p ON m.id_mahasiswa = p.id_mahasiswa LEFT JOIN m_binaan mb ON m.id_mahasiswa = mb.id_mahasiswa WHERE mb.id_pembina = $idPembina ORDER BY m.nama") or die(mysql_error());
+		
+			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
+				$data[] = $ad;
+				return $data;	
+	}		
 
 	function shalatByPembinaIdPercentage($idPembina){
 		$ambildata = mysql_query("SELECT a.nilai AS a, b.nilai AS b, ROUND((((b.nilai-a.nilai)/a.nilai)*100),2) AS 'percent' FROM ( SELECT ROUND((SUM(a.nilai)/a.jml),2) AS nilai FROM ( SELECT p.jml, ROUND(((COUNT(s.jws)/((j.jmlb*(r.jmltgl-pu.jplg)*5)-(IF(uz.jmlu IS NULL, 0, uz.jmlu))))*100),2) AS nilai FROM pembina p LEFT JOIN ( SELECT mb.id_pembina, sl.wkt_tapping AS jws FROM m_binaan mb LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa LEFT JOIN shalat sl ON m.id_mahasiswa = sl.id_mahasiswa ) s ON p.id_pembina = s.id_pembina LEFT JOIN ( SELECT p.id_pembina, COUNT(mb.id_mahasiswa) AS jmlb FROM m_binaan mb LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina GROUP BY p.id_pembina ) j ON p.id_pembina = j.id_pembina LEFT JOIN ( SELECT p.id_pembina, DATEDIFF(MAX(s.tanggal),MIN(s.tanggal))+1 AS jmltgl FROM pembina p LEFT JOIN m_binaan mb ON p.id_pembina = mb.id_pembina LEFT JOIN shalat s ON mb.id_mahasiswa = s.id_mahasiswa GROUP BY p.id_pembina ) r ON p.id_pembina = r.id_pembina LEFT JOIN ( SELECT p.id_pembina, COUNT(jp.tanggal) AS jplg FROM pembina p LEFT JOIN j_pulang jp ON p.j_kelamin = jp.j_kelamin GROUP BY p.id_pembina ) pu ON p.id_pembina = pu.id_pembina LEFT JOIN ( SELECT mb.id_pembina, u.jmlu FROM m_binaan mb LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa LEFT JOIN ( SELECT su.id_mahasiswa, COUNT(su.wkt_shalat) AS jmlu FROM shalat_udzur2 su WHERE su.disetujui = 1 GROUP BY su.id_mahasiswa ) u ON m.id_mahasiswa = u.id_mahasiswa GROUP BY mb.id_pembina ) uz ON p.id_pembina = uz.id_pembina JOIN ( SELECT COUNT(p.id_pembina) AS jml FROM pembina p ) p GROUP BY p.id_pembina ) a ) a JOIN ( SELECT ROUND(((COUNT(s.jws)/((j.jmlb*(r.jmltgl-pu.jplg)*5)-(IF(uz.jmlu IS NULL, 0, uz.jmlu))))*100),2) AS nilai FROM pembina p LEFT JOIN ( SELECT mb.id_pembina, sl.wkt_tapping AS jws FROM m_binaan mb LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa LEFT JOIN shalat sl ON m.id_mahasiswa = sl.id_mahasiswa ) s ON p.id_pembina = s.id_pembina LEFT JOIN ( SELECT p.id_pembina, COUNT(mb.id_mahasiswa) AS jmlb FROM m_binaan mb LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina GROUP BY p.id_pembina ) j ON p.id_pembina = j.id_pembina LEFT JOIN ( SELECT p.id_pembina, DATEDIFF(MAX(s.tanggal),MIN(s.tanggal))+1 AS jmltgl FROM pembina p LEFT JOIN m_binaan mb ON p.id_pembina = mb.id_pembina LEFT JOIN shalat s ON mb.id_mahasiswa = s.id_mahasiswa GROUP BY p.id_pembina ) r ON p.id_pembina = r.id_pembina LEFT JOIN ( SELECT p.id_pembina, COUNT(jp.tanggal) AS jplg FROM pembina p LEFT JOIN j_pulang jp ON p.j_kelamin = jp.j_kelamin GROUP BY p.id_pembina ) pu ON p.id_pembina = pu.id_pembina LEFT JOIN ( SELECT mb.id_pembina, u.jmlu FROM m_binaan mb LEFT JOIN pembina p ON mb.id_pembina = p.id_pembina LEFT JOIN mahasiswa m ON mb.id_mahasiswa = m.id_mahasiswa LEFT JOIN ( SELECT su.id_mahasiswa, COUNT(su.wkt_shalat) AS jmlu FROM shalat_udzur2 su WHERE su.disetujui = 1 GROUP BY su.id_mahasiswa ) u ON m.id_mahasiswa = u.id_mahasiswa GROUP BY mb.id_pembina ) uz ON p.id_pembina = uz.id_pembina JOIN ( SELECT COUNT(p.id_pembina) AS jml FROM pembina p ) p WHERE p.id_pembina = $idPembina GROUP BY p.id_pembina ) b") or die(mysql_error());
@@ -988,7 +1021,7 @@
 
 
 	function shalatByWkt(){
-		$ambildata = mysql_query("SELECT s.wkt_shalat, COUNT(s.wkt_tapping) AS total, t.jtgl, h.jmhs, (t.jtgl*h.jmhs) AS target1, (p.jplg*h.jmhs) AS jplg, u.jmlu, (t.jtgl*h.jmhs)-(p.jplg*h.jmhs)-u.jmlu AS target2, ROUND(((((COUNT(s.wkt_tapping))/((t.jtgl*h.jmhs)-(p.jplg*h.jmhs)-u.jmlu))*100)),2) AS nilai FROM shalat s JOIN ( SELECT DATEDIFF(MAX(s.tanggal),MIN(s.tanggal))+1 AS jtgl FROM shalat s ) t JOIN ( SELECT COUNT(m.id_mahasiswa) AS jmhs FROM mahasiswa m ) h LEFT JOIN ( SELECT jp.wkt_shalat, COUNT(jp.wkt_shalat) AS jplg FROM j_pulang2 jp GROUP BY jp.wkt_shalat ) p ON s.wkt_shalat = p.wkt_shalat LEFT JOIN ( SELECT su.wkt_shalat, COUNT(su.wkt_shalat) AS jmlu FROM shalat_udzur2 su WHERE su.disetujui = 1 GROUP BY su.wkt_shalat ) u ON s.wkt_shalat = u.wkt_shalat GROUP BY s.wkt_shalat ORDER BY s.wkt_tapping") or die(mysql_error());
+		$ambildata = mysql_query("SELECT s.wkt_shalat, COUNT(s.wkt_tapping) AS fingerprint, IF(ma.jmlm IS NULL, 0, ma.jmlm) AS manual, COUNT(s.wkt_tapping)+IF(ma.jmlm IS NULL, 0, ma.jmlm) AS total, t.jtgl, h.jmhs, (t.jtgl*h.jmhs) AS target1, (p.jplg*h.jmhs) AS jplg, u.jmlu, (t.jtgl*h.jmhs)-(p.jplg*h.jmhs)-u.jmlu AS target2, ROUND((((((COUNT(s.wkt_tapping)+IF(ma.jmlm IS NULL, 0, ma.jmlm)))/((t.jtgl*h.jmhs)-(p.jplg*h.jmhs)-u.jmlu))*100)),2) AS nilai FROM shalat s JOIN ( SELECT DATEDIFF(MAX(s.tanggal),MIN(s.tanggal))+1 AS jtgl FROM shalat s ) t JOIN ( SELECT COUNT(m.id_mahasiswa) AS jmhs FROM mahasiswa m ) h LEFT JOIN ( SELECT jp.wkt_shalat, COUNT(jp.wkt_shalat) AS jplg FROM j_pulang2 jp GROUP BY jp.wkt_shalat ) p ON s.wkt_shalat = p.wkt_shalat LEFT JOIN ( SELECT su.wkt_shalat, COUNT(su.wkt_shalat) AS jmlu FROM shalat_udzur2 su WHERE su.disetujui = 1 GROUP BY su.wkt_shalat ) u ON s.wkt_shalat = u.wkt_shalat LEFT JOIN ( SELECT sm.wkt_shalat, COUNT(sm.wkt_shalat) AS jmlm FROM shalat_manual sm WHERE sm.disetujui = 1 GROUP BY sm.wkt_shalat ) ma ON s.wkt_shalat = ma.wkt_shalat GROUP BY s.wkt_shalat ORDER BY s.wkt_tapping") or die(mysql_error());
 		
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;
@@ -996,7 +1029,7 @@
 	}
 
 	function shalatByWktDetail($wkt){
-		$ambildata = mysql_query("SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, sh.total, DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1 AS jtgl, h.jmhs, (DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*h.jmhs As target1, IF(p.id_periode IS NULL, '-', (CASE WHEN p.j_kelamin = 'Akhwat' THEN 'Akhwat' ELSE 'Ikhwan' END)) AS plg, IF(p.id_periode IS NULL, 0, (CASE WHEN p.j_kelamin = 'Akhwat' THEN a.plg ELSE i.plg END)) AS jpmhs, IF(j.jplg IS NULL, 0, j.jplg) AS jplg, (IF(p.id_periode IS NULL, 0, (CASE WHEN p.j_kelamin = 'Akhwat' THEN a.plg ELSE i.plg END)))*IF(j.jplg IS NULL, 0, j.jplg) AS total_jplg, IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu, (((DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*h.jmhs)-((IF(p.id_periode IS NULL, 0, (CASE WHEN p.j_kelamin = 'Akhwat' THEN a.plg ELSE i.plg END)))*IF(j.jplg IS NULL, 0, j.jplg))-(IF(u.jmlu IS NULL, 0, u.jmlu))) AS target2, ROUND((((sh.total)/(((DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*h.jmhs)-((IF(p.id_periode IS NULL, 0, (CASE WHEN p.j_kelamin = 'Akhwat' THEN a.plg ELSE i.plg END)))*IF(j.jplg IS NULL, 0, j.jplg))-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai FROM shalat_periode sp LEFT JOIN ( SELECT s.id_periode, COUNT(s.wkt_tapping) AS total FROM shalat s WHERE s.wkt_shalat = '$wkt' GROUP BY s.id_periode ) sh ON sp.id_periode = sh.id_periode JOIN ( SELECT COUNT(m.id_mahasiswa) AS jmhs FROM mahasiswa m ) h LEFT JOIN ( SELECT jp.id_periode, jp.j_kelamin FROM j_pulang2 jp GROUP BY jp.id_periode ) p ON sp.id_periode = p.id_periode JOIN ( SELECT COUNT(m.id_mahasiswa) AS plg FROM mahasiswa m WHERE m.j_kelamin = 'Akhwat' ) a JOIN ( SELECT COUNT(m.id_mahasiswa) AS plg FROM mahasiswa m WHERE m.j_kelamin = 'Ikhwan' ) i LEFT JOIN ( SELECT jp.id_periode, COUNT(jp.wkt_shalat) AS jplg FROM j_pulang2 jp WHERE jp.wkt_shalat = '$wkt' GROUP BY jp.id_periode ) j ON sp.id_periode = j.id_periode LEFT JOIN ( SELECT su.id_periode, COUNT(su.wkt_shalat) AS jmlu FROM shalat_udzur2 su WHERE su.wkt_shalat = '$wkt' AND su.disetujui = 1 GROUP BY su.id_periode ) u ON sp.id_periode = u.id_periode") or die(mysql_error());
+		$ambildata = mysql_query("SELECT sp.id_periode, sp.tanggal_dari, sp.tanggal_sampai, sh.total AS fingerprint, IF(ma.jmlm IS NULL, 0, ma.jmlm) AS manual, sh.total+IF(ma.jmlm IS NULL, 0, ma.jmlm) AS total, DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1 AS jtgl, h.jmhs, (DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*h.jmhs As target1, IF(p.id_periode IS NULL, '-', (CASE WHEN p.j_kelamin = 'Akhwat' THEN 'Akhwat' ELSE 'Ikhwan' END)) AS plg, IF(p.id_periode IS NULL, 0, (CASE WHEN p.j_kelamin = 'Akhwat' THEN a.plg ELSE i.plg END)) AS jpmhs, IF(j.jplg IS NULL, 0, j.jplg) AS jplg, (IF(p.id_periode IS NULL, 0, (CASE WHEN p.j_kelamin = 'Akhwat' THEN a.plg ELSE i.plg END)))*IF(j.jplg IS NULL, 0, j.jplg) AS total_jplg, IF(u.jmlu IS NULL, 0, u.jmlu) AS jmlu, (((DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*h.jmhs)-((IF(p.id_periode IS NULL, 0, (CASE WHEN p.j_kelamin = 'Akhwat' THEN a.plg ELSE i.plg END)))*IF(j.jplg IS NULL, 0, j.jplg))-(IF(u.jmlu IS NULL, 0, u.jmlu))) AS target2, ROUND(((((sh.total+IF(ma.jmlm IS NULL, 0, ma.jmlm)))/(((DATEDIFF(sp.tanggal_sampai,sp.tanggal_dari)+1)*h.jmhs)-((IF(p.id_periode IS NULL, 0, (CASE WHEN p.j_kelamin = 'Akhwat' THEN a.plg ELSE i.plg END)))*IF(j.jplg IS NULL, 0, j.jplg))-(IF(u.jmlu IS NULL, 0, u.jmlu))))*100),2) AS nilai FROM shalat_periode sp LEFT JOIN ( SELECT s.id_periode, COUNT(s.wkt_tapping) AS total FROM shalat s WHERE s.wkt_shalat = '$wkt' GROUP BY s.id_periode ) sh ON sp.id_periode = sh.id_periode JOIN ( SELECT COUNT(m.id_mahasiswa) AS jmhs FROM mahasiswa m ) h LEFT JOIN ( SELECT jp.id_periode, jp.j_kelamin FROM j_pulang2 jp GROUP BY jp.id_periode ) p ON sp.id_periode = p.id_periode JOIN ( SELECT COUNT(m.id_mahasiswa) AS plg FROM mahasiswa m WHERE m.j_kelamin = 'Akhwat' ) a JOIN ( SELECT COUNT(m.id_mahasiswa) AS plg FROM mahasiswa m WHERE m.j_kelamin = 'Ikhwan' ) i LEFT JOIN ( SELECT jp.id_periode, COUNT(jp.wkt_shalat) AS jplg FROM j_pulang2 jp WHERE jp.wkt_shalat = '$wkt' GROUP BY jp.id_periode ) j ON sp.id_periode = j.id_periode LEFT JOIN ( SELECT su.id_periode, COUNT(su.wkt_shalat) AS jmlu FROM shalat_udzur2 su WHERE su.wkt_shalat = '$wkt' AND su.disetujui = 1 GROUP BY su.id_periode ) u ON sp.id_periode = u.id_periode LEFT JOIN ( SELECT sp.id_periode, COUNT(sm.wkt_shalat) AS jmlm FROM shalat_manual sm LEFT JOIN shalat_periode sp ON sm.tanggal BETWEEN sp.tanggal_dari AND sp.tanggal_sampai WHERE sm.wkt_shalat = '$wkt' AND sm.disetujui = 1 GROUP BY sp.id_periode ) ma ON sp.id_periode = ma.id_periode") or die(mysql_error());
 		
 			while ($ad = mysql_fetch_assoc($ambildata)) // Perulangan while ini JANGAN pake {}
 				$data[] = $ad;

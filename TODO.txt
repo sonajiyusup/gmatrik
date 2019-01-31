@@ -128,3 +128,36 @@ DOING
 - create Ta'lim by Ikhwan/Akhwat
 - create Ta'lim by Pembina
 - create Ta'lim by Jenis Ta'lim
+
+08/10/2018
+- change dropdown to select shalatbpembinadetail
+- add izin syar'i radiobutton on input udzur shalat role mahasiswa
+- create delete/batalkan feature on udzur detail role mahasiswa
+- add permintaan presensi shalat manual feature
+
+- create presensi manual page on role pembina
+- add presensi manual on shalat calculation query
+	- by mahasiswa DONE
+		- detail DONE
+		- by period
+		- by day
+	- by ikhwan/akhwat DONE
+		- detail DONE
+		- by period
+		- by day
+	- by pembina DONE
+		- detail DONE
+		- by period
+		- by day
+	- by waktu shalat DONE
+		- detail DONE
+		- by period
+		- by day
+- add id column on each table simon.sql
+
+27/11/2018 (PR)
+- edit & hapus data orang tua on role adminmatrik
+	- page ortu (within table) & ortudetail (DONE)
+- add profile page on role orangtua (Done)
+- edit data orang tua on role orangtua (Done)
+- add ganti password feature on role orangtua (Done)

@@ -2,15 +2,15 @@
 
   include 'functions.php';
 
-  $id = $_GET['id'];     
-  $pembina = pembinaDetails($id);
+  $idPembina = $_GET['id'];     
+  $pembina = pembinaDetails($idPembina);
   foreach($pembina as $row){
 ?>
 <div class="row clearfix">
                 <div class="col-md-6">
                     <div class="card">
                         <div class="header">
-                            <h2><a href="?page=pembinadetails&id=<?php echo $id; ?>" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;EDIT DATA PROFIL
+                            <h2><a href="?page=pembina" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;EDIT DATA PEMBINA MAHASISWA
                             </h2>
                         </div>
                         <div class="body">
@@ -25,50 +25,35 @@
                                     </div>
                                     <div class="input-group">
                                         <span class="input-group-addon">
+                                            <i class="material-icons">school</i>
+                                        </span>
+                                        <div class="form-line">
+                                            <input type="text" name="gelar" class="form-control" placeholder="Kota Asal" value="<?php echo $row['gelar']; ?>">
+                                        </div>
+                                  </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
                                             <i class="material-icons">person_outline</i>
                                         </span>
-                                        <select class="form-control show-tick" name="gender" value="<?php echo $row['j_kelamin']; ?>">
-                                          <option><?php echo $row['j_kelamin']; ?></option>
+                                        <select class="form-control show-tick" name="gender" value="<?php echo $row['gender']; ?>">
+                                          <option><?php echo $row['gender']; ?></option>
                                           <?php 
-                                            if ($row['j_kelamin'] == "Ikhwan") {
+                                            if ($row['gender'] == "Ikhwan") {
                                               echo "<option>Akhwat</option>";
                                             } else
-                                            if($row['j_kelamin'] == "Akhwat"){
+                                            if($row['gender'] == "Akhwat"){
                                               echo "<option>Ikhwan</option>";
                                             }
                                           ?>
                                         </select>                                            
                                     </div>
-                                  <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <i class="material-icons">today</i>
-                                        </span>
-                                        <div class="form-line">
-                                            <input type="text" class="datepicker form-control" name="tgl_lahir" placeholder="Tanggal Lahir" value="<?php echo $row['tgl_lahir']; ?>">
-                                        </div>
-                                  </div>
-                                  <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <i class="material-icons">school</i>
-                                        </span>
-                                        <div class="form-line">
-                                            <input type="text" name="gelar" class="form-control date" placeholder="Kota Asal" value="<?php echo $row['gelar']; ?>">
-                                        </div>
-                                  </div>
+                                  
                                   <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="material-icons">location_city</i>
                                         </span>
                                         <div class="form-line">
-                                            <input type="text" name="asalkota" class="form-control date" placeholder="Kota Asal" value="<?php echo $row['asalkota']; ?>">
-                                        </div>
-                                  </div>
-                                  <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <i class="material-icons">email</i>
-                                        </span>
-                                        <div class="form-line">
-                                            <input type="email" name="email" class="form-control date" placeholder="Email" value="<?php echo $row['email']; ?>">
+                                            <input type="text" name="kotaasal" class="form-control " placeholder="Kota Asal" value="<?php echo $row['kota_asal']; ?>">
                                         </div>
                                   </div>
                                   <div class="input-group">
@@ -76,10 +61,11 @@
                                             <i class="material-icons">phone_iphone</i>
                                         </span>
                                         <div class="form-line">
-                                            <input type="text" name="telp" class="form-control date" placeholder="No Telp." value="<?php echo $row['telp']; ?>">
+                                            <input type="number" name="telepon" class="form-control " placeholder="Telepon" value="<?php echo $row['telepon']; ?>">
                                         </div>
                                   </div>
                                   <button type="submit" class="btn btn-primary btn-block waves-effect" name="editPembina"><span>SIMPAN</span></button>
+                                  <a href="?page=pembina" class="btn btn-default btn-block waves-effect" ><span>BATAL</span></a>
                                   </form>
                                 </div>
                     </div>
@@ -89,8 +75,8 @@
 
 <?php
     if (isset($_POST['editPembina'])) {
-      editPembina($id, $_POST['nama'], $_POST['gender'], date("Y-m-d", strtotime($_POST['tgl_lahir'])), $_POST['gelar'], $_POST['asalkota'], $_POST['email'], $_POST['telp']);
-      echo "<script>document.location='?page=pembinadetails&id=".$id."'</script>";
+      editPembina($idPembina, $_POST['nama'], $_POST['gelar'], $_POST['gender'], $_POST['kotaasal'], $_POST['telepon']);
+      echo "<script>document.location='?page=pembina'</script>";
     }
   } 
 ?>

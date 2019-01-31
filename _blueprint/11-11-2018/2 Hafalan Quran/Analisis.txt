@@ -1,0 +1,5 @@
+Target Hafalan Quran ditetapkan/diinput oleh Kepala Matrikulasi
+	- Target Utama : 1 Juz
+	- Target Tambahan : 2 Juz
+Data hafalan quran mahasiswa diinput oleh Pembina masing2 mahasiswa (saat setelah diuji/setor hafalan)
+Terdapat Grafik Progres Bar yang menandakan persentase proses pencapaian target hafalan utama

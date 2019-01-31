@@ -1,0 +1,29 @@
+*Create Table :
+	- tahsin
+	- tahsin_udzur
+	- tahsin_level
+
+**Column of 'tahsin' table :
+- id INT (PK)
+- id_tahsin INT (FK)
+- id_mahasiswa INT (FK)
+- tanggal date
+- tahsin varchar(8)
+- keterangan varchar(100)
+
+**Column of 'tahsin_udzur' table :
+- id (PK)
+- id_mahasiswa (FK)
+- tanggal date 
+- tahsin varchar(8)
+- udzur varchar(10)
+- keterangan varchar(100)
+- diajukan INT
+- disetujui INT
+- direview INT
+
+**Column of 'tahsin_level' table :
+- id (PK)
+- id_pembina (FK)
+- id_mahasiswa (FK)
+- level CHAR(1)

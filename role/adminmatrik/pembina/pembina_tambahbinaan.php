@@ -10,8 +10,8 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                          <h2><a href="?page=pembinadetails&id=<?php foreach($ip as $idP){ echo $idP; }?>&idP=<?php echo $idPembina; ?>" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a>&nbsp;&nbsp;&nbsp;TAMBAH MAHASISWA BINAAN 
-                            <small><?php foreach($np as $namaP){ echo $namaP['nama'].' '.$namaP['gelar']; }?></small>
+                          <h2><!-- <a href="?page=pembinadetails&id=<?php foreach($ip as $idP){ echo $idP; }?>&idP=<?php echo $idPembina; ?>" class="btn btn-sm btn-link waves-effect" title="Kembali"><i class="material-icons">arrow_back</i></a> -->&nbsp;&nbsp;&nbsp;<br>TAMBAH DATA MAHASISWA BINAAN 
+                            <small>Untuk Pembina Mahasiswa : <?php foreach($np as $namaP){ echo $namaP['nama'].' '.$namaP['gelar']; }?></small>
                           </h2>
                         </div>
                         <div class="body ">
@@ -23,7 +23,7 @@
                                       <th>Pilih</th>
                                       <th>NIM</th>
                                       <th>Nama</th>
-                                      <th>Ikhwan/Akhwat</th>
+                                      <!-- <th>Ikhwan/Akhwat</th> -->
                                     </tr>
                                   </thead>
                                   <tbody>
@@ -35,10 +35,10 @@
                                         foreach($calonBinaan as $row){
                                     ?>
                                   <tr style="height: 5px;">
-                                    <td><input type="checkbox" class="flat-red" name="idMahasiswa" value="<?php echo $row['id_mahasiswa']; ?>"></td>
+                                    <td><input type="checkbox" class="flat-red" name="idMahasiswa" value="<?php echo $row['id_mahasiswa']; ?>" required></td>
                                     <td><?php echo "<span class='badge'>".$row['nim']."</span>" ?></td>
                                     <td><?php echo "<a href='index.php?page=mahasiswadetails&id=".$row['id_user']."'>".$row['nama']."</a>" ?></td>
-                                    <td><?php if($row['j_kelamin'] == 'Ikhwan' || $row['j_kelamin'] == 'Laki-laki'){echo '<span class="label bg-green">Ikhwan</span>';} else if($row['j_kelamin'] == 'Akhwat' || $row['j_kelamin'] == 'Perempuan'){echo '<span class="label bg-yellow">Akhwat</span>';} else if($row['j_kelamin'] == NULL){echo '<span class="label label-default">Belum diset</span>';} ?></td>
+                                    <!-- <td><?php if($row['j_kelamin'] == 'Ikhwan' || $row['j_kelamin'] == 'Laki-laki'){echo '<span class="label bg-green">Ikhwan</span>';} else if($row['j_kelamin'] == 'Akhwat' || $row['j_kelamin'] == 'Perempuan'){echo '<span class="label bg-yellow">Akhwat</span>';} else if($row['j_kelamin'] == NULL){echo '<span class="label label-default">Belum diset</span>';} ?></td> -->
                                   </tr>
                                     <?php 
                                       $no++; }
@@ -49,7 +49,8 @@
                                 <!-- /Table Daftar Pembina -->
 						              	</div>
                           <form method="POST" id="formBinaan">
-						              	<button type="submit" name="submitBinaanMahasiswa" class="btn btn-primary waves-effect">SUBMIT</button>
+						              	<button type="submit" name="submitBinaanMahasiswa" class="btn btn-primary waves-effect">SIMPAN</button>
+                            <button class="btn btn-link waves-effect">BATAL</button>
 						              </form>
                         </div>
                     </div>

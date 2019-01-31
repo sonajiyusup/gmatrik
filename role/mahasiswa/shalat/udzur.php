@@ -79,19 +79,19 @@ var addFormGroup  = function (event) {
         checkboxClass: 'icheckbox_flat-blue',
         radioClass: 'iradio_square-blue',
         increaseArea: '20%' // optional
-    }); 
+    });
 };
 
 $(document).on('click', '.btn-add', addFormGroup);
-
 </script>
+
 <div class="row clearfix">
 
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
                           <h2>DAFTAR UDZUR SHALAT &nbsp;&nbsp;&nbsp;
-                            <button class="btn btn-sm btn-default waves-effect" data-toggle="modal" data-target="#tambahUdzur" title="Input Permintaan Udzur Shalat"><i class="material-icons">playlist_add</i><span>TAMBAH DATA</span></button>
+                            <button class="btn btn-sm btn-default waves-effect" data-toggle="modal" data-target="#tambahUdzur" title="Input Pengajuan Udzur Shalat"><i class="material-icons">playlist_add</i><span>TAMBAH PENGAJUAN UDZUR</span></button>
                           </h2>
                         </div>
                         <div class="body">                               
@@ -99,12 +99,11 @@ $(document).on('click', '.btn-add', addFormGroup);
                             <table id="tableUdzur" class="table table-hover table-condensed">
                               <thead>
                                 <tr>
-                                  <th>Periode</th>
+                                  <th>#</th>
                                   <th>Hari - Tanggal</th>
-                                  <th>Udzur</th>
-                                  <th>Waktu Shalat</th>
+                                  <th>Periode</th>
                                   <th>Jumlah Waktu Shalat</th>
-                                  <th>Keterangan</th>
+                                  <th>Waktu Pengajuan</th>
                                   <th>Status</th>
                                 </tr>
                               </thead>
@@ -112,20 +111,19 @@ $(document).on('click', '.btn-add', addFormGroup);
                                 <?php 
                                   
                                   $dataUdzur = tampilUdzurShalatRoleMhs($idMahasiswa);
-
+                                  $no = 1;
                                   if (is_array($dataUdzur) || is_object($dataUdzur)){
                                     foreach($dataUdzur as $row){
                                  ?>
                                 <tr>
+                                  <td><?php echo $no; ?></td>
+                                  <td><a href="?page=udzursltdetail&t=<?php echo $row['tanggal']; ?>"><?php echo date('l - d M Y', strtotime($row['tanggal'])); ?></a></td>
                                   <td><?php echo $row['id_periode']; ?></td>
-                                  <td><?php echo date('l - d M Y', strtotime($row['tanggal'])); ?></td>
-                                  <td><?php echo $row['udzur']; ?></td>
-                                  <td><?php echo $row['wkt']; ?></td>
                                   <td><?php echo $row['jml']; ?></td>
-                                  <td><?php if($row['keterangan'] == NULL){echo '-';}else{echo $row['keterangan'];} ?></td>
-                                  <td><?php if($row['disetujui'] == 0){echo 'Belum di Review';}else if($row['disetujui'] == 1){echo 'Disetujui';}else if($row['disetujui'] == 2){echo 'Ditolak';} ?></td>
+                                  <td><?php echo $row['diajukan']; ?></td>
+                                  <td><?php if($row['direview'] == 0){echo '<label class="badge bg-orange">Belum di Review<label>';}else if($row['direview'] == 1){echo '<label class="badge bg-green">Sudah di Review<label>';}?></td>
                                 </tr>
-                                <?php } } ?>
+                                <?php $no++; } } ?>
                               </tbody> 
                             </table>
                           </div>                        
@@ -135,24 +133,49 @@ $(document).on('click', '.btn-add', addFormGroup);
 
             <div class="modal fade" id="tambahUdzur" tabindex="-1" role="dialog">
                 <div class="modal-dialog">
-                  <form method="POST" name="formJplg" id="formJplg">
+                  <form method="POST" name="formUdzur" id="formJplg">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h4 class="modal-title" id="smallModalLabel">INPUT PERMINTAAN UDZUR SHALAT</h4>
+                        <h4 class="modal-title" id="smallModalLabel">INPUT PERSETUJUAN UDZUR TAHSIN/TAHFIDZ</h4>
                         </div>
                         <div class="modal-body">
-                                <input name="group1" type="radio" id="radio_30" class="radiojk" name="radiojk" id="sakit" value="sakit"/>
-                                <label for="radio_30">SAKIT</label>&nbsp;&nbsp;
-                                <input name="group1" type="radio" id="radio_31" class="radiojk" name="radiojk" id="hujan" value="hujan"/>
-                                <label for="radio_31">HUJAN DERAS</label>&nbsp;&nbsp;
+
+                        <label>Nama Mahasiswa : </label>&nbsp;&nbsp; Adelina <br>
+                        <label>Udzur : </label>&nbsp;&nbsp; Izin Syar'i&nbsp;&nbsp; <br>
+                        <label>Keterangan : </label>&nbsp;&nbsp;Nenek Meninggal&nbsp;&nbsp; <br>
+                        <label>Tanggal Pengajuan Udzur : </label>&nbsp;&nbsp; 23 Okt 2018&nbsp;&nbsp; <br><br>
+
+                        &nbsp;&nbsp;<label>Udzur tidak hadir pada,</label><br>
+                        &nbsp;&nbsp;<label>Tahsin/Tahfidz : </label>&nbsp;&nbsp; Ba'da Shubuh <br>
+                        &nbsp;&nbsp;<label>Tanggal Pelaksanaan Tahsin/Tahfidz : </label>&nbsp;&nbsp; 20 Okt 2018&nbsp;&nbsp; <br>
+                        &nbsp;&nbsp;<label>Deskripsi Tahsin/Tahfidz : </label>&nbsp;&nbsp;Makhrajul Huruf 3&nbsp;&nbsp; <br><br>
+
+                        <label>Setuju?</label>
+                                <input name="udzur" type="radio" class="radiojk" id="sakit" value="Sakit"/>
+                                <label for="sakit">Ya</label>&nbsp;&nbsp;
+
+                                <input name="udzur" type="radio" class="radiojk" id="izin" value="Izin"/>
+                                <label for="izin">Tidak</label>&nbsp;&nbsp;
+
+                                <!-- <input name="udzur" type="radio" class="radiojk" id="haid" value="Haid"/>
+                                <label for="sakit">Haid</label>&nbsp;&nbsp; -->
+
+                                <!-- <input name="udzur" type="radio" class="radiojk" id="hujan" value="Hujan"/>
+                                <label for="hujan">Hujan</label>&nbsp;&nbsp; -->
+
+                                <!-- <input name="udzur" type="radio" class="radiojk" id="hujan" value="Hujan"/>
+                                
+                                <label for="is">IZIN SYAR'I</label>&nbsp;&nbsp; -->
                                 <?php 
-                                  if($jKelamin == 'Akhwat'){
-                                    echo '<input name="group1" type="radio" id="radio_32" class="radiojk" name="radiojk" id="haid" value="haid"/>
-                                <label for="radio_32">HAID</label>';
-                                  }
+                                  /*if($jKelamin == 'Akhwat'){
+                                    echo '<input name="udzur" type="radio" id="radio_32" class="radiojk" id="haid" value="Haid"/>
+                                          <label for="radio_32">HAID</label>
+                                          <label for="hujan">HUJAN DERAS</label>&nbsp;&nbsp;
+                                          <input name="udzur" type="radio" class="radiojk" id="is" value="Izin Syari"/>';*/
+                                  //}
                                 ?>
-                                <br><br>              
-                                <div class="form-group multiple-form-group" id="defaultForm">          
+                                <!-- <br><br>              
+                                <div class="form-group multiple-form-group" id="defaultForm">        -->   
                                     <!-- <label class="switch">
                                       <input type="checkbox" name="opt" id="opt" value="Y" onclick="toggle('.myClass', this)">
                                       <span class="slider round"></span><br>
@@ -161,26 +184,34 @@ $(document).on('click', '.btn-add', addFormGroup);
                                     <!-- <div class="showhide">   -->
                                       <!-- <div class="controls">     -->
                                         <!-- <div class="entry"> -->
-                                          <input type="text" class="form-control datepicker" name="tudzur[]" placeholder="Tanggal Udzur"/><br>
+                                       <!--  <label>Tahsin/Tahfidz :</label>
+                                        <select class="form-control show-tick" data-live-search="true" onchange="location = this.value;">
+                                          <option selected>-- Pilih Tahsin/Tahfidz & Tanggal --</option>
+
+                                        </select>
+                                        <br><br>
+                                        <label>Keterangan:</label><br><br>
+                                        <input type="text" name="ket"  class="form-control" placeholder="Keterangan Udzur"> -->
+                                     <!--  <label>Udzur Untuk Tanggal :</label><br>
+                                          <input type="text" class="form-control datepicker" name="tudzur[]" placeholder="Tanggal Udzur" required /><br> -->
                                           <!-- <input type="checkbox" class="flat-red" id="check-all1">&nbsp;Semua&nbsp;&nbsp; -->
+                                      <!-- <label>Waktu Shalat :</label><br>
+                                          <input type="checkbox" class="flat-red" id="check-all1">&nbsp;Semua&nbsp;&nbsp;
                                           <input type="checkbox" class="flat-red check" name="shubuh[]" value="shubuh">&nbsp;Shubuh&nbsp;&nbsp;
                                           <input type="checkbox" class="flat-red check" name="dzuhur[]" value="dzuhur">&nbsp;Dzuhur&nbsp;&nbsp;
                                           <input type="checkbox" class="flat-red check" name="ashar[]" value="ashar">&nbsp;Ashar&nbsp;&nbsp;
                                           <input type="checkbox" class="flat-red check" name="maghrib[]" value="maghrib">&nbsp;Maghrib&nbsp;&nbsp;
-                                          <input type="checkbox" class="flat-red check" name="isya[]" value="isya">&nbsp;Isya
-                                          <br><br>
-                                          <!-- <button class="hapus"></button> -->
-                                          <br>
-                                        <!-- </div> -->
-                                      <!-- </div> -->
-                                    <!-- </div>   -->
-                                </div>
-                                <button type="button" class="btn btn-xs btn-link waves-effect btn-add" title="Tambah Hari">
+                                          <input type="checkbox" class="flat-red check" name="isya[]" value="isya">&nbsp;Isya -->
+                                          
+                                      <!-- <label>Keterangan :</label><br>
+                                      <input type="text" class="form-control" name="keterangan" placeholder="Keterangan Udzur"/> -->
+                                <!-- </div> -->
+                                <!-- <button type="button" class="btn btn-xs btn-link waves-effect btn-add" title="Tambah Hari">
                                               <i class="material-icons">add</i>
-                                          </button>
+                                          </button> -->
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary waves-effect" name="submitJplg">SUBMIT</button>
+                            <button type="submit" class="btn btn-primary waves-effect" name="submitUdzur">SIMPAN</button>
                             <button class="btn btn-link waves-effect" data-dismiss="modal">BATAL</button>
                         </div>
                     </div>
@@ -191,7 +222,11 @@ $(document).on('click', '.btn-add', addFormGroup);
 
     <script type="text/javascript">
     $(document).ready(function() {
-      var t = $('#tableUdzur').DataTable({});
+      var t = $('#tableUdzur').DataTable({
+            "columnDefs": [
+              { "searchable": false, "orderable": false, "targets": [0]}
+            ]
+        });
       $(document).on('focus', '.datepicker',function(){
           $(this).bootstrapMaterialDatePicker({ weekStart : 0, time: false })
       });
@@ -199,49 +234,37 @@ $(document).on('click', '.btn-add', addFormGroup);
     </script> 
 
 
- <?php
-  if(isset($_POST['submitJplg'])){
-    if (is_array($_POST['wkt1'])) {
-      foreach($_POST['wkt1'] as $s){
-        tambahJplg($_POST['tplg1'], $_POST['radiojk'], $s);
-      }
-    }
-    /*if (is_array($_POST['wkt2'])) {
-      foreach($_POST['wkt2'] as $s){
-        tambahJplg($_POST['tplg2'], $_POST['radiojk'], $s);
-      }
-    }
-    if (is_array($_POST['wkt3'])) {
-      foreach($_POST['wkt3'] as $s){
-        tambahJplg($_POST['tplg3'], $_POST['radiojk'], $s);
-      }
-    }*/
-    echo "<script>document.location='index.php?page=jplg'</script>";
-  }
-?>
-    <script>
-    /*$('input').on('ifChecked', function(event){
-      var s = $(this).val();
-      $('#formJplg').append(
-        $('<input>')
-          .attr('type', 'hidden')
-          .attr('id', 'input'+s)
-          .attr('name', 'wkt1[]')
-          .val(s)
-      );
-    });
+    <?php 
+        if (isset($_POST['submitUdzur'])) {
 
-    $('input').on('ifUnchecked', function(event){
-      var s = $(this).val();
-      document.getElementById("input"+s).remove();
-    });*/
+          foreach($_POST['tudzur'] as $tglu) {
+            if(!empty($_POST['shubuh'])) {
+              foreach($_POST['shubuh'] as $shubuh) {
+                tambahUdzurShalat($idMahasiswa, $tglu, $shubuh, $_POST['udzur'], $_POST['keterangan']);
+              }
+            }
+            if(!empty($_POST['dzuhur'])) {
+              foreach($_POST['dzuhur'] as $dzuhur) {
+                tambahUdzurShalat($idMahasiswa, $tglu, $dzuhur, $_POST['udzur'], $_POST['keterangan']);
+              }
+            }
+            if(!empty($_POST['ashar'])) {
+              foreach($_POST['ashar'] as $ashar) {
+                tambahUdzurShalat($idMahasiswa, $tglu, $ashar, $_POST['udzur'], $_POST['keterangan']);
+              }
+            }
+            if(!empty($_POST['maghrib'])) {
+              foreach($_POST['maghrib'] as $maghrib) {
+                tambahUdzurShalat($idMahasiswa, $tglu, $maghrib, $_POST['udzur'], $_POST['keterangan']);
+              }
+            }
+            if(!empty($_POST['isya'])) {
+              foreach($_POST['isya'] as $isya) {
+                tambahUdzurShalat($idMahasiswa, $tglu, $isya, $_POST['udzur'], $_POST['keterangan']);
+              }
+            }
+          }
 
-    //j_kelamin radiobutton on Jplg
-    /*$('#rdi').on('ifChecked', function (event) {
-        $('#rdi').val('Ikhwan');
-    });
-
-    $('#rda').on('ifChecked', function (event) {
-        $('#rda').val('Akhwat');
-    });*/
-    </script>
+        echo "<script>document.location='index.php?page=udzurslt'</script>";
+      }
+    ?>

@@ -1,0 +1,6 @@
+*Add sidebar submenu on Tahsin/Tahfidz Menu on Pembina :
+	- Hafalan Quran/Tahfidz
+		- Berdasar Mahasiswa (Add Progress Bar By Target)
+		- Berdasar Juz
+		- Berdasar Surah
+		- Berdasar Jumlah Ayat

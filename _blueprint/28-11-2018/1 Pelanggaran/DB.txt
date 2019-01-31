@@ -1,0 +1,24 @@
+table :
+
+- aksi_pelanggaran
+	id INT, 
+	aksi_pelanggaran VARCHAR(100), 
+	deskripsi VARCHAR(255)
+
+- sanksi_pelanggaran
+	id INT,
+	sanksi VARCHAR(100),
+	bobot INT(2)
+
+- sanksi_aksi_pelanggaran
+	id INT,
+	id_aksi_pelanggaran INT,
+	id_sanksi INT
+
+- pelanggaran
+	id INT,
+	id_mahasiswa INT (FK),
+	sanksi_aksi_pelanggaran INT (FK),
+	keterangan VARCHAR(255),
+	tanggal DATE,
+	waktu_input DATETIME

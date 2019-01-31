@@ -34,6 +34,10 @@
     <!-- Animation Css -->
     <link href="assets/css/animate.css" rel="stylesheet" />
 
+    <!-- Range Slider Css -->
+    <link href="assets/css/ion-rangeslider/css/ion.rangeSlider.css" rel="stylesheet" />
+    <link href="assets/css/ion-rangeslider/css/ion.rangeSlider.skinFlat.css" rel="stylesheet" />
+
     <!-- Bootstrap Spinner Css -->
     <link href="assets/css/bootstrap-spinner.css" rel="stylesheet">
 
@@ -147,12 +151,16 @@
     <!-- Jquery CountTo Plugin Js -->
     <script src="assets/js/jquery.countTo.js"></script>
 
+    <!-- RangeSlider Plugin Js -->
+    <script src="assets/css/ion-rangeslider/js/ion.rangeSlider.js"></script>
+
     <!-- Custom Js -->
     <script src="assets/js/admin.js"></script>
     <script src="assets/js/jquery-datatable.js"></script>
     <script src="assets/js/basic-form-elements.js"></script>
     <script src="assets/js/notifications.js"></script>
     <script src="assets/js/sparkline.js"></script>
+    <script src="assets/js/range-sliders.js"></script>
     <!-- <script src="assets/js/chartjs.js"></script> -->
 
     <!-- Demo Js -->
@@ -169,7 +177,7 @@
     <nav class="navbar">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="index.php">GRAPH MATRIK</a>
+                <a class="navbar-brand" href="index.php">SISTEM INFORMASI PENGELOLAAN MATRIKULASI PROGRAM PEMBINAAN</a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -193,6 +201,12 @@
           } else
           if($_SESSION['role'] =='mahasiswa'){
             include 'role/mahasiswa/sidebar.php';
+          } else
+          if($_SESSION['role'] =='pimpinan'){
+            include 'role/pimpinan/sidebar.php';
+          } else
+          if($_SESSION['role'] =='orangtua'){
+            include 'role/orangtua/sidebar.php';
           }
         ?>         
         <!-- #END# Left Sidebar -->
@@ -381,12 +395,63 @@
             });
         });     
 
+        //Modal Reset Password ke Default
+        $(document).ready(function() {
+            $('#ResetPassword').on('show.bs.modal', function(e) {
+                $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+            });
+        });          
+
         //Modal Hapus Data Mahasiswa Binaan By Pembina
         $(document).ready(function() {
             $('#ModalHapusBinaan').on('show.bs.modal', function(e) {
                 $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
             });
         });    
+
+        //Modal Hapus Data Udzur Shalat Role Mahasiswa
+        $(document).ready(function() {
+            $('#ModalHapusUdzur').on('show.bs.modal', function(e) {
+                $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+            });
+        });    
+
+        //Modal Hapus Data Presensi manual Shalat Role Mahasiswa
+        $(document).ready(function() {
+            $('#ModalHapusManualSlt').on('show.bs.modal', function(e) {
+                $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+            });
+        });  
+
+        //Modal Hapus Data Jadwal Pulang Detail
+        $(document).ready(function() {
+            $('#ModalHapusJplg').on('show.bs.modal', function(e) {
+                $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+            });
+        });
+
+        //Modal Hapus Data Udzur Tahsin Role Mahasiswa
+        $(document).ready(function() {
+            $('#ModalHapusUdzurTahsin').on('show.bs.modal', function(e) {
+                $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+            });
+        });
+
+        //Modal Hapus Data Setor Hafalan Quran Mahasiswa Role Pembina
+        $(document).ready(function() {
+            $('#ModalHapusSetor').on('show.bs.modal', function(e) {
+                $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+            });
+        });
+
+        //Modal Hapus Data Akun Orang Tua Mahasiswa
+        $(document).ready(function() {
+            $('#ModalHapusOrtu').on('show.bs.modal', function(e) {
+                $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+            });
+        });
+
+
       </script>
 
 <script>
@@ -460,6 +525,30 @@
             $('#check-all2').iCheck('check');
         }
     }); 
+
+    //Input Presensi Tahsin Role Pembina
+    $('#check-all-tahsin').on('ifChecked', function (event) {
+        $('.checktahsin').iCheck('check');
+        triggeredByChild = false;
+    });
+
+    $('#check-all-tahsin').on('ifUnchecked', function (event) {
+        if (!triggeredByChild) {
+            $('.checktahsin').iCheck('uncheck');
+        }
+        triggeredByChild = false;
+    });
+    // Removed the checked state from "All" if any checkbox is unchecked
+    $('.checktahsin').on('ifUnchecked', function (event) {
+        triggeredByChild = true;
+        $('#check-all-tahsin').iCheck('uncheck');
+    });
+
+    $('.checktahsin').on('ifChecked', function (event) {
+        if ($('.checktahsin').filter(':checked').length == $('.checktahsin').length) {
+            $('#check-all-tahsin').iCheck('check');
+        }
+    });     
     
     //Test Radio iCheck on jplg with alert
     /*$('.radiojk').on('ifChecked', function(event){

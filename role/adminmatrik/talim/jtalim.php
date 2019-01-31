@@ -48,7 +48,7 @@
                   <form method="POST" name="formJplg" id="formJplg">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h4 class="modal-title" id="smallModalLabel">INPUT JADWAL PULANG MAHASISWA</h4>
+                        <h4 class="modal-title" id="smallModalLabel">INPUT JADWAL TA'LIM MAHASISWA</h4>
                         </div>
                         <div class="modal-body">
                                     <input name="group1" type="radio" id="radio_30" class="radiojk" name="radiojk" id="rdi" value="Ikhwan"/>
@@ -66,7 +66,7 @@
                                         <!-- <div class="entry"> -->
                                           <input type="text" id="txt" class="datepicker form-control" name="tplg1" placeholder="Tanggal Ta'lim"/><br>
 
-                                          <label>Waktu</label><br>
+                                          <label>Waktu Ta'lim</label><br>
                                           <input name="group2" type="radio" id="radio_30" class="radiojk" name="radiojk" id="rdi" value="aftershubuh"/>
                                           <label for="radio_5">Ba'da Shubuh</label>&nbsp;
                                           <input name="group2" type="radio" id="radio_31" class="radiojk" name="radiojk" id="rda" value="afterashar"/>

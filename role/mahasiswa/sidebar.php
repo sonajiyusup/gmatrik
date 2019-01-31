@@ -35,7 +35,7 @@
                     <li class="header">PROGRAM PEMBINAAN</li>
                     <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'udzur') {
+                                    if ($_GET['page'] == 'udzurslt' || $_GET['page'] == 'udzursltdetail' || $_GET['page'] == 'manualslt' || $_GET['page'] == 'manualsltdetail') {
                                       echo "class='active'";
                                     }
                                   }
@@ -75,29 +75,21 @@
                             </li>
                             <li <?php 
                                   if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'udzur') {
+                                    if ($_GET['page'] == 'udzurslt' || $_GET['page'] == 'udzursltdetail') {
                                       echo "class='active'";
                                     }
                                   }
                                 ?>
-                              ><a href="?page=udzur">Udzur</a>
+                              ><a href="?page=udzurslt">Udzur</a>
                             </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">import_contacts</i>
-                            <span>Tahsin/Tahfidz</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li>
-                                <a href="pages/forms/basic-form-elements.html">Ikhtisar</a>
-                            </li>
-                            <li>
-                                <a href="pages/forms/advanced-form-elements.html">...</a>
-                            </li>
-                            <li>
-                                <a href="pages/forms/form-examples.html">...</a>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'manualslt' || $_GET['page'] == 'manualsltdetail') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                              ><a href="?page=manualslt">Presensi Manual</a>
                             </li>
                         </ul>
                     </li>
@@ -115,6 +107,80 @@
                             </li>
                             <li>
                                 <a href="pages/tables/editable-table.html">...</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'inputtahsin' || $_GET['page'] == 'tahsinm' || $_GET['page'] == 'tahsint' || $_GET['page'] == 'udzurtahsin') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                      ><a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">import_contacts</i>
+                            <span>Tahsin/Tahfidz</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="javascript:void(0);"><span>Ikhtisar</span></a>
+                            </li>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'tahsinm') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            ><a href="?page=tahsinm"><span>Berdasar Mahasiswa</span></a>
+                            </li>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'tahsint') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            ><a href="?page=tahsint"><span>Berdasar Tahsin</span></a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" class="menu-toggle">
+                                    <span>Hafalan Quran</span>
+                                </a>
+                                <ul class="ml-menu">
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <span>Berdasar Mahasiswa</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <span>Berdasar Juz</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <span>Berdasar Surah</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <span>Berdasar Jumlah Ayat</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li <?php 
+                                  if (isset($_GET['page'])) {
+                                    if ($_GET['page'] == 'udzurtahsin') {
+                                      echo "class='active'";
+                                    }
+                                  }
+                                ?>
+                            >
+                                <a href="?page=udzurtahsin">
+                                    <span>Udzur</span>
+                                </a>
                             </li>
                         </ul>
                     </li>
@@ -203,8 +269,14 @@
               include 'pembina/pembina_tambahbinaan.php';
             } else if ($_GET['page'] == 'shalat') {
               include 'shalat.php';
-            } else if ($_GET['page'] == 'udzur') {
+            } else if ($_GET['page'] == 'udzurslt') {
               include 'shalat/udzur.php';
+            } else if ($_GET['page'] == 'udzursltdetail') {
+              include 'shalat/udzur_detail.php';
+            } else if ($_GET['page'] == 'manualslt') {
+              include 'shalat/manual.php';
+            } else if ($_GET['page'] == 'manualsltdetail') {
+              include 'shalat/manual_detail.php';
             } else if ($_GET['page'] == 'pbentuk') {
               include 'pelanggaran/pbentuk.php';
             } else if ($_GET['page'] == 'paksi') {
@@ -225,7 +297,9 @@
 	            include 'pelanggaran/psanksi_detail.php';
 	          } else if ($_GET['page'] == 'planjutdetail') {
 	            include 'pelanggaran/planjut_detail.php';
-	          } 
+	          } else if ($_GET['page'] == 'udzurtahsin') {
+              include 'tahsin/udzur.php';
+            }
         } else{
             include 'dashboard.php';
         }
